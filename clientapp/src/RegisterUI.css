@@ -1,0 +1,20 @@
+.navbar-brand:hover {
+  color: #ff5733;
+}
+
+.nav-link:hover {
+  color: #007bff;
+}
+
+.nav-link {
+  transition: color 0.3s;
+}
+
+.text-bold {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.text-bold:hover {
+  text-decoration: underline;
+}
