@@ -32,11 +32,29 @@ export const Login = () => {
     return { isAuth: valid, _username: username };
   };
   const handleSubmit = (event) => {
+    
     event.preventDefault();
     setloading(true);
-    let { isAuth, _username } = validator();
+    var isAuth;
+    // let { isAuth, _username } = validator();
+    fetch('http://localhost:9000/login', { 
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ name:loginInput.name,password:loginInput.password })
+  })
+    .then((result) => {
+      return result.json();
+    })
+    .then((data) => {
+      data.isAuth=isAuth
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
     if (isAuth) {
-      navigate(`/marketPlace/${_username}`);
+      navigate(`/marketPlace/${loginInput.name}`);
     } else {
       navigate("/errorPage");
     }
@@ -65,7 +83,7 @@ export const Login = () => {
                   </label>
                   <input
                     className="form-control"
-                    type="phonenumber"
+                    type="usrernme"
                     placeholder="username"
                     style={{fontFamily:"monospace"}}
                     name="name"
