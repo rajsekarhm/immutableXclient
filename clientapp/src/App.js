@@ -6,7 +6,7 @@ import { ProfileActions } from "./DashBoard";
 import ErrorPage from "./ErrorPage";
 import styles from "./App.css";
 import ListedLand from "./MarketPlace";
-import Agents from "./Inspector";
+import Agents from "./agents";
 export const App = () => {
   return (
     <div className={`${styles.App}`}>
