@@ -1,8 +1,8 @@
 import { helio } from "./helio";
 
 
-function retriveUsingCID_helio(fetchInput){
-    return new helio().getCIDObj().get(fetchInput) 
+async function retriveUsingCID_helio(fetchInput){
+    return await    new helio().getCIDObj().get(fetchInput) 
 }
 
 export {
