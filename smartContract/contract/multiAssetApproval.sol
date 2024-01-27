@@ -13,6 +13,7 @@ contract MultiSig {
         address to;
         uint value;
         bool executed;
+        string message;
     }
 
 
@@ -20,9 +21,9 @@ contract MultiSig {
     Transaction[] public transactions;
 
 
-    event TransactionSubmitted(uint transactionId,address sender,address receiver,uint amount);
+    event TransactionSubmitted(uint transactionId,address sender,address receiver,uint amount,string message);
     event TransactionConfirmed(uint transactionId);
-    event TransactionExecuted(uint transactionId,uint balanceofAddress);
+    event TransactionExecuted(uint transactionId,uint balanceofAddress, string _resultmessage);
     constructor(address[] memory _owners,uint _numConfirmationsRequired){
         require(_owners.length>1,"Onwers Required Must Be Greater than 1");
         require(_numConfirmationsRequired>0 && numConfirmationsRequired<=_owners.length,"Num of confirmations are not in sync with the number of owners");
@@ -36,12 +37,12 @@ contract MultiSig {
     }
 
 
-    function submitTransaction(address _to) public payable{
+    function submitTransaction(address _to,string memory _messagesent) public payable{
         require(_to!=address(0),"Invalid Receiver's Address");
         require(msg.value>0,"Transfer Amount Must Be Greater Than 0");
         uint transactionId = transactions.length;
-        transactions.push(Transaction({to:_to,value:msg.value,executed:false}));
-        emit TransactionSubmitted(transactionId,msg.sender,_to,msg.value);
+        transactions.push(Transaction({to:_to,value:msg.value,executed:false,message:_messagesent}));
+        emit TransactionSubmitted(transactionId,msg.sender,_to,msg.value,_messagesent);
     }
 
 
@@ -56,16 +57,18 @@ contract MultiSig {
     }
    
     function executeTransaction(uint _transactionId) public payable{
+       //messageSent(transactions[_transactionId].message)
        require(_transactionId<transactions.length,"Invalid Transaction Id");
        require(!transactions[_transactionId].executed,"Transaction is already executed");
-        (bool success,) =transactions[_transactionId].to.call{value: transactions[_transactionId].value}("");
+       (bool success,bytes memory resultMessage) = transactions[_transactionId].to.call{value: transactions[_transactionId].value}("");
+        // (bool success,) =transactions[_transactionId].to.call{value: transactions[_transactionId].value}("","");
          require(success,"Transaction Execution Failed");
          transactions[_transactionId].executed=true;
-         emit TransactionExecuted(_transactionId,getBalance(payable (transactions[_transactionId].to)));
+         emit TransactionExecuted(_transactionId,getBalance(payable (transactions[_transactionId].to)),string(resultMessage));
     }
     function isTransactionConfirmed(uint _transactionId) internal view returns(bool){
          require(_transactionId<transactions.length,"Invalid Transaction Id");
-         uint confimationCount;//initially zero
+         uint confimationCount;  //initially zero
 
 
          for(uint i=0;i<owners.length;i++){
@@ -78,5 +81,9 @@ contract MultiSig {
 
     function getBalance(address payable toCheckBalance) public view returns(uint){
         return address(toCheckBalance).balance;
+    }
+
+    function messageSent(string memory _message) public  returns(bytes memory){
+        return bytes(_message);
     }
 }
