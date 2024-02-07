@@ -1,10 +1,15 @@
 // SPDX-License-Identifier: GPL-3.0
 
 pragma solidity >=0.8.2 <0.9.0;
+
+import "@openzeppelin/contracts/utils/Strings.sol";
+import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
+
 contract virtualizeAsset{
 
     receive() external payable { }
 
+  using Strings for uint256;
     struct assetDetail{
         bytes32 assetUniqueId;
         uint cid;
@@ -23,6 +28,11 @@ contract virtualizeAsset{
         address payable  to;
     }
     mapping (bytes32 => ownerShips) assetOwnerShipHistory;
+
+    modifier validate(address assetAddress){
+        require(msg.sender == assestMap[assetAddress].ownerAddress, "not authorized");
+        _;
+    }
 
     function virtualize() public returns(bool){
         return true;
@@ -86,12 +96,21 @@ contract virtualizeAsset{
     string memory _assetType,
     uint _securityId,
      string memory _currentOwner,
-     address _assestAddress,
-     address payable  _ownerAddress 
+     address _assestAddress 
      ) public{
-        assetDetail memory newAsset = assetDetail( generateUniqueID(_currentOwner, _assestAddress, _cid),_cid,_assetType,_securityId,_currentOwner,_assestAddress,_ownerAddress);
+        assetDetail memory newAsset = assetDetail( generateUniqueID(_currentOwner, _assestAddress, _cid),_cid,_assetType,_securityId,_currentOwner,_assestAddress,payable(msg.sender));
         assestMap[_assestAddress] =  newAsset; 
-        assestOwners.push(_ownerAddress);
+        assestOwners.push(payable (msg.sender));
+    }
+
+    function deleteAsset(address assetAddr) public view validate(assetAddr){
+        address payable[]  memory filteredOwners;
+        for(uint i =0;i<assestOwners.length;i++){
+            if(assetAddr == assestMap[assetAddr].assetAddress){
+                continue ;
+            }
+            filteredOwners[i] = assestOwners[i];
+        }
     }
 
 }
