@@ -1,46 +1,51 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { InputContainer } from "./components/InputContainer";
-import { Popup } from "./components/PopUp";
+import { InputContainer } from "../components/InputContainer";
+import { Popup } from "../components/PopUp";
 export const Registers = () => {
   const navigate = useNavigate();
-  const [requiredInput,setRequiredInput] = useState(false)
-  const [errorMessage,setErrorMessage] = useState("")
+  const [requiredInput, setRequiredInput] = useState(false);
+  // const [errorMessage,setErrorMessage] = useState("")
   const [userData, setUserData] = useState({
     name: {
-      name: "",
+      name: null,
       isname: false,
     },
     password: {
-      password: "",
+      password: null,
       ispassword: false,
     },
     email: {
-      email: "",
+      email: null,
       isemail: false,
     },
   });
 
   const handleChange = (event) => {
     event.preventDefault();
-    setRequiredInput(true)
-    setErrorMessage("nakku")
+    const {
+      email: { isemail },
+      name: { isname },
+      password: { ispassword },
+    } = userData;
     console.log(userData);
+    if (!(isemail && isname && ispassword)) {
+      console.log("executes");
+      setRequiredInput(true);
+    }
     // debugger;
   };
 
-  useEffect(()=>{
-    console.log('consoled')
-  })
   const handleInput = (event) => {
     const { name, value } = event.target;
+    console.log(value.length);
     setUserData((preState) => {
       return {
         ...preState,
         [name]: {
           ...preState[name],
           [name]: value,
-          ["is" + name]: true,
+          ["is" + name]: value.length ? true : false,
         },
       };
     });
@@ -51,11 +56,13 @@ export const Registers = () => {
       <div className="container">
         <div className="row ">
           <div className="col register-sec">
-          <Popup isOpen={requiredInput} onClose={() => {}} children={errorMessage}/>
+            {requiredInput ? (
+              <Popup isOpen={requiredInput} onClose={() => {}} children={"nakku"} />
+            ) : null}
             <h2 className="text-center" style={{ fontFamily: "monospace" }}>
               create Account
             </h2>
-            <form className="register-form" onSubmit={handleChange} action="">
+            <form className="register-form" action="">
               <InputContainer
                 userData={userData}
                 handleInput={handleInput}
@@ -84,12 +91,13 @@ export const Registers = () => {
                 }}
               />
               <div className="form-group">
-                  <input
-                    type="submit"
-                    className="btn btn-login btn-primary"
-                    value="Register"
-                    style={{ fontFamily: "monospace" }}
-                  />
+                <input
+                  type="submit"
+                  className="btn btn-login btn-primary"
+                  value="Register"
+                  style={{ fontFamily: "monospace" }}
+                  onClick={handleChange}
+                />
               </div>
               <div className="clearfix"></div>
               <div className="form-group" style={{ fontFamily: "monospace" }}>

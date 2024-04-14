@@ -1,5 +1,5 @@
 // Popup.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 const PopupOverlay = styled.div`
@@ -30,16 +30,16 @@ const CloseButton = styled.button`
 `;
 
 const Popup = ({ isOpen, onClose, children }) => {
-    console.log(isOpen)
-  const [isPopupOpen, setIsPopupOpen] = useState(isOpen);
-  console.log(isPopupOpen)
+    console.log('isOpen',isOpen)
+  // const [isPopupOpen, setIsPopupOpen] = useState(isOpen);
+  // console.log(isPopupOpen)
   const handleClose = () => {
-    setIsPopupOpen(false);
-    onClose();
-  };
+    /** walkthrough solution */
+    window.location.reload()  // need to refactor
+  }; 
 
   return (
-    isPopupOpen && (
+    isOpen && (
       <PopupOverlay>
         <PopupContent>
           <CloseButton onClick={handleClose}>Close</CloseButton>
@@ -49,5 +49,6 @@ const Popup = ({ isOpen, onClose, children }) => {
     )
   );
 };
+
 
 export  {Popup};
