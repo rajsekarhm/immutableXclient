@@ -30,9 +30,6 @@ const CloseButton = styled.button`
 `;
 
 const Popup = ({ isOpen, onClose, children }) => {
-    console.log('isOpen',isOpen)
-  // const [isPopupOpen, setIsPopupOpen] = useState(isOpen);
-  // console.log(isPopupOpen)
   const handleClose = () => {
     /** walkthrough solution */
     window.location.reload()  // need to refactor

@@ -1,7 +1,7 @@
 import { Registers } from "./pages/Register";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Homepage } from "./HomePage";
-import { Login } from "./Login";
+import { Login } from "./pages/Login";
 import { ProfileActions } from "./DashBoard";
 import ErrorPage from "./ErrorPage";
 export const App = () => {

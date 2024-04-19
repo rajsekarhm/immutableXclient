@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import addLandtoStorage from "./setLocalStorage";
+import addLandtoStorage from "./browserUtils/storage";
 import * as React from "react";
 
 

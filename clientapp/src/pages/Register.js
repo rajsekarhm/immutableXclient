@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { InputContainer } from "../components/InputContainer";
 import { Popup } from "../components/PopUp";
+import { browserStorage } from "../browserUtils/storage";
 export const Registers = () => {
   const navigate = useNavigate();
   const [requiredInput, setRequiredInput] = useState(false);
-  // const [errorMessage,setErrorMessage] = useState("")
+  const [errorMessage,setErrorMessage] = useState("")
   const [userData, setUserData] = useState({
     name: {
       name: null,
@@ -28,11 +29,14 @@ export const Registers = () => {
       name: { isname },
       password: { ispassword },
     } = userData;
-    console.log(userData);
+
     if (!(isemail && isname && ispassword)) {
-      console.log("executes");
       setRequiredInput(true);
+      setErrorMessage(
+        !isemail ? 'email is mandatory'  : !isname ? 'name is mandatory' : !ispassword ? 'password is mandatory' : ''
+      )
     }
+    // browserStorage.storeInStorage('usersData',browserStorage.getFromStorage('usersData').push(userData))
     // debugger;
   };
 
@@ -57,7 +61,7 @@ export const Registers = () => {
         <div className="row ">
           <div className="col register-sec">
             {requiredInput ? (
-              <Popup isOpen={requiredInput} onClose={() => {}} children={"nakku"} />
+              <Popup isOpen={requiredInput} onClose={() => {}} children={errorMessage} />
             ) : null}
             <h2 className="text-center" style={{ fontFamily: "monospace" }}>
               create Account
