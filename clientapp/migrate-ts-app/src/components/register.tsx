@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 export const Registers = () => {
-  const navigate = useNavigate();
+//   const navigate = useNavigate();
   const [errorhandle] = useState({
     emailError: false,
     nameError: false,
@@ -15,7 +15,7 @@ export const Registers = () => {
     email: "",
     password: "",
   });
-  const handleChange = (event) => {
+  const handleChange = (event : any) => {
     event.preventDefault();
     let intialerror = errorhandle;
     let checker = 1;
@@ -39,10 +39,10 @@ export const Registers = () => {
       var detail = JSON.parse(localStorage.getItem("user") || "[]");
       detail.push(inputs);
       localStorage.setItem("user", JSON.stringify(detail));
-      navigate(`/profile/${inputs.name}`);
+    //   navigate(`/profile/${inputs.name}`);
     }
   };
-  const handleinput = (event) => {
+  const handleinput = (event : any) => {
     setloading(false);
     errorhandle.emailError = false;
     errorhandle.nameError = false;
@@ -185,7 +185,7 @@ export const Registers = () => {
                 <a
                   href="# "
                   onClick={() => {
-                    navigate("/Login");
+                    // navigate("/Login");
                   }}
                   style={{ fontFamily: "monospace" }}
                 >
@@ -200,3 +200,5 @@ export const Registers = () => {
     </section>
   );
 };
+
+export{}

@@ -2,11 +2,11 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
 async function createToken(userName,password){
-    const password = await bcrypt.hash(password,10);
+    const $password = await bcrypt.hash(password,10);
     return jwt.sign(
       {
         name: userName,
-        pass: password,
+        pass: $password,
       },
       "shit",
       {
@@ -15,8 +15,5 @@ async function createToken(userName,password){
     );
 }
 
-function validateToken(){
 
-}
-
-export { createToken, validateToken };
+module.exports =  { createToken };
