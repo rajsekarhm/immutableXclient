@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { InputContainer } from "../components/InputContainer";
 import { Popup } from "../components/PopUp";
 import { browserStorage } from "../browserUtils/storage";
+import { Redis } from "../redisConfig/reddis.mjs";
 export const Registers = () => {
   const navigate = useNavigate();
   const [requiredInput, setRequiredInput] = useState(false);
@@ -36,8 +37,8 @@ export const Registers = () => {
         !isemail ? 'email is mandatory'  : !isname ? 'name is mandatory' : !ispassword ? 'password is mandatory' : ''
       )
     }
-    // browserStorage.storeInStorage('usersData',browserStorage.getFromStorage('usersData').push(userData))
-    // debugger;
+    // const redis = new Redis('')
+    // redis.setInfo()
   };
 
   const handleInput = (event) => {
