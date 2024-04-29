@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { InputContainer } from "../components/InputContainer";
 import { Popup } from "../components/PopUp";
-import { browserStorage } from "../browserUtils/storage";
-import { Redis } from "../redisConfig/reddis.mjs";
+// import { browserStorage } from "../browserUtils/storage";
+// import { Redis } from "../redisConfig/reddis.mjs";
 export const Registers = () => {
   const navigate = useNavigate();
   const [requiredInput, setRequiredInput] = useState(false);
