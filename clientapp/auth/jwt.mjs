@@ -1,5 +1,5 @@
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
+import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
 
 async function createToken(userName,password){
     const $password = await bcrypt.hash(password,10);
@@ -16,4 +16,4 @@ async function createToken(userName,password){
 }
 
 
-module.exports =  { createToken };
+export  { createToken };

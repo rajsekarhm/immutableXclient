@@ -1,9 +1,7 @@
-const express = require("express");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const cookieParser = require("cookie-parser");
-const cors = require('cors');
-const { createToken } = require("./jwt");
+import express from "express"
+import cookieParser from "cookie-parser"
+import cors from 'cors'
+import { createToken } from "./jwt.mjs"
 
 const app = express();
 app.use(express.json());
