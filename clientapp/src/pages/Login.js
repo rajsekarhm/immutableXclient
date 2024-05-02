@@ -5,7 +5,6 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 export const Login = () => {
   const navigate = useNavigate();
-  const [loading, setloading] = useState(false);
   const [loginInput, setInput] = useState({
     name: " ",
     password: " ",
@@ -33,7 +32,6 @@ export const Login = () => {
   const handleSubmit = (event) => {
     
     event.preventDefault();
-    setloading(true);
     var isAuth;
     // let { isAuth, _username } = validator();
     fetch('http://localhost:9000/login', { 
@@ -43,16 +41,13 @@ export const Login = () => {
       },
       body: JSON.stringify({ name:loginInput.name,password:loginInput.password })
   })
-    .then((result) => {
+  .then((result) => {
       return result.json();
-    })
-    .then((data) => {
-      data.isAuth=isAuth
     })
     .catch((error) => {
       console.error('Error:', error);
     });
-    if (isAuth) {
+    if (false) {
       navigate(`/marketPlace/${loginInput.name}`);
     } else {
       navigate("/errorPage");
@@ -108,27 +103,6 @@ export const Login = () => {
                   />
                 </div>
                 <div className="form-group">
-                  {loading ? (
-                    <div className="text-center">
-                      <span
-                        onClick={() => {
-                          navigate("/register");
-                        }}
-                        className="text-danger"
-                      >
-                        {" "}
-                        Kindly Register
-                      </span>
-                      <br />
-                      <div
-                        className="spinner-border text-primary "
-                        role="status"
-                      >
-                        <span className="sr-only">Loading...</span>
-                      </div>
-                    </div>
-                  ) : null}
-
                   <div>
                     <div className="text-center">
                       <input
