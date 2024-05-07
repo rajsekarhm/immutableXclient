@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { InputContainer } from "../components/InputContainer";
+import { DataVault } from "../components/DataVault";
 import { Popup } from "../components/PopUp";
-// import { browserStorage } from "../browserUtils/storage";
-// import { Redis } from "../redisConfig/reddis.mjs";
+
 export const Registers = () => {
   const navigate = useNavigate();
   const [requiredInput, setRequiredInput] = useState(false);
@@ -68,28 +67,40 @@ export const Registers = () => {
               create Account
             </h2>
             <form className="register-form" action="">
-              <InputContainer
+              <DataVault
+                componentInfo = {{
+                  className:'username_class',
+                  type: 'text',
+                  name:"name",
+                }}
                 userData={userData}
                 handleInput={handleInput}
-                id="name"
                 inputDetails={{
                   description: "Enter username",
                   errorMessage: "user required",
                 }}
               />
-              <InputContainer
+              <DataVault
+                componentInfo = {{
+                  className:'pass_class',
+                  type: 'password',
+                  name:'password',
+                }}
                 userData={userData}
                 handleInput={handleInput}
-                id="password"
                 inputDetails={{
                   description: "Enter password",
                   errorMessage: "password required :(",
                 }}
               />
-              <InputContainer
+              <DataVault
+                componentInfo = {{
+                  className:'mail_class',
+                  type: 'text',
+                  name:'email',
+                }}
                 userData={userData}
                 handleInput={handleInput}
-                id="email"
                 inputDetails={{
                   description: "Enter Mail",
                   errorMessage: "email is require ;(",
