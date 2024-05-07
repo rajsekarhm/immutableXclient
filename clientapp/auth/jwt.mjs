@@ -2,7 +2,8 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 
  function createToken(userName,password){
-    const $password =  bcrypt.hash(password,10);
+    const lengthOfString = `${userName+password}`.length
+    const $password =  bcrypt.hash(password,lengthOfString);
     return  jwt.sign(
       {
         name: userName,
