@@ -2,11 +2,10 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Avatar } from "@mui/material";
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { DataVault } from "../components/DataVault";
-
+import { DataVault } from "../components/DataVault";  
 export const SignIn = () => {
   const navigate = useNavigate();
-  const {custodian} = useParams()
+  const { custodian } = useParams()
   const [loginInput, setInput] = useState({
     name: " ",
     password: " ",
@@ -68,6 +67,17 @@ export const SignIn = () => {
               </Avatar>
               <DataVault
                 componentInfo = {{
+                  className:'name_class',
+                  type: 'name',
+                  name:'username',
+                }}
+                inputDetails={{
+                  description: "Enter Username",
+                  errorMessage: "username required :(",
+                }}
+              />
+              <DataVault
+                componentInfo = {{
                   className:'pass_class',
                   type: 'password',
                   name:'password',
@@ -77,6 +87,7 @@ export const SignIn = () => {
                   errorMessage: "password required :(",
                 }}
               />
+              <button> sign in </button>
             </div>
           </div>
         </div>
