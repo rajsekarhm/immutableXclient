@@ -1,6 +1,6 @@
-import redux from '@reduxjs/toolkit'
+import {configureStore} from '@reduxjs/toolkit'
 import CRUD_Operations from './reducers/CRUD_Operations';
-const store  = redux.configureStore({ 
+const store  = configureStore({ 
     reducer: CRUD_Operations
 })
 
