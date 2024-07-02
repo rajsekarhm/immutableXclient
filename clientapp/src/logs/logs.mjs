@@ -1,35 +1,12 @@
-// class LoggerImpl {
-//   constructor(severity) {
-//     this.SUCCESS_TYPE = "success";
-//     this.FAILURE_TYPE = "failure";
-//     this.INFO_TYPE = "info";
-//     this.colors = {
-//       success: ["\x1b[36m", "\x1b[0m"],
-//       failure: ["\x1b[31m", "\x1b[0m"],
-//       info: ["\x1b[33m", "\x1b[0m"],
-//     };
-//     this.consoleLogger = console;
-//   }
-
-//   storeLogs(){
-//   }
-
-//   log(type,message){
-//     const color =  this.colors[type]
-//     this.consoleLogger.log(`${color[0]}${message}${color[1]}`)
-//   }
-// }
-
-
 import { Kafka, logLevel } from 'kafkajs';
 
 const kafka = new Kafka({
-  brokers: ['tender-giraffe-8501-us1-kafka.upstash.io:9092'],
+  brokers: ['host broker'],
   ssl: true,
   sasl: {
       mechanism: 'scram-sha-256',
-      username: 'dGVuZGVyLWdpcmFmZmUtODUwMSQ9nz1W2gyifMLkmTHPxvYBLyToC3v_mQwt0Mw',
-      password: 'ZmVlZTEyMjAtOTAwYS00ZDA1LTg4ZTUtNTQ5NDBmMzczODA2'
+      username: 'username',
+      password: 'password'
   },
   logLevel: logLevel.ERROR,
 });
@@ -38,15 +15,12 @@ const producer = kafka.producer();
 
 const run = async () => {
   await producer.connect();
-
   await producer.send({
-      topic: 'YOUR_TOPIC',
+      topic: topicFrmCLI,
       messages: [
-      { value: 'Hello Kafka!' },
+      { value: 'Hello Folks !' },
       ],
   });
-
-  console.log("Message sent successfully");
   await producer.disconnect();
 };
 

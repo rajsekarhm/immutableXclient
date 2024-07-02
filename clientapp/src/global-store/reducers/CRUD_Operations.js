@@ -15,9 +15,11 @@ export const crud_operations = createSlice({
       console.log(`State is created:`, state);
     },
     get: (state) => {
+      console.log(`get method is called`)
       // Implementation for getting data
     },
     update: (state, action) => {
+      console.log('update method is called')
       // Implementation for updating data
     },
   },
