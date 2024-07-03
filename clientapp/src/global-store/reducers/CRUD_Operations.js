@@ -1,26 +1,19 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
+let initialState = {
+  users: []
+}
 export const crud_operations = createSlice({
   name: "crud",
-  initialState: [ {name:'user1'}] ,
+  initialState ,
   reducers: {
     create: (state, action) => {
-      const newItem = {
-        id: nanoid(),
-        text: action.payload,
-      };
-      if (!state.items) {
-        state.items = [];
-      }
-      state.items.push(newItem);
-      console.log(`State is created:`, state);
+      console.log(action.type)
+      console.log(action.payload)
     },
-    get: (state) => {
-      console.log(`get method is called`)
-      // Implementation for getting data
+    get: (state,action) => {
+      console.log(action.type)
     },
     update: (state, action) => {
-      console.log('update method is called')
-      // Implementation for updating data
     },
   },
 });

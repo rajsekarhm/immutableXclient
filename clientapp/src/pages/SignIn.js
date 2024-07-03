@@ -3,7 +3,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Avatar } from "@mui/material";
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { DataVault } from "../components/DataVault";  
+import { useDispatch, useSelector } from "react-redux";
+import { create } from "../global-store/reducers/CRUD_Operations";
 export const SignIn = () => {
+  const dispatch =  useDispatch()
+  const users =  useSelector((state) => state)
   const navigate = useNavigate();
   const { custodian } = useParams()
   const [loginInput, setInput] = useState({
@@ -31,26 +35,27 @@ export const SignIn = () => {
     return { isAuth: valid, _username: username };
   };
   const handleSubmit = (event) => {
-    
     event.preventDefault();
-    fetch('http://localhost:9000/login', { 
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ name:loginInput.name,password:loginInput.password })
-  })
-  .then((result) => {
-      return result.json();
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
-    if (false) {
-      navigate(`/marketPlace/${loginInput.name}`);
-    } else {
-      navigate("/errorPage");
-    }
+    console.log('clicked')
+    dispatch(create({name:`user added - ${Math.random()}`}))
+  //   fetch('http://localhost:9000/login', { 
+  //     method: 'POST',
+  //     headers: {
+  //         'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify({ name:loginInput.name,password:loginInput.password })
+  // })
+  // .then((result) => {
+  //     return result.json();
+  //   })
+  //   .catch((error) => {
+  //     console.error('Error:', error);
+  //   });
+  //   if (false) {
+  //     navigate(`/marketPlace/${loginInput.name}`);
+  //   } else {
+  //     navigate("/errorPage");
+  //   }
   };
   const handleChange = (event) => {
     setInput({ ...loginInput, [event.target.name]: event.target.value });
@@ -87,7 +92,7 @@ export const SignIn = () => {
                   errorMessage: "password required :(",
                 }}
               />
-              <button> sign in </button>
+              <button onClick={handleSubmit}> sign in </button>
             </div>
           </div>
         </div>
