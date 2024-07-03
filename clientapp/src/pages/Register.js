@@ -2,9 +2,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { DataVault } from "../components/DataVault";
 import { Popup } from "../components/PopUp";
-
+import { create, get } from "../global-store/reducers/CRUD_Operations";
+import { useDispatch } from "react-redux";
 export const Registers = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
   const [requiredInput, setRequiredInput] = useState(false);
   const [errorMessage,setErrorMessage] = useState("")
   const [userData, setUserData] = useState({
@@ -22,7 +24,7 @@ export const Registers = () => {
     },
   });
 
-  const handleChange = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     const {
       email: { isemail },
@@ -35,14 +37,14 @@ export const Registers = () => {
       setErrorMessage(
         !isemail ? 'email is mandatory'  : !isname ? 'name is mandatory' : !ispassword ? 'password is mandatory' : ''
       )
+    }else{
+      dispatch(create(userData))
     }
-    // const redis = new Redis('')
-    // redis.setInfo()
+
   };
 
   const handleInput = (event) => {
     const { name, value } = event.target;
-    console.log(value.length);
     setUserData((preState) => {
       return {
         ...preState,
@@ -111,8 +113,7 @@ export const Registers = () => {
                   type="submit"
                   className="btn btn-login btn-primary"
                   value="Register"
-                  style={{ fontFamily: "monospace" }}
-                  onClick={handleChange}
+                  onClick={handleSubmit}
                 />
               </div>
               <div className="clearfix"></div>
