@@ -1,8 +1,8 @@
-import {configureStore} from '@reduxjs/toolkit'
-import CRUD_Operations from './reducers/CRUD_Operations';
-const store  = configureStore({ 
-    reducer: CRUD_Operations
-})
-
+import { configureStore } from "@reduxjs/toolkit";
+import { rootReducer } from "./rootReducer";
+const store = configureStore({
+  reducer: rootReducer
+});
 
 export default store;
+

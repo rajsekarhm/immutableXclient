@@ -1,6 +1,5 @@
-function DataVault({ handleInput, inputDetails,componentInfo }) {
-  const { description } = inputDetails;
-  const {className,type,name} =  componentInfo
+function DataVault({ handleInput,componentInfo }) {
+  const {className,type,name,description} =  componentInfo
   return (
     <div className="form-group">
       <label>
