@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Avatar } from "@mui/material";
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { DataVault } from "../components/DataVault";  
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { DataVault } from "../components/DataVault";
 import { useDispatch, useSelector } from "react-redux";
-import { create } from "../global-store/reducers/CRUD_Operations";
+import { create } from "../global-store/reducers/crudOperations";
 export const SignIn = () => {
-  const dispatch =  useDispatch()
-  const users =  useSelector((state) => state)
+  const dispatch = useDispatch();
+  const users = useSelector((state) => state);
   const navigate = useNavigate();
-  const { custodian } = useParams()
+  const { custodian } = useParams();
   const [loginInput, setInput] = useState({
     name: " ",
     password: " ",
@@ -36,26 +36,26 @@ export const SignIn = () => {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('clicked')
-    dispatch(create({name:`user added - ${Math.random()}`}))
-  //   fetch('http://localhost:9000/login', { 
-  //     method: 'POST',
-  //     headers: {
-  //         'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify({ name:loginInput.name,password:loginInput.password })
-  // })
-  // .then((result) => {
-  //     return result.json();
-  //   })
-  //   .catch((error) => {
-  //     console.error('Error:', error);
-  //   });
-  //   if (false) {
-  //     navigate(`/marketPlace/${loginInput.name}`);
-  //   } else {
-  //     navigate("/errorPage");
-  //   }
+    console.log("clicked");
+    dispatch(create({ name: `user added - ${Math.random()}` }));
+    //   fetch('http://localhost:9000/login', {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify({ name:loginInput.name,password:loginInput.password })
+    // })
+    // .then((result) => {
+    //     return result.json();
+    //   })
+    //   .catch((error) => {
+    //     console.error('Error:', error);
+    //   });
+    //   if (false) {
+    //     navigate(`/marketPlace/${loginInput.name}`);
+    //   } else {
+    //     navigate("/errorPage");
+    //   }
   };
   const handleChange = (event) => {
     setInput({ ...loginInput, [event.target.name]: event.target.value });
@@ -66,15 +66,17 @@ export const SignIn = () => {
         <div className="container">
           <div className="row ">
             <div className="col register-sec">
-              <h2 className="text-center" style={{fontFamily:"monospace"}}>Login</h2>
+              <h2 className="text-center" style={{ fontFamily: "monospace" }}>
+                Login
+              </h2>
               <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
                 <LockOutlinedIcon />
               </Avatar>
               <DataVault
-                componentInfo = {{
-                  className:'name_class',
-                  type: 'name',
-                  name:'username',
+                componentInfo={{
+                  className: "name_class",
+                  type: "name",
+                  name: "username",
                 }}
                 inputDetails={{
                   description: "Enter Username",
@@ -82,10 +84,10 @@ export const SignIn = () => {
                 }}
               />
               <DataVault
-                componentInfo = {{
-                  className:'pass_class',
-                  type: 'password',
-                  name:'password',
+                componentInfo={{
+                  className: "pass_class",
+                  type: "password",
+                  name: "password",
                 }}
                 inputDetails={{
                   description: "Enter password",
