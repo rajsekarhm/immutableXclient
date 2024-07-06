@@ -2,9 +2,10 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { DataVault } from "../components/DataVault";
 import { useDispatch, useSelector } from "react-redux";
-import { userContract } from "../global-store/types/stateContract/UserType";
+import { userContract } from "../global-store/types/stateType/UserType";
 import { createUser } from "../global-store/reducers/UserActions";
 import { create } from "../global-store/reducers/crudOperations";
+
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -12,14 +13,14 @@ export const Register = () => {
   const [user, setUser] = useState(userContract);
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(create(user))
+    dispatch(create(user));
+    navigate(`/profile/${user.name}`)
   };
 
-
-  const handleInput =  (event) => {
+  const handleInput = (event) => {
     const { name, value } = event.target;
-     dispatch(createUser({...user,[name]:value}))
-     setUser({...user,[name]:value})
+    dispatch(createUser({ ...user, [name]: value }));
+    setUser({ ...user, [name]: value });
   };
 
   return (
@@ -28,7 +29,7 @@ export const Register = () => {
         <div className="row ">
           <div className="col register-sec">
             <h2 className="text-center" style={{ fontFamily: "monospace" }}>
-              create Account
+              Enter  your credentials to create ..
             </h2>
             <form className="register-form" action="">
               <DataVault
@@ -36,8 +37,7 @@ export const Register = () => {
                   description: "enter name",
                   className: "username_class",
                   type: "text",
-                  name: "name",
-                  IsRequired:true
+                  name: "name"
                 }}
                 handleInput={handleInput}
               />
@@ -46,8 +46,7 @@ export const Register = () => {
                   description: "enter password",
                   className: "pass_class",
                   type: "password",
-                  name: "password",
-                  IsRequired:true
+                  name: "password"
                 }}
                 handleInput={handleInput}
               />
@@ -56,8 +55,16 @@ export const Register = () => {
                   description: "enter mail",
                   className: "mail_class",
                   type: "text",
-                  name: "email",
-                  IsRequired:true
+                  name: "email"
+                }}
+                handleInput={handleInput}
+              />
+              <DataVault
+                componentInfo={{
+                  description: "enter phone number ",
+                  className: "contact_class",
+                  type: "text",
+                  name: "contactNumber"
                 }}
                 handleInput={handleInput}
               />

@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { create } from "../global-store/reducers/crudOperations";
 export const SignIn = () => {
   const dispatch = useDispatch();
-  const users = useSelector((state) => state);
   const navigate = useNavigate();
   const { custodian } = useParams();
   const [loginInput, setInput] = useState({
@@ -36,8 +35,6 @@ export const SignIn = () => {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("clicked");
-    dispatch(create({ name: `user added - ${Math.random()}` }));
     //   fetch('http://localhost:9000/login', {
     //     method: 'POST',
     //     headers: {
@@ -77,10 +74,7 @@ export const SignIn = () => {
                   className: "name_class",
                   type: "name",
                   name: "username",
-                }}
-                inputDetails={{
-                  description: "Enter Username",
-                  errorMessage: "username required :(",
+                  description: "enter name",
                 }}
               />
               <DataVault
@@ -88,11 +82,9 @@ export const SignIn = () => {
                   className: "pass_class",
                   type: "password",
                   name: "password",
+                  description: "enter password"
                 }}
-                inputDetails={{
-                  description: "Enter password",
-                  errorMessage: "password required :(",
-                }}
+            
               />
               <button onClick={handleSubmit}> sign in </button>
             </div>
