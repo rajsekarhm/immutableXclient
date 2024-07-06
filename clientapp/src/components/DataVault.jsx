@@ -1,5 +1,5 @@
 function DataVault({ handleInput,componentInfo }) {
-  const {className,type,name,description, isRequired} =  componentInfo
+  const {className,type,name,description} =  componentInfo
   return (
     <div className="form-group">
       <label>
@@ -10,8 +10,6 @@ function DataVault({ handleInput,componentInfo }) {
           name={name}
           onClick={() => {}}
           onChange={handleInput}
-          id=""
-          required
         />
       </label>
     </div>

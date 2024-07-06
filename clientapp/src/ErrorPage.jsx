@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom"
 export default function ErrorPage(){
     const navigate = useNavigate()
     return(
-        <><h3 style={{fontFamily:"monospace"}}  > Your Not Register Yet Kindly Register </h3>
+        <>
+        <h2> take a break we will right back xD ..  </h2>
+        <h3 style={{fontFamily:"monospace"}}  > If Your Not Register Yet Kindly Register </h3>
         <button onClick={() => navigate('/account/user')} style={{background:'white',fontFamily:"monospace"}}> Kindly register </button>
         </>
     )

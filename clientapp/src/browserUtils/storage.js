@@ -1,6 +1,6 @@
 class LocalStorage{ 
   storeInStorage(storeKey,storeData){
-    JSON.stringify(localStorage.setItem(storeKey,storeData))
+    localStorage.setItem(storeKey.toString(),JSON.stringify(storeData))
   }
 
   getFromStorage(storeKey){

@@ -1,4 +1,5 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
+import { browserStorage } from "../../browserUtils/storage";
 let initialState = {
 
 }
@@ -7,7 +8,8 @@ export const crud_operations = createSlice({
   initialState ,
   reducers: {
     create: (state, action) => {
-      console.log(action.payload)
+      console.log(action.payload.name,action.payload)
+     browserStorage.storeInStorage(action.payload.name,action.payload)
     },
     get: (state,action) => {
       console.log(action.payload)

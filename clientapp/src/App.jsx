@@ -1,6 +1,6 @@
 import { Register } from "./pages/SignUp";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Homepage } from "./HomePage";
+import { Home } from "./Home";
 import { UserProfiles } from "./UserProfile";
 import ErrorPage from "./ErrorPage";
 import MarketPlace from "./ShowCase";
@@ -10,7 +10,7 @@ export const App = () => {
     <div className="no-css-app">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Homepage />} />
+          <Route path="/" element={<Home />} />
           <Route path="/account/user" element={<Register />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signin/:custodian" element={<SignIn />} />
