@@ -3,24 +3,23 @@ import { useNavigate } from "react-router-dom";
 import { DataVault } from "../components/DataVault";
 import { useDispatch, useSelector } from "react-redux";
 import { userContract } from "../global-store/types/stateContract/UserType";
-import { createUser, getUserDetails } from "../global-store/reducers/UserActions";
+import { createUser } from "../global-store/reducers/UserActions";
+import { create } from "../global-store/reducers/crudOperations";
 
 export const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [user, setUser] = useState(userContract);
-  const resultBha = useSelector((state) => state.userActions)
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(createUser(user));
-    console.log(resultBha)
+    dispatch(create(user))
   };
 
-  const handleInput = (event) => {
+
+  const handleInput =  (event) => {
     const { name, value } = event.target;
-    setUser((preState) => {
-      return { ...preState, [name]: value };
-    });
+     dispatch(createUser({...user,[name]:value}))
+     setUser({...user,[name]:value})
   };
 
   return (
@@ -38,6 +37,7 @@ export const Register = () => {
                   className: "username_class",
                   type: "text",
                   name: "name",
+                  IsRequired:true
                 }}
                 handleInput={handleInput}
               />
@@ -47,6 +47,7 @@ export const Register = () => {
                   className: "pass_class",
                   type: "password",
                   name: "password",
+                  IsRequired:true
                 }}
                 handleInput={handleInput}
               />
@@ -56,6 +57,7 @@ export const Register = () => {
                   className: "mail_class",
                   type: "text",
                   name: "email",
+                  IsRequired:true
                 }}
                 handleInput={handleInput}
               />
