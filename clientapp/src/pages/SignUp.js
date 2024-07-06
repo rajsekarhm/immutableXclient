@@ -10,7 +10,6 @@ export const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [user, setUser] = useState(userContract);
-  const userInfo =  useSelector((state) => state.userActions)
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(create(user))
@@ -31,7 +30,6 @@ export const Register = () => {
             <h2 className="text-center" style={{ fontFamily: "monospace" }}>
               create Account
             </h2>
-            <h2>{userInfo.email}</h2>
             <form className="register-form" action="">
               <DataVault
                 componentInfo={{
@@ -39,6 +37,7 @@ export const Register = () => {
                   className: "username_class",
                   type: "text",
                   name: "name",
+                  IsRequired:true
                 }}
                 handleInput={handleInput}
               />
@@ -48,6 +47,7 @@ export const Register = () => {
                   className: "pass_class",
                   type: "password",
                   name: "password",
+                  IsRequired:true
                 }}
                 handleInput={handleInput}
               />
@@ -57,6 +57,7 @@ export const Register = () => {
                   className: "mail_class",
                   type: "text",
                   name: "email",
+                  IsRequired:true
                 }}
                 handleInput={handleInput}
               />
