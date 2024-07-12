@@ -3,35 +3,33 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@babel/core": "^7.23.7",
-    "@emotion/react": "^11.11.1",
-    "@emotion/styled": "^11.11.0",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "@mui/icons-material": "^5.14.15",
     "@mui/material": "^5.14.15",
+    "@mui/styled-engine": "^5.15.14",
     "@reduxjs/toolkit": "^1.9.7",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
     "@upstash/redis": "^1.30.0",
     "bcryptjs": "^2.4.3",
     "bootstrap": "^5.3.2",
     "cookie-parser": "^1.4.6",
     "express": "^4.18.2",
+    "framer-motion-3d": "^11.2.13",
     "helia": "^3.0.1",
     "jsonwebtoken": "^9.0.2",
-    "node-fetch": "^3.3.2",
+    "kafkajs": "^2.2.4",
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.1",
     "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
+    "react-redux": "^9.1.2",
+    "redis": "^4.6.13",
     "styled-components": "^6.1.8",
+    "vite": "^5.3.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "vite",
+    "build": "vite build"
   },
   "eslintConfig": {
     "extends": [
@@ -51,7 +49,19 @@
       "last 1 safari version"
     ]
   },
+  "type": "module",
   "devDependencies": {
-    "react-router-dom": "^6.17.0"
+    "@babel/preset-env": "^7.24.7",
+    "@babel/preset-react": "^7.24.7",
+    "@react-three/fiber": "^8.16.8",
+    "@react-three/rapier": "^1.4.0",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react-swc": "^3.7.0",
+    "framer-motion": "^11.2.13",
+    "meshline": "^3.3.1",
+    "mongoose": "^8.3.3",
+    "react-router-dom": "^6.17.0",
+    "three": "^0.166.1"
   }
 }
