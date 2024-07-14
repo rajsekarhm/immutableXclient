@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Avatar } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { DataVault } from "../components/DataVault";
@@ -7,31 +7,36 @@ import { useDispatch, useSelector } from "react-redux";
 import { create } from "../global-store/reducers/crudOperations";
 export const SignIn = () => {
   const dispatch = useDispatch();
+  const [isAgent,setAgent] =  useState(false)
   const navigate = useNavigate();
-  const { custodian } = useParams();
   const [loginInput, setInput] = useState({
     name: " ",
     password: " ",
   });
-  const validator = () => {
-    let valid = false;
-    let username = "";
-    const check = JSON.parse(localStorage.getItem("user"));
-    if (!check) {
-      navigate("./errorPage");
-      return valid;
-    }
-    check.map((users) => {
-      if (
-        users.name === loginInput.name &&
-        users.password === loginInput.password
-      ) {
-        valid = true;
-        username = users.name;
-      }
-      return true;
-    });
-    return { isAuth: valid, _username: username };
+  // const validator = () => {
+  //   let valid = false;
+  //   let username = "";
+  //   const check = JSON.parse(localStorage.getItem("user"));
+  //   if (!check) {
+  //     navigate("./errorPage");
+  //     return valid;
+  //   }
+  //   check.map((users) => {
+  //     if (
+  //       users.name === loginInput.name &&
+  //       users.password === loginInput.password
+  //     ) {
+  //       valid = true;
+  //       username = users.name;
+  //     }
+  //     return true;
+  //   });
+  //   return { isAuth: valid, _username: username };
+  // };
+  const handleCustodianPortal = () => {
+    navigate("/custodian");
+    setAgent(true)
+    
   };
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -76,17 +81,38 @@ export const SignIn = () => {
                   name: "username",
                   description: "enter name",
                 }}
+                handleInput={handleChange}
               />
               <DataVault
                 componentInfo={{
                   className: "pass_class",
                   type: "password",
                   name: "password",
-                  description: "enter password"
+                  description: "enter password",
                 }}
-            
+                handleInput={handleChange}
               />
+              {
+                isAgent ? <DataVault
+                componentInfo={{
+                  className: "orgId_class",
+                  type: "password",
+                  name: "orgID",
+                  description: "enter org ID",
+                }}
+                handleInput={handleChange}
+              /> : null
+              }
               <button onClick={handleSubmit}> sign in </button>
+              <br />
+              <br />
+              <label>
+                {" "}
+                Are your agent LoginIn{" "}
+                <button onClickCapture={handleCustodianPortal}>
+                  Here
+                </button> ?{" "}
+              </label>
             </div>
           </div>
         </div>

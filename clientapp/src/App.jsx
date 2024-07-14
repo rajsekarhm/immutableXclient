@@ -13,7 +13,7 @@ export const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/account/user" element={<Register />} />
           <Route path="/signin" element={<SignIn />} />
-          <Route path="/signin/:custodian" element={<SignIn />} />
+          <Route path="/custodian" element={<SignIn />} />
           <Route path="/profile/:username" element={<UserProfiles />} />
           <Route path="/marketplace" element={<MarketPlace />} />
           <Route path="/errorpage" element={<ErrorPage />} />
