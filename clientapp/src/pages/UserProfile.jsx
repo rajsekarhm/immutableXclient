@@ -8,6 +8,7 @@ export const UserProfilePages = () => {
   const { username } = useParams();
   return (
     <div>
+      <h2> Net Worth $0.0  </h2>
     <Button> overview </Button>
     <Button> Activity </Button>
     <Button> Portfolio </Button>
