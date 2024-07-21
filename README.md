@@ -1,7 +1,7 @@
 # Project Name
 
 ## Overview
-Welcome to **Project Name**. This project leverages an advanced tech stack to create a cutting-edge decentralized application (DApp) that features robust backend architecture and a dynamic, responsive front-end.
+Welcome to **ImmutableX**. This project leverages to virtualize valueable object using blockchain and it is transprancy.
 
 ## Technologies Used
 
@@ -20,9 +20,14 @@ Welcome to **Project Name**. This project leverages an advanced tech stack to cr
 
 Ensure that the following software is installed on your system:
 
+Client 
+
 - Node.js and npm
 - Truffle
-- MongoDB
+
+Server
+
+- SQL
 - Redis
 - IPFS
 - Kafka
@@ -40,8 +45,10 @@ Ensure that the following software is installed on your system:
     npm install
     ```
 
-3. **Set up MongoDB:**
-    - Ensure that MongoDB is running on your local machine or remote server.
+Ensure that You have cloned Server Handles
+
+3. **Set up SQL:**
+    - Ensure that SQL is running on your local machine or remote server.
 
 4. **Set up Redis:**
     - Ensure Redis is running, or configure Upstash for serverless Redis.
