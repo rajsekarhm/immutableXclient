@@ -5,7 +5,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { DataVault } from "../components/DataVault";
 import { useDispatch, useSelector } from "react-redux";
 import { create } from "../global-store/reducers/crudOperations";
-export const SignInPage = (props) => {
+export const SignInPage = (props : any) => {
   const { portal } = props
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -17,10 +17,10 @@ export const SignInPage = (props) => {
   console.log(custodian)
   const handleCustodianPortal = () => {
     navigate("/custodian");
-    setAgent(true)
+    // setAgent(true)
     
   };
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: any) => {
     event.preventDefault();
     //   fetch('http://localhost:9000/login', {
     //     method: 'POST',
@@ -41,7 +41,7 @@ export const SignInPage = (props) => {
     //     navigate("/errorPage");
     //   }
   };
-  const handleChange = (event) => {
+  const handleChange = (event:any) => {
     setInput({ ...loginInput, [event.target.name]: event.target.value });
   };
   return (
@@ -72,7 +72,7 @@ export const SignInPage = (props) => {
                   name: "password",
                   description: "enter password",
                 }}
-                handleInput={handleChange}
+                handleInput={handleChange}    
               />
               {
                 portal === 'custodian' ? <DataVault

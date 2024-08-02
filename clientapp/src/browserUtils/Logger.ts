@@ -1,4 +1,9 @@
 class LoggerImpl {
+  SUCCESS_TYPE: string;
+  FAILURE_TYPE: string;
+  INFO_TYPE: string;
+  colors: any;
+  consoleLogger: Console;
   constructor() {
     this.SUCCESS_TYPE = "success";
     this.FAILURE_TYPE = "failure";
@@ -11,8 +16,8 @@ class LoggerImpl {
     this.consoleLogger = console;
   }
 
-  log(type,message){
-    const color =  this.colors[type]
+  log(type: string | number,message: any){
+    const color : any =  this.colors[type]
     this.consoleLogger.log(`${color[0]}${message}${color[1]}`)
   }
 
