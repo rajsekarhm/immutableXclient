@@ -5,35 +5,22 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { DataVault } from "../components/DataVault";
 import { useDispatch, useSelector } from "react-redux";
 import { create } from "../global-store/reducers/crudOperations";
-export const SignIn = () => {
+export const SignInPage = (props : any) => {
+  const { portal } = props
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { custodian } = useParams();
   const [loginInput, setInput] = useState({
     name: " ",
     password: " ",
   });
-  // const validator = () => {
-  //   let valid = false;
-  //   let username = "";
-  //   const check :  = JSON.parse(localStorage.getItem("user"));
-  //   if (!check) {
-  //     navigate("./errorPage");
-  //     return valid;
-  //   }
-  //   check.map((users:any) => {
-  //     if (
-  //       users.name === loginInput.name &&
-  //       users.password === loginInput.password
-  //     ) {
-  //       valid = true;
-  //       username = users.name;
-  //     }
-  //     return true;
-  //   });
-  //   return { isAuth: valid, _username: username };
-  // };
-  const handleSubmit = (event:any) => {
+  const { custodian } =  useParams()
+  console.log(custodian)
+  const handleCustodianPortal = () => {
+    navigate("/custodian");
+    // setAgent(true)
+    
+  };
+  const handleSubmit = (event: any) => {
     event.preventDefault();
     //   fetch('http://localhost:9000/login', {
     //     method: 'POST',
@@ -83,11 +70,31 @@ export const SignIn = () => {
                   className: "pass_class",
                   type: "password",
                   name: "password",
-                  description: "enter password"
+                  description: "enter password",
+                }}
+                handleInput={handleChange}    
+              />
+              {
+                portal === 'custodian' ? <DataVault
+                componentInfo={{
+                  className: "orgId_class",
+                  type: "password",
+                  name: "orgID",
+                  description: "enter org ID",
                 }}
                 handleInput={handleChange}
-              />
+              /> : null
+              }
               <button onClick={handleSubmit}> sign in </button>
+              <br />
+              <br />
+              <label>
+                {" "}
+                Are your agent LoginIn{" "}
+                <button onClickCapture={handleCustodianPortal}>
+                  Here
+                </button> ?{" "}
+              </label>
             </div>
           </div>
         </div>

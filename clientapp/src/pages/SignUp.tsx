@@ -7,7 +7,7 @@ import { createUser } from "../global-store/reducers/UserActions";
 import { create } from "../global-store/reducers/crudOperations";
 
 
-export const Register = () => {
+export const SigUpFormPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [user, setUser] = useState(userContract);
@@ -64,7 +64,7 @@ export const Register = () => {
                   description: "enter phone number ",
                   className: "contact_class",
                   type: "text",
-                  name: "contactNumber"
+                  name: "phoneNumber"
                 }}
                 handleInput={handleInput}
               />
