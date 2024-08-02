@@ -13,27 +13,27 @@ export const SignIn = () => {
     name: " ",
     password: " ",
   });
-  const validator = () => {
-    let valid = false;
-    let username = "";
-    const check = JSON.parse(localStorage.getItem("user"));
-    if (!check) {
-      navigate("./errorPage");
-      return valid;
-    }
-    check.map((users) => {
-      if (
-        users.name === loginInput.name &&
-        users.password === loginInput.password
-      ) {
-        valid = true;
-        username = users.name;
-      }
-      return true;
-    });
-    return { isAuth: valid, _username: username };
-  };
-  const handleSubmit = (event) => {
+  // const validator = () => {
+  //   let valid = false;
+  //   let username = "";
+  //   const check :  = JSON.parse(localStorage.getItem("user"));
+  //   if (!check) {
+  //     navigate("./errorPage");
+  //     return valid;
+  //   }
+  //   check.map((users:any) => {
+  //     if (
+  //       users.name === loginInput.name &&
+  //       users.password === loginInput.password
+  //     ) {
+  //       valid = true;
+  //       username = users.name;
+  //     }
+  //     return true;
+  //   });
+  //   return { isAuth: valid, _username: username };
+  // };
+  const handleSubmit = (event:any) => {
     event.preventDefault();
     //   fetch('http://localhost:9000/login', {
     //     method: 'POST',
@@ -54,7 +54,7 @@ export const SignIn = () => {
     //     navigate("/errorPage");
     //   }
   };
-  const handleChange = (event) => {
+  const handleChange = (event:any) => {
     setInput({ ...loginInput, [event.target.name]: event.target.value });
   };
   return (
@@ -76,6 +76,7 @@ export const SignIn = () => {
                   name: "username",
                   description: "enter name",
                 }}
+                handleInput={handleChange}
               />
               <DataVault
                 componentInfo={{
@@ -84,7 +85,7 @@ export const SignIn = () => {
                   name: "password",
                   description: "enter password"
                 }}
-            
+                handleInput={handleChange}
               />
               <button onClick={handleSubmit}> sign in </button>
             </div>

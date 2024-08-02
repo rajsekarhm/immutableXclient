@@ -4,8 +4,21 @@ import { useRef, useLayoutEffect } from "react";
 import { transition } from "./settings";
 import { Canvas, useThree } from "@react-three/fiber";
 import { useSmoothTransform } from "./use-smooth-transform";
+import { SpringOptions } from "framer-motion";
+import { MeshProps } from "@react-three/fiber";
 
-export function Shapes({ isHover, isPress, mouseX, mouseY }) {
+type ShapeProps = {
+  isHover: boolean;
+  isPress: boolean;
+  mouseX: any;
+  mouseY: any;
+};
+
+const spring: SpringOptions = { stiffness: 600, damping: 30 };
+
+const mouseToLightRotation = (v: number) => (-1 * v) / 140;
+
+export function Shapes({ isHover, isPress, mouseX, mouseY }: ShapeProps) {
   const lightRotateX = useSmoothTransform(mouseY, spring, mouseToLightRotation);
   const lightRotateY = useSmoothTransform(mouseX, spring, mouseToLightRotation);
 
@@ -15,7 +28,7 @@ export function Shapes({ isHover, isPress, mouseX, mouseY }) {
       <MotionConfig transition={transition}>
         <motion.group
           center={[0, 0, 0]}
-          rotation={[lightRotateX, lightRotateY, 0]}
+          rotation={[lightRotateX as any, lightRotateY as any, 0]}
         >
           <Lights />
         </motion.group>
@@ -24,10 +37,9 @@ export function Shapes({ isHover, isPress, mouseX, mouseY }) {
           animate={isHover ? "hover" : "rest"}
           dispose={null}
           variants={{
-            hover: { z: isPress ? -0.9 : 0 }
+            hover: { z: isPress ? -0.9 : 0 },
           }}
-        >
-        </motion.group>
+        ></motion.group>
       </MotionConfig>
     </Canvas>
   );
@@ -65,8 +77,8 @@ export function Cone() {
           z: 1.1,
           x: -1.5,
           rotateX: -0.2,
-          rotateZ: 0.4
-        }
+          rotateZ: 0.4,
+        },
       }}
     >
       <coneGeometry args={[0.3, 0.6, 20]} />
@@ -84,8 +96,8 @@ export function Torus() {
         hover: {
           y: 0.5,
           z: 2,
-          rotateY: -0.2
-        }
+          rotateY: -0.2,
+        },
       }}
     >
       <torusGeometry args={[0.2, 0.1, 10, 50]} />
@@ -104,8 +116,8 @@ export function Icosahedron() {
           x: 1.8,
           z: 0.6,
           y: 0.6,
-          rotateZ: -0.5
-        }
+          rotateZ: -0.5,
+        },
       }}
     >
       <icosahedronGeometry args={[0.7, 0]} />
@@ -118,16 +130,21 @@ export function Material() {
   return <meshPhongMaterial color="#fff" specular="#61dafb" shininess={10} />;
 }
 
-// Adapted from https://github.com/pmndrs/drei/blob/master/src/core/PerspectiveCamera.tsx
-function Camera({ mouseX, mouseY, ...props }) {
-  const cameraX = useSmoothTransform(mouseX, spring, (x) => x / 350);
-  const cameraY = useSmoothTransform(mouseY, spring, (y) => (-1 * y) / 350);
+type CameraProps = {
+  mouseX: any;
+  mouseY: any;
+  [key: string]: any;
+};
+
+function Camera({ mouseX, mouseY, ...props }: CameraProps) {
+  const cameraX = useSmoothTransform(mouseX, spring, (x: number) => x / 350);
+  const cameraY = useSmoothTransform(mouseY, spring, (y: number) => (-1 * y) / 350);
 
   const set = useThree(({ set }) => set);
   const camera = useThree(({ camera }) => camera);
   const size = useThree(({ size }) => size);
   const scene = useThree(({ scene }) => scene);
-  const cameraRef = useRef();
+  const cameraRef = useRef<any>();
 
   useLayoutEffect(() => {
     const { current: cam } = cameraRef;
@@ -153,11 +170,7 @@ function Camera({ mouseX, mouseY, ...props }) {
     <motion.perspectiveCamera
       ref={cameraRef}
       fov={90}
-      position={[cameraX, cameraY, 3.8]}
+      position={[cameraX as any, cameraY as any, 3.8]}
     />
   );
 }
-
-const spring = { stiffness: 600, damping: 30 };
-
-const mouseToLightRotation = (v) => (-1 * v) / 140;

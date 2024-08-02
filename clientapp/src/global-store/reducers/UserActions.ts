@@ -11,5 +11,5 @@ export const userActions = createSlice({
   },
 });
 
-export const { createUser, validateInputs } = userActions.actions;
+export const { createUser } = userActions.actions;
 export default userActions.reducer;

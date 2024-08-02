@@ -11,13 +11,13 @@ export const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [user, setUser] = useState(userContract);
-  const handleSubmit = (event) => {
+  const handleSubmit = (event:any) => {
     event.preventDefault();
     dispatch(create(user));
     navigate(`/profile/${user.name}`)
   };
 
-  const handleInput = (event) => {
+  const handleInput = (event:any) => {
     const { name, value } = event.target;
     dispatch(createUser({ ...user, [name]: value }));
     setUser({ ...user, [name]: value });
