@@ -84,7 +84,7 @@ export function Home() {
           variants={{ hover: { scale: 0.85 }, press: { scale: 1.1 } }}
           className="label"
         >
-          Vertex Digital Assets
+          ImmutableX Digital Assets
         </motion.div>
       </motion.button>
     </MotionConfig>
