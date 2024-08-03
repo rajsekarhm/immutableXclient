@@ -1,4 +1,24 @@
-export const userContract = {
+type requiredType = {
+    email:boolean,
+    name:boolean,
+    password:boolean
+}
+
+export interface userContractType  {
+    name:string,
+    email:string,
+    phoneNumber:number | any,
+    password:string | any,
+    location:string | any,
+    governmentId:number | any,
+    edition:string,
+    required:requiredType ,
+    isAgent:boolean,
+    AgentId:number |  any,
+    isAuthForBuyAndSell:string
+}
+
+export const userContract : userContractType = {
     name:'',
     email:'',
     phoneNumber:null,

@@ -1,13 +1,13 @@
 class LocalStorage{ 
-  storeInStorage(storeKey: { toString: () => string },storeData: any){
-    localStorage.setItem(storeKey.toString(),JSON.stringify(storeData))
+  storeInStorage(storeKey:string,storeData: JSON):void{
+    localStorage.setItem(storeKey,JSON.stringify(storeData))
   }
 
-  getFromStorage(storeKey: string){
+  getFromStorage(storeKey: string):Object{
     return JSON.parse(localStorage.getItem(storeKey) || "[]")
   }
 
-  deleteFromStorage(storeKey: string){
+  deleteFromStorage(storeKey: string):void{
      localStorage.removeItem(storeKey)
   }
 }
