@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Avatar } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -41,7 +41,7 @@ export const SignInPage = (props : any) => {
     //     navigate("/errorPage");
     //   }
   };
-  const handleChange = (event:any) => {
+  const handleChange = (event:ChangeEvent<HTMLInputElement>) => {
     setInput({ ...loginInput, [event.target.name]: event.target.value });
   };
   return (

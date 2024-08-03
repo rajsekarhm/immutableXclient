@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { userContract } from "../global-store/types/stateType/UserType";
 import { createUser } from "../global-store/reducers/UserActions";
 import { create } from "../global-store/reducers/crudOperations";
-
+import { ChangeEvent } from 'react'
 
 export const SigUpFormPage = () => {
   const navigate = useNavigate();
@@ -17,8 +17,8 @@ export const SigUpFormPage = () => {
     navigate(`/profile/${user.name}`)
   };
 
-  const handleInput = (event:any) => {
-    const { name, value } = event.target;
+  const handleInput = (event:ChangeEvent<HTMLInputElement>) => {
+    const { name, value }   = event.target;
     dispatch(createUser({ ...user, [name]: value }));
     setUser({ ...user, [name]: value });
   };

@@ -1,8 +1,15 @@
+type consoleType = {
+  success: Array<string>,
+failure: Array<string>,
+info: Array<string>
+}
+type loggerType = "success" | "failure" | 'info'
+
 class LoggerImpl {
   SUCCESS_TYPE: string;
   FAILURE_TYPE: string;
   INFO_TYPE: string;
-  colors: any;
+  colors: consoleType;
   consoleLogger: Console;
   constructor() {
     this.SUCCESS_TYPE = "success";
@@ -16,12 +23,12 @@ class LoggerImpl {
     this.consoleLogger = console;
   }
 
-  log(type: string | number,message: any){
-    const color : any =  this.colors[type]
+  log(type: loggerType,message: string):void{
+    const color : Array<string> =  this.colors[type]
     this.consoleLogger.log(`${color[0]}${message}${color[1]}`)
   }
 
-  emit(){
+  emit():void{
     // push to client kafka
   }
 }
