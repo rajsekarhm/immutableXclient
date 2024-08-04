@@ -12,8 +12,11 @@ export const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/account/users" element={<SigUpFormPage />} />
-          <Route path="/signin" element={<SignInPage portal={null} />} />
-          <Route path="/custodian" element={<SignInPage portal={'custodian'} />} />
+          <Route path="/signin" element={<SignInPage portal={"user"} />} />
+          <Route
+            path="/custodian"
+            element={<SignInPage portal={"custodian"} />}
+          />
           <Route path="/profile/:username" element={<UserProfiles />} />
           <Route path="/marketplace" element={<MarketPlace />} />
           <Route path="/errorpage" element={<ErrorPage />} />
