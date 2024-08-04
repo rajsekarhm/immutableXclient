@@ -3,8 +3,10 @@ import { Suspense, useState } from "react";
 import { motion, MotionConfig, useMotionValue } from "framer-motion";
 import { Shapes } from "./Shapes";
 import { transition } from "./settings";
-import useMeasure from "react-use-measure";
-const buttonStyle = {
+import useMeasure, { RectReadOnly } from "react-use-measure";
+// import { Properties as CSSProperties } from 'cs';
+
+const buttonStyle: any = {
   '--purple': '#db07d1',
   '--pink': '#f2056f',
   '--blue': '#61dafb',
@@ -28,8 +30,8 @@ const buttonStyle = {
   alignItems: 'center'
 };
 
-export  function Home() {
-  const [ref, bounds] = useMeasure({ scroll: false });
+export function Home() {
+  const [ref, bounds, remeasure] = useMeasure({ scroll: false });
   const [isHover, setIsHover] = useState(false);
   const [isPress, setIsPress] = useState(false);
   const mouseX = useMotionValue(0);
@@ -43,7 +45,7 @@ export  function Home() {
   return (
     <MotionConfig transition={transition}>
       <motion.button
-        style={buttonStyle}
+        style={buttonStyle as React.CSSProperties}
         ref={ref}
         initial={false}
         animate={isHover ? "hover" : "rest"}
@@ -64,7 +66,7 @@ export  function Home() {
         onTapStart={() => setIsPress(true)}
         onTap={() => setIsPress(false)}
         onTapCancel={() => setIsPress(false)}
-        onPointerMove={(e) => {
+        onPointerMove={(e: React.PointerEvent<HTMLButtonElement>) => {
           mouseX.set(e.clientX - bounds.x - bounds.width / 2);
           mouseY.set(e.clientY - bounds.y - bounds.height / 2);
         }}
@@ -76,13 +78,13 @@ export  function Home() {
             hover: { opacity: 1 }
           }}
         >
-          <Shapes  isHover={isHover} isPress={isPress} mouseX={mouseX}mouseY={mouseY}/>
+          <Shapes isHover={isHover} isPress={isPress} mouseX={mouseX} mouseY={mouseY} />
         </motion.div>
         <motion.div
           variants={{ hover: { scale: 0.85 }, press: { scale: 1.1 } }}
           className="label"
         >
-          Vertex Digital Assets
+          ImmutableX Digital Assets
         </motion.div>
       </motion.button>
     </MotionConfig>

@@ -29,7 +29,9 @@ const CloseButton = styled.button`
   cursor: pointer;
 `;
 
-const Popup = ({ isOpen, onClose, children }) => {
+type popupType =  {isOpen:any, onClose: any, children: any }
+
+const Popup = ({ isOpen, onClose, children }:popupType) => {
   const handleClose = () => {
     /** walkthrough solution */
     window.location.reload()  // need to refactor
