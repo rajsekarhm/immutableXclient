@@ -61,29 +61,38 @@ export const SignInPage = (props: any) => {
               </Avatar>
               <DataVault
                 componentInfo={{
+                  defaultValue: undefined,
                   className: "name_class",
                   type: "name",
                   name: "username",
                   description: "enter name",
+                  pattern: "",
+                  maxlength: 10,
                 }}
                 handleInput={handleChange}
               />
               <DataVault
                 componentInfo={{
+                  defaultValue: undefined,
                   className: "pass_class",
                   type: "password",
                   name: "password",
                   description: "enter password",
+                  pattern: "",
+                  maxlength: 10,
                 }}
                 handleInput={handleChange}
               />
               {portal === "custodian" ? (
                 <DataVault
                   componentInfo={{
+                    defaultValue: undefined,
                     className: "orgId_class",
                     type: "password",
                     name: "orgID",
                     description: "enter org ID",
+                    pattern: "",
+                    maxlength: 10,
                   }}
                   handleInput={handleChange}
                 />

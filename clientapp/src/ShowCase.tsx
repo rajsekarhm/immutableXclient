@@ -1,15 +1,18 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Card from "react-bootstrap/Card";
+import Card from "./components/Card";
 export default function MarketPlace() {
-  const navigate = useNavigate();
-  const urlParam = useParams();
-  return(
+  return (
     <>
-    <h1> market page under construction</h1>
+      <Card
+        image="image"
+        title="title"
+        description="description"
+        buttonText="button text"
+        stakeholder="title"
+        price={23}
+        onButtonClick={() => {}}
+      />
     </>
-  )
+  );
 }
-
-
-
