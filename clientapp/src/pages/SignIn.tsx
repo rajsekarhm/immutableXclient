@@ -10,8 +10,8 @@ export const SignInPage = (props: any) => {
   // const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loginInput, setInput] = useState({
-    name: " ",
-    password: " ",
+    username: null,
+    password: null,
   });
   const handleCustodianPortal = () => {
     console.log(portal);
@@ -25,6 +25,13 @@ export const SignInPage = (props: any) => {
   };
   const handleSubmit = (event: any) => {
     event.preventDefault();
+    console.log(loginInput);
+    /**
+     * need to handle with authentication with server and password
+     */
+    if (loginInput.username && loginInput.password) {
+      navigate(`profile/${loginInput.username}`);
+    }
     //   fetch('http://localhost:9000/login', {
     //     method: 'POST',
     //     headers: {

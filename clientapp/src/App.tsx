@@ -11,7 +11,14 @@ export const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/account/users" element={<SigUpFormPage />} />
+          <Route
+            path="/account/users"
+            element={<SigUpFormPage portal={"users"} />}
+          />
+          <Route
+            path="/account/custodian"
+            element={<SigUpFormPage portal={"custodian"} />}
+          />
           <Route path="/signin" element={<SignInPage portal={"user"} />} />
           <Route
             path="/custodian"

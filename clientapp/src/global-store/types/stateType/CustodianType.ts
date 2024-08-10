@@ -1,16 +1,16 @@
-import { userContract, userContractType } from "./UserType"
+import { userContract, userContractType } from "./UserType";
 
 export interface custodianContractType extends userContractType {
-    orgId:string | any,
-    securityId:string | any,
-    Authenticated:string | any,
-    AuthorizationFor:string | any
+  orgId: string | undefined;
+  securityId: string | undefined;
+  Authenticated: string | undefined;
+  AuthorizationFor: string | undefined;
 }
 
-export const custodianContract : custodianContractType = {
-    ...userContract,
-    orgId:null,
-    securityId:null,
-    Authenticated:null,
-    AuthorizationFor:null
-}
+export const custodianContract: custodianContractType = {
+  ...userContract,
+  orgId: undefined,
+  securityId: undefined,
+  Authenticated: undefined,
+  AuthorizationFor: undefined,
+};

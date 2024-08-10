@@ -1,37 +1,39 @@
 type requiredType = {
-    email:boolean,
-    name:boolean,
-    password:boolean
+  email: boolean;
+  firstname: boolean;
+  password: boolean;
+};
+
+export interface userContractType {
+  firstname: string | undefined;
+  lastname: string | undefined;
+  email: string | undefined;
+  phoneNumber: number | null;
+  password: string | null;
+  location: string | null;
+  governmentId: number | null;
+  edition: string;
+  required: requiredType;
+  isAgent: boolean;
+  AgentId: number | null;
+  isAuthForBuyAndSell: string;
 }
 
-export interface userContractType  {
-    name:string,
-    email:string,
-    phoneNumber:number | any,
-    password:string | any,
-    location:string | any,
-    governmentId:number | any,
-    edition:string,
-    required:requiredType ,
-    isAgent:boolean,
-    AgentId:number |  any,
-    isAuthForBuyAndSell:string
-}
-
-export const userContract : userContractType = {
-    name:'',
-    email:'',
-    phoneNumber:null,
-    password:'',
-    location:null,
-    governmentId:null,
-    edition:'free',
-    required: {
-        email:false,
-        name:false,
-        password:false
-    },
-    isAgent:false,
-    AgentId:null,
-    isAuthForBuyAndSell:''
-}
+export const userContract: userContractType = {
+  firstname: undefined,
+  lastname: undefined,
+  email: undefined,
+  phoneNumber: null,
+  password: null,
+  location: null,
+  governmentId: null,
+  edition: "free",
+  required: {
+    email: false,
+    firstname: false,
+    password: false,
+  },
+  isAgent: false,
+  AgentId: null,
+  isAuthForBuyAndSell: "",
+};

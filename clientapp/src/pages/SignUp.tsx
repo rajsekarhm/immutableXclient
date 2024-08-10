@@ -1,23 +1,38 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { DataVault } from "../components/DataVault";
 import { useDispatch, useSelector } from "react-redux";
 import { userContract } from "../global-store/types/stateType/UserType";
 import { createUser } from "../global-store/reducers/UserActions";
 import { create } from "../global-store/reducers/crudOperations";
 import { ChangeEvent } from "react";
+import { custodianContract } from "../global-store/types/stateType/CustodianType";
 
-export const SigUpFormPage = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+export const SigUpFormPage = (props: { portal: string }) => {
+  const { portal } = props;
+  const [isCustodain, setIsCustodian] = useState(false);
   const [user, setUser] = useState(userContract);
-  const handleSubmit = (event: any) => {
-    if (user.name === undefined) {
-      navigate(`/account/users`);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (portal == "custodian") {
+      setIsCustodian(true);
+      setUser(custodianContract);
     }
+  });
+  const dispatch = useDispatch();
+  const handleSubmit = (event: any) => {
     event.preventDefault();
+    console.log(user);
+    if (user.firstname === undefined && user.password === null) {
+      if (user.securityId === undefined) {
+        navigate(`/account/custodian`);
+        return;
+      }
+      navigate(`/account/users`);
+      return;
+    }
     dispatch(create(user));
-    navigate(`/profile/${user.name}`);
+    navigate(`/profile/${user.firstname}`);
   };
 
   const handleInput = (event: ChangeEvent<HTMLInputElement>) => {
@@ -25,7 +40,6 @@ export const SigUpFormPage = () => {
     dispatch(createUser({ ...user, [name]: value }));
     setUser({ ...user, [name]: value });
   };
-
   return (
     <section className="container center register-block">
       <div className="container">
@@ -38,10 +52,22 @@ export const SigUpFormPage = () => {
               <DataVault
                 componentInfo={{
                   defaultValue: undefined,
-                  description: "enter name",
+                  description: "enter first name",
                   className: "username_class",
                   type: "text",
-                  name: "name",
+                  name: "firstname",
+                  pattern: "",
+                  maxlength: 10,
+                }}
+                handleInput={handleInput}
+              />
+              <DataVault
+                componentInfo={{
+                  defaultValue: undefined,
+                  description: "enter last name",
+                  className: "username_class",
+                  type: "text",
+                  name: "lastname",
                   pattern: "",
                   maxlength: 10,
                 }}
@@ -83,6 +109,34 @@ export const SigUpFormPage = () => {
                 }}
                 handleInput={handleInput}
               />
+              {isCustodain ? (
+                <>
+                  <DataVault
+                    componentInfo={{
+                      defaultValue: undefined,
+                      description: "enter orgId",
+                      className: "org_class",
+                      type: "text",
+                      name: "orgId",
+                      pattern: "",
+                      maxlength: 10,
+                    }}
+                    handleInput={handleInput}
+                  />
+                  <DataVault
+                    componentInfo={{
+                      defaultValue: undefined,
+                      description: "enter securityId ",
+                      className: "security_class",
+                      type: "text",
+                      name: "securityId",
+                      pattern: "",
+                      maxlength: 10,
+                    }}
+                    handleInput={handleInput}
+                  />
+                </>
+              ) : null}
               <div className="form-group">
                 <button onClick={handleSubmit}>{"submit"}</button>
               </div>
@@ -90,9 +144,8 @@ export const SigUpFormPage = () => {
               <div className="form-group" style={{ fontFamily: "monospace" }}>
                 Already have account ? Please{" "}
                 <a
-                  href="# "
                   onClick={() => {
-                    navigate("/Login");
+                    navigate("/signin");
                   }}
                   style={{ fontFamily: "monospace" }}
                 >
