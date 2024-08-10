@@ -13,16 +13,16 @@ export const SigUpFormPage = (props: { portal: string }) => {
   const [isCustodain, setIsCustodian] = useState(false);
   const [user, setUser] = useState(userContract);
   const navigate = useNavigate();
+  const [validate, setValidate] = useState(true);
   useEffect(() => {
     if (portal == "custodian") {
       setIsCustodian(true);
       setUser(custodianContract);
     }
-  });
+  }, []);
   const dispatch = useDispatch();
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    console.log(user);
     if (user.firstname === undefined && user.password === null) {
       if (user.securityId === undefined) {
         navigate(`/account/custodian`);
@@ -37,8 +37,8 @@ export const SigUpFormPage = (props: { portal: string }) => {
 
   const handleInput = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    dispatch(createUser({ ...user, [name]: value }));
     setUser({ ...user, [name]: value });
+    dispatch(createUser(user));
   };
   return (
     <section className="container center register-block">
@@ -137,10 +137,19 @@ export const SigUpFormPage = (props: { portal: string }) => {
                   />
                 </>
               ) : null}
-              <div className="form-group">
-                <button onClick={handleSubmit}>{"submit"}</button>
+              <div className="form-submit">
+                {" "}
+                <input
+                  type="checkbox"
+                  onClick={() => setValidate(false)}
+                />{" "}
+                <label> accept terms & condition </label>{" "}
               </div>
-              <div className="clearfix"></div>
+              <div className="form-group">
+                <button onClick={handleSubmit} disabled={validate}>
+                  {"submit"}
+                </button>
+              </div>
               <div className="form-group" style={{ fontFamily: "monospace" }}>
                 Already have account ? Please{" "}
                 <a

@@ -14,7 +14,6 @@ export const SignInPage = (props: any) => {
     password: null,
   });
   const handleCustodianPortal = () => {
-    console.log(portal);
     if (portal == "custodian") {
       navigate("/signin");
       return;

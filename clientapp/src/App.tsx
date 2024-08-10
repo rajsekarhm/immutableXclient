@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Home } from "./Home";
 import { UserProfiles } from "./pages/UserProfile";
 import ErrorPage from "./ErrorPage";
-import MarketPlace from "./ShowCase";
+import MarketPlace from "./pages/ShowCase";
 import { SignInPage } from "./pages/SignIn";
 export const App = () => {
   return (
@@ -26,7 +26,8 @@ export const App = () => {
           />
           <Route path="/profile/:username" element={<UserProfiles />} />
           <Route path="/marketplace" element={<MarketPlace />} />
-          <Route path="/errorpage" element={<ErrorPage />} />
+          <Route path="/gotIssue" element={<ErrorPage />} />
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>
     </div>

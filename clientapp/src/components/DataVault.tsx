@@ -1,19 +1,22 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, MouseEventHandler } from "react";
 
-type dateVaultType = {
-  componentInfo: {
-    defaultValue: string | undefined;
-    className: string;
-    type: string;
-    name: string;
-    description: string;
-    pattern: string;
-    maxlength: number;
-  };
-  handleInput: (event: ChangeEvent<HTMLInputElement>) => void;
+type field_DataValut = {
+  defaultValue?: string | undefined;
+  className: string;
+  type: string;
+  name: string;
+  description: string;
+  pattern?: string;
+  maxlength?: number;
 };
 
-function DataVault({ handleInput, componentInfo }: dateVaultType) {
+type dateVaultType = {
+  componentInfo: field_DataValut;
+  handleInput: (event: ChangeEvent<HTMLInputElement>) => void;
+  handleClick?: MouseEventHandler<HTMLInputElement>;
+};
+
+function DataVault({ handleInput, componentInfo, handleClick }: dateVaultType) {
   const {
     defaultValue,
     className,
@@ -32,7 +35,7 @@ function DataVault({ handleInput, componentInfo }: dateVaultType) {
           type={type}
           className={className}
           name={name}
-          onClick={() => {}}
+          onClick={handleClick}
           onChange={handleInput}
           pattern={pattern}
           maxLength={maxlength}
@@ -42,4 +45,4 @@ function DataVault({ handleInput, componentInfo }: dateVaultType) {
   );
 }
 
-export { DataVault };
+export { DataVault, field_DataValut };

@@ -1,11 +1,15 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 import { userContract, userContractType } from "../types/stateType/UserType";
-var initialState = userContract;
+import {
+  custodianContract,
+  custodianContractType,
+} from "../types/stateType/CustodianType";
+var initialState = custodianContract;
 export const userActions = createSlice({
   name: "user_actions",
   initialState,
   reducers: {
-    createUser: (state:userContractType, action) => {
+    createUser: (state: custodianContractType, action) => {
       Object.assign(state, action.payload);
     },
   },
