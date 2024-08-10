@@ -10,11 +10,10 @@ export const SignInPage = (props: any) => {
   // const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loginInput, setInput] = useState({
-    name: " ",
-    password: " ",
+    username: null,
+    password: null,
   });
   const handleCustodianPortal = () => {
-    console.log(portal);
     if (portal == "custodian") {
       navigate("/signin");
       return;
@@ -25,6 +24,13 @@ export const SignInPage = (props: any) => {
   };
   const handleSubmit = (event: any) => {
     event.preventDefault();
+    console.log(loginInput);
+    /**
+     * need to handle with authentication with server and password
+     */
+    if (loginInput.username && loginInput.password) {
+      navigate(`profile/${loginInput.username}`);
+    }
     //   fetch('http://localhost:9000/login', {
     //     method: 'POST',
     //     headers: {
@@ -61,29 +67,38 @@ export const SignInPage = (props: any) => {
               </Avatar>
               <DataVault
                 componentInfo={{
+                  defaultValue: undefined,
                   className: "name_class",
                   type: "name",
                   name: "username",
                   description: "enter name",
+                  pattern: "",
+                  maxlength: 10,
                 }}
                 handleInput={handleChange}
               />
               <DataVault
                 componentInfo={{
+                  defaultValue: undefined,
                   className: "pass_class",
                   type: "password",
                   name: "password",
                   description: "enter password",
+                  pattern: "",
+                  maxlength: 10,
                 }}
                 handleInput={handleChange}
               />
               {portal === "custodian" ? (
                 <DataVault
                   componentInfo={{
+                    defaultValue: undefined,
                     className: "orgId_class",
                     type: "password",
                     name: "orgID",
                     description: "enter org ID",
+                    pattern: "",
+                    maxlength: 10,
                   }}
                   handleInput={handleChange}
                 />
