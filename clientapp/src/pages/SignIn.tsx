@@ -1,43 +1,36 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Avatar } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { DataVault } from "../components/DataVault";
 import { useDispatch, useSelector } from "react-redux";
 import { create } from "../global-store/reducers/crudOperations";
-export const SignIn = () => {
-  const dispatch = useDispatch();
-  const users = useSelector((state) => state);
+export const SignInPage = (props: any) => {
+  const { portal } = props;
+  // const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { custodian } = useParams();
   const [loginInput, setInput] = useState({
-    name: " ",
-    password: " ",
+    username: null,
+    password: null,
   });
-  const validator = () => {
-    let valid = false;
-    let username = "";
-    const check = JSON.parse(localStorage.getItem("user"));
-    if (!check) {
-      navigate("./errorPage");
-      return valid;
+  const handleCustodianPortal = () => {
+    if (portal == "custodian") {
+      navigate("/signin");
+      return;
     }
-    check.map((users) => {
-      if (
-        users.name === loginInput.name &&
-        users.password === loginInput.password
-      ) {
-        valid = true;
-        username = users.name;
-      }
-      return true;
-    });
-    return { isAuth: valid, _username: username };
+    if (portal == "user") {
+      navigate("/custodian");
+    }
   };
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: any) => {
     event.preventDefault();
-    console.log("clicked");
-    dispatch(create({ name: `user added - ${Math.random()}` }));
+    console.log(loginInput);
+    /**
+     * need to handle with authentication with server and password
+     */
+    if (loginInput.username && loginInput.password) {
+      navigate(`profile/${loginInput.username}`);
+    }
     //   fetch('http://localhost:9000/login', {
     //     method: 'POST',
     //     headers: {
@@ -57,7 +50,7 @@ export const SignIn = () => {
     //     navigate("/errorPage");
     //   }
   };
-  const handleChange = (event) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInput({ ...loginInput, [event.target.name]: event.target.value });
   };
   return (
@@ -74,27 +67,52 @@ export const SignIn = () => {
               </Avatar>
               <DataVault
                 componentInfo={{
+                  defaultValue: undefined,
                   className: "name_class",
                   type: "name",
                   name: "username",
+                  description: "enter name",
+                  pattern: "",
+                  maxlength: 10,
                 }}
-                inputDetails={{
-                  description: "Enter Username",
-                  errorMessage: "username required :(",
-                }}
+                handleInput={handleChange}
               />
               <DataVault
                 componentInfo={{
+                  defaultValue: undefined,
                   className: "pass_class",
                   type: "password",
                   name: "password",
+                  description: "enter password",
+                  pattern: "",
+                  maxlength: 10,
                 }}
-                inputDetails={{
-                  description: "Enter password",
-                  errorMessage: "password required :(",
-                }}
+                handleInput={handleChange}
               />
+              {portal === "custodian" ? (
+                <DataVault
+                  componentInfo={{
+                    defaultValue: undefined,
+                    className: "orgId_class",
+                    type: "password",
+                    name: "orgID",
+                    description: "enter org ID",
+                    pattern: "",
+                    maxlength: 10,
+                  }}
+                  handleInput={handleChange}
+                />
+              ) : null}
               <button onClick={handleSubmit}> sign in </button>
+              <br />
+              <br />
+              <label>
+                {" "}
+                Are your {portal === "custodian" ? "user" : "Agent"} LoginIn
+                <button onClickCapture={handleCustodianPortal}>
+                  Here
+                </button> ?{" "}
+              </label>
             </div>
           </div>
         </div>

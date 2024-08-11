@@ -2,3 +2,4 @@
 /clientapp/node_modules
 /clientapp/migrate-ts-app/node_modules
 /clientapp/src/examples
+/clientapp/dist
