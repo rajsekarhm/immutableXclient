@@ -1,5 +1,5 @@
 import { Kafka, logLevel } from 'kafkajs';
-
+const [topicFrmCLI,...options] =  process.argv[2] 
 const kafka = new Kafka({
   brokers: ['host broker'],
   ssl: true,
