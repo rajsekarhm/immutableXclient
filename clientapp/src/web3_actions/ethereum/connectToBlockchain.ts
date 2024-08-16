@@ -1,14 +1,14 @@
 import { ethers } from "ethers";
-const blockChain = {
-  solana: {},
-  ethereum: {
-    endPoint: "https://shape-sepolia.g.alchemy.com/v2",
-    apiKey: "",
-    abi: {},
-    contractAddress: {},
-  },
-  zkSync: {},
-};
+// const blockChain = {
+//   solana: {},
+//   ethereum: {
+//     endPoint: "https://shape-sepolia.g.alchemy.com/v2",
+//     apiKey: "",
+//     abi: {},
+//     contractAddress: {},
+//   },
+//   zkSync: {},
+// };
 
 async function connectToBlockChain(blockChainUtils, customProvider = false) {
   const { endPoint, apiKey, abi, contractAddress } = blockChainUtils;
