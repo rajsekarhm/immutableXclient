@@ -26,8 +26,8 @@ const blockChainUtils: BlockChainsInfo = {
   ethereum: {
     endPoint: "https://shape-sepolia.g.alchemy.com/v2",
     apiKey: "",
-    abi: ethersutils.abi,
-    contractAddress: ethersutils.contractAddress,
+    abi: ethersutils.abi.asset,
+    contractAddress: ethersutils.contractAddress.asset_contract,
   },
 };
 export default blockChainUtils;
