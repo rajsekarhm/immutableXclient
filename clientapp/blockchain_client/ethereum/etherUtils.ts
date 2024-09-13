@@ -1,5 +1,5 @@
-import asset_abi from "./applicationBinaryInterface/asset_abi";
-import multiSig_abi from "./applicationBinaryInterface/multiSig_abi";
+import asset_abi from "./abi/asset_abi";
+import multiSig_abi from "./abi/multiSig_abi";
 
 const ethersutils: any = {
   abi: { asset: asset_abi, multiSig: multiSig_abi },

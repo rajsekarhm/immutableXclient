@@ -4,7 +4,7 @@ import { motion, MotionConfig, useMotionValue } from "framer-motion";
 import { Shapes } from "./Shapes";
 import { transition } from "./settings";
 import useMeasure, { RectReadOnly } from "react-use-measure";
-import connectThroughWindow from "./web3_actions/ethereum/connectWallet";
+import connectThroughWindow from "../blockchain_client/ethereum/connectWallet";
 
 const buttonStyle: any = {
   "--purple": "#db07d1",
