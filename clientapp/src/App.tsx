@@ -26,7 +26,7 @@ export const App = () => {
           />
           <Route path="/profile/:username" element={<UserProfiles />} />
           <Route path="/marketplace" element={<MarketPlace />} />
-          <Route path="/gotIssue" element={<ErrorPage />} />
+          <Route path="/gotissue" element={<ErrorPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>

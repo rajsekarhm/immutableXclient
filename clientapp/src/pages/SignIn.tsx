@@ -6,6 +6,7 @@ import { DataVault } from "../components/DataVault";
 import { useDispatch, useSelector } from "react-redux";
 import { create } from "../global-store/reducers/crudOperations";
 export const SignInPage = (props: any) => {
+  const [forgot,setForgot] = useState(false)
   const { portal } = props;
   // const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -108,11 +109,17 @@ export const SignInPage = (props: any) => {
               <br />
               <label>
                 {" "}
-                Are your {portal === "custodian" ? "user" : "Agent"} LoginIn
-                <button onClickCapture={handleCustodianPortal}>
+                are you {portal === "custodian" ? "user" : "agent"}   Login Here
+                 <button onClickCapture={handleCustodianPortal}>
                   Here
                 </button> ?{" "}
               </label>
+              <br/>
+              <label>
+                <button onClick={() => setForgot(true)}> forgot password ? </button>
+              </label>
+              <br/>
+              {forgot ? <> <input placeholder="enter email address"></input> <button onClick={() => {}}> submit</button> </>: null} 
             </div>
           </div>
         </div>
