@@ -1,6 +1,8 @@
-import React from "react";
+import { Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material";
 import { cardType } from "../global-store/types/stateType/CardType";
-const Card = ({
+import ButtonComponent from "./Button";
+const CardComponent = ({
+  className,
   image,
   title,
   description,
@@ -8,26 +10,34 @@ const Card = ({
   onButtonClick,
   stakeholder,
   price,
-  onClickInDetials,
+  onClickInDetails,
   detailsButtonText,
 }: cardType) => {
   return (
-    <div className="card">
-      <img src={image} alt={title} className="card-image" />
-      <div className="card-content">
-        <h2 className="card-title">{title}</h2>
-        <p className="card-description">{description}</p>
-        <h3>{stakeholder} </h3>
-        <h3>{price} USD </h3>
-        <button className="card-button" onClick={onClickInDetials}>
-          {detailsButtonText}
-        </button>
-        <button className="card-button" onClick={onButtonClick}>
-          {buttonText}
-        </button>
-      </div>
+    <div className={className}>
+      <Card x={{ maxWidth: 345 }}>
+        <CardMedia image={image} />
+        <CardContent>
+          <Typography>
+             {title}
+          </Typography>
+          <Typography>
+             {stakeholder}
+          </Typography>
+          <Typography>
+             {price}
+          </Typography>
+          <Typography>
+             {description}
+          </Typography>
+        </CardContent>
+        <CardActions>
+        <ButtonComponent description={buttonText} buttonSize="small" onclickEvent={onButtonClick}/>
+        <ButtonComponent description={detailsButtonText} buttonSize="small" onclickEvent={onClickInDetails}/>
+        </CardActions>
+      </Card>
     </div>
   );
 };
 
-export default Card;
+export default CardComponent;

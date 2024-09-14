@@ -8,7 +8,7 @@ const mockCards: cardType[] = [
     buttonText: "View on Blockchain",
     stakeholder: "Blockchain Manager",
     price: 300,
-    onClickInDetials: () => {
+    onClickInDetails: () => {
       console.log("move to blockchain explorer");
     },
     onButtonClick: () => {
@@ -24,7 +24,7 @@ const mockCards: cardType[] = [
     buttonText: "View on Blockchain",
     stakeholder: "Blockchain Manager",
     price: 200,
-    onClickInDetials: () => {
+    onClickInDetails: () => {
       console.log("move to blockchain explorer");
     },
     onButtonClick: () => {
@@ -40,7 +40,7 @@ const mockCards: cardType[] = [
     buttonText: "View on Blockchain",
     stakeholder: "Blockchain Manager",
     price: 500,
-    onClickInDetials: () => {
+    onClickInDetails: () => {
       console.log("move to blockchain explorer");
     },
     onButtonClick: () => {
@@ -56,7 +56,7 @@ const mockCards: cardType[] = [
     buttonText: "View on Blockchain",
     stakeholder: "Blockchain Manager",
     price: 1000,
-    onClickInDetials: () => {
+    onClickInDetails: () => {
       console.log("move to blockchain explorer");
     },
     onButtonClick: () => {

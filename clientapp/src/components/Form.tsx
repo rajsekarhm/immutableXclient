@@ -1,3 +1,5 @@
+import { Stack } from "@mui/material";
+import ButtonComponent from "./Button";
 import { DataVault, field_DataValut } from "./DataVault";
 
 type FormProps = {
@@ -10,8 +12,8 @@ type FormProps = {
 const Form = ({ fields, handleChange, handleClick, onSubmit }: FormProps) => {
   return (
     <div className="form">
-      <form>
-        {fields.map((field, index) => (
+      <Stack>
+      {fields.map((field, index) => (
           <DataVault
             key={index}
             componentInfo={field}
@@ -19,8 +21,8 @@ const Form = ({ fields, handleChange, handleClick, onSubmit }: FormProps) => {
             handleClick={field.type === "file" ? handleClick : undefined}
           />
         ))}
-        <button onClick={onSubmit}>Submit</button>
-      </form>
+      </Stack>
+        <ButtonComponent buttonSize="small" onclickEvent={onSubmit} description="submit"/>
     </div>
   );
 };

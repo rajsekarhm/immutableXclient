@@ -5,6 +5,7 @@ type requiredType = {
 };
 
 export interface userContractType {
+  securityId: undefined;
   firstname: string | undefined;
   lastname: string | undefined;
   email: string | undefined;
