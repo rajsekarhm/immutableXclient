@@ -5,7 +5,7 @@ type requiredType = {
 };
 
 export interface userContractType {
-  securityId: undefined;
+  securityId: string |undefined;
   firstname: string | undefined;
   lastname: string | undefined;
   email: string | undefined;
@@ -37,4 +37,5 @@ export const userContract: userContractType = {
   isAgent: false,
   AgentId: null,
   isAuthForBuyAndSell: "",
+  securityId: undefined
 };

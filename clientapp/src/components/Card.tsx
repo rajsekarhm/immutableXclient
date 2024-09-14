@@ -19,9 +19,11 @@ const CardComponent = ({
         <CardContent>
           {Object.values(card_details).map((element) => {
             return(
-              <Typography variant={element.variant} component={element?.component ? element.component : "div"} sx={element.style}>
+              <div key={element.details}>
+                       <Typography variant={element.variant} component={element?.component ? element.component : "div"} sx={element.style}>
               {element.details}
-      </Typography>
+               </Typography>
+              </div>
             )
           })}
         </CardContent>
