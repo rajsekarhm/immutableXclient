@@ -5,7 +5,7 @@ import CardComponent from "../components/Card";
 export default function MarketPlace() {
   return (
     <>
-      <h1> displaying mock data </h1>
+      <h1> Displaying mock data </h1>
       <div
         className="market-place"
         style={{ overflowY: "auto", maxHeight: "100vh" }}
@@ -14,14 +14,11 @@ export default function MarketPlace() {
           return (
             <CardComponent
               image={cardData.image}
-              title={cardData.title}
-              description={cardData.description}
+              card_details={cardData.card_details}
               buttonText={cardData.buttonText}
-              stakeholder={cardData.stakeholder}
-              price={cardData.price}
               onButtonClick={cardData.onButtonClick}
-              onClickInDetails={cardData.onButtonClick}
               detailsButtonText={cardData.detailsButtonText}
+              onClickInDetails={cardData.onClickInDetails}
             />
           );
         })}

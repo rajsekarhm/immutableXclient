@@ -1,36 +1,42 @@
 type titleType= {
   variant ?: string
-  style : any
+  details: string
+  style ?: any
+  component?:string
 }
 
 type priceType = {
   variant ?: string
-  style : any
+  details: string
+  style ?: any
+  component?:string
 }
 
 type descriptionType = {
   variant ?: string
-  style : any
+  details: string
+  style ?: any
+  component?:string
 }
 
 type stakeholderType = {
   variant ?: string
-  style : any
+  details: string
+  style ?: any
+  component?:string
 }
 
-interface cardDetails {
+interface card_details_type {
   title:titleType
   price:priceType
   stakeHolder:stakeholderType
   description:descriptionType
 }
+
 type cardType = {
   className?:string
   image: string;
-  title: string;
-  description: string;
-  stakeholder: string;
-  price: string | number;
+  card_details:card_details_type
   detailsButtonText?: string;
   onClickInDetails?: () => void | any;
   buttonText: string;
@@ -45,23 +51,3 @@ type assetStatusType = {
 };
 
 export { assetStatusType, cardType };
-
-
-/**
- * {
-    image: "https://via.placeholder.com/150", // Replace with an actual image URL
-    title: "Virtualized Asset",
-    description:
-      "This asset is securely virtualized on the blockchain, ensuring transparency and immutability.",
-    buttonText: "View on Blockchain",
-    stakeholder: "Blockchain Manager",
-    price: 200,
-    onClickInDetails: () => {
-      console.log("move to blockchain explorer");
-    },
-    onButtonClick: () => {
-      console.log("Redirecting to blockchain explorer...");
-    },
-    detailsButtonText: "view Blockchain explorer",
-  }
- */

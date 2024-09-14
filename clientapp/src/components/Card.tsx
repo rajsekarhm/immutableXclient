@@ -4,32 +4,26 @@ import ButtonComponent from "./Button";
 const CardComponent = ({
   className,
   image,
-  title,
-  description,
+  card_details,
   buttonText,
   onButtonClick,
-  stakeholder,
-  price,
   onClickInDetails,
   detailsButtonText,
 }: cardType) => {
   return (
     <div className={className}>
-      <Card x={{ maxWidth: 345 }}>
-        <CardMedia image={image} />
+      <Card x={{ maxWidth: 245 }}>
+        <CardMedia image={image}  component="img"
+        alt="green iguana"
+        height="140"/>
         <CardContent>
-          <Typography>
-             {title}
-          </Typography>
-          <Typography>
-             {stakeholder}
-          </Typography>
-          <Typography>
-             {price}
-          </Typography>
-          <Typography>
-             {description}
-          </Typography>
+          {Object.values(card_details).map((element) => {
+            return(
+              <Typography variant={element.variant} component={element?.component ? element.component : "div"} sx={element.style}>
+              {element.details}
+      </Typography>
+            )
+          })}
         </CardContent>
         <CardActions>
         <ButtonComponent description={buttonText} buttonSize="small" onclickEvent={onButtonClick}/>

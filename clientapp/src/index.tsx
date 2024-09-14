@@ -11,7 +11,7 @@ ReactDOM.render(
   <ErrorBoundary fallback={fallBackComponent()}>
     <Provider store={store}>
       <StrictMode>
-      <Card sx={{ maxWidth: 345 }}>
+      {/* <Card sx={{ maxWidth: 345 }}>
       <CardMedia
         component="img"
         alt="green iguana"
@@ -28,6 +28,9 @@ ReactDOM.render(
         <Typography variant="h7" sx={{ color: 'text.secondary' }}>
                JustinSun
         </Typography>
+        <Typography variant="h7" component="div" sx={{ color: 'text.secondary' }}>
+               700
+        </Typography>
         <Typography variant="p" component="div" sx={{ color: 'text.secondary' }}>
           Lizards are a widespread group of squamate reptiles, with over 6,000
           species, ranging across all continents except Antarctica
@@ -37,8 +40,8 @@ ReactDOM.render(
         <Button size="small">Share</Button>
         <Button size="small">Learn More</Button>
       </CardActions>
-    </Card>
-        {/* <App />  */}
+    </Card> */}
+        <App /> 
       </StrictMode>
     </Provider>
   </ErrorBoundary>,
