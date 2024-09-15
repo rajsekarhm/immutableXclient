@@ -31,7 +31,7 @@ const fieldConfigurations = [
   },
   {
     defaultValue: undefined,
-    description: "upload documents",
+    description: "",
     className: "document_class",
     type: "file",
     name: "document",

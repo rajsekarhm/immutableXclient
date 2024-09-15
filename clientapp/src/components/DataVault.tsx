@@ -1,3 +1,4 @@
+import { Box, TextField } from "@mui/material";
 import { ChangeEvent, MouseEventHandler } from "react";
 
 type field_DataValut = {
@@ -26,21 +27,19 @@ function DataVault({ handleInput, componentInfo, handleClick }: dateVaultType) {
     pattern,
     maxlength,
   } = componentInfo;
+  console.log(handleClick)
   return (
-    <div className="form-group">
-      <label>
-        <h6>{description}:</h6>
-        <input
-          defaultValue={defaultValue}
-          type={type}
-          className={className}
+    <div className={className}>
+      <Box>
+          <TextField 
           name={name}
+          type={type}
+          defaultValue={defaultValue}
+          id="outlined-required"
+          label={description}
           onClick={handleClick}
-          onChange={handleInput}
-          pattern={pattern}
-          maxLength={maxlength}
-        />
-      </label>
+          onChange={handleInput} />
+        </Box>
     </div>
   );
 }
