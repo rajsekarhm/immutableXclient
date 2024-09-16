@@ -10,13 +10,10 @@ import ButtonComponent from "./Button";
 const CardComponent = ({
   className,
   image,
-  title,
-  description,
+  card_details,
   buttonText,
   onButtonClick,
-  stakeholder,
-  price,
-  onClickInDetials,
+  onClickInDetails,
   detailsButtonText,
 }: cardType) => {
   return (
@@ -60,4 +57,4 @@ const CardComponent = ({
   );
 };
 
-export default Card;
+export default CardComponent;

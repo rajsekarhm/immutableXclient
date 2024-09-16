@@ -51,6 +51,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
               Enter your credentials to create ..
             </h2>
             <form className="register-form" action="">
+              {/* <Stack> */}
               <DataVault
                 componentInfo={{
                   defaultValue: undefined,
@@ -139,6 +140,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
                   />
                 </>
               ) : null}
+              {/* </Stack> */}
               <div className="form-submit">
                 {" "}
                 <input
