@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Form from "../components/Form";
-import { AssetDetailsContract } from "../global-store/types/stateType/AssestDetailsType";
+import { AssetDetailsContract } from "../global-store/types/state_types/AssestDetailsType";
 
 const fieldConfigurations = [
   {

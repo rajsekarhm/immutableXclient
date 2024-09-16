@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { DataVault } from "../components/DataVault";
 import { useDispatch, useSelector } from "react-redux";
-import { userContract } from "../global-store/types/stateType/UserType";
+import { userContract } from "../global-store/types/state_types/UserType";
 import { createUser } from "../global-store/reducers/UserActions";
-import { create } from "../global-store/reducers/crudOperations";
+import { create } from "../global-store/reducers/CrudOperations";
 import { ChangeEvent } from "react";
-import { custodianContract } from "../global-store/types/stateType/CustodianType";
+import { custodianContract } from "../global-store/types/state_types/CustodianType";
+import ButtonComponent from "../components/Button";
+import { Stack } from "@mui/material";
 
 export const SigUpFormPage = (props: { portal: string }) => {
   const { portal } = props;
@@ -146,9 +148,12 @@ export const SigUpFormPage = (props: { portal: string }) => {
                 <label> accept terms & condition </label>{" "}
               </div>
               <div className="form-group">
-                <button onClick={handleSubmit} disabled={validate}>
-                  {"submit"}
-                </button>
+                <ButtonComponent
+                  description="submit"
+                  onclickEvent={handleSubmit}
+                  buttonSize="small"
+                  isDisabled={validate}
+                />
               </div>
               <div className="form-group" style={{ fontFamily: "monospace" }}>
                 Already have account ? Please{" "}

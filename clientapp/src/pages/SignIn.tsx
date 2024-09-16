@@ -4,9 +4,10 @@ import { Avatar } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { DataVault } from "../components/DataVault";
 import { useDispatch, useSelector } from "react-redux";
-import { create } from "../global-store/reducers/crudOperations";
+import { create } from "../global-store/reducers/CrudOperations";
+import ButtonComponent from "../components/Button";
 export const SignInPage = (props: any) => {
-  const [forgot,setForgot] = useState(false)
+  const [forgot, setForgot] = useState(false);
   const { portal } = props;
   // const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -104,22 +105,41 @@ export const SignInPage = (props: any) => {
                   handleInput={handleChange}
                 />
               ) : null}
-              <button onClick={handleSubmit}> sign in </button>
+              <ButtonComponent
+                description="sign in"
+                onclickEvent={handleSubmit}
+                buttonSize="small"
+              />
               <br />
               <br />
               <label>
                 {" "}
-                are you {portal === "custodian" ? "user" : "agent"}   Login Here
-                 <button onClickCapture={handleCustodianPortal}>
-                  Here
-                </button> ?{" "}
+                are you {portal === "custodian" ? "user" : "agent"} Login Here
+                <ButtonComponent
+                  description="Here"
+                  onclickEvent={handleCustodianPortal}
+                  buttonSize="small"
+                />
               </label>
-              <br/>
+              <br />
               <label>
-                <button onClick={() => setForgot(true)}> forgot password ? </button>
+                <button onClick={() => setForgot(true)}>
+                  {" "}
+                  forgot password ?{" "}
+                </button>
               </label>
-              <br/>
-              {forgot ? <> <input placeholder="enter email address"></input> <button onClick={() => {}}> submit</button> </>: null} 
+              <br />
+              {forgot ? (
+                <>
+                  {" "}
+                  <input placeholder="enter email address"></input>{" "}
+                  <ButtonComponent
+                    description="Submit"
+                    onclickEvent={() => {}}
+                    buttonSize="small"
+                  />{" "}
+                </>
+              ) : null}
             </div>
           </div>
         </div>

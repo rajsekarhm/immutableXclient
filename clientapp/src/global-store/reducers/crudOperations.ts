@@ -1,5 +1,5 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
-import { browserStorage } from "../../browserUtils/storage";
+import { browserStorage } from "../../browser_utils/Storage";
 
 
 interface ICrudOperationsType {
