@@ -1,9 +1,9 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
-import { userContract, userContractType } from "../types/stateType/UserType";
+import { userContract, userContractType } from "../types/state_types/UserType";
 import {
   custodianContract,
   custodianContractType,
-} from "../types/stateType/CustodianType";
+} from "../types/state_types/CustodianType";
 var initialState = custodianContract;
 export const userActions = createSlice({
   name: "user_actions",

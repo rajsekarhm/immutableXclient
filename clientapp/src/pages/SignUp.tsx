@@ -2,11 +2,10 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { DataVault } from "../components/DataVault";
 import { useDispatch, useSelector } from "react-redux";
-import { userContract } from "../global-store/types/stateType/UserType";
-import { createUser } from "../global-store/reducers/UserActions";
-import { create } from "../global-store/reducers/crudOperations";
+import { userContract } from "../global-store/types/state_types/UserType";
+import { create } from "../global-store/reducers/CrudOperations";
 import { ChangeEvent } from "react";
-import { custodianContract } from "../global-store/types/stateType/CustodianType";
+import { custodianContract } from "../global-store/types/state_types/CustodianType";
 import ButtonComponent from "../components/Button";
 import { Stack } from "@mui/material";
 
@@ -40,7 +39,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
   const handleInput = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setUser({ ...user, [name]: value });
-    dispatch(createUser(user));
+    //  dispatch(createUser(user));
   };
   return (
     <section className="container center register-block">
@@ -112,6 +111,18 @@ export const SigUpFormPage = (props: { portal: string }) => {
                 }}
                 handleInput={handleInput}
               />
+               <DataVault
+                componentInfo={{
+                  defaultValue: undefined,
+                  description: "enter government Id",
+                  className: "governmentId_class",
+                  type: "text",
+                  name: "governmentId",
+                  pattern: "",
+                  maxlength: 10,
+                }}
+                handleInput={handleInput}
+              />
               {isCustodain ? (
                 <>
                   <DataVault
@@ -150,7 +161,12 @@ export const SigUpFormPage = (props: { portal: string }) => {
                 <label> accept terms & condition </label>{" "}
               </div>
               <div className="form-group">
-               <ButtonComponent description="submit" onclickEvent={handleSubmit} buttonSize="small" isDisabled={validate} />
+                <ButtonComponent
+                  description="submit"
+                  onclickEvent={handleSubmit}
+                  buttonSize="small"
+                  isDisabled={validate}
+                />
               </div>
               <div className="form-group" style={{ fontFamily: "monospace" }}>
                 Already have account ? Please{" "}
