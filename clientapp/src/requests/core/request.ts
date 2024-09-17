@@ -1,21 +1,24 @@
 import http from "http";
-function requestAPI(apiEndPoint: any, body?: any, header?: any) {
-  return new Promise((resolve, reject) => {
-    const _request = http.request(apiEndPoint, body, (req) => {
-      var result = "";
-      req.on("data", (data: string) => {
-        result += data;
-      });
-      req.on("end", (result: any) => {
-        resolve(result);
-      });
+async function requestAPI(options: any, body?: any, header?: any) {
+return await new Promise((resolve,reject) => {
+  var req =  http.request(options, function (res) {
+    var chunks : Array<any> = [];
+  
+    res.on("data", function (chunk) {
+      chunks.push(chunk);
     });
-    _request.on("error", (error) => {
+  
+    res.on("end", function (_chunk:any) {
+      var body = Buffer.concat(chunks);
+    });
+  
+    res.on("error", function (error) {
       reject(error);
     });
-
-    _request.end();
   });
+  req.write(body);
+  req.end();  
+})
 }
 
 export { requestAPI };

@@ -26,7 +26,6 @@ export const SignInPage = (props: any) => {
   };
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    console.log(loginInput);
     /**
      * need to handle with authentication with server and password
      */

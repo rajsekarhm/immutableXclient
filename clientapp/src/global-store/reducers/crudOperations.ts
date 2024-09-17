@@ -1,7 +1,6 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 import { browserStorage } from "../../browser_utils/Storage";
 
-
 interface ICrudOperationsType {
   [key:string]:string | number
 }
@@ -16,11 +15,10 @@ export const crud_operations = createSlice({
   initialState ,
   reducers: {
     create: (_state:ICrudOperationsType, action:actionType) => {
-      console.log(action.payload.name,action.payload)
-      browserStorage.storeInStorage(action.payload.name,action.payload)
-    },
+      const {firstname} = action.payload
+      browserStorage.storeInStorage(firstname.toString(),JSON.stringify(action.payload))
+        },
     get: (_state,action:actionType) => {
-      console.log(action.payload)
     },
     update: (state, action:actionType) => {
     },

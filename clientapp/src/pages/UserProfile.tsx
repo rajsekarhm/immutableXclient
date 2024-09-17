@@ -3,6 +3,10 @@ import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Form from "../components/Form";
 import { AssetDetailsContract } from "../global-store/types/state_types/AssestDetailsType";
+import PrimarySearchAppBar from "../components/AppBar";
+import { browserStorage } from "../browser_utils/Storage";
+import BioCard from "../components/ProfileCard";
+import ProfileCard from "../components/ProfileCard";
 
 const fieldConfigurations = [
   {
@@ -40,10 +44,11 @@ const fieldConfigurations = [
 ];
 
 export const UserProfiles = () => {
-  const userProfile = useSelector((state) => state.userActions);
+  const {username} = useParams();
+  const [userProfile,setUserProfile] = useState(JSON.parse(browserStorage.getFromStorage(username.toString())));
+  console.log(userProfile)
   const navigate = useNavigate();
   const [assetsDetails, setAssetsDetails] = useState(AssetDetailsContract);
-  const userId = useParams();
   const [reviewStatus, setReviewStatus] = useState(false);
   const handleChange = (event: any) => {
     const { name, value, type, files } = event.target;
@@ -73,6 +78,7 @@ export const UserProfiles = () => {
   return (
     <>
       <div className="asset-form">
+        <PrimarySearchAppBar/>
         <Form
           fields={fieldConfigurations}
           handleChange={handleChange}
@@ -81,28 +87,35 @@ export const UserProfiles = () => {
         />
       </div>
       {reviewStatus ? <h2> asset under review process</h2> : null}
-      <div className="profile">
-        <label>
-          <span>{userProfile.name}</span>
-          <br />
-        </label>
-        <label>
-          <span>{userProfile.email}</span>
-          <br />
-        </label>
-        <label>
-          <span>{userProfile.contactNumber}</span>
-          <br />
-        </label>
-        <label>
-          <span>{userProfile.edition}</span>
-          <br />
-        </label>
-        <label>
-          <span>{userProfile.location}</span>
-          <br />
-        </label>
-      </div>
+      <ProfileCard card_details ={{
+      firstName: {
+        variant: "h5",
+        details: userProfile.firstname,
+        component: "div",
+      },
+      email: {
+        variant: "h7",
+        details: userProfile.email,
+        component: "div",
+        style: { color: "text.secondary" },
+      },
+      phoneNumber: {
+        variant: "p",
+        details:userProfile.phoneNumber,
+        component: "div",
+        style: { color: "text.secondary" },
+      },
+      governmentId: {
+        variant: "h7",
+        details: userProfile.governmentId,
+        component: "div",
+        style: { color: "text.secondary" },
+      }
+
+  }}
+  buttonText={"ok"}
+  onButtonClick={()=>{}}
+  />
     </>
   );
 };

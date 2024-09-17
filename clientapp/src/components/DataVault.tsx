@@ -27,7 +27,6 @@ function DataVault({ handleInput, componentInfo, handleClick }: dateVaultType) {
     pattern,
     maxlength,
   } = componentInfo;
-  console.log(handleClick)
   return (
     <div className={className}>
       <Box>
@@ -37,7 +36,7 @@ function DataVault({ handleInput, componentInfo, handleClick }: dateVaultType) {
           defaultValue={defaultValue}
           id="outlined-required"
           label={description}
-          onClick={handleClick}
+          onClick={handleClick ? handleClick : () => {}}
           onChange={handleInput} />
         </Box>
     </div>

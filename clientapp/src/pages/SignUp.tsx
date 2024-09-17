@@ -3,7 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { DataVault } from "../components/DataVault";
 import { useDispatch, useSelector } from "react-redux";
 import { userContract } from "../global-store/types/state_types/UserType";
-import { createUser } from "../global-store/reducers/UserActions";
 import { create } from "../global-store/reducers/CrudOperations";
 import { ChangeEvent } from "react";
 import { custodianContract } from "../global-store/types/state_types/CustodianType";
@@ -40,7 +39,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
   const handleInput = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setUser({ ...user, [name]: value });
-    dispatch(createUser(user));
+    //  dispatch(createUser(user));
   };
   return (
     <section className="container center register-block">
@@ -107,6 +106,18 @@ export const SigUpFormPage = (props: { portal: string }) => {
                   className: "contact_class",
                   type: "text",
                   name: "phoneNumber",
+                  pattern: "",
+                  maxlength: 10,
+                }}
+                handleInput={handleInput}
+              />
+               <DataVault
+                componentInfo={{
+                  defaultValue: undefined,
+                  description: "enter government Id",
+                  className: "governmentId_class",
+                  type: "text",
+                  name: "governmentId",
                   pattern: "",
                   maxlength: 10,
                 }}
