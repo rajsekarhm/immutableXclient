@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Form from "../components/Form";
 import { AssetDetailsContract } from "../global-store/types/state_types/AssestDetailsType";
-import PrimarySearchAppBar from "../components/AppBar";
 import { browserStorage } from "../browser_utils/Storage";
-import BioCard from "../components/ProfileCard";
 import ProfileCard from "../components/ProfileCard";
+import ButtonComponent from "../components/Button";
+import connectThroughWindow from "../../blockchain_client/ethereum/connectWallet";
+
 
 const fieldConfigurations = [
   {
@@ -43,6 +43,8 @@ const fieldConfigurations = [
   },
 ];
 
+
+
 export const UserProfiles = () => {
   const {username} = useParams();
   const [userProfile,setUserProfile] = useState(JSON.parse(browserStorage.getFromStorage(username.toString())));
@@ -77,8 +79,9 @@ export const UserProfiles = () => {
   }, []);
   return (
     <>
+     <ButtonComponent description={"connect wallet"} buttonSize="small" onclickEvent={connectThroughWindow}/>
       <div className="asset-form">
-        <PrimarySearchAppBar/>
+        <h2> Virtualize Asset</h2>
         <Form
           fields={fieldConfigurations}
           handleChange={handleChange}
