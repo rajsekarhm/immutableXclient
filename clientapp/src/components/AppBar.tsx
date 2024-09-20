@@ -66,22 +66,24 @@ export default function PrimarySearchAppBar({actionEvents}:any) {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    console.log('onClick')
+    console.log('handleProfileMenuOpen')
     setAnchorEl(event.currentTarget);
   };
 
   const handleMobileMenuClose = () => {
+    console.log('handleMobileMenuClose')
     setMobileMoreAnchorEl(null);
   };
 
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
-    console.log(location.pathname)
+    console.log(handleMenuClose)
     navigate("/portfolio/raja")
   };
 
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    console.log(handleMobileMenuOpen)
     setMobileMoreAnchorEl(event.currentTarget);
   };
 

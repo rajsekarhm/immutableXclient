@@ -11,7 +11,7 @@ export default function MarketPlace() {
       <h1> Displaying mock data </h1>
       <div
         className="market-place"
-        style={{ overflowY: "auto", maxHeight: "100vh" }}
+        style={{ overflowY: "auto", maxHeight: "100vh"}}
       >
         {mockCard.map((cardData) => {
           return (
@@ -22,6 +22,8 @@ export default function MarketPlace() {
               onButtonClick={cardData.onButtonClick}
               detailsButtonText={cardData.detailsButtonText}
               onClickInDetails={cardData.onClickInDetails}
+              isInputNeed={true}
+              onChangeAction={()=>{console.log('amount needed')}}
             />
           );
         })}

@@ -28,7 +28,7 @@ const mockCards: cardType[] = [
       },
     },
     image: "https://via.placeholder.com/150", // Replace with an actual image URL
-    buttonText: "View on Blockchain",
+    buttonText: "Buy Now",
     detailsButtonText: "view Blockchain explorer",
     onClickInDetails: () => {
       console.log("move to blockchain explorer");
@@ -36,6 +36,7 @@ const mockCards: cardType[] = [
     onButtonClick: () => {
       console.log("Redirecting to blockchain explorer...");
     },
+    isInputNeed:true
   },
   {
     card_details: {
@@ -65,7 +66,7 @@ const mockCards: cardType[] = [
       },
     },
     image: "https://via.placeholder.com/150", // Replace with an actual image URL
-    buttonText: "View on Blockchain",
+    buttonText: "Buy Now",
     detailsButtonText: "view Blockchain explorer",
     onClickInDetails: () => {
       console.log("move to blockchain explorer");
@@ -73,6 +74,7 @@ const mockCards: cardType[] = [
     onButtonClick: () => {
       console.log("Redirecting to blockchain explorer...");
     },
+    isInputNeed:true
   },
   {
     card_details: {
@@ -102,7 +104,7 @@ const mockCards: cardType[] = [
       },
     },
     image: "https://via.placeholder.com/150", // Replace with an actual image URL
-    buttonText: "View on Blockchain",
+    buttonText: "Buy Now",
     detailsButtonText: "view Blockchain explorer",
     onClickInDetails: () => {
       console.log("move to blockchain explorer");
@@ -110,6 +112,7 @@ const mockCards: cardType[] = [
     onButtonClick: () => {
       console.log("Redirecting to blockchain explorer...");
     },
+    isInputNeed:true
   },
   {
     card_details: {
@@ -139,7 +142,7 @@ const mockCards: cardType[] = [
       },
     },
     image: "https://via.placeholder.com/150", // Replace with an actual image URL
-    buttonText: "View on Blockchain",
+    buttonText: "Buy Now",
     detailsButtonText: "view Blockchain explorer",
     onClickInDetails: () => {
       console.log("move to blockchain explorer");
@@ -147,6 +150,7 @@ const mockCards: cardType[] = [
     onButtonClick: () => {
       console.log("Redirecting to blockchain explorer...");
     },
+    isInputNeed:true
   },
 ];
 

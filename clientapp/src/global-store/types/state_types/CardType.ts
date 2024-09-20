@@ -41,6 +41,8 @@ type cardType = {
   onClickInDetails?: () => void | any;
   buttonText: string;
   onButtonClick?: () => void | any;
+  isInputNeed?:boolean;
+  onChangeAction?:() => any
 };
 
 type assetStatusType = {
