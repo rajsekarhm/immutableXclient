@@ -17,11 +17,11 @@ export const SignInPage = (props: any) => {
   });
   const handleCustodianPortal = () => {
     if (portal == "custodian") {
-      navigate("/signin");
+      navigate("/login/users");
       return;
     }
-    if (portal == "user") {
-      navigate("/custodian");
+    if (portal == "users") {
+      navigate("/login/custodian");
     }
   };
   const handleSubmit = (event: any) => {
@@ -57,7 +57,7 @@ export const SignInPage = (props: any) => {
   return (
     <div className="container center mb-5 bg-black">
       <section className="register-block">
-        <div className="container">
+        <div className="login-container" style={{ overflowY: "auto", maxHeight: "100vh"}}>
           <div className="row ">
             <div className="col register-sec">
               <h2 className="text-center" style={{ fontFamily: "monospace" }}>
@@ -72,7 +72,7 @@ export const SignInPage = (props: any) => {
                   className: "name_class",
                   type: "name",
                   name: "username",
-                  description: "enter name",
+                  description: "Enter name",
                   pattern: "",
                   maxlength: 10,
                 }}
@@ -84,7 +84,7 @@ export const SignInPage = (props: any) => {
                   className: "pass_class",
                   type: "password",
                   name: "password",
-                  description: "enter password",
+                  description: "Enter password",
                   pattern: "",
                   maxlength: 10,
                 }}
@@ -97,7 +97,7 @@ export const SignInPage = (props: any) => {
                     className: "orgId_class",
                     type: "password",
                     name: "orgID",
-                    description: "enter org ID",
+                    description: "Enter org ID",
                     pattern: "",
                     maxlength: 10,
                   }}
@@ -113,7 +113,7 @@ export const SignInPage = (props: any) => {
               <br />
               <label>
                 {" "}
-                are you {portal === "custodian" ? "user" : "agent"} Login Here
+                are you {portal === "custodian" ? "users" : "agent"} Login Here
                 <ButtonComponent
                   description="Here"
                   onclickEvent={handleCustodianPortal}
@@ -131,7 +131,7 @@ export const SignInPage = (props: any) => {
               {forgot ? (
                 <>
                   {" "}
-                  <input placeholder="enter email address"></input>{" "}
+                  <input placeholder="Enter email address"></input>{" "}
                   <ButtonComponent
                     description="Submit"
                     onclickEvent={() => {}}

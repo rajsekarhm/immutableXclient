@@ -89,7 +89,7 @@ export const UserProfiles = () => {
           onSubmit={handleSubmit}
         />
       </div>
-      {reviewStatus ? <h2> asset under review process</h2> : null}
+      {reviewStatus ? <h2> Asset under review process</h2> : null}
       <ProfileCard card_details ={{
       firstName: {
         variant: "h5",
