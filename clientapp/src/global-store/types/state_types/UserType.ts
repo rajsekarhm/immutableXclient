@@ -1,3 +1,5 @@
+import { AssetDetailsType } from './AssestDetailsType';
+
 type requiredType = {
   email: boolean;
   firstname: boolean;
@@ -12,13 +14,14 @@ export interface userContractType {
   phoneNumber: number | null;
   password: string | null;
   location: string | null;
-  governmentId: number | null;
+  governmentId: number | boolean;
   edition: string;
-  required: requiredType;
   isAgent: boolean;
-  AgentId: number | null;
+  AgentId: number | boolean;
   isAuthForBuyAndSell: string;
+  assetHolding ?:AssetDetailsType | []
 }
+
 
 export const userContract: userContractType = {
   firstname: undefined,
@@ -27,15 +30,11 @@ export const userContract: userContractType = {
   phoneNumber: null,
   password: null,
   location: null,
-  governmentId: null,
+  governmentId: false,
   edition: "free",
-  required: {
-    email: false,
-    firstname: false,
-    password: false,
-  },
   isAgent: false,
-  AgentId: null,
+  AgentId: false,
   isAuthForBuyAndSell: "",
-  securityId: undefined
+  securityId: undefined,
+  assetHolding:[]
 };
