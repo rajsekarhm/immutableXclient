@@ -26,7 +26,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
     event.preventDefault();
     if (user.firstname === undefined && user.password === null) {
       if (user.securityId === undefined) {
-        navigate(`/account/custodian`);
+        navigate(`/errorPage`);
         return;
       }
       navigate(`/account/users`);
@@ -43,7 +43,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
   };
   return (
     <section className="container center register-block">
-      <div className="container">
+      <div className="register -container"  style={{ overflowY: "auto", maxHeight: "100vh"}}>
         <div className="row ">
           <div className="col register-sec">
             <h2 className="text-center" style={{ fontFamily: "monospace" }}>
@@ -54,7 +54,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
               <DataVault
                 componentInfo={{
                   defaultValue: undefined,
-                  description: "enter first name",
+                  description: "Enter first name",
                   className: "username_class",
                   type: "text",
                   name: "firstname",
@@ -66,7 +66,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
               <DataVault
                 componentInfo={{
                   defaultValue: undefined,
-                  description: "enter last name",
+                  description: "Enter last name",
                   className: "username_class",
                   type: "text",
                   name: "lastname",
@@ -78,7 +78,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
               <DataVault
                 componentInfo={{
                   defaultValue: undefined,
-                  description: "enter password",
+                  description: "Enter password",
                   className: "pass_class",
                   type: "password",
                   name: "password",
@@ -90,7 +90,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
               <DataVault
                 componentInfo={{
                   defaultValue: undefined,
-                  description: "enter mail",
+                  description: "Enter mail",
                   className: "mail_class",
                   type: "text",
                   name: "email",
@@ -102,7 +102,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
               <DataVault
                 componentInfo={{
                   defaultValue: undefined,
-                  description: "enter phone number ",
+                  description: "Enter phone number ",
                   className: "contact_class",
                   type: "text",
                   name: "phoneNumber",
@@ -114,7 +114,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
                <DataVault
                 componentInfo={{
                   defaultValue: undefined,
-                  description: "enter government Id",
+                  description: "Enter government Id",
                   className: "governmentId_class",
                   type: "text",
                   name: "governmentId",
@@ -128,7 +128,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
                   <DataVault
                     componentInfo={{
                       defaultValue: undefined,
-                      description: "enter orgId",
+                      description: "Enter orgId",
                       className: "org_class",
                       type: "text",
                       name: "orgId",
@@ -140,7 +140,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
                   <DataVault
                     componentInfo={{
                       defaultValue: undefined,
-                      description: "enter securityId ",
+                      description: "Enter securityId ",
                       className: "security_class",
                       type: "text",
                       name: "securityId",

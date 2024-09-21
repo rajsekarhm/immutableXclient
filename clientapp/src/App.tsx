@@ -19,7 +19,7 @@ export const App = () => {
             path="/account/custodian"
             element={<SigUpFormPage portal={"custodian"} />}
           />
-          <Route path="/login/users" element={<SignInPage portal={"user"} />} />
+          <Route path="/login/users" element={<SignInPage portal={"users"} />} />
           <Route
             path="/login/custodian"
             element={<SignInPage portal={"custodian"} />}
