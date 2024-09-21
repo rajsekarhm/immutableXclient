@@ -30,11 +30,11 @@ import {
             })}
           </CardContent>
           <CardActions>
-            <ButtonComponent
+           { buttonText ? <ButtonComponent
               description={buttonText}
               buttonSize="small"
               onclickEvent={onButtonClick}
-            />
+            /> :null}
           </CardActions>
         </Card>
       </div>

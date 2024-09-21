@@ -3,10 +3,13 @@ import {
   CardActions,
   CardContent,
   CardMedia,
+  TextField,
   Typography,
 } from "@mui/material";
 import { cardType } from "../global-store/types/state_types/CardType";
 import ButtonComponent from "./Button";
+import { useState } from "react";
+import { DataVault } from "./DataVault";
 const CardComponent = ({
   className,
   image,
@@ -15,7 +18,10 @@ const CardComponent = ({
   onButtonClick,
   onClickInDetails,
   detailsButtonText,
+  isInputNeed,
+  onChangeAction
 }: cardType) => {
+  const [input,setInput] = useState<Number>(0);
   return (
     <div className={className}>
       <Card x={{ maxWidth: 245 }}>
@@ -40,7 +46,21 @@ const CardComponent = ({
             );
           })}
         </CardContent>
+        {isInputNeed?<DataVault
+                    componentInfo={{
+                      defaultValue: undefined,
+                      description: "enter price want bid",
+                      className: "card_input_class",
+                      type: "number",
+                      name: "price",
+                      pattern: "",
+                      maxlength: 10,
+                    }}
+                    handleInput={onChangeAction}
+                  />:null}
+                 <Typography> highest amount bid 0</Typography>
         <CardActions>
+
           <ButtonComponent
             description={buttonText}
             buttonSize="small"
