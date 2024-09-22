@@ -6,6 +6,7 @@ import { browserStorage } from "../browser_utils/Storage";
 import ProfileCard from "../components/ProfileCard";
 import ButtonComponent from "../components/Button";
 import connectThroughWindow from "../../blockchain_client/ethereum/connectWallet";
+import { SizesList } from "../components/ListWidgets";
 
 
 const fieldConfigurations = [
@@ -38,7 +39,7 @@ const fieldConfigurations = [
     description: "",
     className: "document_class",
     type: "file",
-    name: "document",
+    name: "documentUrl",
     maxlength: 10,
   },
 ];
@@ -47,8 +48,7 @@ const fieldConfigurations = [
 
 export const UserProfiles = () => {
   const {username} = useParams();
-  const [userProfile,setUserProfile] = useState(JSON.parse(browserStorage.getFromStorage(username.toString())));
-  console.log(userProfile)
+  const [userProfile,setUserProfile] = useState(browserStorage.getFromStorage(username.toString()));
   const navigate = useNavigate();
   const [assetsDetails, setAssetsDetails] = useState(AssetDetailsContract);
   const [reviewStatus, setReviewStatus] = useState(false);
@@ -62,13 +62,14 @@ export const UserProfiles = () => {
     setAssetsDetails({ ...assetsDetails, [name]: value });
   };
 
-  const handleClick = (event: any) => {};
+  const handleClick = (event: any) => {
+    console.log(assetsDetails)
+  };
   const handleSubmit = (event: any) => {
     event.preventDefault();
+    userProfile.assetHolding.push(assetsDetails)
+    browserStorage.storeInStorage(username.toString(),userProfile)
     setReviewStatus(true);
-    /**
-     * handle asset details and mark as pending
-     */
   };
   useEffect(() => {
     // api call make to validate that user is authenticated
@@ -79,8 +80,8 @@ export const UserProfiles = () => {
   }, []);
   return (
     <>
+          <div className="asset-form" style={{ overflowY: "auto", maxHeight: "100vh"}}>
      <ButtonComponent description={"connect wallet"} buttonSize="small" onclickEvent={connectThroughWindow}/>
-      <div className="asset-form">
         <h2> Virtualize Asset</h2>
         <Form
           fields={fieldConfigurations}
@@ -88,8 +89,7 @@ export const UserProfiles = () => {
           handleClick={handleClick}
           onSubmit={handleSubmit}
         />
-      </div>
-      {reviewStatus ? <h2> Asset under review process</h2> : null}
+      {reviewStatus ? <h2> Asset under review process</h2>  : null}
       <ProfileCard card_details ={{
       firstName: {
         variant: "h5",
@@ -119,6 +119,9 @@ export const UserProfiles = () => {
   buttonText={"undefined"}
   onButtonClick={()=>{}}
   />
+  <SizesList size="ok" listTitle="asset under review" listObject={{"walletAddress":"0x212f916DCfF88AC66883a2175de5BDa52C6bA968","status":"pending","price":"1000","stakeholder":"rajubhai da"}} /> 
+    </div>
     </>
   );
 };
+

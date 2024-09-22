@@ -1,4 +1,4 @@
-interface AssetDetailsType {
+export interface AssetDetailsType {
   walletAddress: string | undefined;
   isValidated: boolean;
   assestType: string | undefined;

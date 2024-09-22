@@ -26,6 +26,12 @@ const mockCards: cardType[] = [
         component: "div",
         style: { color: "text.secondary" },
       },
+      asset_unique_id: {
+        variant: "h7",
+        details: "unique 1",
+        component: "div",
+        style: { color: "text.secondary" },
+      }
     },
     image: "https://via.placeholder.com/150", // Replace with an actual image URL
     buttonText: "Buy Now",
@@ -64,6 +70,12 @@ const mockCards: cardType[] = [
         component: "div",
         style: { color: "text.secondary" },
       },
+      asset_unique_id: {
+        variant: "h7",
+        details: "unique 2",
+        component: "div",
+        style: { color: "text.secondary" },
+      }
     },
     image: "https://via.placeholder.com/150", // Replace with an actual image URL
     buttonText: "Buy Now",
@@ -102,6 +114,12 @@ const mockCards: cardType[] = [
         component: "div",
         style: { color: "text.secondary" },
       },
+      asset_unique_id: {
+        variant: "h7",
+        details: "unique 3",
+        component: "div",
+        style: { color: "text.secondary" },
+      }
     },
     image: "https://via.placeholder.com/150", // Replace with an actual image URL
     buttonText: "Buy Now",
@@ -140,6 +158,12 @@ const mockCards: cardType[] = [
         component: "div",
         style: { color: "text.secondary" },
       },
+      asset_unique_id: {
+        variant: "h7",
+        details: "unique 4",
+        component: "div",
+        style: { color: "text.secondary" },
+      }
     },
     image: "https://via.placeholder.com/150", // Replace with an actual image URL
     buttonText: "Buy Now",

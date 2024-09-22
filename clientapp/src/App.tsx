@@ -7,7 +7,7 @@ import MarketPlace from "./pages/MarketPlace";
 import { SignInPage } from "./pages/SignIn";
 export const App = () => {
   return (
-    <div className="no-css-app" >
+    <div className="no-css-app"  style={{width:'auto'}}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />

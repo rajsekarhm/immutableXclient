@@ -1,9 +1,9 @@
 import { Stack } from "@mui/material";
 import ButtonComponent from "./Button";
-import { DataVault, field_DataValut } from "./DataVault";
+import { DataVault, field_DataVault } from "./DataVault";
 
 type FormProps = {
-  fields: field_DataValut[];
+  fields: field_DataVault[];
   handleChange: (event: any) => void | any;
   handleClick: (event: any) => void | any;
   onSubmit: (event: any) => void | any;

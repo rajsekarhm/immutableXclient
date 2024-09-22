@@ -19,7 +19,8 @@ const CardComponent = ({
   onClickInDetails,
   detailsButtonText,
   isInputNeed,
-  onChangeAction
+  onChangeAction,
+  fieldDetails
 }: cardType) => {
   const [input,setInput] = useState<Number>(0);
   return (
@@ -47,15 +48,7 @@ const CardComponent = ({
           })}
         </CardContent>
         {isInputNeed?<DataVault
-                    componentInfo={{
-                      defaultValue: undefined,
-                      description: "enter price want bid",
-                      className: "card_input_class",
-                      type: "number",
-                      name: "price",
-                      pattern: "",
-                      maxlength: 10,
-                    }}
+                    componentInfo={fieldDetails}
                     handleInput={onChangeAction}
                   />:null}
                  <Typography> highest amount bid 0</Typography>

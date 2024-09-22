@@ -15,7 +15,8 @@ export default function MarketPlace() {
       >
         {mockCard.map((cardData) => {
           return (
-            <CardComponent
+            <div key={cardData.card_details.asset_unique_id.details}>
+              <CardComponent
               image={cardData.image}
               card_details={cardData.card_details}
               buttonText={cardData.buttonText}
@@ -24,7 +25,16 @@ export default function MarketPlace() {
               onClickInDetails={cardData.onClickInDetails}
               isInputNeed={true}
               onChangeAction={()=>{console.log('amount needed')}}
-            />
+              fieldDetails={{
+                defaultValue: undefined,
+                description: "Enter price want bid",
+                className: "card_input_class",
+                type: "number",
+                name: "price",
+                pattern: "",
+                maxlength: 10,
+              }}/>
+            </div>
           );
         })}
       </div>

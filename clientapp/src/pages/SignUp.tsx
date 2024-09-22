@@ -33,7 +33,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
       return;
     }
     dispatch(create(user));
-    navigate(`/profile/${user.firstname}`);
+    navigate(`/portfolio/${user.firstname}`);
   };
 
   const handleInput = (event: ChangeEvent<HTMLInputElement>) => {
