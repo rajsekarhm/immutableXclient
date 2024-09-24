@@ -175,5 +175,9 @@ contract asset {
         // Emit the OwnershipTransferred event
         emit OwnershipTransferred(_asset.owner_address, msg.sender, _asset_address, asset_map[_asset_address].price);
     }
+
+    function getOwnerByAddress(address _asset_address)public view returns(address _owner_address) {
+        return asset_map[_asset_address].owner_address;
+    }
 }
 
