@@ -119,6 +119,8 @@
 pragma solidity >=0.8.2 <0.9.0;
 
 contract asset { 
+
+    
     struct asset_details {
         address asset_address;
         address owner_address;
@@ -152,16 +154,30 @@ contract asset {
     }
 
     // Function to transfer ownership of an asset
-    function transferOwnerShip(address _oldOwner, address _newOwner, address _asset_address) public payable {
-        require(msg.sender == asset_map[_asset_address].owner_address, "Only the owner can transfer ownership");
+    function transferOwnerShip(address _asset_address) public payable {
+    //     if(!(msg.sender == asset_map[_asset_address].owner_address)){
+    //     
+    //     (bool transaction_success,) = _asset.owner_address.call{value:_asset.price}("");
+    //     require(transaction_success,"Transfer Failed");
+    //      asset_map[_asset_address].owner_address = msg.sender;
+    //    }else {
+    //     require(false,"Transfer Failed");
+    //    }
+        asset_details storage _asset = asset_map[_asset_address];
+        require(!(msg.sender == _asset.owner_address), "Only the owner can transfer ownership");
 
-        (bool transaction_success,) = _oldOwner.call{value: asset_map[_asset_address].price}("");
+        (bool transaction_success,) = _asset.owner_address.call{value: _asset.price}("");
         require(transaction_success, "Transfer Failed");
         
         // Update ownership
-        asset_map[_asset_address].owner_address = _newOwner;
+        asset_map[_asset_address].owner_address = msg.sender;
 
         // Emit the OwnershipTransferred event
-        emit OwnershipTransferred(_oldOwner, _newOwner, _asset_address, asset_map[_asset_address].price);
+        emit OwnershipTransferred(_asset.owner_address, msg.sender, _asset_address, asset_map[_asset_address].price);
+    }
+
+    function getOwnerByAddress(address _asset_address)public view returns(address _owner_address) {
+        return asset_map[_asset_address].owner_address;
     }
 }
+
