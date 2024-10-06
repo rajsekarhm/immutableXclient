@@ -1,7 +1,7 @@
 export interface AssetDetailsType {
   walletAddress: string | undefined;
   isValidated: boolean;
-  assestType: string | undefined;
+  assetType: string | undefined;
   documentUrl: string | undefined;
   status: string;
 }
@@ -9,7 +9,7 @@ export interface AssetDetailsType {
 export const AssetDetailsContract: AssetDetailsType = {
   walletAddress: undefined,
   isValidated: false,
-  assestType: undefined,
+  assetType: undefined,
   documentUrl: undefined,
   status: "pending",
 };
