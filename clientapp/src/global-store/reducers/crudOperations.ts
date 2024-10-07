@@ -1,27 +1,28 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
-import { browserStorage } from "../../browser_utils/Storage";
+import { browserStorage } from "../../helpers/Storage";
 
 interface ICrudOperationsType {
-  [key:string]:string | number
+  [key: string]: string | number;
 }
-let initialState : ICrudOperationsType = {} 
+let initialState: ICrudOperationsType = {};
 
 type actionType = {
-  payload:any,
-  type:string
-}
+  payload: any;
+  type: string;
+};
 export const crud_operations = createSlice({
   name: "crud",
-  initialState ,
+  initialState,
   reducers: {
-    create: (_state:ICrudOperationsType, action:actionType) => {
-      const {firstname} = action.payload
-      browserStorage.storeInStorage(firstname.toString(),JSON.stringify(action.payload))
-        },
-    get: (_state,action:actionType) => {
+    create: (_state: ICrudOperationsType, action: actionType) => {
+      const { firstname } = action.payload;
+      browserStorage.storeInStorage(
+        firstname.toString(),
+        JSON.stringify(action.payload),
+      );
     },
-    update: (state, action:actionType) => {
-    },
+    get: (_state, action: actionType) => {},
+    update: (state, action: actionType) => {},
   },
 });
 
