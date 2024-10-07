@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { DataVault } from "../components/DataVault";
 import { useDispatch, useSelector } from "react-redux";
 import { userContract } from "../global-store/types/state_types/UserType";
-import { create } from "../global-store/reducers/crudOperations";
+import { create } from "../global-store/reducers/CrudOperations";
 import { ChangeEvent } from "react";
 import { custodianContract } from "../global-store/types/state_types/CustodianType";
 import ButtonComponent from "../components/Button";
@@ -43,7 +43,10 @@ export const SigUpFormPage = (props: { portal: string }) => {
   };
   return (
     <section className="container center register-block">
-      <div className="register -container"  style={{ overflowY: "auto", maxHeight: "100vh"}}>
+      <div
+        className="register -container"
+        style={{ overflowY: "auto", maxHeight: "100vh" }}
+      >
         <div className="row ">
           <div className="col register-sec">
             <h2 className="text-center" style={{ fontFamily: "monospace" }}>
@@ -111,7 +114,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
                 }}
                 handleInput={handleInput}
               />
-               <DataVault
+              <DataVault
                 componentInfo={{
                   defaultValue: undefined,
                   description: "Enter government Id",

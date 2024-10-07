@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Form from "../components/Form";
 import { AssetDetailsContract } from "../global-store/types/state_types/AssestDetailsType";
-import { browserStorage } from "../browser_utils/Storage";
+import { browserStorage } from "../helpers/Storage";
 import ProfileCard from "../components/ProfileCard";
 import ButtonComponent from "../components/Button";
 import connectThroughWindow from "../../blockchain_client/ethereum/connectWallet";
