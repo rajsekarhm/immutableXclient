@@ -1,12 +1,18 @@
-import { useState } from "react";
-import React from 'react'
+import { useSelector, useDispatch } from 'react-redux';
+import { increment, decrement} from "../../applications/usecases/Reducers";
+
 function InitialSetupPage(){
-  var [count, setCount] = useState(0);
+  const count = useSelector(store => store.math.counter.initial)
+  const dispatch = useDispatch()
   return (
     <div>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+        <h1> Count is {count}</h1>
+        <button onClick={() => dispatch(increment({firstName:"raji"}))}>
+        increment
+        </button>
+        <button onClick={() => dispatch(decrement({firstName:"raji"}))}>
+        decrement
         </button>
       </div>
     </div>
