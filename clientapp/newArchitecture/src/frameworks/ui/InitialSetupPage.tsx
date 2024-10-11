@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { increment, decrement} from "../../applications/usecases/Reducers";
 
 function InitialSetupPage(){
-  const count = useSelector(store => store.math)
+  const count = useSelector(store => store.math.counter.initial)
   const dispatch = useDispatch()
   return (
     <div>

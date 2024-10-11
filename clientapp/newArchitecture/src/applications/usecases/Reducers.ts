@@ -1,24 +1,31 @@
-import { createSlice, nanoid } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import CounterEntities from "../../domains/entities";
+import CounterUseCase from "./CounterUseCase";
 
-let initialState: number = 0;
+// Use initial state from CounterEntities
+let initialState: any = {
+  counter: new CounterEntities(), // Hold the entity instance in the state
+};
 
-export const math_operationss = createSlice({
+export const math_operations = createSlice({
   name: "crud",
   initialState,
   reducers: {
-    increment: (_state = initialState, action) => {
-      console.log(action);
-      return _state + 1;
+    increment: (state, action) => {
+      const usecase = new CounterUseCase(state.counter); // Use the counter from the state
+      usecase.increase(); // Increment the counter
+      return { ...state, counter: state.counter }; // Return updated state
     },
-    decrement: (_state = initialState, action) => {
-      console.log(action);
-      return _state - 1;
+    decrement: (state, action) => {
+      const usecase = new CounterUseCase(state.counter); // Use the counter from the state
+      usecase.decrease(); // Decrement the counter
+      return { ...state, counter: state.counter }; // Return updated state
     },
   },
 });
 
 export { initialState };
 
-export const { increment, decrement } = math_operationss.actions;
+export const { increment, decrement } = math_operations.actions;
 
-export default math_operationss.reducer;
+export default math_operations.reducer;
