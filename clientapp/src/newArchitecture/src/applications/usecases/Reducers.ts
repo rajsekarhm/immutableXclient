@@ -14,6 +14,7 @@ export const math_operations = createSlice({
     increment: (state, action) => {
       const usecase = new CounterUseCase(state.counter); // Use the counter from the state
       usecase.increase(); // Increment the counter
+      console.log(state.counter)
       return { ...state, counter: state.counter }; // Return updated state
     },
     decrement: (state, action) => {
