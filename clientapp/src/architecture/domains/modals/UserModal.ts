@@ -1,17 +1,17 @@
 import  AssetModal  from "./AssetModal";
 
 export default interface UserModal {
-    securityId: string |undefined;
-    firstname: string | undefined;
-    lastname: string | undefined;
-    email: string | undefined;
-    phoneNumber: number | null;
-    password: string | null;
-    location: string | null;
-    governmentId: number | boolean;
+    securityId: string ;
+    firstname: string ;
+    lastname: string ;
+    email: string ;
+    phoneNumber: number ;
+    password: string ;
+    location: string ;
+    governmentId: number ;
     edition: string;
     isAgent: boolean;
-    AgentId: number | boolean;
+    AgentId: number ;
     isAuthForBuyAndSell: string;
-    assetHolding ?: AssetModal | []
+    assetHolding ?: AssetModal 
   }
