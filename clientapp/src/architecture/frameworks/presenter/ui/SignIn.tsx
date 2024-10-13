@@ -2,10 +2,10 @@ import { ChangeEvent, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Avatar } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { DataVault } from "../components/DataVault";
+import { DataVault } from "../../components/DataVault";
 import { useDispatch, useSelector } from "react-redux";
-import { create } from "../global-store/reducers/CrudOperations";
-import ButtonComponent from "../components/Button";
+import { create } from "../../../../global-store/reducers/CrudOperations";
+import ButtonComponent from "../../components/Button";
 export const SignInPage = (props: any) => {
   const [forgot, setForgot] = useState(false);
   const { portal } = props;
@@ -57,7 +57,10 @@ export const SignInPage = (props: any) => {
   return (
     <div className="container center mb-5 bg-black">
       <section className="register-block">
-        <div className="login-container" style={{ overflowY: "auto", maxHeight: "100vh"}}>
+        <div
+          className="login-container"
+          style={{ overflowY: "auto", maxHeight: "100vh" }}
+        >
           <div className="row ">
             <div className="col register-sec">
               <h2 className="text-center" style={{ fontFamily: "monospace" }}>

@@ -1,13 +1,13 @@
-import { SigUpFormPage } from "./pages/SignUp";
+import { SigUpFormPage } from "./architecture/frameworks/presenter/ui/SignUp";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Home } from "./Home";
-import { UserProfiles } from "./pages/UserProfile";
+import { UserProfiles } from "./architecture/frameworks/presenter/ui/UserProfile";
 import ErrorPage from "./ErrorPage";
-import MarketPlace from "./pages/MarketPlace";
-import { SignInPage } from "./pages/SignIn";
+import MarketPlace from "./architecture/frameworks/presenter/ui/MarketPlace";
+import { SignInPage } from "./architecture/frameworks/presenter/ui/SignIn";
 export const App = () => {
   return (
-    <div className="no-css-app"  style={{width:'auto'}}>
+    <div className="no-css-app" style={{ width: "auto" }}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -19,7 +19,10 @@ export const App = () => {
             path="/account/custodian"
             element={<SigUpFormPage portal={"custodian"} />}
           />
-          <Route path="/login/users" element={<SignInPage portal={"users"} />} />
+          <Route
+            path="/login/users"
+            element={<SignInPage portal={"users"} />}
+          />
           <Route
             path="/login/custodian"
             element={<SignInPage portal={"custodian"} />}
