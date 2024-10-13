@@ -5,7 +5,7 @@ import store from "./global-store/store";
 import { ErrorBoundary } from "react-error-boundary";
 import { fallBackComponent } from "./FallBack";
 import { createRoot } from "react-dom/client";
-import { SizesList } from "./components/ListWidgets";
+import { SizesList } from "./architecture/frameworks/components/ListWidgets";
 const container: HTMLElement | any = document.getElementById("root");
 const root = createRoot(container);
 

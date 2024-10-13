@@ -1,4 +1,4 @@
-import { field_DataVault } from "../../../components/DataVault"
+import { field_DataVault } from "../../../architecture/frameworks/components/DataVault"
 
 type titleType= {
   variant ?: string
