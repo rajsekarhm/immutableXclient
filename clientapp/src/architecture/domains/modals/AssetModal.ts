@@ -1,7 +1,7 @@
 export  default interface AssetModal {
-    walletAddress: string | undefined;
+    walletAddress: string ;
     isValidated: boolean;
-    assetType: string | undefined;
-    documentUrl: string | undefined;
+    assetType: string ;
+    documentUrl: string ;
     status: string;
   }
