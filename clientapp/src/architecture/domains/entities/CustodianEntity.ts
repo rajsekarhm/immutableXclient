@@ -106,6 +106,9 @@ class CustodianEntity {
   get AuthorizationFor(): string {
     return this.Custodian.AuthorizationFor;
   }
+  static initialState() { 
+    return new CustodianEntity("","","","",0,"","",0,"",false,0,"","","","")
+  }
 }
 
 

@@ -4,7 +4,7 @@ import { Avatar } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { DataVault } from "../../components/DataVault";
 import { useDispatch, useSelector } from "react-redux";
-import { create } from "../../../../global-store/reducers/CrudOperations";
+import { create } from "../../../../global-store/reducers/crudOperations";
 import ButtonComponent from "../../components/Button";
 export const SignInPage = (props: any) => {
   const [forgot, setForgot] = useState(false);
