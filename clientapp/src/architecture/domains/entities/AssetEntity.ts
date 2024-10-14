@@ -39,6 +39,10 @@ class AssetEntity implements IEntities {
   getStatus() {
     return this.assetEntity.status;
   }
+
+  static initialState() {
+    return new AssetEntity("",false,"","","")
+  }
 }
 
 export default AssetEntity;

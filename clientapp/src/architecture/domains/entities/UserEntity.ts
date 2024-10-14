@@ -88,6 +88,10 @@ class UserEntity implements IEntities {
   getsecurityId() : string {
     return this.User.securityId;
   }
+
+  static initialState() {
+    return new UserEntity("","","","",0,"","",0,"",false,0,"")
+  }
 }
 
 export default UserEntity;
