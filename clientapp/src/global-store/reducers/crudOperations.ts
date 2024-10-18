@@ -16,10 +16,12 @@ export const crud_operations = createSlice({
   reducers: {
     create: (_state: ICrudOperationsType, action: actionType) => {
       const { firstname } = action.payload;
-      browserStorage.storeInStorage(
-        firstname.toString(),
-        JSON.stringify(action.payload),
-      );
+      console.log(firstname)
+      console.log(action.payload)
+      // browserStorage.storeInStorage(
+      //   firstname.toString(),
+      //   JSON.stringify(action.payload),
+      // );
     },
     get: (_state, action: actionType) => {},
     update: (state, action: actionType) => {},

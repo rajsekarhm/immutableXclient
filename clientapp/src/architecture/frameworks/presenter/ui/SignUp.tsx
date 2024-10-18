@@ -3,11 +3,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { DataVault } from "../../components/DataVault";
 import { useDispatch, useSelector } from "react-redux";
 import { userContract } from "../../../../global-store/types/state_types/UserType";
-import { create } from "../../../../global-store/reducers/crudOperations";
 import { ChangeEvent } from "react";
 import { custodianContract } from "../../../../global-store/types/state_types/CustodianType";
 import ButtonComponent from "../../components/Button";
 import { Stack } from "@mui/material";
+import { create } from "../../../applications/actions/UserActions";
 
 export const SigUpFormPage = (props: { portal: string }) => {
   const { portal } = props;
