@@ -6,10 +6,11 @@ class UserAction implements IAction {
     reducer() {
         return createSlice({
               name: "user_actions",
-              initialState:this.UserState,
+              initialState:UserEntity.initialState(),
               reducers: {
                 create: (state: any, action) => {
-                  Object.assign(state, action.payload);
+                  console.log('yes',state)
+                  return {...state,...action.payload} 
                 },
               },
             });

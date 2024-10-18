@@ -7,6 +7,7 @@ import ProfileCard from "../../components/ProfileCard";
 import ButtonComponent from "../../components/Button";
 import connectThroughWindow from "../../../../../blockchain_client/ethereum/connectWallet";
 import { SizesList } from "../../components/ListWidgets";
+import AssetEntity from '../../../domains/entities/AssetEntity';
 
 const fieldConfigurations = [
   {
