@@ -16,6 +16,7 @@ import {
         <Card x={{ maxWidth: 245 }}>
           <CardContent>
             {Object.values(card_details).map((element) => {
+              console.log(element)
               return (
                 <div key={element.details}>
                   <Typography

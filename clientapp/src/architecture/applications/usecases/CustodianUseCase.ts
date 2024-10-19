@@ -1,10 +1,12 @@
 import { CustodianEntity, ICustodianRepository } from "../../domains/Index";
 import AbstractUseCase from "./Interface/AbstractUseCase";
-class CustodianUseCase extends AbstractUseCase {
+class CustodianUseCase implements AbstractUseCase {
   constructor (private repository:ICustodianRepository) { 
-    super()
   }
 
+  execute(_function:any) {
+    throw new Error("Method not implemented.");
+  }
   createCustodian(entity: CustodianEntity) {
     this.repository.createCustodian(entity);
   }

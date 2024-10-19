@@ -1,4 +1,4 @@
-import { cardType } from "./global-store/types/state_types/CardType";
+import { cardType } from "../../../global-store/types/state_types/CardType";
 const mockCards: cardType[] = [
   {
     card_details: {
@@ -31,7 +31,7 @@ const mockCards: cardType[] = [
         details: "unique 1",
         component: "div",
         style: { color: "text.secondary" },
-      }
+      },
     },
     image: "https://via.placeholder.com/150", // Replace with an actual image URL
     buttonText: "Buy Now",
@@ -42,7 +42,7 @@ const mockCards: cardType[] = [
     onButtonClick: () => {
       console.log("Redirecting to blockchain explorer...");
     },
-    isInputNeed:true
+    isInputNeed: true,
   },
   {
     card_details: {
@@ -75,7 +75,7 @@ const mockCards: cardType[] = [
         details: "unique 2",
         component: "div",
         style: { color: "text.secondary" },
-      }
+      },
     },
     image: "https://via.placeholder.com/150", // Replace with an actual image URL
     buttonText: "Buy Now",
@@ -86,7 +86,7 @@ const mockCards: cardType[] = [
     onButtonClick: () => {
       console.log("Redirecting to blockchain explorer...");
     },
-    isInputNeed:true
+    isInputNeed: true,
   },
   {
     card_details: {
@@ -119,7 +119,7 @@ const mockCards: cardType[] = [
         details: "unique 3",
         component: "div",
         style: { color: "text.secondary" },
-      }
+      },
     },
     image: "https://via.placeholder.com/150", // Replace with an actual image URL
     buttonText: "Buy Now",
@@ -130,7 +130,7 @@ const mockCards: cardType[] = [
     onButtonClick: () => {
       console.log("Redirecting to blockchain explorer...");
     },
-    isInputNeed:true
+    isInputNeed: true,
   },
   {
     card_details: {
@@ -163,7 +163,7 @@ const mockCards: cardType[] = [
         details: "unique 4",
         component: "div",
         style: { color: "text.secondary" },
-      }
+      },
     },
     image: "https://via.placeholder.com/150", // Replace with an actual image URL
     buttonText: "Buy Now",
@@ -174,7 +174,7 @@ const mockCards: cardType[] = [
     onButtonClick: () => {
       console.log("Redirecting to blockchain explorer...");
     },
-    isInputNeed:true
+    isInputNeed: true,
   },
 ];
 

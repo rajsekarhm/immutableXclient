@@ -1,10 +1,14 @@
 import AbstractUseCase from "./Interface/AbstractUseCase";
 import IAssetRepository from "../../domains/repository/IAssetRepository";
 import AssetEntity from '../../domains/entities/AssetEntity';
+import { useDispatch } from "react-redux";
 
-class AssetUseCase extends AbstractUseCase {
+class AssetUseCase implements AbstractUseCase {
   constructor(private repository: IAssetRepository) {
-    super();
+  }
+  execute(_function:any,...args:any) {
+    const dispatch = useDispatch()
+    dispatch(_function(args))
   }
   createAsset(entity: AssetEntity) {
     this.repository.createAsset(entity)

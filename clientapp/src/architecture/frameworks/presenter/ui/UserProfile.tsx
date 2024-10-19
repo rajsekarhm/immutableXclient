@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Form from "../../components/Form";
-import { AssetDetailsContract } from "../../../../global-store/types/state_types/AssestDetailsType";
 import { browserStorage } from "../../../../helpers/Storage";
 import ProfileCard from "../../components/ProfileCard";
 import ButtonComponent from "../../components/Button";
 import connectThroughWindow from "../../../../../blockchain_client/ethereum/connectWallet";
 import { SizesList } from "../../components/ListWidgets";
+import AssetEntity from '../../../domains/entities/AssetEntity';
 
 const fieldConfigurations = [
   {
@@ -49,7 +49,7 @@ export const UserProfiles = () => {
     browserStorage.getFromStorage(username.toString())
   );
   const navigate = useNavigate();
-  const [assetsDetails, setAssetsDetails] = useState(AssetDetailsContract);
+  const [assetsDetails, setAssetsDetails] = useState(AssetEntity.initialState().assetEntity);
   const [reviewStatus, setReviewStatus] = useState(false);
   const handleChange = (event: any) => {
     const { name, value, type, files } = event.target;

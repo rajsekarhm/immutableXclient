@@ -1,10 +1,11 @@
-import { SigUpFormPage } from "./architecture/frameworks/presenter/ui/SignUp";
+import { SigUpFormPage } from "./frameworks/presenter/ui/SignUp";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Home } from "./Home";
-import { UserProfiles } from "./architecture/frameworks/presenter/ui/UserProfile";
-import ErrorPage from "./ErrorPage";
-import MarketPlace from "./architecture/frameworks/presenter/ui/MarketPlace";
-import { SignInPage } from "./architecture/frameworks/presenter/ui/SignIn";
+import { Home } from "./frameworks/presenter/Home";
+import { UserProfiles } from "./frameworks/presenter/ui/UserProfile";
+import ErrorPage from "./frameworks/presenter/ErrorPage";
+import MarketPlace from "./frameworks/presenter/ui/MarketPlace";
+import { SignInPage } from "./frameworks/presenter/ui/SignIn";
+import CustodianProfiles from "./frameworks/presenter/CustodianProfiles";
 export const App = () => {
   return (
     <div className="no-css-app" style={{ width: "auto" }}>
@@ -29,6 +30,7 @@ export const App = () => {
           />
           <Route path="/portfolio/:username" element={<UserProfiles />} />
           <Route path="/marketplace" element={<MarketPlace />} />
+          <Route path="/custodian"  element = {<CustodianProfiles/>}/>
           <Route path="/gotissue" element={<ErrorPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>

@@ -1,5 +1,5 @@
 interface IAction { 
-    
+    actions():any
 }
 
 

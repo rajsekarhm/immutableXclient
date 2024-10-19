@@ -2,23 +2,25 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { DataVault } from "../../components/DataVault";
 import { useDispatch, useSelector } from "react-redux";
-import { userContract } from "../../../../global-store/types/state_types/UserType";
-import { create } from "../../../../global-store/reducers/crudOperations";
 import { ChangeEvent } from "react";
-import { custodianContract } from "../../../../global-store/types/state_types/CustodianType";
 import ButtonComponent from "../../components/Button";
-import { Stack } from "@mui/material";
+import { ClickAwayListener, Stack } from "@mui/material";
+import UserEntity from '../../../domains/entities/UserEntity';
+import CustodianEntity from '../../../domains/entities/CustodianEntity';
+import { etore } from "../../../controllers/_store";
 
 export const SigUpFormPage = (props: { portal: string }) => {
+  console.log(etore.getActions())
+  const { users_create, test_create } = etore.getActions()
   const { portal } = props;
   const [isCustodain, setIsCustodian] = useState(false);
-  const [user, setUser] = useState(userContract);
+  const [user, setUser] = useState(UserEntity.initialState().User);
   const navigate = useNavigate();
   const [validate, setValidate] = useState(true);
   useEffect(() => {
     if (portal == "custodian") {
       setIsCustodian(true);
-      setUser(custodianContract);
+      setUser(CustodianEntity.initialState().Custodian);
     }
   }, []);
   const dispatch = useDispatch();
@@ -32,7 +34,8 @@ export const SigUpFormPage = (props: { portal: string }) => {
       navigate(`/account/users`);
       return;
     }
-    dispatch(create(user));
+    dispatch(users_create(user));
+    dispatch(test_create({actions:2}))
     navigate(`/portfolio/${user.firstname}`);
   };
 
