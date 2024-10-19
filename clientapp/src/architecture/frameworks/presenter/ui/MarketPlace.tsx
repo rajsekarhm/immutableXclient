@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import mockCard from "../../../../mockData";
+import mockCard from "../mockData";
 import CardComponent from "../../components/Card";
 import PrimarySearchAppBar from "../../components/AppBar";
 export default function MarketPlace() {
