@@ -2,10 +2,13 @@ import AbstractUseCase from "./Interface/AbstractUseCase";
 import IUserRepository from "../../domains/repository/IUserRepository";
 import UserEntity from "../../domains/entities/UserEntity";
 
-class UserUseCase extends AbstractUseCase {
+class UserUseCase implements AbstractUseCase {
   constructor(private repository: IUserRepository) {
-    super();
   }
+  execute(_function:any) {
+    throw new Error("Method not implemented.");
+  }
+
   createUser(entity: UserEntity) {
     this.repository.createUser(entity);
   }
