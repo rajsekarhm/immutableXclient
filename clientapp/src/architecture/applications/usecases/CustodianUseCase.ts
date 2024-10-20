@@ -1,11 +1,13 @@
-import { CustodianEntity, ICustodianRepository } from "../../domains/Index";
+
+import CustodianEntity from "../../domains/entities/CustodianEntity";
 import AbstractUseCase from "./Interface/AbstractUseCase";
+import ICustodianRepository from '../../domains/repository/ICustodianRepository';
 class CustodianUseCase implements AbstractUseCase {
   constructor (private repository:ICustodianRepository) { 
   }
 
   execute(_function:any) {
-    throw new Error("Method not implemented.");
+    console.log('usecase called')
   }
   createCustodian(entity: CustodianEntity) {
     this.repository.createCustodian(entity);

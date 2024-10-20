@@ -1,5 +1,5 @@
 import AssetModal from '../modals/AssetModal';
-import CustodianModal from '../modals/Custodian';
+import CustodianModal from '../modals/CustodianModal';
 
 class CustodianEntity {
   Custodian: CustodianModal;

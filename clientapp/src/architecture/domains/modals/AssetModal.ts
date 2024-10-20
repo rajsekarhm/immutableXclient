@@ -5,3 +5,4 @@ export  default interface AssetModal {
     documentUrl: string ;
     status: string;
   }
+

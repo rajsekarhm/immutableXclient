@@ -1,7 +1,8 @@
 import AssetUseCase from "../../applications/usecases/AssetUseCase";
-import { AssetEntity } from "../../domains/Index";
+import AssetEntity from "../../domains/entities/AssetEntity";
+import IHandler from "./interface/IHandler";
 
-class AssetHandler {
+class AssetHandler implements IHandler {
   constructor(private usecase: AssetUseCase) {}
 
   create(request: any) {
