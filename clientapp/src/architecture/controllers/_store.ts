@@ -2,6 +2,10 @@ import { combineReducers, configureStore, createSlice, nanoid } from "@reduxjs/t
 import UserEntity from '../domains/entities/UserEntity';
 import { UserAction } from "../applications/actions/UserActions";
 import { TestActions } from "../applications/actions/TestActions";
+import { CustodainAction } from "../applications/actions/CustodianActions";
+import { AssetAction } from "../applications/actions/AssetActions";
+import AssetEntity from "../domains/entities/AssetEntity";
+import CustodianEntity from "../domains/entities/CustodianEntity";
 
 class store {
   _store: any;
@@ -39,6 +43,8 @@ class store {
 const etore = new store()
 etore.createActions("user_actions",UserEntity.initialState(),new UserAction().actions())
 etore.createActions("test_actions",{actions:0},new TestActions().actions())
+etore.createActions("custodain_actions",CustodianEntity.initialState(),new CustodainAction().actions())
+etore.createActions("asset_actions",AssetEntity.initialState(),new AssetAction().actions())
 const sstore  = etore.getStore()
 
 export {

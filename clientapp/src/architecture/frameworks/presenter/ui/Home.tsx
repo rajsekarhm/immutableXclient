@@ -1,10 +1,13 @@
-import "./styles.css";
+// import "../styles.css";
 import { Suspense, useState } from "react";
 import { motion, MotionConfig, useMotionValue } from "framer-motion";
-import { Shapes } from "./Shapes";
-import { transition } from "./settings";
+import { Shapes } from "../Shapes";
+import { transition } from "../settings";
 import useMeasure, { RectReadOnly } from "react-use-measure";
-import connectThroughWindow from "../../../../blockchain_client/ethereum/connectWallet";
+import connectThroughWindow from "../../../../../blockchain_client/ethereum/connectWallet";
+import ButtonComponent from "../../components/Button";
+import Typography from "@mui/joy/Typography";
+
 
 const buttonStyle: any = {
   "--purple": "#db07d1",
@@ -43,65 +46,17 @@ export function Home() {
   };
 
   return (
-    <MotionConfig transition={transition}>
-      <motion.button
-        onClick={connectThroughWindow}
-        style={
-          {
-            ...buttonStyle,
-            position: "absolute",
-            top: "10px",
-            right: "10px",
-            transform: "scale(0.8)",
-          } as React.CSSProperties
-        }
-        ref={ref}
-        initial={false}
-        animate={isHover ? "hover" : "rest"}
-        whileTap="press"
-        variants={{
-          rest: { scale: 0.5 },
-          hover: { scale: 0.8 },
-          press: { scale: 0.7 },
-        }}
-        onHoverStart={() => {
-          resetMousePosition();
-          setIsHover(true);
-        }}
-        onHoverEnd={() => {
-          resetMousePosition();
-          setIsHover(false);
-        }}
-        onTapStart={() => setIsPress(true)}
-        onTap={() => setIsPress(false)}
-        onTapCancel={() => setIsPress(false)}
-        onPointerMove={(e: React.PointerEvent<HTMLButtonElement>) => {
-          mouseX.set(e.clientX - bounds.x - bounds.width / 2);
-          mouseY.set(e.clientY - bounds.y - bounds.height / 2);
-        }}
-      >
-        <motion.div
-          className="shapes"
-          variants={{
-            rest: { opacity: 0 },
-            hover: { opacity: 1 },
-          }}
-        >
-          <Shapes
-            isHover={isHover}
-            isPress={isPress}
-            mouseX={mouseX}
-            mouseY={mouseY}
-          />
-        </motion.div>
-        <motion.div
-          variants={{ hover: { scale: 0.5 }, press: { scale: 0.8 } }}
-          className="label"
-        >
-          Connect Wallet
-        </motion.div>
-      </motion.button>
-      <motion.button
+    // <MotionConfig transition={transition}>
+    <div style={{justifyItems:'center', backgroundColor:'tomato', height:'100vh'}}>
+         <ButtonComponent description="connect wallet" onclickEvent={()=> connectThroughWindow()} buttonSize="medium"/>
+          <br/>
+          <Typography > IMMUTABLE x </Typography>
+    </div>
+    
+  );
+}
+
+  {/* <motion.button
         style={buttonStyle as React.CSSProperties}
         ref={ref}
         initial={false}
@@ -149,6 +104,4 @@ export function Home() {
           ImmutableX Digital Assets
         </motion.div>
       </motion.button>
-    </MotionConfig>
-  );
-}
+    </MotionConfig> */}

@@ -1,12 +1,13 @@
-import { AssetEntity } from "../../domains/Index";
+
+import AssetEntity from '../../domains/entities/AssetEntity';
 import IAssetRepository from '../../domains/repository/IAssetRepository';
 
 class AssetRepository implements IAssetRepository{
     createAsset(asset: AssetEntity): void {
-        throw new Error("Method not implemented.");
+        console.log('repository called')
     }
     findById(id: number | string): void {
-        throw new Error("Method not implemented.");
+        console.log('repository called')
     }
     
 }

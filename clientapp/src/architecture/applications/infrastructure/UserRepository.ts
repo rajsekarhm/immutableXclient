@@ -1,12 +1,14 @@
-import { IUserRepository, UserEntity } from "../../domains/Index";
+
+import UserEntity from '../../domains/entities/UserEntity';
+import IUserRepository from '../../domains/repository/IUserRepository';
 class UserRepository implements IUserRepository{
     createUser(entity: UserEntity): void {
         // external interaction
-        throw new Error("Method not implemented.");
+        console.log('repository called')
     }
     findById(id: number | string): void {
         // external interaction
-        throw new Error("Method not implemented.");
+        console.log('repository called')
     }
 
 }

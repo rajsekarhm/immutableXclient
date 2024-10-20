@@ -1,11 +1,13 @@
-import { CustodianEntity, ICustodianRepository } from "../../domains/Index";
+
+import CustodianEntity from '../../domains/entities/CustodianEntity';
+import ICustodianRepository from '../../domains/repository/ICustodianRepository';
 
 class CustodianRepository implements ICustodianRepository{
     createCustodian(custodian: CustodianEntity): void {
-        throw new Error("Method not implemented.");
+        console.log('repository called')
     }
     findById(id: number | string): void {
-        throw new Error("Method not implemented.");
+        console.log('repository called')
     }
     
 }
