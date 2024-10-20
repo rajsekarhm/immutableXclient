@@ -1,7 +1,8 @@
 import { useDispatch } from "react-redux";
 import UserUseCase from "../../applications/usecases/UserUseCase";
-import { UserEntity } from "../../domains/Index";
-class UserHandler {
+import IHandler from "./interface/IHandler";
+import UserEntity from "../../domains/entities/UserEntity";
+class UserHandler implements IHandler{
   constructor(private usecase: UserUseCase) {}
 
   create(request: any) {

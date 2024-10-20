@@ -6,7 +6,7 @@ class UserUseCase implements AbstractUseCase {
   constructor(private repository: IUserRepository) {
   }
   execute(_function:any) {
-    throw new Error("Method not implemented.");
+    console.log('usecase called')
   }
 
   createUser(entity: UserEntity) {

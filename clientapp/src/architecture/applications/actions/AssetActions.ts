@@ -1,29 +1,29 @@
 import IAction from "./interface/Action";
-class UserAction implements IAction {
+class AssetAction implements IAction {
   constructor() {}
   actions() {
     return {
-      users_create: this._create,
-      users_get:this._get,
-      users_update:this._update,
-      users_delete:this._delete
-    };
+        asset_create: this._create,
+        asset_get:this._get,
+        asset_update:this._update,
+        asset_deleteL:this._delete
+      };
   }
   _create(state: any, action: any) {
-    console.log('create user')
+    console.log('create asset')
     // return { ...state, ...action.payload };
   }
   _get(state: any, action: any) {
-    console.log('get user')
+    console.log('get asset')
     // return { ...state, ...action.payload };
   }
   _update(state: any, action: any) {
-    console.log('update user')
+    console.log('update asset')
     // return { ...state, ...action.payload };
   }
   _delete(state: any, action: any) {
-    console.log('delete user')
+    console.log('delete asset')
     // return { ...state, ...action.payload };
   }
 }
-export { UserAction };
+export { AssetAction };

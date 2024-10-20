@@ -1,7 +1,7 @@
 import CustodianUseCase from "../../applications/usecases/CustodianUseCase";
-import { CustodianEntity } from "../../domains/Index";
-
-class CustodainHandler{
+import CustodianEntity from "../../domains/entities/CustodianEntity";
+import IHandler from "./interface/IHandler";
+class CustodainHandler implements IHandler{
   constructor(private usecase: CustodianUseCase) {}
 
   create(request: any) {

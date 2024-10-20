@@ -1,4 +1,3 @@
-import { l } from "vite/dist/node/types.d-aGj9QkWt";
 import IAction from "./interface/Action";
 class TestActions implements IAction {
   constructor() {}
