@@ -30,7 +30,7 @@ const newUser = {
   assetHolding: undefined,
 };
 
-console.log(userController.create(""))
+console.log(userController.create(newUser))
 // console.log(userController.getById(1));
 export const App = () => {
   return (

@@ -10,6 +10,7 @@ class UserUseCase implements AbstractUseCase {
   }
 
   createUser(entity: UserEntity) {
+    console.log(entity)
     this.repository.createUser(entity);
   }
   getUserByUniqueId(id: string | number): UserEntity {

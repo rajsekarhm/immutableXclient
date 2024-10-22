@@ -6,21 +6,7 @@ class UserHandler implements IHandler{
   constructor(private usecase: UserUseCase) {}
 
   create(request: any) {
-    const entity = new UserEntity(
-      "",
-      "",
-      "",
-      "",
-      1,
-      "",
-      "",
-      1,
-      "",
-      true,
-      1,
-      ""
-    );
-    this.usecase.createUser(entity);
+    this.usecase.createUser(request);
   }
 
   updateById(id: string | number) {
