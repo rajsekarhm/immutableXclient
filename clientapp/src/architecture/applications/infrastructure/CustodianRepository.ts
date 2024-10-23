@@ -11,3 +11,6 @@ class CustodianRepository implements ICustodianRepository{
     }
     
 }
+
+
+export default CustodianRepository

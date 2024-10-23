@@ -57,7 +57,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function PrimarySearchAppBar({actionEvents}:any) {
-  const { onSearch, onProfileClick, onAccountClick, OnMoreClick} = actionEvents
+  const { onSearch, onProfileClick, onAccountClick, OnMoreClick, triggerStatus} = actionEvents
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const navigate = useNavigate()
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =React.useState<null | HTMLElement>(null);

@@ -1,24 +1,73 @@
-
 import CustodianEntity from "../../domains/entities/CustodianEntity";
 import AbstractUseCase from "./Interface/AbstractUseCase";
-import ICustodianRepository from '../../domains/repository/ICustodianRepository';
+import ICustodianRepository from "../../domains/repository/ICustodianRepository";
+import CustodianModal from "../../domains/modals/CustodianModal";
 class CustodianUseCase implements AbstractUseCase {
-  constructor (private repository:ICustodianRepository) { 
-  }
+  constructor(private repository: ICustodianRepository) {}
 
-  execute(_function:any) {
-    console.log('usecase called')
+  execute(_function: any) {
+    console.log("usecase called");
   }
-  createCustodian(entity: CustodianEntity) {
-    this.repository.createCustodian(entity);
+  createCustodian(entity: CustodianModal) {
+    this.repository.createCustodian(
+      new CustodianEntity(
+        entity.securityId,
+        entity.firstname,
+        entity.lastname,
+        entity.email,
+        entity.phoneNumber,
+        entity.password,
+        entity.location,
+        entity.governmentId,
+        entity.edition,
+        entity.isAgent,
+        entity.AgentId,
+        entity.isAuthForBuyAndSell,
+        entity.orgId,
+        entity.Authenticated,
+        entity.AuthorizationFor
+      )
+    );
   }
   getAssetByUniqueId(id: string | number): CustodianEntity {
     this.repository.findById(id);
-    return new CustodianEntity("", "", "", "", 1, "", "", 1, "", true, 1, "","","","");
+    return new CustodianEntity(
+      "",
+      "",
+      "",
+      "",
+      1,
+      "",
+      "",
+      1,
+      "",
+      true,
+      1,
+      "",
+      "",
+      "",
+      ""
+    );
   }
   updateAssetByUniqueId(id: string | number): CustodianEntity {
-    return new CustodianEntity("", "", "", "", 1, "", "", 1, "", true, 1, "","","","");
+    return new CustodianEntity(
+      "",
+      "",
+      "",
+      "",
+      1,
+      "",
+      "",
+      1,
+      "",
+      true,
+      1,
+      "",
+      "",
+      "",
+      ""
+    );
   }
 }
 
-export default CustodianUseCase
+export default CustodianUseCase;
