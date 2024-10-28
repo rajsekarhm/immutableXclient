@@ -12,11 +12,11 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import Box from '@mui/material/Box';
 
-export default function TemporaryDrawer() {
+export default function TemporaryDrawer({ triggerStatus }:any) {
   const [open, setOpen] = React.useState(false);
-
-  const toggleDrawer = (newOpen: boolean) => () => {
-    setOpen(newOpen);
+  triggerStatus ?setOpen(true) : null
+  const toggleDrawer = (triggerStatus:boolean) => () => {
+    
   };
 
   const DrawerList = (

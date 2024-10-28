@@ -6,32 +6,8 @@ import ErrorPage from "./frameworks/presenter/ErrorPage";
 import MarketPlace from "./frameworks/presenter/ui/MarketPlace";
 import { SignInPage } from "./frameworks/presenter/ui/SignIn";
 import CustodianProfiles from "./frameworks/presenter/CustodianProfiles";
-import UserRepository from "./applications/infrastructure/UserRepository";
-import UserUseCase from "./applications/usecases/UserUseCase";
-import UserHandler from "./controllers/handlers/UserHandler";
-
-const userRepository = new UserRepository();
-const userUseCase = new UserUseCase(userRepository);
-const userController = new UserHandler(userUseCase);
-
-const newUser = {
-  securityId: "123",
-  firstname: "John",
-  lastname: "Doe",
-  email: "john@example.com",
-  phoneNumber: 1234567890,
-  password: "secret",
-  location: "New York",
-  governmentId: 4567,
-  edition: "Standard",
-  isAgent: false,
-  AgentId: 0,
-  isAuthForBuyAndSell: "yes",
-  assetHolding: undefined,
-};
-
-console.log(userController.create(newUser))
-// console.log(userController.getById(1));
+import user from "./UserExample";
+console.log(user)
 export const App = () => {
   return (
     <div className="no-css-app" style={{ width: "auto" }}>

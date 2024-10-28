@@ -1,8 +1,8 @@
 // import "../styles.css";
 import { Suspense, useState } from "react";
 import { motion, MotionConfig, useMotionValue } from "framer-motion";
-import { Shapes } from "../Shapes";
-import { transition } from "../settings";
+// import { Shapes } from "../Shapes";
+// import { transition } from "../settings";
 import useMeasure, { RectReadOnly } from "react-use-measure";
 import connectThroughWindow from "../../../../../blockchain_client/ethereum/connectWallet";
 import ButtonComponent from "../../components/Button";
@@ -47,7 +47,7 @@ export function Home() {
 
   return (
     // <MotionConfig transition={transition}>
-    <div style={{justifyItems:'center', backgroundColor:'tomato', height:'100vh'}}>
+    <div style={{justifyItems:'center', height:'100vh'}}>
          <ButtonComponent description="connect wallet" onclickEvent={()=> connectThroughWindow()} buttonSize="medium"/>
           <br/>
           <Typography > IMMUTABLE x </Typography>

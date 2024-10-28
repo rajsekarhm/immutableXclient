@@ -2,6 +2,7 @@ import AbstractUseCase from "./Interface/AbstractUseCase";
 import IAssetRepository from "../../domains/repository/IAssetRepository";
 import AssetEntity from '../../domains/entities/AssetEntity';
 import { useDispatch } from "react-redux";
+import AssetModal from "../../domains/modals/AssetModal";
 
 class AssetUseCase implements AbstractUseCase {
   constructor(private repository: IAssetRepository) {
@@ -10,8 +11,8 @@ class AssetUseCase implements AbstractUseCase {
     const dispatch = useDispatch()
     dispatch(_function(args))
   }
-  createAsset(entity: AssetEntity) {
-    this.repository.createAsset(entity)
+  createAsset(entity: AssetModal) {
+    this.repository.createAsset(new AssetEntity(entity.walletAddress,entity.isValidated,entity.assetType,entity.documentUrl,entity.status))
   }
   getAssetByUniqueId(id: string | number): AssetEntity {
     this.repository.findById(id);
