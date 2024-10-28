@@ -4,14 +4,13 @@ import { DataVault } from "../../components/DataVault";
 import { useDispatch, useSelector } from "react-redux";
 import { ChangeEvent } from "react";
 import ButtonComponent from "../../components/Button";
-import { ClickAwayListener, Stack } from "@mui/material";
-import UserEntity from '../../../domains/entities/UserEntity';
-import CustodianEntity from '../../../domains/entities/CustodianEntity';
+import UserEntity from "../../../domains/entities/UserEntity";
+import CustodianEntity from "../../../domains/entities/CustodianEntity";
 import { etore } from "../../../controllers/_store";
 
 export const SigUpFormPage = (props: { portal: string }) => {
-  console.log(etore.getActions())
-  const { users_create, test_create } = etore.getActions()
+  console.log(etore.getActions());
+  const { users_create, test_create } = etore.getActions();
   const { portal } = props;
   const [isCustodain, setIsCustodian] = useState(false);
   const [user, setUser] = useState(UserEntity.initialState().User);
@@ -35,7 +34,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
       return;
     }
     dispatch(users_create(user));
-    dispatch(test_create({actions:2}))
+    dispatch(test_create({ actions: 2 }));
     navigate(`/portfolio/${user.firstname}`);
   };
 
@@ -173,6 +172,21 @@ export const SigUpFormPage = (props: { portal: string }) => {
                   buttonSize="small"
                   isDisabled={validate}
                 />
+              </div>
+              <div>
+                <br />
+                <ButtonComponent
+                  buttonSize="small"
+                  description="signup with google"
+                  onclickEvent={() => console.log("lol")}
+                />
+                <br />
+                <ButtonComponent
+                  buttonSize="small"
+                  description="signup with apple"
+                  onclickEvent={() => console.log("lol")}
+                />
+                <br />
               </div>
               <div className="form-group" style={{ fontFamily: "monospace" }}>
                 Already have account ? Please{" "}

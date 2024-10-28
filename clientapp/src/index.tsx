@@ -5,10 +5,15 @@ import { ErrorBoundary } from "react-error-boundary";
 import { fallBackComponent } from "./architecture/frameworks/presenter/FallBack";
 import { createRoot } from "react-dom/client";
 import { sstore } from "./architecture/controllers/_store";
-import TemporaryDrawer from "./architecture/frameworks/components/Drawer";
-// import { SizesList } from "./architecture/frameworks/components/ListWidgets";
 const container: HTMLElement | any = document.getElementById("root");
+import VITE_CLERK_PUBLISHABLE_KEY from '../clerk.env';
+// import { ClerkProvider } from '@clerk/clerk-react'
 const root = createRoot(container);
+const PUBLISHABLE_KEY = VITE_CLERK_PUBLISHABLE_KEY
+
+if (!PUBLISHABLE_KEY) {
+  throw new Error("Missing Publishable Key")
+}
 
 root.render(
   <ErrorBoundary fallback={fallBackComponent()}>
