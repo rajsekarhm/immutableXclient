@@ -47,7 +47,7 @@ export function Home() {
 
   return (
     // <MotionConfig transition={transition}>
-    <div style={{justifyItems:'center', backgroundColor:'tomato', height:'100vh'}}>
+    <div style={{justifyItems:'center', height:'100vh'}}>
          <ButtonComponent description="connect wallet" onclickEvent={()=> connectThroughWindow()} buttonSize="medium"/>
           <br/>
           <Typography > IMMUTABLE x </Typography>
