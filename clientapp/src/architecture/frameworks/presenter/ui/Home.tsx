@@ -32,8 +32,7 @@ const buttonStyle: any = {
   display: "flex",
   alignItems: "center",
 };
-
-export function Home() {
+ function Home() {
   const [ref, bounds, remeasure] = useMeasure({ scroll: false });
   const [isHover, setIsHover] = useState(false);
   const [isPress, setIsPress] = useState(false);
@@ -105,3 +104,5 @@ export function Home() {
         </motion.div>
       </motion.button>
     </MotionConfig> */}
+
+    export default Home

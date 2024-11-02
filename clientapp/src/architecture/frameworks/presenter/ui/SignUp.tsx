@@ -207,3 +207,6 @@ export const SigUpFormPage = (props: { portal: string }) => {
     </section>
   );
 };
+
+
+export default SigUpFormPage

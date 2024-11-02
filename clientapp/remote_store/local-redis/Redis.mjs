@@ -1,12 +1,12 @@
 import { createClient } from "redis";
 class Redis {
-  constructor($port) {
+  constructor(url,$port) {
     this.client = createClient({
       legacyMode: false,
       socket: {
         connectTimeout: 10000,
       },
-      url: `rediss://default:a1b758c3817847d6a58848de869ab127@usw1-obliging-elf-${$port}.upstash.io:${$port}`,
+      url: `${url}:${$port}`,
     });
     this.client.connect();
   }

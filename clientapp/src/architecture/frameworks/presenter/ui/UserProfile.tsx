@@ -43,7 +43,7 @@ const fieldConfigurations = [
   },
 ];
 
-export const UserProfiles = () => {
+ const UserProfiles = () => {
   const { username } = useParams();
   const [userProfile, setUserProfile] = useState(
     browserStorage.getFromStorage(username.toString())
@@ -139,3 +139,6 @@ export const UserProfiles = () => {
     </>
   );
 };
+
+
+export default UserProfiles

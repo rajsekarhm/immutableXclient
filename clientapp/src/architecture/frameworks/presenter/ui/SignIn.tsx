@@ -5,7 +5,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { DataVault } from "../../components/DataVault";
 import { useDispatch, useSelector } from "react-redux";
 import ButtonComponent from "../../components/Button";
-export const SignInPage = (props: any) => {
+ const SignInPage = (props: any) => {
   const [forgot, setForgot] = useState(false);
   const { portal } = props;
   // const dispatch = useDispatch();
@@ -148,3 +148,6 @@ export const SignInPage = (props: any) => {
     </div>
   );
 };
+
+
+export default SignInPage
