@@ -28,7 +28,7 @@ class UserUseCase implements AbstractUseCase {
   }
   getUserByUniqueId(id: string | number): UserEntity {
     console.log('userusecase  get method called')
-    return this.repository.findById(id).getsecurityId();
+    return this.repository.findById(id)
   }
   updateUserByUniqueId(id: string | number): UserEntity {
     console.log('userusecase  update method called')
