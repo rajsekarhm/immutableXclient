@@ -3,12 +3,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import Form from "../../components/Form";
 import { browserStorage } from "../../../../helpers/Storage";
 import ProfileCard from "../../components/ProfileCard";
-import ButtonComponent from "../../components/Button";
+import Button from "../../components/Button";
 import connectThroughWindow from "../../../../../blockchain_client/ethereum/connectWallet";
 import { SizesList } from "../../components/ListWidgets";
 import AssetEntity from '../../../domains/entities/AssetEntity';
 
-const fieldConfigurations = [
+const form_field_schema = [
   {
     defaultValue: undefined,
     description: "enter wallet address",
@@ -83,14 +83,14 @@ const fieldConfigurations = [
         className="asset-form"
         style={{ overflowY: "auto", maxHeight: "100vh" }}
       >
-        <ButtonComponent
+        <Button
           description={"connect wallet"}
           buttonSize="small"
           onclickEvent={connectThroughWindow}
         />
         <h2> Virtualize Asset</h2>
         <Form
-          fields={fieldConfigurations}
+          schema={form_field_schema}
           handleChange={handleChange}
           handleClick={handleClick}
           onSubmit={handleSubmit}

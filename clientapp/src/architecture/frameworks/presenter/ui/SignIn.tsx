@@ -2,10 +2,10 @@ import { ChangeEvent, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Avatar } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { DataVault } from "../../components/DataVault";
+import { InputBox } from "../../components/InputBox";
 import { useDispatch, useSelector } from "react-redux";
-import ButtonComponent from "../../components/Button";
- const SignInPage = (props: any) => {
+import Button from "../../components/Button";
+const SignInPage = (props: any) => {
   const [forgot, setForgot] = useState(false);
   const { portal } = props;
   // const dispatch = useDispatch();
@@ -68,7 +68,7 @@ import ButtonComponent from "../../components/Button";
               <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
                 <LockOutlinedIcon />
               </Avatar>
-              <DataVault
+              <InputBox
                 componentInfo={{
                   defaultValue: undefined,
                   className: "name_class",
@@ -80,7 +80,7 @@ import ButtonComponent from "../../components/Button";
                 }}
                 handleInput={handleChange}
               />
-              <DataVault
+              <InputBox
                 componentInfo={{
                   defaultValue: undefined,
                   className: "pass_class",
@@ -93,7 +93,7 @@ import ButtonComponent from "../../components/Button";
                 handleInput={handleChange}
               />
               {portal === "custodian" ? (
-                <DataVault
+                <InputBox
                   componentInfo={{
                     defaultValue: undefined,
                     className: "orgId_class",
@@ -106,7 +106,7 @@ import ButtonComponent from "../../components/Button";
                   handleInput={handleChange}
                 />
               ) : null}
-              <ButtonComponent
+              <Button
                 description="sign in"
                 onclickEvent={handleSubmit}
                 buttonSize="small"
@@ -116,7 +116,7 @@ import ButtonComponent from "../../components/Button";
               <label>
                 {" "}
                 are you {portal === "custodian" ? "users" : "agent"} Login Here
-                <ButtonComponent
+                <Button
                   description="Here"
                   onclickEvent={handleCustodianPortal}
                   buttonSize="small"
@@ -134,7 +134,7 @@ import ButtonComponent from "../../components/Button";
                 <>
                   {" "}
                   <input placeholder="Enter email address"></input>{" "}
-                  <ButtonComponent
+                  <Button
                     description="Submit"
                     onclickEvent={() => {}}
                     buttonSize="small"
@@ -149,5 +149,4 @@ import ButtonComponent from "../../components/Button";
   );
 };
 
-
-export default SignInPage
+export default SignInPage;

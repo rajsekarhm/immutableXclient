@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import mockCard from "../mockData";
-import CardComponent from "../../components/Card";
+import Card from "../../components/Card";
 import PrimarySearchAppBar from "../../components/AppBar";
 export default function MarketPlace() {
   const actions = {
@@ -21,7 +21,7 @@ export default function MarketPlace() {
         {mockCard.map((cardData) => {
           return (
             <div key={cardData.card_details.asset_unique_id.details}>
-              <CardComponent
+              <Card
                 image={cardData.image}
                 card_details={cardData.card_details}
                 buttonText={cardData.buttonText}

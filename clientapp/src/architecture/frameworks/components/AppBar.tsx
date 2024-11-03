@@ -23,7 +23,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
-import ButtonComponent from './Button';
+import Button from './Button';
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -217,7 +217,7 @@ export default function PrimarySearchAppBar({actionEvents}:any) {
             aria-label="open drawer"
             sx={{ mr: 2 }}
           > 
-          <ButtonComponent onclickEvent={toggleDrawer(true) }  description={"Open"} buttonSize="Small" />
+          <Button onclickEvent={toggleDrawer(true) }  description={"Open"} buttonSize="Small" />
           </IconButton> 
           <Typography
             variant="h6"

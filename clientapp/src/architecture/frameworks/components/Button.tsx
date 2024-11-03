@@ -1,13 +1,13 @@
-import { Button, Stack } from "@mui/material";
+import { Button as ButtonComponent, Stack } from "@mui/material";
 
-interface ButtonComponentProps {
+interface ButtonProps {
     description: string | undefined;
     onclickEvent: (event?:any) => void | any 
     buttonSize:string
     isDisabled?:boolean
   }
   
-  const ButtonComponent: React.FC<ButtonComponentProps> = ({ description, onclickEvent,buttonSize,isDisabled = false }) => {
+  const Button: React.FC<ButtonProps> = ({ description, onclickEvent,buttonSize,isDisabled = false }) => {
     const sizeStyles : any = {
         small: { padding: '5px 10px', fontSize: '12px' },
         medium: { padding: '10px 15px', fontSize: '14px' },
@@ -15,12 +15,12 @@ interface ButtonComponentProps {
       };
     return (
       <div> 
-         <Button  variant="contained" onClick={onclickEvent} style={{...sizeStyles[buttonSize]}} disabled={isDisabled}>
+         <ButtonComponent  variant="contained" onClick={onclickEvent} style={{...sizeStyles[buttonSize]}} disabled={isDisabled}>
         {description}
-      </Button>
+      </ButtonComponent>
       </div>
     );
   };
   
-  export default ButtonComponent;
+  export default Button;
   
