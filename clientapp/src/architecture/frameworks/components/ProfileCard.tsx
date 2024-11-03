@@ -4,7 +4,7 @@ import {
     CardContent,
     Typography,
   } from "@mui/material";
-  import ButtonComponent from "./Button";
+  import Button from "./Button";
   const ProfileCard = ({
     className,
     card_details,
@@ -31,7 +31,7 @@ import {
             })}
           </CardContent>
           <CardActions>
-           { buttonText ? <ButtonComponent
+           { buttonText ? <Button
               description={buttonText}
               buttonSize="small"
               onclickEvent={onButtonClick}

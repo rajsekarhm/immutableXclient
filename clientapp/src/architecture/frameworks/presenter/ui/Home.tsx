@@ -5,7 +5,7 @@ import { motion, MotionConfig, useMotionValue } from "framer-motion";
 // import { transition } from "../settings";
 import useMeasure, { RectReadOnly } from "react-use-measure";
 import connectThroughWindow from "../../../../../blockchain_client/ethereum/connectWallet";
-import ButtonComponent from "../../components/Button";
+import Button from "../../components/Button";
 import Typography from "@mui/joy/Typography";
 
 
@@ -47,7 +47,7 @@ const buttonStyle: any = {
   return (
     // <MotionConfig transition={transition}>
     <div style={{justifyItems:'center', height:'100vh'}}>
-         <ButtonComponent description="connect wallet" onclickEvent={()=> connectThroughWindow()} buttonSize="medium"/>
+         <Button description="connect wallet" onclickEvent={()=> connectThroughWindow()} buttonSize="medium"/>
           <br/>
           <Typography > IMMUTABLE x </Typography>
     </div>

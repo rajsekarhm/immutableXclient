@@ -1,20 +1,20 @@
 import { Stack } from "@mui/material";
-import ButtonComponent from "./Button";
-import { DataVault, field_DataVault } from "./DataVault";
+import Button from "./Button";
+import { InputBox, inputBoxFields } from "./InputBox";
 
 type FormProps = {
-  fields: field_DataVault[];
+  schema: inputBoxFields[];
   handleChange: (event: any) => void | any;
   handleClick: (event: any) => void | any;
   onSubmit: (event: any) => void | any;
 };
 
-const Form = ({ fields, handleChange, handleClick, onSubmit }: FormProps) => {
+const Form = ({ schema, handleChange, handleClick, onSubmit }: FormProps) => {
   return (
     <div className="form">
       <Stack>
-      {fields.map((field, index) => (
-          <DataVault
+        {schema.map((field, index) => (
+          <InputBox
             key={index}
             componentInfo={field}
             handleInput={handleChange}
@@ -22,7 +22,7 @@ const Form = ({ fields, handleChange, handleClick, onSubmit }: FormProps) => {
           />
         ))}
       </Stack>
-        <ButtonComponent buttonSize="small" onclickEvent={onSubmit} description="submit"/>
+      <Button buttonSize="small" onclickEvent={onSubmit} description="submit" />
     </div>
   );
 };

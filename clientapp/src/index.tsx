@@ -16,20 +16,6 @@ if (!PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
 }
 
-
-var raw = "";
-
-var requestOptions = {
-  method: 'GET'
-};
-
-fetch("http://127.0.0.1:8080/api/v1/user/getUser?governmentId=6382646689", requestOptions)
-  .then(response => response.text())
-  .then(result => console.log(result))
-  .catch(error => console.log('error', error));
-
-
-
 root.render(
   <ErrorBoundary fallback={fallBackComponent()}>
     <Provider store={sstore}>
