@@ -1,16 +1,14 @@
 import {
-  Card,
+  Card as CardComponent,
   CardActions,
   CardContent,
   CardMedia,
-  TextField,
   Typography,
 } from "@mui/material";
-import { cardType } from "../global-store/types/state_types/CardType";
-import ButtonComponent from "./Button";
+import Button from "./Button";
 import { useState } from "react";
-import { DataVault } from "./DataVault";
-const CardComponent = ({
+import { InputBox } from "./InputBox";
+const Card = ({
   className,
   image,
   card_details,
@@ -20,12 +18,12 @@ const CardComponent = ({
   detailsButtonText,
   isInputNeed,
   onChangeAction,
-  fieldDetails
-}: cardType) => {
-  const [input,setInput] = useState<Number>(0);
+  fieldDetails,
+}: any) => {
+  const [input, setInput] = useState<Number>(0);
   return (
     <div className={className}>
-      <Card x={{ maxWidth: 245 }}>
+      <CardComponent x={{ maxWidth: 245 }}>
         <CardMedia
           image={image}
           component="img"
@@ -47,27 +45,25 @@ const CardComponent = ({
             );
           })}
         </CardContent>
-        {isInputNeed?<DataVault
-                    componentInfo={fieldDetails}
-                    handleInput={onChangeAction}
-                  />:null}
-                 <Typography> highest amount bid 0</Typography>
+        {isInputNeed ? (
+          <InputBox componentInfo={fieldDetails} handleInput={onChangeAction} />
+        ) : null}
+        <Typography> highest amount bid 0</Typography>
         <CardActions>
-
-          <ButtonComponent
+          <Button
             description={buttonText}
             buttonSize="small"
             onclickEvent={onButtonClick}
           />
-          <ButtonComponent
+          <Button
             description={detailsButtonText}
             buttonSize="small"
             onclickEvent={onClickInDetails}
           />
         </CardActions>
-      </Card>
+      </CardComponent>
     </div>
   );
 };
 
-export default CardComponent;
+export default Card;

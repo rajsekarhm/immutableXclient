@@ -9,6 +9,7 @@ import MarketPlace from "./frameworks/presenter/ui/MarketPlace";
 import SignInPage from "./frameworks/presenter/ui/SignIn";
 import CustodianProfiles from "./frameworks/presenter/CustodianProfiles";
 import { SignIn, SignUp } from "@clerk/clerk-react";
+import Builder from "./frameworks/presenter/Builder";
 
 const Router = createBrowserRouter([
   {
@@ -58,6 +59,10 @@ const Router = createBrowserRouter([
   {
     path:'clerk/sign-up',
     element:<SignUp/>
+  },
+  {
+    path:"builder",
+    element:<Builder/>
   }
 ]);
 

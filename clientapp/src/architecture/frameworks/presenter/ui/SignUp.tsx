@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { DataVault } from "../../components/DataVault";
+import { InputBox } from "../../components/InputBox";
 import { useDispatch, useSelector } from "react-redux";
 import { ChangeEvent } from "react";
-import ButtonComponent from "../../components/Button";
+import Button from "../../components/Button";
 import UserEntity from "../../../domains/entities/UserEntity";
 import CustodianEntity from "../../../domains/entities/CustodianEntity";
 import { etore } from "../../../controllers/_store";
@@ -56,7 +56,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
             </h2>
             <form className="register-form" action="">
               {/* <Stack> */}
-              <DataVault
+              <InputBox
                 componentInfo={{
                   defaultValue: undefined,
                   description: "Enter first name",
@@ -68,7 +68,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
                 }}
                 handleInput={handleInput}
               />
-              <DataVault
+              <InputBox
                 componentInfo={{
                   defaultValue: undefined,
                   description: "Enter last name",
@@ -80,7 +80,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
                 }}
                 handleInput={handleInput}
               />
-              <DataVault
+              <InputBox
                 componentInfo={{
                   defaultValue: undefined,
                   description: "Enter password",
@@ -92,7 +92,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
                 }}
                 handleInput={handleInput}
               />
-              <DataVault
+              <InputBox
                 componentInfo={{
                   defaultValue: undefined,
                   description: "Enter mail",
@@ -104,7 +104,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
                 }}
                 handleInput={handleInput}
               />
-              <DataVault
+              <InputBox
                 componentInfo={{
                   defaultValue: undefined,
                   description: "Enter phone number ",
@@ -116,7 +116,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
                 }}
                 handleInput={handleInput}
               />
-              <DataVault
+              <InputBox
                 componentInfo={{
                   defaultValue: undefined,
                   description: "Enter government Id",
@@ -130,7 +130,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
               />
               {isCustodain ? (
                 <>
-                  <DataVault
+                  <InputBox
                     componentInfo={{
                       defaultValue: undefined,
                       description: "Enter orgId",
@@ -142,7 +142,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
                     }}
                     handleInput={handleInput}
                   />
-                  <DataVault
+                  <InputBox
                     componentInfo={{
                       defaultValue: undefined,
                       description: "Enter securityId ",
@@ -166,7 +166,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
                 <label> accept terms & condition </label>{" "}
               </div>
               <div className="form-group">
-                <ButtonComponent
+                <Button
                   description="submit"
                   onclickEvent={handleSubmit}
                   buttonSize="small"
@@ -175,13 +175,13 @@ export const SigUpFormPage = (props: { portal: string }) => {
               </div>
               <div>
                 <br />
-                <ButtonComponent
+                <Button
                   buttonSize="small"
                   description="signup with google"
                   onclickEvent={() => console.log("lol")}
                 />
                 <br />
-                <ButtonComponent
+                <Button
                   buttonSize="small"
                   description="signup with apple"
                   onclickEvent={() => console.log("lol")}
@@ -208,5 +208,4 @@ export const SigUpFormPage = (props: { portal: string }) => {
   );
 };
 
-
-export default SigUpFormPage
+export default SigUpFormPage;

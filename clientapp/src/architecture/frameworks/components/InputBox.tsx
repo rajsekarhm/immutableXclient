@@ -1,7 +1,7 @@
 import { Box, TextField } from "@mui/material";
 import { ChangeEvent, MouseEventHandler } from "react";
 
-type field_DataVault = {
+type inputBoxFields = {
   defaultValue?: string | undefined;
   className: string;
   type: string;
@@ -9,15 +9,18 @@ type field_DataVault = {
   description: string;
   pattern?: string;
   maxlength?: number;
+  helperText?:string
+  id?:string
+  style?:any
 };
 
-type dateVaultType = {
-  componentInfo: field_DataVault;
+type inputBoxProps = {
+  componentInfo: inputBoxFields;
   handleInput: (event: ChangeEvent<HTMLInputElement>) => void;
   handleClick?: MouseEventHandler<HTMLInputElement>;
 };
 
-function DataVault({ handleInput, componentInfo, handleClick }: dateVaultType) {
+function InputBox({ handleInput, componentInfo, handleClick }: inputBoxProps) {
   const {
     defaultValue,
     className,
@@ -26,21 +29,25 @@ function DataVault({ handleInput, componentInfo, handleClick }: dateVaultType) {
     description,
     pattern,
     maxlength,
+    helperText,
+    id,
+    style
   } = componentInfo;
   return (
-    <div className={className}>
+    <div className={className} style={style} >
       <Box>
-          <TextField 
+        <TextField 
           name={name}
           type={type}
           defaultValue={defaultValue}
-          id="outlined-required"
+          id={id}
           label={description}
           onClick={handleClick ? handleClick : () => {}}
-          onChange={handleInput} />
+          onChange={handleInput} 
+          helperText= {helperText}/>
         </Box>
     </div>
   );
 }
 
-export { DataVault, field_DataVault };
+export { InputBox, inputBoxFields };
