@@ -1,26 +1,29 @@
 import { ChangeEvent, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Avatar } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { InputBox } from "../../components/InputBox";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../../components/Button";
+import { actions_store } from "../../../controllers/_store";
 const SignInPage = (props: any) => {
   const [forgot, setForgot] = useState(false);
   const { portal } = props;
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const {users_login} = actions_store.getActions();
   const navigate = useNavigate();
   const [loginInput, setInput] = useState({
     username: null,
     password: null,
+    orgID:undefined
   });
   const handleCustodianPortal = () => {
     if (portal == "custodian") {
-      navigate("/login/users");
+      navigate("/sign-in/users");
       return;
     }
     if (portal == "users") {
-      navigate("/login/custodian");
+      navigate("/sign-in/custodian");
     }
   };
   const handleSubmit = (event: any) => {
@@ -28,27 +31,10 @@ const SignInPage = (props: any) => {
     /**
      * need to handle with authentication with server and password
      */
+    dispatch(users_login(loginInput))
     if (loginInput.username && loginInput.password) {
       navigate(`profile/${loginInput.username}`);
     }
-    //   fetch('http://localhost:9000/login', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify({ name:loginInput.name,password:loginInput.password })
-    // })
-    // .then((result) => {
-    //     return result.json();
-    //   })
-    //   .catch((error) => {
-    //     console.error('Error:', error);
-    //   });
-    //   if (false) {
-    //     navigate(`/marketPlace/${loginInput.name}`);
-    //   } else {
-    //     navigate("/errorPage");
-    //   }
   };
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInput({ ...loginInput, [event.target.name]: event.target.value });

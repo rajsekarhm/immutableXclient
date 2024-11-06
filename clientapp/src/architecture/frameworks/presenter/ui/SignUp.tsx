@@ -6,14 +6,14 @@ import { ChangeEvent } from "react";
 import Button from "../../components/Button";
 import UserEntity from "../../../domains/entities/UserEntity";
 import CustodianEntity from "../../../domains/entities/CustodianEntity";
-import { etore } from "../../../controllers/_store";
+import { actions_store } from "../../../controllers/_store";
 
 export const SigUpFormPage = (props: { portal: string }) => {
-  console.log(etore.getActions());
-  const { users_create, test_create } = etore.getActions();
+  const { users_create,custodain_create } = actions_store.getActions();
   const { portal } = props;
   const [isCustodain, setIsCustodian] = useState(false);
-  const [user, setUser] = useState(UserEntity.initialState().User);
+  const _userstate = portal == "custodian" ? CustodianEntity.initialState().Custodian : UserEntity.initialState().User
+  const [user, setUser] = useState(_userstate);
   const navigate = useNavigate();
   const [validate, setValidate] = useState(true);
   useEffect(() => {
@@ -30,11 +30,15 @@ export const SigUpFormPage = (props: { portal: string }) => {
         navigate(`/errorPage`);
         return;
       }
-      navigate(`/account/users`);
+      navigate(`/sign-in/users`);
       return;
     }
-    dispatch(users_create(user));
-    dispatch(test_create({ actions: 2 }));
+    if(portal == 'users'){
+      dispatch(users_create(user));
+    }
+    if(portal == "custodian"){
+      dispatch(custodain_create(user))
+    }
     navigate(`/portfolio/${user.firstname}`);
   };
 
@@ -192,7 +196,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
                 Already have account ? Please{" "}
                 <a
                   onClick={() => {
-                    navigate("/signin");
+                    navigate("/sign-in/users");
                   }}
                   style={{ fontFamily: "monospace" }}
                 >

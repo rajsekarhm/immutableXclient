@@ -18,7 +18,7 @@ const Card = ({
   detailsButtonText,
   isInputNeed,
   onChangeAction,
-  fieldDetails,
+  fieldDetails
 }: any) => {
   const [input, setInput] = useState<Number>(0);
   return (

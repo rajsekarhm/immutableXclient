@@ -40,15 +40,15 @@ class store {
 }
 
 
-const etore = new store()
-etore.createActions("user_actions",UserEntity.initialState(),new UserAction().actions())
-etore.createActions("test_actions",{actions:0},new TestActions().actions())
-etore.createActions("custodain_actions",CustodianEntity.initialState(),new CustodainAction().actions())
-etore.createActions("asset_actions",AssetEntity.initialState(),new AssetAction().actions())
-const sstore  = etore.getStore()
+const actions_store = new store()
+actions_store.createActions("user_actions",UserEntity.initialState(),new UserAction().actions())
+actions_store.createActions("test_actions",{actions:0},new TestActions().actions())
+actions_store.createActions("custodain_actions",CustodianEntity.initialState(),new CustodainAction().actions())
+actions_store.createActions("asset_actions",AssetEntity.initialState(),new AssetAction().actions())
+const sstore  = actions_store.getStore()
 
 export {
-    etore,
+  actions_store,
     sstore
 }
 export default store;

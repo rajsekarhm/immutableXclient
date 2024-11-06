@@ -1,7 +1,5 @@
 import SigUpFormPage from "./frameworks/presenter/ui/SignUp";
-import {
-  createBrowserRouter,
-} from "react-router-dom";
+import { createBrowserRouter} from "react-router-dom";
 import Home from "./frameworks/presenter/ui/Home";
 import UserProfiles from "./frameworks/presenter/ui/UserProfile";
 import ErrorPage from "./frameworks/presenter/ErrorPage";
@@ -53,7 +51,7 @@ const Router = createBrowserRouter([
     element:<ErrorPage/>
   },
   {
-    path:'clerk/sign-in',
+    path:'/clerk/sign-in',
     element:<SignIn/>
   },
   {
@@ -61,7 +59,7 @@ const Router = createBrowserRouter([
     element:<SignUp/>
   },
   {
-    path:"builder",
+    path:"/builder",
     element:<Builder/>
   }
 ]);
