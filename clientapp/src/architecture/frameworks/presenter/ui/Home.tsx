@@ -1,108 +1,31 @@
-// import "../styles.css";
-import { Suspense, useState } from "react";
-import { motion, MotionConfig, useMotionValue } from "framer-motion";
-// import { Shapes } from "../Shapes";
-// import { transition } from "../settings";
-import useMeasure, { RectReadOnly } from "react-use-measure";
+import { motion } from "framer-motion";
 import connectThroughWindow from "../../../../../blockchain_client/ethereum/connectWallet";
-import Button from "../../components/Button";
-import Typography from "@mui/joy/Typography";
-
-
-const buttonStyle: any = {
-  "--purple": "#db07d1",
-  "--pink": "#f2056f",
-  "--blue": "#61dafb",
-  appearance: "none",
-  border: "none",
-  cursor: "pointer",
-  backgroundColor: "#acc7ed",
-  color: "#fff",
-  borderRadius: "60px",
-  outline: "none",
-  margin: "0",
-  padding: "12px 25px",
-  fontFamily: '"Poppins"',
-  fontSize: "48px",
-  fontWeight: "600",
-  lineHeight: "58px",
-  letterSpacing: "-1px",
-  position: "relative",
-  textAlign: "center",
-  display: "flex",
-  alignItems: "center",
-};
+import { AuroraBackground } from "./background/Aurora-background";
  function Home() {
-  const [ref, bounds, remeasure] = useMeasure({ scroll: false });
-  const [isHover, setIsHover] = useState(false);
-  const [isPress, setIsPress] = useState(false);
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const resetMousePosition = () => {
-    mouseX.set(0);
-    mouseY.set(0);
-  };
-
   return (
-    // <MotionConfig transition={transition}>
-    <div style={{justifyItems:'center', height:'100vh'}}>
-         <Button description="connect wallet" onclickEvent={()=> connectThroughWindow()} buttonSize="medium"/>
-          <br/>
-          <Typography > IMMUTABLE x </Typography>
-    </div>
-    
+    <AuroraBackground>
+      <motion.div
+        initial={{ opacity: 0.0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{
+          delay: 0.3,
+          duration: 0.8,
+          ease: "easeInOut",
+        }}
+        className="relative flex flex-col gap-4 items-center justify-center px-4"
+      >
+        <div className="text-3xl md:text-7xl font-bold dark:text-white text-center">
+          Immutable X
+        </div>
+        <div className="font-extralight text-base md:text-4xl dark:text-neutral-200 py-4">
+          Digitalize your assets in Blockchain... 
+        </div>
+        <button className="bg-black dark:bg-white rounded-full w-fit text-white dark:text-black px-4 py-2">
+          connect wallet
+        </button>
+      </motion.div>
+    </AuroraBackground>
   );
 }
 
-  {/* <motion.button
-        style={buttonStyle as React.CSSProperties}
-        ref={ref}
-        initial={false}
-        animate={isHover ? "hover" : "rest"}
-        whileTap="press"
-        variants={{
-          rest: { scale: 1 },
-          hover: { scale: 1.5 },
-          press: { scale: 1.4 },
-        }}
-        onHoverStart={() => {
-          resetMousePosition();
-          setIsHover(true);
-        }}
-        onHoverEnd={() => {
-          resetMousePosition();
-          setIsHover(false);
-        }}
-        onTapStart={() => setIsPress(true)}
-        onTap={() => setIsPress(false)}
-        onTapCancel={() => setIsPress(false)}
-        onPointerMove={(e: React.PointerEvent<HTMLButtonElement>) => {
-          mouseX.set(e.clientX - bounds.x - bounds.width / 2);
-          mouseY.set(e.clientY - bounds.y - bounds.height / 2);
-        }}
-      >
-        <motion.div
-          className="shapes"
-          variants={{
-            rest: { opacity: 0 },
-            hover: { opacity: 1 },
-          }}
-        >
-          <Shapes
-            isHover={isHover}
-            isPress={isPress}
-            mouseX={mouseX}
-            mouseY={mouseY}
-          />
-        </motion.div>
-        <motion.div
-          variants={{ hover: { scale: 0.85 }, press: { scale: 1.1 } }}
-          className="label"
-        >
-          ImmutableX Digital Assets
-        </motion.div>
-      </motion.button>
-    </MotionConfig> */}
-
-    export default Home
+export default Home

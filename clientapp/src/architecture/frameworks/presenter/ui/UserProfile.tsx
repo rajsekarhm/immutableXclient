@@ -6,7 +6,7 @@ import ProfileCard from "../../components/ProfileCard";
 import Button from "../../components/Button";
 import connectThroughWindow from "../../../../../blockchain_client/ethereum/connectWallet";
 import { SizesList } from "../../components/ListWidgets";
-import AssetEntity from '../../../domains/entities/AssetEntity';
+import AssetEntity from "../../../domains/entities/AssetEntity";
 
 const form_field_schema = [
   {
@@ -43,14 +43,17 @@ const form_field_schema = [
   },
 ];
 
- const UserProfiles = () => {
+const UserProfiles = () => {
   const { username } = useParams();
   const [userProfile, setUserProfile] = useState(
     browserStorage.getFromStorage(username.toString())
   );
   const navigate = useNavigate();
-  const [assetsDetails, setAssetsDetails] = useState(AssetEntity.initialState().assetEntity);
+  const [assetsDetails, setAssetsDetails] = useState(
+    AssetEntity.initialState().assetEntity
+  );
   const [reviewStatus, setReviewStatus] = useState(false);
+
   const handleChange = (event: any) => {
     const { name, value, type, files } = event.target;
     if (type === "file" && files) {
@@ -64,12 +67,14 @@ const form_field_schema = [
   const handleClick = (event: any) => {
     console.log(assetsDetails);
   };
+
   const handleSubmit = (event: any) => {
     event.preventDefault();
     userProfile.assetHolding.push(assetsDetails);
     browserStorage.storeInStorage(username.toString(), userProfile);
     setReviewStatus(true);
   };
+
   useEffect(() => {
     // api call make to validate that user is authenticated
     if (true) {
@@ -77,54 +82,83 @@ const form_field_schema = [
     }
     navigate("/signin");
   }, []);
+
   return (
-    <>
-      <div
-        className="asset-form"
-        style={{ overflowY: "auto", maxHeight: "100vh" }}
-      >
-        <Button
-          description={"connect wallet"}
-          buttonSize="small"
-          onclickEvent={connectThroughWindow}
-        />
-        <h2> Virtualize Asset</h2>
-        <Form
-          schema={form_field_schema}
-          handleChange={handleChange}
-          handleClick={handleClick}
-          onSubmit={handleSubmit}
-        />
-        {reviewStatus ? <h2> Asset under review process</h2> : null}
-        <ProfileCard
-          card_details={{
-            firstName: {
-              variant: "h5",
-              details: userProfile?.firstname,
-              component: "div",
-            },
-            email: {
-              variant: "h7",
-              details: userProfile?.email,
-              component: "div",
-              style: { color: "text.secondary" },
-            },
-            phoneNumber: {
-              variant: "p",
-              details: userProfile?.phoneNumber,
-              component: "div",
-              style: { color: "text.secondary" },
-            },
-            governmentId: {
-              variant: "h7",
-              details: userProfile?.governmentId,
-              component: "div",
-              style: { color: "text.secondary" },
-            },
-          }}
-          buttonText={"undefined"}
-          onButtonClick={() => {}}
-        />
+    <div style={{ background: '#f7f2e4', height: '150vh', msOverflowY: 'hidden', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px' }}>
+      {reviewStatus && <h2>Asset under review process</h2>}
+      
+      <Button
+        description={"connect wallet"}
+        buttonSize="small"
+        onclickEvent={connectThroughWindow}
+      />
+      
+      <div style={{ position: 'relative', width: '100%', maxWidth: '1200px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginTop: '20px' }}>
+        
+        {/* ProfileCard positioned at the top right */}
+        <div style={{ width: '300px', position: 'absolute', top: 0, right: 0 }}>
+          <ProfileCard
+            card_details={{
+              firstName: {
+                variant: "h5",
+                details: userProfile?.firstname,
+                component: "div",
+              },
+              email: {
+                variant: "h7",
+                details: userProfile?.email,
+                component: "div",
+                style: { color: "text.secondary" },
+              },
+              phoneNumber: {
+                variant: "p",
+                details: userProfile?.phoneNumber,
+                component: "div",
+                style: { color: "text.secondary" },
+              },
+              governmentId: {
+                variant: "h7",
+                details: userProfile?.governmentId,
+                component: "div",
+                style: { color: "text.secondary" },
+              },
+            }}
+            buttonText={"verify"}
+            onButtonClick={() => {}}
+          />
+        </div>
+
+        {/* Form in the center */}
+        <section style={{
+          width: '400px',
+          padding: '20px',
+          background: 'white',
+          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+          borderRadius: '8px',
+          textAlign: 'center',
+          marginTop: '50px',
+        }}>
+          <h2>Virtualize Asset</h2>
+          <Form
+            schema={form_field_schema}
+            handleChange={handleChange}
+            handleClick={handleClick}
+            onSubmit={handleSubmit}
+          />
+        </section>
+
+      </div>
+
+      {/* SizesList positioned below the Form */}
+      <div style={{
+        width: '500px',
+        padding: '20px',
+        background: 'white',
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+        borderRadius: '8px',
+        textAlign: 'center',
+        marginTop: '20px',
+      }}>
         <SizesList
           size="ok"
           listTitle="asset under review"
@@ -136,9 +170,8 @@ const form_field_schema = [
           }}
         />
       </div>
-    </>
+    </div>
   );
 };
 
-
-export default UserProfiles
+export default UserProfiles;
