@@ -46,6 +46,7 @@ function InputBox({ handleInput, componentInfo, handleClick }: inputBoxProps) {
           onChange={handleInput} 
           helperText= {helperText}/>
         </Box>
+        <br/>
     </div>
   );
 }
