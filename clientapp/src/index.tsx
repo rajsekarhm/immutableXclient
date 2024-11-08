@@ -8,7 +8,6 @@ import { sstore } from "./architecture/controllers/_store";
 const container: HTMLElement | any = document.getElementById("root");
 import VITE_CLERK_PUBLISHABLE_KEY from "../clerk.env";
 import { ClerkProvider } from "@clerk/clerk-react";
-import { requestAPI } from "./requests/core/request";
 const root = createRoot(container);
 const PUBLISHABLE_KEY = VITE_CLERK_PUBLISHABLE_KEY;
 

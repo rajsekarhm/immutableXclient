@@ -40,7 +40,7 @@ const SignInPage = (props: any) => {
     setInput({ ...loginInput, [event.target.name]: event.target.value });
   };
   return (
-    <div className="container center mb-5 bg-black">
+    <div className="container">
       <section className="register-block">
         <div
           className="login-container"
