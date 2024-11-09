@@ -3,6 +3,8 @@ export  default interface AssetModal {
     isValidated: boolean;
     assetType: string ;
     documentUrl: string ;
-    status: string;
+    status: boolean;
+    approverId?:string
+    isForSale:boolean
   }
 

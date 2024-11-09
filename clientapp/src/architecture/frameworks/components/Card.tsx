@@ -2,7 +2,6 @@ import {
   Card as CardComponent,
   CardActions,
   CardContent,
-  CardMedia,
   Typography,
 } from "@mui/material";
 import Button from "./Button";
@@ -34,15 +33,8 @@ const Card = ({
       }}
     >
       <CardComponent x={{ maxWidth: 145 }}>
-        {/* <CardMedia
-          image={image}
-          component="img"
-          alt="card image"
-          height="150"     // Set smaller height
-          style={{ objectFit: "contain" }}  // Contain image within given height
-        /> */}
         <CardContent>
-          {Object.values(card_details).map((element) => {
+          {Object.values(card_details).map((element:any) => {
             return (
                 <Typography
                   variant={element.variant}

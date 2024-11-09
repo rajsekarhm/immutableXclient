@@ -11,7 +11,7 @@ export default function MarketPlace() {
   return (
     <>
       <PrimarySearchAppBar actionEvents={actions} />
-      <div style={{background:'#f7f2e4', height:'650vh', msOverflowY:'hidden'}}>
+      <div style={{background:'white', height:'650vh', msOverflowY:'hidden'}}>
       {mockCard.map((cardData) => {
           return (
             <div key={cardData.card_details.asset_unique_id.details}>

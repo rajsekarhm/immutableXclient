@@ -10,7 +10,6 @@ import VITE_CLERK_PUBLISHABLE_KEY from "../clerk.env";
 import { ClerkProvider } from "@clerk/clerk-react";
 const root = createRoot(container);
 const PUBLISHABLE_KEY = VITE_CLERK_PUBLISHABLE_KEY;
-import "./output.css"
 
 if (!PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");

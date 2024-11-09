@@ -8,6 +8,7 @@ import UserEntity from "../../../domains/entities/UserEntity";
 import CustodianEntity from "../../../domains/entities/CustodianEntity";
 import { actions_store } from "../../../controllers/_store";
 import Typography from "@mui/joy/Typography";
+import SVG from "./background/SVG";
 
 export const SigUpFormPage = (props: { portal: string }) => {
   const { users_create, custodain_create } = actions_store.getActions();
@@ -52,7 +53,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
   };
 
   return (
-    <div style={{background:'#f7f2e4', height:'150vh', msOverflowY:'hidden'}}>
+    <div style={{background:'white', height:'150vh', msOverflowY:'hidden'}}>
     <div style={{height:"20vh", display:"flex", justifyContent:"center" , alignItems: "center", fontFamily:
       "sans-serif"
     }}>   <Typography> Enter your credentials</Typography>

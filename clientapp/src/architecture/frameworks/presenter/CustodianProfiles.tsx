@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SizesList } from "../components/ListWidgets";
 import ProfileCard from "../components/ProfileCard";
+import { useNavigate } from "react-router-dom";
 
 function CustodianProfiles() {
+  const navigate = useNavigate()
   const handleAction = (event:any) => {
     setPendingAsset([{
       properties:{
@@ -46,10 +48,17 @@ function CustodianProfiles() {
       isActionNeed:true
     }
   }])
+  useEffect(() => {
+    // api call make to validate that user is authenticated
+    if (true) {
+      return;
+    }
+    navigate("/sign-in/custodian");
+  }, []);
 
   return (
     <>
-  <div style={{ background: '#f7f2e4', height: '250vh', display: 'flex', flexDirection: 'column', alignItems: 'left', padding: '40px' }}>
+  <div style={{ background: 'white', height: '250vh', display: 'flex', flexDirection: 'column', alignItems: 'left', padding: '40px' }}>
   <div style={{ width: '300px', position: 'absolute', top: 0, right: 0 }}>
           <ProfileCard
             card_details={{
@@ -76,6 +85,12 @@ function CustodianProfiles() {
                 component: "div",
                 style: { color: "text.secondary" },
               },
+              securityId: {
+                variant: "h7",
+                details: "userProfile?.securityId",
+                component: "div",
+                style: { color: "text.secondary" },
+              }
             }}
             buttonText={"verify"}
             onButtonClick={() => {}}
