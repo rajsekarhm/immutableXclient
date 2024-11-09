@@ -44,7 +44,7 @@ const SignInPage = (props: any) => {
   return (
     <motion.div initial={{ opacity: 0, scale: 0.5 }}
     animate={{ opacity: 1, scale: 1 }}
-    transition={{ duration: 1 }}
+    transition={{ duration: 0.5 }}
   >
     <div style={{background:'#f7f2e4', height:'150vh', msOverflowY:'hidden'}}>
       <div

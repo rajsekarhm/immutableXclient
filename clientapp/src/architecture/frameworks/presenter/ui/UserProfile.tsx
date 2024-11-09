@@ -7,6 +7,7 @@ import Button from "../../components/Button";
 import connectThroughWindow from "../../../../../blockchain_client/ethereum/connectWallet";
 import { SizesList } from "../../components/ListWidgets";
 import AssetEntity from "../../../domains/entities/AssetEntity";
+import { motion } from "framer-motion";
 
 const form_field_schema = [
   {
@@ -92,11 +93,8 @@ const UserProfiles = () => {
         buttonSize="small"
         onclickEvent={connectThroughWindow}
       />
-      
-      <div style={{ position: 'relative', width: '100%', maxWidth: '1200px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginTop: '20px' }}>
-        
-        {/* ProfileCard positioned at the top right */}
-        <div style={{ width: '300px', position: 'absolute', top: 0, right: 0 }}>
+           {/* ProfileCard positioned at the top right */}
+           <div style={{ width: '300px', position: 'absolute', top: 0, right: 0 }}>
           <ProfileCard
             card_details={{
               firstName: {
@@ -127,6 +125,8 @@ const UserProfiles = () => {
             onButtonClick={() => {}}
           />
         </div>
+      
+      <div style={{ position: 'relative', width: '100%', maxWidth: '900px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginTop: '20px' }}>
 
         {/* Form in the center */}
         <section style={{
@@ -146,27 +146,33 @@ const UserProfiles = () => {
             onSubmit={handleSubmit}
           />
         </section>
-
       </div>
 
       {/* SizesList positioned below the Form */}
       <div style={{
-        width: '500px',
+        width: '600px',
         padding: '20px',
-        background: 'white',
+        background: 'orange',
         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
         borderRadius: '8px',
         textAlign: 'center',
-        marginTop: '20px',
+        marginTop: '10px'
       }}>
         <SizesList
           size="ok"
           listTitle="asset under review"
           listObject={{
-            walletAddress: "0x212f916DCfF88AC66883a2175de5BDa52C6bA968",
-            status: "pending",
-            price: "1000",
-            stakeholder: "rajubhai da",
+            properties:{
+              walletAddress: "0x212f916DCfF88AC66883a2175de5BDa52C6bA968",
+              status: "pending",
+              price: "1000",
+              stakeholder: "rajubhai da",
+            },
+            isActionNeed:false,
+            action:{
+              description:"ok",
+              onclick: () => {}
+            }
           }}
         />
       </div>

@@ -18,22 +18,32 @@ const Card = ({
   detailsButtonText,
   isInputNeed,
   onChangeAction,
-  fieldDetails
+  fieldDetails,
 }: any) => {
   const [input, setInput] = useState<Number>(0);
   return (
-    <div className={className}>
-      <CardComponent x={{ maxWidth: 245 }}>
-        <CardMedia
+    <div
+      style={{
+        width: "700px",
+        padding: "10px",
+        background: "#0570ad",
+        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+        borderRadius: "8px",
+        textAlign: "center",
+        marginTop: "10px",
+      }}
+    >
+      <CardComponent x={{ maxWidth: 145 }}>
+        {/* <CardMedia
           image={image}
           component="img"
-          alt="green iguana"
-          height="140"
-        />
+          alt="card image"
+          height="150"     // Set smaller height
+          style={{ objectFit: "contain" }}  // Contain image within given height
+        /> */}
         <CardContent>
           {Object.values(card_details).map((element) => {
             return (
-              <div key={element.details}>
                 <Typography
                   variant={element.variant}
                   component={element?.component ? element.component : "div"}
@@ -41,7 +51,6 @@ const Card = ({
                 >
                   {element.details}
                 </Typography>
-              </div>
             );
           })}
         </CardContent>

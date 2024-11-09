@@ -10,7 +10,7 @@ export default function ErrorPage() {
         If Your Not Register Yet Kindly Register{" "}
       </h3>
       <button
-        onClick={() => navigate("/account/users")}
+        onClick={() => navigate("/sign-in/users")}
         style={{ background: "white", fontFamily: "monospace" }}
       >
         {" "}

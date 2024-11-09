@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import mockCard from "../mockData";
 import Card from "../../components/Card";
 import PrimarySearchAppBar from "../../components/AppBar";
@@ -13,12 +11,8 @@ export default function MarketPlace() {
   return (
     <>
       <PrimarySearchAppBar actionEvents={actions} />
-      <h1> Displaying mock data </h1>
-      <div
-        className="market-place"
-        style={{ overflowY: "auto", maxHeight: "100vh" }}
-      >
-        {mockCard.map((cardData) => {
+      <div style={{background:'#f7f2e4', height:'650vh', msOverflowY:'hidden'}}>
+      {mockCard.map((cardData) => {
           return (
             <div key={cardData.card_details.asset_unique_id.details}>
               <Card

@@ -8,7 +8,7 @@ import { AuroraBackground } from "./background/Aurora-background";
         initial={{ opacity: 0.0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{
-          delay: 0.3,
+          delay: 0.5,
           duration: 0.8,
           ease: "easeInOut",
         }}
