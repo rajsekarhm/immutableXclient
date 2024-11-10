@@ -15,8 +15,7 @@ import {
       <div className={className}>
         <Card x={{ maxWidth: 245 }}>
           <CardContent>
-            {Object.values(card_details).map((element) => {
-              console.log(element)
+            {Object.values(card_details).map((element:any) => {
               return (
                 <div key={element.details}>
                   <Typography

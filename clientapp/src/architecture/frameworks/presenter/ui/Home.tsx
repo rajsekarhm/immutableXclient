@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import connectThroughWindow from "../../../../../blockchain_client/ethereum/connectWallet";
 import { AuroraBackground } from "./background/Aurora-background";
+import SVG from "./background/SVG";
+import ListWidget from '../../components/ListWidgets';
  function Home() {
   return (
     <AuroraBackground>
@@ -8,15 +10,24 @@ import { AuroraBackground } from "./background/Aurora-background";
         initial={{ opacity: 0.0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{
-          delay: 0.3,
+          delay: 0.5,
           duration: 0.8,
           ease: "easeInOut",
         }}
         className="relative flex flex-col gap-4 items-center justify-center px-4"
       >
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
         <div className="text-3xl md:text-7xl font-bold dark:text-white text-center">
           Immutable X
         </div>
+        <SVG></SVG>
         <div className="font-extralight text-base md:text-4xl dark:text-neutral-200 py-4">
           Digitalize your assets in Blockchain... 
         </div>

@@ -2,7 +2,6 @@ import {
   Card as CardComponent,
   CardActions,
   CardContent,
-  CardMedia,
   Typography,
 } from "@mui/material";
 import Button from "./Button";
@@ -18,22 +17,25 @@ const Card = ({
   detailsButtonText,
   isInputNeed,
   onChangeAction,
-  fieldDetails
+  fieldDetails,
 }: any) => {
   const [input, setInput] = useState<Number>(0);
   return (
-    <div className={className}>
-      <CardComponent x={{ maxWidth: 245 }}>
-        <CardMedia
-          image={image}
-          component="img"
-          alt="green iguana"
-          height="140"
-        />
+    <div
+      style={{
+        width: "700px",
+        padding: "10px",
+        background: "#0570ad",
+        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+        borderRadius: "8px",
+        textAlign: "center",
+        marginTop: "10px",
+      }}
+    >
+      <CardComponent x={{ maxWidth: 145 }}>
         <CardContent>
-          {Object.values(card_details).map((element) => {
+          {Object.values(card_details).map((element:any) => {
             return (
-              <div key={element.details}>
                 <Typography
                   variant={element.variant}
                   component={element?.component ? element.component : "div"}
@@ -41,7 +43,6 @@ const Card = ({
                 >
                   {element.details}
                 </Typography>
-              </div>
             );
           })}
         </CardContent>

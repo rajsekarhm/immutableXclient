@@ -9,7 +9,8 @@ class AssetEntity implements IEntities {
     isValidated: boolean,
     assetType: string,
     documentUrl: string,
-    status: string
+    status: boolean,
+    isForSale:boolean
   ) {
     this.assetEntity = {
       walletAddress: walletAddress,
@@ -17,6 +18,7 @@ class AssetEntity implements IEntities {
       documentUrl: documentUrl,
       status: status,
       assetType: assetType,
+      isForSale:isForSale
     };
   }
 
@@ -41,7 +43,7 @@ class AssetEntity implements IEntities {
   }
 
   static initialState() {
-    return new AssetEntity("",false,"","","")
+    return new AssetEntity("",false,"","",false,false)
   }
 }
 

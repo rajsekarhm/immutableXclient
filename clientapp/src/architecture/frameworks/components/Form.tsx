@@ -1,4 +1,4 @@
-import { Stack } from "@mui/material";
+import { FormControl, InputLabel, MenuItem, Select, Stack } from "@mui/material";
 import Button from "./Button";
 import { InputBox, inputBoxFields } from "./InputBox";
 
@@ -10,10 +10,11 @@ type FormProps = {
 };
 
 const Form = ({ schema, handleChange, handleClick, onSubmit }: FormProps) => {
+  const { inputsFileds, isSelectFieldsNeed, selectFields }  : any= schema
   return (
     <div className="form">
       <Stack>
-        {schema.map((field, index) => (
+        {inputsFileds.map((field:any, index:any) => (
           <InputBox
             key={index}
             componentInfo={field}
@@ -22,9 +23,30 @@ const Form = ({ schema, handleChange, handleClick, onSubmit }: FormProps) => {
           />
         ))}
       </Stack>
+      {isSelectFieldsNeed ? selectFields.map((select:any) => {
+        const {fields,handleChange, description,defaultOption} = select
+        const default_value = defaultOption
+        return(
+          <FormControl sx={{ m: 2, minWidth: 200 }} size="small">
+          <InputLabel >{description}</InputLabel>
+          <Select
+            name = {description}
+            label={description}
+            onChange={handleChange}
+          >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            {fields.map((field:any) =>  <MenuItem value={field.value}>{field.option}</MenuItem> )}
+          </Select>
+          </FormControl>
+        )
+      }) : null}
       <Button buttonSize="small" onclickEvent={onSubmit} description="submit" />
     </div>
   );
 };
 
 export default Form;
+
+ 
