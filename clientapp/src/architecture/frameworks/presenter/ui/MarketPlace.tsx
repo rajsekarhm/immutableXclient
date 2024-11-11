@@ -1,5 +1,5 @@
 import mockCard from "../mockData";
-import Card from "../../components/Card";
+import ShowCaseCard from "../../components/ShowCaseCard";
 import PrimarySearchAppBar from "../../components/AppBar";
 export default function MarketPlace() {
   const actions = {
@@ -10,12 +10,11 @@ export default function MarketPlace() {
   };
   return (
     <>
-      <PrimarySearchAppBar actionEvents={actions} />
+      <PrimarySearchAppBar actionEvents={actions}authDetails={{isAuth:false}} />
       <div style={{background:'white', height:'650vh', msOverflowY:'hidden'}}>
       {mockCard.map((cardData) => {
           return (
-            <div key={cardData.card_details.asset_unique_id.details}>
-              <Card
+              <ShowCaseCard
                 image={cardData.image}
                 card_details={cardData.card_details}
                 buttonText={cardData.buttonText}
@@ -36,7 +35,7 @@ export default function MarketPlace() {
                   maxlength: 10,
                 }}
               />
-            </div>
+              
           );
         })}
       </div>

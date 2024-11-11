@@ -8,7 +8,6 @@ import UserEntity from "../../../domains/entities/UserEntity";
 import CustodianEntity from "../../../domains/entities/CustodianEntity";
 import { actions_store } from "../../../controllers/_store";
 import Typography from "@mui/joy/Typography";
-import SVG from "./background/SVG";
 
 export const SigUpFormPage = (props: { portal: string }) => {
   const { users_create, custodain_create } = actions_store.getActions();
@@ -172,7 +171,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
             </>
           ) : null}
           <div>
-            <input type="checkbox" onClick={() => setValidate(false)} />{" "}
+            <input type="checkbox" onClick={() => {if(validate){setValidate(false)}if(validate == false){setValidate(true)}}} />{" "}
             <label> accept terms & condition </label>
           </div>
           <div className="form-group">

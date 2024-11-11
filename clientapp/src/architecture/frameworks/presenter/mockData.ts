@@ -20,7 +20,6 @@ type asset_unique_id = {
 
 type descriptionType = {
   variant ?: string
-  details: string
   style ?: any
   component?:string
 }
@@ -43,7 +42,7 @@ interface card_details_type {
 type cardType = {
   className?:string
   image: string;
-  card_details:card_details_type
+  card_details:any
   detailsButtonText?: string;
   onClickInDetails?: () => void | any;
   buttonText: string;
@@ -62,37 +61,12 @@ export { assetStatusType, cardType };
 
 const mockCards: cardType[] = [
   {
-    card_details: {
-      title: {
-        variant: "h5",
-        details: "Virtualized Asset",
-        component: "div",
-      },
-      price: {
-        variant: "h7",
-        details: "1000",
-        component: "div",
-        style: { color: "text.secondary" },
-      },
-      description: {
-        variant: "p",
-        details:
-          "This asset is securely virtualized on the blockchain, ensuring transparency and immutability.",
-        component: "div",
-        style: { color: "text.secondary" },
-      },
-      stakeHolder: {
-        variant: "h7",
-        details: "JustinSun",
-        component: "div",
-        style: { color: "text.secondary" },
-      },
-      asset_unique_id: {
-        variant: "h7",
-        details: "unique 1",
-        component: "div",
-        style: { color: "text.secondary" },
-      },
+    card_details:  {
+      title: "Virtualized Asset",
+      price: 1000,
+      description: "A digital asset in the market",
+      stakeHolder: "justinSun",
+      asset_unique_id: 403,
     },
     image: "https://via.placeholder.com/150", // Replace with an actual image URL
     buttonText: "Buy Now",
@@ -107,36 +81,11 @@ const mockCards: cardType[] = [
   },
   {
     card_details: {
-      title: {
-        variant: "h5",
-        details: "Virtualized Asset",
-        component: "div",
-      },
-      price: {
-        variant: "h7",
-        details: "1000",
-        component: "div",
-        style: { color: "text.secondary" },
-      },
-      description: {
-        variant: "p",
-        details:
-          "This asset is securely virtualized on the blockchain, ensuring transparency and immutability.",
-        component: "div",
-        style: { color: "text.secondary" },
-      },
-      stakeHolder: {
-        variant: "h7",
-        details: "JustinSun",
-        component: "div",
-        style: { color: "text.secondary" },
-      },
-      asset_unique_id: {
-        variant: "h7",
-        details: "unique 2",
-        component: "div",
-        style: { color: "text.secondary" },
-      },
+      title: "Virtualized Asset 2",
+      price: 1500,
+      description: "Another asset example",
+      stakeHolder: "elonMusk",
+      asset_unique_id: 404,
     },
     image: "https://via.placeholder.com/150", // Replace with an actual image URL
     buttonText: "Buy Now",
@@ -148,95 +97,7 @@ const mockCards: cardType[] = [
       console.log("Redirecting to blockchain explorer...");
     },
     isInputNeed: true,
-  },
-  {
-    card_details: {
-      title: {
-        variant: "h5",
-        details: "Virtualized Asset",
-        component: "div",
-      },
-      price: {
-        variant: "h7",
-        details: "1000",
-        component: "div",
-        style: { color: "text.secondary" },
-      },
-      stakeHolder: {
-        variant: "h7",
-        details: "JustinSun",
-        component: "div",
-        style: { color: "text.secondary" },
-      },
-      description: {
-        variant: "p",
-        details:
-          "This asset is securely virtualized on the blockchain, ensuring transparency and immutability.",
-        component: "div",
-        style: { color: "text.secondary" },
-      },
-      asset_unique_id: {
-        variant: "h7",
-        details: "unique 3",
-        component: "div",
-        style: { color: "text.secondary" },
-      },
-    },
-    image: "https://via.placeholder.com/150", // Replace with an actual image URL
-    buttonText: "Buy Now",
-    detailsButtonText: "view Blockchain explorer",
-    onClickInDetails: () => {
-      console.log("move to blockchain explorer");
-    },
-    onButtonClick: () => {
-      console.log("Redirecting to blockchain explorer...");
-    },
-    isInputNeed: true,
-  },
-  {
-    card_details: {
-      title: {
-        variant: "h5",
-        details: "Virtualized Asset",
-        component: "div",
-      },
-      price: {
-        variant: "h7",
-        details: "1000",
-        component: "div",
-        style: { color: "text.secondary" },
-      },
-      description: {
-        variant: "p",
-        details:
-          "This asset is securely virtualized on the blockchain, ensuring transparency and immutability.",
-        component: "div",
-        style: { color: "text.secondary" },
-      },
-      stakeHolder: {
-        variant: "h7",
-        details: "JustinSun",
-        component: "div",
-        style: { color: "text.secondary" },
-      },
-      asset_unique_id: {
-        variant: "h7",
-        details: "unique 4",
-        component: "div",
-        style: { color: "text.secondary" },
-      },
-    },
-    image: "https://via.placeholder.com/150", // Replace with an actual image URL
-    buttonText: "Buy Now",
-    detailsButtonText: "view Blockchain explorer",
-    onClickInDetails: () => {
-      console.log("move to blockchain explorer");
-    },
-    onButtonClick: () => {
-      console.log("Redirecting to blockchain explorer...");
-    },
-    isInputNeed: true,
-  },
+  }
 ];
 
 export default mockCards;
