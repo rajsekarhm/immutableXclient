@@ -1,103 +1,53 @@
-import {
-  Card ,
-  CardActions,
-  CardContent,
-  Grid2,
-  Typography,
-} from "@mui/material";
-import Button from "./Button";
-import { useState } from "react";
-import { InputBox } from "./InputBox";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./shadcn/Card"
+import Button from './Button'
+import { Label } from "./shadcn/Label"
 
-import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid2';
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-  ...theme.applyStyles('dark', {
-    backgroundColor: '#1A2027',
-  }),
-}));
-
-function BasicGrid() {
-  return (
-    <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={2}>
-        <Grid size={8}>
-          <Item>size=8</Item>
-        </Grid>
-        <Grid size={4}>
-          <Item>size=4</Item>
-        </Grid>
-        <Grid size={4}>
-          <Item>size=4</Item>
-        </Grid>
-        <Grid size={8}>
-          <Item>size=8</Item>
-        </Grid>
-      </Grid>
-    </Box>
-  );
+interface CardData {
+  id: number
+  title: string
+  description: string
+  content?: Array<any>
 }
 
-
-const ShowCaseCard = ({
-  className,
-  image,
-  card_details,
-  buttonText,
-  onButtonClick,
-  onClickInDetails,
-  detailsButtonText,
-  isInputNeed,
-  onChangeAction,
-  fieldDetails,
-}: any) => {
+function CardComponent({ title, description, content, buttonText, onButtonClick, isInputNeed }: any) {
   return (
-          <div
-      key={className}
-      style={{
-        width: "300px",
-        padding: "10px",
-        background: "#0570ad",
-        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-        borderRadius: "8px",
-        textAlign: "left",
-        marginTop: "10px",
-        display: 'flex', flexWrap: 'wrap'
-      }}
-    >
-      <BasicGrid/>
+    <Card className="w-full max-w-4xl mx-auto shadow-lg">
+      <CardHeader>
+        <CardTitle>{title}</CardTitle>
+        <CardDescription>{description}</CardDescription>
+      </CardHeader>
+      {Object.values(content).map((value:any) =>{
+        return(<>  <CardContent key={value}>
+            <Label htmlFor={value}>{value}</Label>
+          </CardContent>  </> )
+      })}
+     {isInputNeed? <CardFooter>
+        <Button description={buttonText} onclickEvent={onButtonClick}/>
+      </CardFooter> : null}
+    </Card>
+  )
+}
 
-      {/* <Card sx={{ maxWidth: 345 }}>
-        <CardContent>
-          {Object.values(card_details).map((value,index) => <Typography> {value}</Typography>)}
-        </CardContent>
-        {isInputNeed ? (
-          <InputBox componentInfo={fieldDetails} handleInput={onChangeAction} />
-        ) : null}
-        <CardActions>
-          <Button
-            description={buttonText}
-            buttonSize="small"
-            onclickEvent={onButtonClick}
+export default function ShowCaseCard({cardDetails}:any) {
+  return (
+    <div className="container mx-auto px-4 py-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-7">
+        {cardDetails.map((card:any) => {
+          const { card_details,buttonText,onClick,isInputNeed} = card
+          const {id,title,description,content}=card_details
+          return(
+          <CardComponent
+            key={id}
+            title={title}
+            description={description}
+            content={content}
+            buttonText = {buttonText}
+            onButtonClick = {onClick}
+            isInputNeed={isInputNeed}
           />
-          <Button
-            description={detailsButtonText}
-            buttonSize="small"
-            onclickEvent={onClickInDetails}
-          />
-        </CardActions>
-      </Card> */}
+        )
+        })}
+      </div>
     </div>
-  );
-};
-
-export default ShowCaseCard;
+  )
+}

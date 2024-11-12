@@ -46,7 +46,7 @@ type cardType = {
   detailsButtonText?: string;
   onClickInDetails?: () => void | any;
   buttonText: string;
-  onButtonClick?: () => void | any;
+  onClick?: () => void | any;
   isInputNeed:Boolean
 };
 
@@ -62,11 +62,13 @@ export { assetStatusType, cardType };
 const mockCards: cardType[] = [
   {
     card_details:  {
+      id:"one",
       title: "Virtualized Asset",
-      price: 1000,
       description: "A digital asset in the market",
-      stakeHolder: "justinSun",
-      asset_unique_id: 403,
+      content:{    stakeHolder: "justinSun",
+        asset_unique_id: 403,
+        price: 1000
+      }
     },
     image: "https://via.placeholder.com/150", // Replace with an actual image URL
     buttonText: "Buy Now",
@@ -74,18 +76,20 @@ const mockCards: cardType[] = [
     onClickInDetails: () => {
       console.log("move to blockchain explorer");
     },
-    onButtonClick: () => {
+    onClick: () => {
       console.log("Redirecting to blockchain explorer...");
     },
     isInputNeed: true,
   },
   {
     card_details: {
+      id:"two",
       title: "Virtualized Asset 2",
-      price: 1500,
       description: "Another asset example",
-      stakeHolder: "elonMusk",
-      asset_unique_id: 404,
+      content:{    stakeHolder: "justinSun",
+        asset_unique_id: 403,
+        price: 1000
+      }
     },
     image: "https://via.placeholder.com/150", // Replace with an actual image URL
     buttonText: "Buy Now",
@@ -93,7 +97,91 @@ const mockCards: cardType[] = [
     onClickInDetails: () => {
       console.log("move to blockchain explorer");
     },
-    onButtonClick: () => {
+    onClick: () => {
+      console.log("Redirecting to blockchain explorer...");
+    },
+    isInputNeed: true,
+  },
+  {
+    card_details: {
+      id:"two",
+      title: "Virtualized Asset 2",
+      description: "Another asset example",
+      content:{    stakeHolder: "justinSun",
+        asset_unique_id: 403,
+        price: 1000
+      }
+    },
+    image: "https://via.placeholder.com/150", // Replace with an actual image URL
+    buttonText: "Buy Now",
+    detailsButtonText: "view Blockchain explorer",
+    onClickInDetails: () => {
+      console.log("move to blockchain explorer");
+    },
+    onClick: () => {
+      console.log("Redirecting to blockchain explorer...");
+    },
+    isInputNeed: true,
+  },
+  {
+    card_details: {
+      id:"two",
+      title: "Virtualized Asset 2",
+      description: "Another asset example",
+      content:{    stakeHolder: "justinSun",
+        asset_unique_id: 403,
+        price: 1000
+      }
+    },
+    image: "https://via.placeholder.com/150", // Replace with an actual image URL
+    buttonText: "Buy Now",
+    detailsButtonText: "view Blockchain explorer",
+    onClickInDetails: () => {
+      console.log("move to blockchain explorer");
+    },
+    onClick: () => {
+      console.log("Redirecting to blockchain explorer...");
+    },
+    isInputNeed: true,
+  },
+  {
+    card_details: {
+      id:"two",
+      title: "Virtualized Asset 2",
+      description: "Another asset example",
+      content:{    stakeHolder: "justinSun",
+        asset_unique_id: 403,
+        price: 1000
+      }
+    },
+    image: "https://via.placeholder.com/150", // Replace with an actual image URL
+    buttonText: "Buy Now",
+    detailsButtonText: "view Blockchain explorer",
+    onClickInDetails: () => {
+      console.log("move to blockchain explorer");
+    },
+    onClick: () => {
+      console.log("Redirecting to blockchain explorer...");
+    },
+    isInputNeed: true,
+  },
+  {
+    card_details: {
+      id:"two",
+      title: "Virtualized Asset 2",
+      description: "Another asset example",
+      content:{    stakeHolder: "justinSun",
+        asset_unique_id: 403,
+        price: 1000
+      }
+    },
+    image: "https://via.placeholder.com/150", // Replace with an actual image URL
+    buttonText: "Buy Now",
+    detailsButtonText: "view Blockchain explorer",
+    onClickInDetails: () => {
+      console.log("move to blockchain explorer");
+    },
+    onClick: () => {
       console.log("Redirecting to blockchain explorer...");
     },
     isInputNeed: true,

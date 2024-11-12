@@ -90,7 +90,6 @@ export function SizesList({
            { isActionNeed ? <Button
               description={description}
               onclickEvent={onclick}
-              buttonSize="medium"
             ></Button> : null }
           </List>
         </div>

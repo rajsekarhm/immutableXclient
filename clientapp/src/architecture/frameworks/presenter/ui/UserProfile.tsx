@@ -7,6 +7,7 @@ import Button from "../../components/Button";
 import connectThroughWindow from "../../../../../blockchain_client/ethereum/connectWallet";
 import { SizesList } from "../../components/ListWidgets";
 import AssetEntity from "../../../domains/entities/AssetEntity";
+import ShowCaseCard from "../../components/ShowCaseCard";
 
 const UserProfiles = () => {
   const { username } : any = useParams();
@@ -19,6 +20,20 @@ const UserProfiles = () => {
   const {assetHolding}:any = browserStorage.getFromStorage('raja')
   const [assetHoldings,setAssetHoldings] = useState(assetHolding)
   const [reviewStatus, setReviewStatus] = useState(false);
+  const mockAsset = [{
+    card_details: {id :"one",
+      title:"Holdings",
+      content: {
+        walletAddress: "0x212f916DCfF88AC66883a2175de5BDa52C6bA968",
+        status: "pending",
+        price: "1000",
+        stakeholder: "rajubhai da",
+        exploree: "sol chain",
+      }},
+    buttonText:"verify",
+    onClick:()=>{},
+    isInputNeed:true
+  }]
 
   const handleChange = (event: any) => {
     event.preventDefault();
@@ -111,39 +126,12 @@ const UserProfiles = () => {
       
       <Button
         description={"connect wallet"}
-        buttonSize="small"
         onclickEvent={connectThroughWindow}
       />
            {/* ProfileCard positioned at the top right */}
            <div style={{ width: '300px', position: 'absolute', top: 0, right: 0 }}>
           <ProfileCard
-            card_details={{
-              firstName: {
-                variant: "h5",
-                details: userProfile?.firstname,
-                component: "div",
-              },
-              email: {
-                variant: "h7",
-                details: userProfile?.email,
-                component: "div",
-                style: { color: "text.secondary" },
-              },
-              phoneNumber: {
-                variant: "p",
-                details: userProfile?.phoneNumber,
-                component: "div",
-                style: { color: "text.secondary" },
-              },
-              governmentId: {
-                variant: "h7",
-                details: userProfile?.governmentId,
-                component: "div",
-                style: { color: "text.secondary" },
-              },
-            }}
-            buttonText={"verify"}
-            onButtonClick={() => {}}
+            name={"name"}description={"name"}mail={"name"}address={"name"}phone={"name"}
           />
         </div>
       
@@ -168,35 +156,7 @@ const UserProfiles = () => {
           />
         </section>
       </div>
-
-      {/* SizesList positioned below the Form */}
-      <div style={{
-        width: '600px',
-        padding: '20px',
-        background: 'orange',
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-        borderRadius: '8px',
-        textAlign: 'center',
-        marginTop: '10px'
-      }}>
-        <SizesList
-          size="ok"
-          listTitle="asset under review"
-          listObject={{
-            properties:{
-              walletAddress: "0x212f916DCfF88AC66883a2175de5BDa52C6bA968",
-              status: "pending",
-              price: "1000",
-              stakeholder: "rajubhai da",
-            },
-            isActionNeed:false,
-            action:{
-              description:"ok",
-              onclick: () => {}
-            }
-          }}
-        />
-      </div>
+        <ShowCaseCard cardDetails={mockAsset}/>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import { ChangeEvent, MouseEventHandler } from "react";
-import { Box, TextField } from "@mui/material";
+import { Input } from "./shadcn/Input";
 
 type inputBoxFields = {
   defaultValue?: string | undefined;
@@ -9,9 +9,9 @@ type inputBoxFields = {
   description: string;
   pattern?: string;
   maxlength?: number;
-  helperText?:string
-  id?:string
-  style?:any
+  helperText?: string;
+  id?: string;
+  style?: any;
 };
 
 type inputBoxProps = {
@@ -29,24 +29,23 @@ function InputBox({ handleInput, componentInfo, handleClick }: inputBoxProps) {
     description,
     pattern,
     maxlength,
-    helperText,
     id,
-    style
+    style,
   } = componentInfo;
   return (
-    <div className={className} style={style} >
-      <Box>
-        <TextField 
-          name={name}
-          type={type}
-          defaultValue={defaultValue}
-          id={id}
-          label={description}
-          onClick={handleClick ? handleClick : () => {}}
-          onChange={handleInput} 
-          helperText= {helperText}/>
-        </Box>
-        <br/>
+    <div className={className} style={style}>
+      <Input
+        onChange={handleInput}
+        onClick={handleClick}
+        name={name}
+        type={type}
+        defaultValue={defaultValue}
+        id={id}
+        placeholder={description}
+        pattern={pattern}
+        maxLength={maxlength}
+      />
+      <br/>
     </div>
   );
 }

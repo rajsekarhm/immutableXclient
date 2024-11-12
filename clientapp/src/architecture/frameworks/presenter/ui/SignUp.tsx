@@ -8,6 +8,7 @@ import UserEntity from "../../../domains/entities/UserEntity";
 import CustodianEntity from "../../../domains/entities/CustodianEntity";
 import { actions_store } from "../../../controllers/_store";
 import Typography from "@mui/joy/Typography";
+import Mail from "@mui/icons-material/Mail";
 
 export const SigUpFormPage = (props: { portal: string }) => {
   const { users_create, custodain_create } = actions_store.getActions();
@@ -178,24 +179,15 @@ export const SigUpFormPage = (props: { portal: string }) => {
             <Button
               description="submit"
               onclickEvent={handleSubmit}
-              buttonSize="small"
               isDisabled={validate}
             />
           </div>
           <div>
             <br />
             <Button
-              buttonSize="small"
-              description="signup with google"
+              description={<> <Mail/> Login with Email </>}
               onclickEvent={() => console.log("lol")}
             />
-            <br />
-            <Button
-              buttonSize="small"
-              description="signup with apple"
-              onclickEvent={() => console.log("lol")}
-            />
-            <br />
           </div>
           <div  style={{ fontFamily: "monospace" }}>
             Already have account? Please{" "}
