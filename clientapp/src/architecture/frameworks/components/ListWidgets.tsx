@@ -1,8 +1,9 @@
-import Box from "@mui/joy/Box";
 import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
 import Button from "./Button";
 import Typography from "@mui/joy/Typography";
+import Box from "@mui/joy/Box";
+
 export default function ListWidget({
   type,
   size,
@@ -89,7 +90,6 @@ export function SizesList({
            { isActionNeed ? <Button
               description={description}
               onclickEvent={onclick}
-              buttonSize="medium"
             ></Button> : null }
           </List>
         </div>

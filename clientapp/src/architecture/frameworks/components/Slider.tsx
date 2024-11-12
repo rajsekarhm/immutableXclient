@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Box from '@mui/joy/Box';
 import Slider from '@mui/joy/Slider';
+import Box from '@mui/joy/Box';
 
 function valueText(value: number) {
   return `$ ${value}`;

@@ -113,7 +113,6 @@ const SignInPage = (props: any) => {
             <Button
               description="sign in"
               onclickEvent={handleSubmit}
-              buttonSize="small"
             />
             <br />
             <label>
@@ -146,13 +145,11 @@ const SignInPage = (props: any) => {
                   maxlength: 10,
                 }}
                 handleInput={() => {}}
-              />
-                <Button
-                  description="Submit"
-                  onclickEvent={() => {}}
-                  buttonSize="small"
-                />{" "}
-              </>
+              />  <Button
+              description="Submit"
+              onclickEvent={() => {}}
+            />{" "}
+          </>
             ) : null}
           </div>
         </section>

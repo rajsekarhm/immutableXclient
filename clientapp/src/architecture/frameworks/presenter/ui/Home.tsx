@@ -27,7 +27,7 @@ import ListWidget from '../../components/ListWidgets';
         <div className="text-3xl md:text-7xl font-bold dark:text-white text-center">
           Immutable X
         </div>
-        <SVG></SVG>
+        {/* <SVG></SVG> */}
         <div className="font-extralight text-base md:text-4xl dark:text-neutral-200 py-4">
           Digitalize your assets in Blockchain... 
         </div>
