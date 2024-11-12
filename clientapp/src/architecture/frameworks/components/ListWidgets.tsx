@@ -1,11 +1,8 @@
-import * as React from "react";
-import Box from "@mui/joy/Box";
 import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
-import ListItemDecorator from "@mui/joy/ListItemDecorator";
-import ListItemButton from "@mui/joy/ListItemButton";
+import Button from "./Button";
 import Typography from "@mui/joy/Typography";
-import Home from "@mui/icons-material/Home";
+import Box from "@mui/joy/Box";
 
 export default function ListWidget({
   type,
@@ -30,23 +27,25 @@ export function SizesList({
   listObject?: any;
   listTitle?: string;
 }) {
+  const { properties, action } = listObject;
+  const { description, onclick, isActionNeed= false } = action;
   return (
     <div>
       <Box
         sx={{
-          flexGrow: 1,
+          flexGrow: 2,
           display: "flex",
           justifyContent: "center",
-          gap: 2,
+          gap: 3,
           flexWrap: "wrap",
-          "& > *": { minWidth: 100, flexBasis: "auto", maxWidth: 500 },
+          "& > *": { minWidth: 300, flexBasis: "auto", maxWidth: 600 },
         }}
       >
         <div key={"lg"}>
           <List
             size={"lg"}
             variant="outlined"
-            sx={{ maxWidth: 500, borderRadius: "sm" }}
+            sx={{ maxWidth: 600, borderRadius: "sm" }}
           >
             <ListItem>
               <Typography
@@ -65,12 +64,13 @@ export function SizesList({
                 {listTitle}
               </Typography>
             </ListItem>
-            {Object.keys(listObject).map((element: any) => {
+            {Object.keys(properties).map((element: any) => {
               return (
                 <>
                   {" "}
-                  <ListItem> <Typography>{element}</Typography></ListItem>
                   <ListItem>
+                    {" "}
+                    <Typography>{element}</Typography>
                     <Typography
                       variant="soft"
                       color="primary"
@@ -81,12 +81,16 @@ export function SizesList({
                         p: 1,
                       }}
                     >
-                      {listObject[element]}
-                    </Typography>
+                      {properties[element]}
+                    </Typography>{" "}
                   </ListItem>
                 </>
               );
             })}
+           { isActionNeed ? <Button
+              description={description}
+              onclickEvent={onclick}
+            ></Button> : null }
           </List>
         </div>
       </Box>

@@ -8,6 +8,7 @@ import UserEntity from "../../../domains/entities/UserEntity";
 import CustodianEntity from "../../../domains/entities/CustodianEntity";
 import { actions_store } from "../../../controllers/_store";
 import Typography from "@mui/joy/Typography";
+import Mail from "@mui/icons-material/Mail";
 
 export const SigUpFormPage = (props: { portal: string }) => {
   const { users_create, custodain_create } = actions_store.getActions();
@@ -52,7 +53,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
   };
 
   return (
-    <div style={{background:'#f7f2e4', height:'150vh', msOverflowY:'hidden'}}>
+    <div style={{background:'white', height:'150vh', msOverflowY:'hidden'}}>
     <div style={{height:"20vh", display:"flex", justifyContent:"center" , alignItems: "center", fontFamily:
       "sans-serif"
     }}>   <Typography> Enter your credentials</Typography>
@@ -171,31 +172,22 @@ export const SigUpFormPage = (props: { portal: string }) => {
             </>
           ) : null}
           <div>
-            <input type="checkbox" onClick={() => setValidate(false)} />{" "}
+            <input type="checkbox" onClick={() => {if(validate){setValidate(false)}if(validate == false){setValidate(true)}}} />{" "}
             <label> accept terms & condition </label>
           </div>
           <div className="form-group">
             <Button
               description="submit"
               onclickEvent={handleSubmit}
-              buttonSize="small"
               isDisabled={validate}
             />
           </div>
           <div>
             <br />
             <Button
-              buttonSize="small"
-              description="signup with google"
+              description={<> <Mail/> Login with Email </>}
               onclickEvent={() => console.log("lol")}
             />
-            <br />
-            <Button
-              buttonSize="small"
-              description="signup with apple"
-              onclickEvent={() => console.log("lol")}
-            />
-            <br />
           </div>
           <div  style={{ fontFamily: "monospace" }}>
             Already have account? Please{" "}

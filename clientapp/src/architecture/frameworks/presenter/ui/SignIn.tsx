@@ -44,9 +44,9 @@ const SignInPage = (props: any) => {
   return (
     <motion.div initial={{ opacity: 0, scale: 0.5 }}
     animate={{ opacity: 1, scale: 1 }}
-    transition={{ duration: 1 }}
+    transition={{ duration: 0.5 }}
   >
-    <div style={{background:'#f7f2e4', height:'150vh', msOverflowY:'hidden'}}>
+    <div style={{background:'white', height:'150vh', msOverflowY:'hidden'}}>
       <div
         style={{
           display: "flex",
@@ -113,7 +113,6 @@ const SignInPage = (props: any) => {
             <Button
               description="sign in"
               onclickEvent={handleSubmit}
-              buttonSize="small"
             />
             <br />
             <label>
@@ -146,13 +145,11 @@ const SignInPage = (props: any) => {
                   maxlength: 10,
                 }}
                 handleInput={() => {}}
-              />
-                <Button
-                  description="Submit"
-                  onclickEvent={() => {}}
-                  buttonSize="small"
-                />{" "}
-              </>
+              />  <Button
+              description="Submit"
+              onclickEvent={() => {}}
+            />{" "}
+          </>
             ) : null}
           </div>
         </section>

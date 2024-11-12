@@ -1,8 +1,9 @@
 import { RouterProvider } from "react-router-dom";
 import Router from "./Router";
-import { Input } from "./frameworks/components/Input";
+import ResponsiveGrid from "./frameworks/components/Grid";
 export const App = () => {
   return <>
+  {/* <ResponsiveGrid/> */}
   <RouterProvider router={Router}/>
   </>
 };
