@@ -4,7 +4,6 @@ import ShowCaseCard from "../../components/ShowCaseCard";
 export default function MarketPlace() {
   const actions = {
     onSearch: () => {},
-    onProfileClick: () => {},
     onAccountClick: () => {},
     OnMoreClick: () => {},
   }; 

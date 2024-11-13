@@ -11,7 +11,7 @@ interface CardData {
 
 function CardComponent({ title, description, content, buttonText, onButtonClick, isInputNeed }: any) {
   return (
-    <Card className="w-full max-w-4xl mx-auto shadow-lg">
+    <Card className="w-[250px] max-w-4xl mx-auto shadow-lg">
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         <CardDescription>{description}</CardDescription>

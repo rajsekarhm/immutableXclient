@@ -10,43 +10,51 @@ import {
 } from "./DropDown"
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetDescription,
+  SheetFooter,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from "./Sheet"
-import { Menu, Search, User, Settings, LogOut } from "lucide-react"
-import { Button } from "./Button"
+import { Search, User, Settings, LogOut } from "lucide-react"
+import  {Button} from "./Button"
+import { Label } from "./Label"
 import { Input } from "./Input"
 
 export default function AppBar() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
-
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 items-center">
-        <Sheet open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-          <SheetTrigger asChild>
-            <Button variant="ghost" className="mr-2 px-0 text-base hover:bg-transparent focus:ring-0 md:hidden">
-              <Menu className="h-6 w-6" />
-              <span className="sr-only">Toggle Menu</span>
-            </Button>
-          </SheetTrigger>
-          <SheetContent side="left" className="w-[300px] sm:w-[400px]">
-            <SheetHeader>
-              <SheetTitle>Markeplace</SheetTitle>
-              <SheetDescription>
-                Navigate through the app using this menu.
-              </SheetDescription>
-            </SheetHeader>
-            <nav className="flex flex-col space-y-4 mt-4">
-              <a href="#" className="text-sm font-medium hover:underline" >Home</a>
-              <a href="#" className="text-sm font-medium hover:underline">Dashboard</a>
-              <a href="#" className="text-sm font-medium hover:underline">Settings</a>
-            </nav>
-          </SheetContent>
+      <div className="container flex h-14 items-center  ">
+        <div>
+        <Sheet  open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
+        <SheetContent side={"left"}>
+          <SheetHeader>
+            <SheetTitle>Edit profile</SheetTitle>
+            <SheetDescription>
+              Make changes to your profile here. Click save when you're done.
+            </SheetDescription>
+          </SheetHeader>
+          <div className="grid gap-4 py-4">
+            <div className=" grid grid-cols-4 items-center gap-4">
+              <Label/>
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="username" className="text-right">
+                Username
+              </Label>
+              <Input id="username" value="@peduarte" className="col-span-3" />
+            </div>
+          </div>
+          <SheetFooter>
+            <SheetClose asChild>
+              <Button onClick={() => {}}> {"Submit"}</Button>
+            </SheetClose>
+          </SheetFooter>
+        </SheetContent>
         </Sheet>
+        </div>
         <div className="mr-4 hidden md:flex">
           <a href="#" className="mr-6 flex items-center space-x-2">
             <span className="hidden font-bold sm:inline-block" onClick={() => setIsDrawerOpen(true)}>ImmutableX</span>
