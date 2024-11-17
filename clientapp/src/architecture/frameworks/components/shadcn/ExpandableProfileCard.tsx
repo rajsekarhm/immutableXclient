@@ -1,21 +1,38 @@
-import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { Avatar, AvatarFallback, AvatarImage } from "./Avatar"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./Card"
-import { ChevronDown, ChevronUp, Mail, Phone, MapPin } from "lucide-react"
-import { Button } from "./Button"
-interface profileCard{
-  name?:string
-  description?:string
-  mail?:string
-  address?:string
-  phone?:string
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Avatar, AvatarFallback, AvatarImage } from "./Avatar";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "./Card";
+import { ChevronDown, ChevronUp, Mail, Phone, MapPin, Wallet } from "lucide-react";
+import { Button } from "./Button";
+import { useWallet } from "../../presenter/hooks/useWallet";
+import WalletConnect from "../WalletConnect";
+interface profileCard {
+  name?: string;
+  description?: string;
+  mail?: string;
+  address?: string;
+  phone?: string;
+  isWalletNeed?:boolean
 }
 
-export default function ExpandableProfileCard({ name,description,mail,address,phone}:profileCard) {
-  const [isExpanded, setIsExpanded] = useState(false)
-
-  const toggleExpand = () => setIsExpanded(!isExpanded)
+export default function ExpandableProfileCard({
+  name,
+  description,
+  mail,
+  address,
+  phone,
+  isWalletNeed
+}: profileCard) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const { account, balance, connectWallet, disconnectWallet } = useWallet();
+  const toggleExpand = () => setIsExpanded(!isExpanded);
 
   return (
     <motion.div
@@ -27,7 +44,10 @@ export default function ExpandableProfileCard({ name,description,mail,address,ph
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <div className="flex items-center space-x-4">
             <Avatar>
-              <AvatarImage src="/placeholder.svg?height=40&width=40" alt="User avatar" />
+              <AvatarImage
+                src="/placeholder.svg?height=40&width=40"
+                alt="User avatar"
+              />
               <AvatarFallback>X</AvatarFallback>
             </Avatar>
             <div>
@@ -35,7 +55,12 @@ export default function ExpandableProfileCard({ name,description,mail,address,ph
               <CardDescription>{description}</CardDescription>
             </div>
           </div>
-          <Button variant="ghost" size="sm" className="h-8 w-8 p-0" onClick={toggleExpand}>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="h-8 w-8 p-0"
+            onClick={toggleExpand}
+          >
             {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
           </Button>
         </CardHeader>
@@ -63,13 +88,14 @@ export default function ExpandableProfileCard({ name,description,mail,address,ph
                   </div>
                 </div>
               </CardContent>
-              <CardFooter>
-                <Button className="w-full bg-black text-white ">View Full Profile</Button>
+               <CardFooter>
+                {/* <Button className="w-full bg-black text-white ">View Full Profile</Button> */}
+                <WalletConnect/>
               </CardFooter>
             </motion.div>
           )}
         </AnimatePresence>
       </Card>
     </motion.div>
-  )
+  );
 }

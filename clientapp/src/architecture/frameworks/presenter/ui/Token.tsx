@@ -4,15 +4,12 @@ import Form from "../../components/Form";
 import { browserStorage } from "../../../../helpers/Storage";
 import ProfileCard from "../../components/ProfileCard";
 import AssetEntity from "../../../domains/entities/AssetEntity";
-import ShowCaseCard from "../../components/ShowCaseCard";
-import { Label } from "../../components/shadcn/Label";
 
-const UserProfiles = () => {
+function TokenCreation() {
   const { username } : any = useParams();
-  const [option,setOption] = useState({ opt_for: "Opt for Sale", isForSale: "opt_for_sale" })
-  const [userProfile, setUserProfile] : any = useState(
-    browserStorage.getFromStorage(username.toString())
-  );
+//   const [userProfile, setUserProfile] : any = useState(
+//     browserStorage.getFromStorage(username.toString())
+//   );
   const navigate = useNavigate();
   const [newAsset, setnewAsset] = useState(AssetEntity.initialState().assetEntity);
   const {assetHolding}:any = browserStorage.getFromStorage('raja')
@@ -50,15 +47,49 @@ const UserProfiles = () => {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-   const {isForSale} = option
-    if(isForSale == "opt_for_sale") {
-      newAsset.isForSale = true
-    }
-    userProfile.assetHolding.push(newAsset);
-    browserStorage.storeInStorage(username.toString(), userProfile);
+    // userProfile.assetHolding.push(newAsset);
+    // browserStorage.storeInStorage(username.toString(), userProfile);
     setReviewStatus(true);
   };
-  
+
+  const form_field_schema3 :any= {inputsFileds:[
+
+    {
+      defaultValue: undefined,
+      description: "Enter token creation address",
+      className: "wallet_class",
+      type: "text",
+      name: "walletAddress",
+      maxlength: 100,
+    },
+    {
+      defaultValue: undefined,
+      description: "Enter number of token",
+      className: "price_class",
+      type: "string",
+      name: "numberOfTokens",
+      maxlength: 10,
+    },
+    {
+      defaultValue: undefined,
+      description: "Enter Symbol",
+      className: "symbol_class",
+      type: "text",
+      name: "symbol",
+      maxlength: 10,
+    },
+    {
+      defaultValue: undefined,
+      description: "Enter Token Name",
+      className: "tokenname_class",
+      type: "text",
+      name: "tokenName",
+      maxlength: 10,
+    }
+  ],
+  isSelectFieldsNeed:false}
+
+
   useEffect(() => {
     // api call make to validate that user is authenticated
     if (true) {
@@ -69,21 +100,36 @@ const UserProfiles = () => {
 
   return (
     <div style={{ background: 'white', height: '150vh', msOverflowY: 'hidden', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px' }}>
-      {reviewStatus && <h2>Asset under review process</h2>}
-           {/* ProfileCard positioned at the top right */}
            <div style={{ width: '300px', position: 'absolute', top: 0, right: 0 }}>
           <ProfileCard
             name={"name"}description={"name"}mail={"name"}address={"name"}phone={"name"}
           />
         </div>
-       <div>
-       <Label> Collections </Label>
-       <ShowCaseCard cardDetails={mockAsset}/>
-       </div>
+      
+      <div style={{ position: 'relative', width: '100%', maxWidth: '900px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginTop: '20px' }}>
+        <section style={{
+          width: '400px',
+          padding: '20px',
+          background: 'white',
+          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+          borderRadius: '8px',
+          textAlign: 'center',
+          marginTop: '50px',
+        }}>
+          <h2>Tokenization Asset</h2>
+          <Form
+            schema={form_field_schema3}
+            handleChange={handleChange}
+            handleClick={handleClick}
+            onSubmit={handleSubmit}
+          />
+          
+        </section>
+      </div>
     </div>
   );
 };
 
-export default UserProfiles;
+export default TokenCreation;
 
 

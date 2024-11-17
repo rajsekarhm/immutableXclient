@@ -18,7 +18,7 @@ function CardComponent({ title, description, content, buttonText, onButtonClick,
       </CardHeader>
       {Object.values(content).map((value:any) =>{
         return(<>  <CardContent key={value}>
-            <Label htmlFor={value}>{value}</Label>
+            <Label htmlFor={value}>{value.length > 20 ? <>{value.slice(0, 6)}...{value.slice(-4)} </>: value}</Label>
           </CardContent>  </> )
       })}
      {isInputNeed? <CardFooter>

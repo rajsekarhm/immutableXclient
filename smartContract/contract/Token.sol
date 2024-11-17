@@ -1,29 +1,47 @@
-pragma solidity >=0.8.2 <0.9.0;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.19;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+ contract CustomToken is ERC20 {
+    address   _owner;
+    address public _contractAddress;
+    string _symbol;
+    string _name;
+    uint8 _decimals;
+    uint _totalSupply;
+    event tokenCreation(string _symbol,string _name,address indexed  owner);
+    event minted(address indexed  to, uint amount);
+    event burned(address indexed  to, uint amount);
 
-contract createToken is ERC20{
-    address  _owner;
-    event contractCreated(address payable);
-    event ownershipChanged(address payable);
-
-    modifier _validateByOwner(){
-        require(payable(msg.sender) == _owner,"Invaild Transaction ..");
+    receive() external payable { }
+    fallback() external payable { }
+    
+    constructor(string memory name, string memory symbol) ERC20(name, symbol) {
+        _owner = msg.sender;
+        _contractAddress = address(0);
+        emit  tokenCreation( symbol, name, _owner);
+    }
+    modifier onlyOwner {
+        require(msg.sender ==_owner, "Ownable: caller is not");
         _;
     }
-    constructor(string memory _name, string memory _symbol, address _owner_address) ERC20(_name, _symbol){
-        _owner = _owner_address;
-        _mint(payable(_owner), 1000);
-        emit contractCreated(payable (_owner));
-    }    
 
-    function changeOwnership(address payable newOwner) public _validateByOwner() returns(bool){
-        _owner = newOwner ;
-        emit ownershipChanged(newOwner);
-        return true;
+    function mint(address to, uint256 amount) external  {
+        _totalSupply = 1_000_000_000_000_000_000_000_000;
+        uint toMint = _totalSupply*amount;
+        _mint(to,toMint);
+        emit minted(to, toMint);
     }
 
-    function getOwner() public view returns (address){
+    function burn(uint256 amount) external {
+        _burn(msg.sender, amount);
+        emit  burned(msg.sender, amount);
+    }
+
+    function getContractOwner() view  external  returns(address owner){
         return  _owner;
+    }
+    function getContractAddress( ) view  external  returns (address contractAdrress){
+        return  _contractAddress;
     }
 }

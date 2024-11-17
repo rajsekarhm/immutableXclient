@@ -7,7 +7,7 @@ export default function PrimarySearchAppBar({actionEvents,authDetails}:any) {
   const navigate =  useNavigate()
   return (
     <div>
-       <AppBar/>
+       <AppBar onSearch={onSearch} onAccountClick={onAccountClick} OnMoreClick={OnMoreClick} isAuth={true}/>
     </div>
   );
 }
