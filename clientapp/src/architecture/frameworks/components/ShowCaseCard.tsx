@@ -10,6 +10,7 @@ interface CardData {
 }
 
 function CardComponent({ title, description, content, buttonText, onButtonClick, isInputNeed }: any) {
+  console.log({ title, description, content, buttonText, onButtonClick, isInputNeed })
   return (
     <Card className="w-[250px] max-w-4xl mx-auto shadow-lg">
       <CardHeader>
@@ -35,9 +36,10 @@ export default function ShowCaseCard({cardDetails}:any) {
         {cardDetails.map((card:any) => {
           const { card_details,buttonText,onClick,isInputNeed} = card
           const {id,title,description,content}=card_details
+          console.log("{id,title,description,content}",{id,title,description,content})
           return(
-          <CardComponent
-            key={id}
+            <div key={id}>
+            <CardComponent
             title={title}
             description={description}
             content={content}
@@ -45,6 +47,7 @@ export default function ShowCaseCard({cardDetails}:any) {
             onButtonClick = {onClick}
             isInputNeed={isInputNeed}
           />
+            </div>
         )
         })}
       </div>

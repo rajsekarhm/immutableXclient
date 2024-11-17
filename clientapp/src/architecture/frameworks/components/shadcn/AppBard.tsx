@@ -42,9 +42,9 @@ export default function AppBar({ onSearch,onAccountClick, OnMoreClick, isAuth}:a
           </SheetHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-2 items-center gap-4">
-              <Button className="bg-black text-white " onClick={()=>navigate('/sign-in/users')}> tokenization  </Button>
+              <Button className="bg-black text-white " onClick={()=>navigate('/tokenization')}> tokenization  </Button>
               <br/>
-              <Button className="bg-black text-white" onClick={()=>navigate('/sign-in/users')}> collateral </Button>
+              <Button className="bg-black text-white" onClick={()=>navigate('/asset-digitalize')}> collateral </Button>
             </div>
           </div>
           <SheetFooter>

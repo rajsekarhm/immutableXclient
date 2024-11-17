@@ -41,7 +41,17 @@ import {
     subMenuDetails?:any
   }
 
-  export function DropdownMenuDefault({dropDownDetails}:any) {
+
+const dropDownDetails = [
+  {
+    element: "",
+    text: "",
+    itHasSubtab: true,
+    subTab: [{ element: "", text: "" }],
+  },
+];
+
+  export function DropdownMenuByUseCase({dropDownDetails}:any) {
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
