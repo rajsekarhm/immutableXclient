@@ -17,12 +17,17 @@ import {
   SheetHeader,
   SheetTitle,
 } from "./Sheet"
-import { Search, User, Settings, LogOut } from "lucide-react"
+import { Search, User, Settings, LogOut, Wallet } from "lucide-react"
 import  {Button} from "./Button"
 import { Label } from "./Label"
 import { Input } from "./Input"
+import { useNavigate } from "react-router-dom"
+import { useWallet } from "../../presenter/hooks/useWallet"
+import WalletConnect from "../WalletConnect"
 
-export default function AppBar() {
+export default function AppBar({ onSearch,onAccountClick, OnMoreClick, isAuth}:any) {
+  const navigate = useNavigate()
+  const { account, balance, connectWallet, disconnectWallet } = useWallet();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -31,25 +36,20 @@ export default function AppBar() {
         <Sheet  open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
         <SheetContent side={"left"}>
           <SheetHeader>
-            <SheetTitle>Edit profile</SheetTitle>
-            <SheetDescription>
-              Make changes to your profile here. Click save when you're done.
-            </SheetDescription>
+            <SheetTitle>Looking For ? </SheetTitle>
+            {/* <SheetDescription>
+            </SheetDescription> */}
           </SheetHeader>
           <div className="grid gap-4 py-4">
-            <div className=" grid grid-cols-4 items-center gap-4">
-              <Label/>
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="username" className="text-right">
-                Username
-              </Label>
-              <Input id="username" value="@peduarte" className="col-span-3" />
+            <div className="grid grid-cols-2 items-center gap-4">
+              <Button className="bg-black text-white " onClick={()=>navigate('/sign-in/users')}> tokenization  </Button>
+              <br/>
+              <Button className="bg-black text-white" onClick={()=>navigate('/sign-in/users')}> collateral </Button>
             </div>
           </div>
           <SheetFooter>
             <SheetClose asChild>
-              <Button onClick={() => {}}> {"Submit"}</Button>
+              <Button className="bg-black text-white" onClick={() => {}}> {"view Explorer"}</Button>
             </SheetClose>
           </SheetFooter>
         </SheetContent>
@@ -62,7 +62,8 @@ export default function AppBar() {
           <nav className="flex items-center space-x-6 text-sm font-medium">
             <a href="#" className="transition-colors hover:text-foreground/80">Home</a>
             <a href="#" className="transition-colors hover:text-foreground/80">Dashboard</a>
-            <a href="#" className="transition-colors hover:text-foreground/80">Settings</a>
+            <a href="#" className="transition-colors hover:text-foreground/80">Explore</a>
+            <a href="#" className="transition-colors hover:text-foreground/80">Blogs</a>
           </nav>
         </div>
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
@@ -75,7 +76,7 @@ export default function AppBar() {
               />
             </div>
           </div>
-          <DropdownMenu>
+         {isAuth ? <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="relative h-8 w-8 rounded-full">
                 <Avatar className="h-8 w-8">
@@ -101,12 +102,13 @@ export default function AppBar() {
                 <span>Settings</span>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
+              <WalletConnect/>
               <DropdownMenuItem>
                 <LogOut className="mr-2 h-4 w-4" />
                 <span>Log out</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
-          </DropdownMenu>
+          </DropdownMenu> : <Button className="bg-black text-white" onClick={()=>navigate('/sign-in/users')}> SignIn  </Button> }
         </div>
       </div>
     </header>

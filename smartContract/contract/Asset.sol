@@ -1,183 +1,94 @@
-// // SPDX-License-Identifier: GPL-3.0
+// SPDX-License-Identifier: MIT
 
-// pragma solidity >=0.8.2 <0.9.0;
+pragma solidity ^0.8.19;
+import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
-// import "@openzeppelin/contracts/utils/Strings.sol";
-// import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
-
-// contract virtualizeAsset{
-
-//     receive() external payable { }
-
-//   using Strings for uint256;
-//     struct assetDetail{
-//         bytes32 assetUniqueId;
-//         uint cid;
-//         string assetType;
-//         uint securityId;
-//         string currentOwner;
-//         address assetAddress;
-//         address payable ownerAddress;
-//     }
-
-//     uint assestVirutalized;
-//     address payable  []  assestOwners;
-//     mapping (address => assetDetail) assestMap;
-//     struct ownerShips{
-//         address payable from;
-//         address payable  to;
-//     }
-//     mapping (bytes32 => ownerShips) assetOwnerShipHistory;
-
-//     modifier validate(address assetAddress){
-//         require(msg.sender == assestMap[assetAddress].ownerAddress, "not authorized");
-//         _;
-//     }
-
-//     function virtualize() public returns(bool){
-//         return true;
-//     }
-
-//     function generateUniqueID(string memory str, address addr, uint256 num) public pure returns (bytes32) {
-//         // Concatenate the values
-//         string memory concatenatedString = string(abi.encodePacked(str, toString(addr),uintToString(num)));
-
-//         // Hash the concatenated string
-//         bytes32 uniqueID = keccak256(abi.encodePacked(concatenatedString));
-
-//         return uniqueID;
-//     }
-
-//     // Helper function to convert address to string
-//     function toString(address x) internal pure returns (string memory) {
-//         bytes memory s = new bytes(40);
-//         for (uint i = 0; i < 20; i++) {
-//             bytes1 b = bytes1(uint8(uint(uint160(x)) / (2**(8*(19 - i)))));
-//             bytes1 hi = bytes1(uint8(b) / 16);
-//             bytes1 lo = bytes1(uint8(b) - 16 * uint8(hi));
-//             s[2*i] = char(hi);
-//             s[2*i + 1] = char(lo);
-//         }
-//         return string(s);
-//     }
-
-//     // Helper function to convert byte to char
-//     function char(bytes1 b) internal pure returns (bytes1 c) {
-//         if (uint8(b) < 10) return bytes1(uint8(b) + 0x30);
-//         else return bytes1(uint8(b) + 0x57);
-//     }
-
-
-//       function uintToString(uint256 num) public pure returns (string memory) {
-//         if (num == 0) {
-//             return "0";
-//         }
-
-//         uint256 tempNum = num;
-//         uint256 digits;
-
-//         while (tempNum != 0) {
-//             digits++;
-//             tempNum /= 10;
-//         }
-
-//         bytes memory buffer = new bytes(digits);
-//         while (num != 0) {
-//             digits--;
-//             buffer[digits] = bytes1(uint8(48 + num % 10));
-//             num /= 10;
-//         }
-
-//         return string(buffer);
-//     }
-
-
-//     function createVirutalAsset(uint _cid,
-//     string memory _assetType,
-//     uint _securityId,
-//      string memory _currentOwner,
-//      address _assestAddress 
-//      ) public{
-//         assetDetail memory newAsset = assetDetail( generateUniqueID(_currentOwner, _assestAddress, _cid),_cid,_assetType,_securityId,_currentOwner,_assestAddress,payable(msg.sender));
-//         assestMap[_assestAddress] =  newAsset; 
-//         assestOwners.push(payable (msg.sender));
-//     }
-
-//     function deleteAsset(address assetAddr) public view validate(assetAddr){
-//         address payable[]  memory filteredOwners;
-//         for(uint i =0;i<assestOwners.length;i++){
-//             if(assetAddr == assestMap[assetAddr].assetAddress){
-//                 continue ;
-//             }
-//             filteredOwners[i] = assestOwners[i];
-//         }
-//     }
-
-// }
-
-
-pragma solidity >=0.8.2 <0.9.0;
-
-contract asset { 
-
-    
-    struct asset_details {
-        address asset_address;
-        address owner_address;
-        bytes32 assetUniqueId;
-        uint price;
+contract Asset is ERC1155, ReentrancyGuard {
+    address contractOwner;
+    struct  TokenDetails{
+        uint256 tokenId;
+        uint256 value;
+        string  tokenURI;
+        bool isFungible;
+        string symbol;
     }
-    mapping (address => asset_details) asset_map;
+    mapping(address => mapping(uint256 => TokenDetails)) public AssetBalances;
+    mapping(address => uint256) public TokenHoldings;
 
-    // Events
-    event AssetVirtualized(address indexed asset_address, address indexed owner_address, bytes32 assetUniqueId, uint price);
-    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner, address indexed asset_address, uint price);
+    event ownerShipChangedEvent(address _oldAddress,address _newAddress, uint256 _tokenID);
+    event mintedEvent(address _address, uint256 _tokenID,uint256 _amount);
+    event burnedEvent(address _address, uint256 _tokenID);
 
-    // Function to virtualize an asset
-    function virtualize(address _asset_address, uint _assetUniqueId, uint _price) public {
-        asset_details memory newAsset = asset_details(_asset_address, msg.sender, convertUintToBytes32(_assetUniqueId), _price);
-        asset_map[_asset_address] = newAsset;
-        
-        // Emit the AssetVirtualized event
-        emit AssetVirtualized(_asset_address, msg.sender, convertUintToBytes32(_assetUniqueId), _price);
+    constructor(string memory _uri)ERC1155(_uri) {
+        contractOwner = msg.sender;
     }
 
-    // Function to get asset details
-    function getAssetDetails(address asset_address) public view returns (address _asset_address, address _owner_address, bytes32 _assetUniqueId, uint _price) {
-        asset_details memory _assetDetails = asset_map[asset_address];
-        return (_assetDetails.asset_address, _assetDetails.owner_address, _assetDetails.assetUniqueId, _assetDetails.price);
+    function getContractOwnerAddressX() external view returns(address){
+        return contractOwner;
     }
 
-    // Function to convert uint to bytes32
-    function convertUintToBytes32(uint256 _input) public pure returns (bytes32) {
-        return bytes32(_input);
+    function safeMintX(address contractAddress, uint256 amount,uint256 tokenId,string memory uri,string memory  _symbol) external  virtual {
+        AssetBalances[contractAddress][tokenId] = TokenDetails(tokenId,amount,uri,false,_symbol);
+        TokenHoldings[contractAddress] += amount;
+        _mint(contractAddress,tokenId,amount,abi.encode(_symbol));
+        emit mintedEvent(contractAddress,tokenId,amount);
     }
 
-    // Function to transfer ownership of an asset
-    function transferOwnerShip(address _asset_address) public payable {
-    //     if(!(msg.sender == asset_map[_asset_address].owner_address)){
-    //     
-    //     (bool transaction_success,) = _asset.owner_address.call{value:_asset.price}("");
-    //     require(transaction_success,"Transfer Failed");
-    //      asset_map[_asset_address].owner_address = msg.sender;
-    //    }else {
-    //     require(false,"Transfer Failed");
-    //    }
-        asset_details storage _asset = asset_map[_asset_address];
-        require(!(msg.sender == _asset.owner_address), "Only the owner can transfer ownership");
-
-        (bool transaction_success,) = _asset.owner_address.call{value: _asset.price}("");
-        require(transaction_success, "Transfer Failed");
-        
-        // Update ownership
-        asset_map[_asset_address].owner_address = msg.sender;
-
-        // Emit the OwnershipTransferred event
-        emit OwnershipTransferred(_asset.owner_address, msg.sender, _asset_address, asset_map[_asset_address].price);
+    function safeBurnX(address burnAddress, uint256 tokenId, uint256 amount) public  virtual    {
+        require(balanceOf(burnAddress, tokenId) >= amount, "Insufficient balance");
+        if (amount == balanceOf(burnAddress, tokenId)) {
+         delete AssetBalances[burnAddress][tokenId];
+         delete TokenHoldings[burnAddress];
+        }
+        _burn(burnAddress, tokenId, amount);
+        emit burnedEvent(burnAddress, tokenId);
     }
 
-    function getOwnerByAddress(address _asset_address)public view returns(address _owner_address) {
-        return asset_map[_asset_address].owner_address;
+    function getHoldingAssetX(address assetAddress, uint256 _tokenId)
+    public 
+    view
+    returns (
+        uint256 tokenId,
+        uint256 value,
+        string memory tokenURI,
+        bool isFungible,
+        string memory symbolValue
+    ){
+    TokenDetails memory asset = AssetBalances[assetAddress][_tokenId];
+    return (asset.tokenId, asset.value, asset.tokenURI, asset.isFungible, asset.symbol);
     }
+
+    function safeTransferOwnerShipWithEther(address from, address to, uint256 tokenId, uint256 value, bytes memory info) public {
+        require(msg.sender != from, "Can't transfer to self - Failed");
+        (bool status,) = from.call{value: value}(info);
+        require(status, "Transfer Failed");
+        safeTransferOwnerShipX(from, to, tokenId, value, info);
+    }
+
+
+    function safeTransferOwnerShipX(address from, address to, uint256 tokenId, uint256 value, bytes memory info) public  {
+        if(transferOwnerShip(from, to, tokenId)){
+            safeTransferFrom( from,  to,  tokenId,  value, abi.encode(info)); 
+            emit ownerShipChangedEvent(from, to, tokenId);
+        }
+    }
+
+    function transferOwnerShip(address from, address to, uint256 tokenId) internal returns(bool status) {
+        require(to != address(0),"Invalid transaction");   
+        TokenDetails storage newOwnerShipAsset = AssetBalances[from][tokenId];
+        delete AssetBalances[from][tokenId];
+        delete TokenHoldings[from];
+        AssetBalances[to][tokenId] = newOwnerShipAsset;
+        TokenHoldings[to] += newOwnerShipAsset.value;
+        return  true;
+    }
+
+    function transfer(address _to,uint256 value,string memory info)public payable  {
+        uint256 valueInWei = value * 10**18;
+        require(valueInWei > 0, "Insufficient balance");
+        (bool status,) = _to.call{value:valueInWei}(abi.encode(info));
+        require(status, "Transfer Failed");   
+    }
+
 }
-

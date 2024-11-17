@@ -8,6 +8,8 @@ import SignInPage from "./frameworks/presenter/ui/SignIn";
 import CustodianProfiles from "./frameworks/presenter/ui/CustodianProfiles";
 import { SignIn, SignUp } from "@clerk/clerk-react";
 import Builder from "./frameworks/presenter/Builder";
+import AssetCreation from "./frameworks/presenter/ui/Asset";
+import TokenCreation from "./frameworks/presenter/ui/Token";
 
 const Router = createBrowserRouter([
   {
@@ -62,6 +64,14 @@ const Router = createBrowserRouter([
     path: "/builder",
     element: <Builder />,
   },
+  {
+    path:'/asset',
+    element:<AssetCreation/>
+  },
+  {
+    path:'/token',
+    element:<TokenCreation/>
+  }
 ]);
 
 export default Router;

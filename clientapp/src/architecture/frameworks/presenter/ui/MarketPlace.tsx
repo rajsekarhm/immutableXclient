@@ -9,7 +9,7 @@ export default function MarketPlace() {
   }; 
   return (
     <>
-      <PrimarySearchAppBar actionEvents={actions}authDetails={{isAuth:false}} />
+      <PrimarySearchAppBar actionEvents={actions} authDetails={{isAuth:true}} />
       <div style={{background:'white', height:'650vh', msOverflowY:'hidden'}}>
         <ShowCaseCard cardDetails={mockCard} />
       </div>

@@ -42,6 +42,7 @@ const Form = ({ schema, handleChange, handleClick, onSubmit }: FormProps) => {
           </FormControl>
         )
       }) : null}
+      <br/>
       <Button onclickEvent={onSubmit} description="submit" />
     </div>
   );
