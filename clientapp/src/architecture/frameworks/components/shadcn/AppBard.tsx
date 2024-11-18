@@ -12,22 +12,19 @@ import {
   Sheet,
   SheetClose,
   SheetContent,
-  SheetDescription,
   SheetFooter,
   SheetHeader,
   SheetTitle,
 } from "./Sheet"
 import { Search, User, Settings, LogOut, Wallet } from "lucide-react"
 import  {Button} from "./Button"
-import { Label } from "./Label"
 import { Input } from "./Input"
 import { useNavigate } from "react-router-dom"
-import { useWallet } from "../../presenter/hooks/useWallet"
 import WalletConnect from "../WalletConnect"
+import { DropdownMenuByUseCase } from "../DropMenu"
 
-export default function AppBar({ onSearch,onAccountClick, OnMoreClick, isAuth}:any) {
+export default function AppBar({ onSearch,onAccountClick, OnMoreClick, isAuth , menuDetails}:any) {
   const navigate = useNavigate()
-  const { account, balance, connectWallet, disconnectWallet } = useWallet();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -60,8 +57,7 @@ export default function AppBar({ onSearch,onAccountClick, OnMoreClick, isAuth}:a
             <span className="hidden font-bold sm:inline-block" onClick={() => setIsDrawerOpen(true)}>ImmutableX</span>
           </a>
           <nav className="flex items-center space-x-6 text-sm font-medium">
-            <a href="#" className="transition-colors hover:text-foreground/80">Home</a>
-            <a href="#" className="transition-colors hover:text-foreground/80">Dashboard</a>
+            <DropdownMenuByUseCase dropDownDetails={menuDetails}/>
             <a href="#" className="transition-colors hover:text-foreground/80">Explore</a>
             <a href="#" className="transition-colors hover:text-foreground/80">Blogs</a>
           </nav>

@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Form from "../../components/Form";
-import { browserStorage } from "../../../../helpers/Storage";
 import ProfileCard from "../../components/ProfileCard";
-import AssetEntity from "../../../domains/entities/AssetEntity";
-
+import ContractETH from "../../../contract/ContractETH";
+import token_abi from "../../../../../blockchain_client/ethereum/abi/token_abi";
+import byteCode_token from "../../../../../blockchain_client/ethereum/byteCode/byteCode_Token";
+import { toast } from "sonner";
+import { Toaster } from "../../components/shadcn/BottomBanner";
 function TokenCreation() {
   const { username } : any = useParams();
   const navigate = useNavigate();
   const [token,setToken] = useState({
     walletAddress:null,
-    numberOfTokens:null,
+    numberOfTokens:"",
     symbol:null,
-    name:null
+    tokenName:null
   })
   const handleChange = (event: any) => {
     event.preventDefault();
@@ -20,13 +22,21 @@ function TokenCreation() {
     setToken({...token,[name]:value})
   };
 
-  const handleClick = (event: any) => {
-    console.log(token)
-  };
+  const handleClick = (event: any) => { };
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = async (event: any) => {
     event.preventDefault();
-    console.log(token)
+    const _contract =  new ContractETH("browser",window.ethereum)
+    const {symbol, tokenName,numberOfTokens} = token
+    if(symbol&& tokenName&&numberOfTokens){
+      const contractAddress = await _contract.createContract(token_abi,byteCode_token,tokenName,symbol)
+      const web = await _contract.interactWithContract(contractAddress,token_abi)
+      return  await web.mint(contractAddress,numberOfTokens.toString())
+    }else{
+      toast(`Token is Not Minted`, {
+      description: "Give proper Details to mint token",
+    })
+    }
   };
 
   const form_field_schema3 :any= {inputsFileds:[
@@ -103,7 +113,9 @@ function TokenCreation() {
           
         </section>
       </div>
+      <Toaster/>
     </div>
+
   );
 };
 

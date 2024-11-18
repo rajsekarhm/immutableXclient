@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import { ethers } from 'ethers';
+import { BrowserProvider,formatEther } from 'ethers';
 
 declare global {
   interface Window {
@@ -13,9 +13,9 @@ export function useWallet() {
 
   const updateBalance = useCallback(async (address: string) => {
     if (window.ethereum) {
-      const provider =  new ethers.BrowserProvider(window.ethereum);
+      const provider =  new BrowserProvider(window.ethereum);
       const balance = await provider.getBalance(address);
-      setBalance(ethers.formatEther(balance).slice(0, 7));
+      setBalance(formatEther(balance).slice(0, 7));
     }
   },[]);
 

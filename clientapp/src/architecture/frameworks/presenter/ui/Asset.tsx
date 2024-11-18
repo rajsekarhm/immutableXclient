@@ -2,6 +2,11 @@ import { useParams } from "react-router-dom";
 import ProfileCard from "../../components/ProfileCard";
 import TabsSwitch from "../../components/TabSwitch";
 import { useEffect, useState } from "react";
+import CONTRACT_ADDRESS_TESTNET from "../../../contract/Contract";
+import ContractETH from "../../../contract/ContractETH";
+import asset_abi from "../../../../../blockchain_client/ethereum/abi/asset_abi";
+import { Toaster } from "../../components/shadcn/BottomBanner";
+import { toast } from "sonner";
 function AssetCreation() {
   const { username }: any = useParams();
   const [newDigitalizeAsset,setDigitalizeAsset] = useState({
@@ -18,14 +23,20 @@ function AssetCreation() {
     setDigitalizeAsset({...newDigitalizeAsset,[name]:value})
   }
 
-  function handleClick(event:any){
+  async function handleClick(event:any){
     event.preventDefault();
-    console.log(newDigitalizeAsset)
+    // api call  {}
+    const _contract =  new ContractETH("browser",window.ethereum)
+    const web = await _contract.interactWithContract(CONTRACT_ADDRESS_TESTNET,asset_abi)
+    const {tokenId, value,tokenURI,isFungible,symbol, walletAddress} = newDigitalizeAsset
+    const result = await web.getHoldingAssetX("0x212f916DCfF88AC66883a2175de5BDa52C6bA968","2020")
+    toast(`Asset ${result[4]} Have Been Minted`, {
+      description: "check in chain Explorer",
+    })
   }
 
   useEffect(()=>{
-    console.log("called")
-  })
+  },[])
 
   const switch1_details = {
     card_details: [
@@ -87,6 +98,7 @@ function AssetCreation() {
       <div>
         <TabsSwitch tabsDetails={switch1_details} />
       </div>
+      <Toaster/>
     </div>
   );
 }

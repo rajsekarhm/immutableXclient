@@ -1,6 +1,6 @@
 // yet to deploy in maninet
 
-const customToken_abi = [
+const token_abi = [
 	{
 		"inputs": [
 			{
@@ -469,4 +469,4 @@ const customToken_abi = [
 ]
 
 
-export default customToken_abi;
+export default token_abi;
