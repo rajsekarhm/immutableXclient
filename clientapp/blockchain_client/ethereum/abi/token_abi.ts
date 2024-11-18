@@ -1,20 +1,17 @@
-module.exports = [
+// yet to deploy in maninet
+
+const token_abi = [
 	{
 		"inputs": [
 			{
 				"internalType": "string",
-				"name": "_name",
+				"name": "name",
 				"type": "string"
 			},
 			{
 				"internalType": "string",
-				"name": "_symbol",
+				"name": "symbol",
 				"type": "string"
-			},
-			{
-				"internalType": "address",
-				"name": "_owner_address",
-				"type": "address"
 			}
 		],
 		"stateMutability": "nonpayable",
@@ -160,13 +157,38 @@ module.exports = [
 		"anonymous": false,
 		"inputs": [
 			{
-				"indexed": false,
-				"internalType": "address payable",
-				"name": "",
+				"indexed": true,
+				"internalType": "address",
+				"name": "to",
 				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
 			}
 		],
-		"name": "contractCreated",
+		"name": "burned",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "minted",
 		"type": "event"
 	},
 	{
@@ -174,13 +196,42 @@ module.exports = [
 		"inputs": [
 			{
 				"indexed": false,
-				"internalType": "address payable",
+				"internalType": "string",
+				"name": "_symbol",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			}
+		],
+		"name": "tokenCreation",
+		"type": "event"
+	},
+	{
+		"stateMutability": "payable",
+		"type": "fallback"
+	},
+	{
+		"inputs": [],
+		"name": "_contractAddress",
+		"outputs": [
+			{
+				"internalType": "address",
 				"name": "",
 				"type": "address"
 			}
 		],
-		"name": "ownershipChanged",
-		"type": "event"
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
 		"inputs": [
@@ -252,19 +303,13 @@ module.exports = [
 	{
 		"inputs": [
 			{
-				"internalType": "address payable",
-				"name": "newOwner",
-				"type": "address"
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
 			}
 		],
-		"name": "changeOwnership",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
+		"name": "burn",
+		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
@@ -283,15 +328,46 @@ module.exports = [
 	},
 	{
 		"inputs": [],
-		"name": "getOwner",
+		"name": "getContractAddress",
 		"outputs": [
 			{
 				"internalType": "address",
-				"name": "",
+				"name": "contractAdrress",
 				"type": "address"
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getContractOwner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "mint",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -385,5 +461,12 @@ module.exports = [
 		],
 		"stateMutability": "nonpayable",
 		"type": "function"
+	},
+	{
+		"stateMutability": "payable",
+		"type": "receive"
 	}
 ]
+
+
+export default token_abi;

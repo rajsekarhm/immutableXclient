@@ -63,11 +63,12 @@ const mockCards: cardType[] = [
   {
     card_details:  {
       id:"one",
-      title: "Virtualized Asset",
-      description: "A digital asset in the market",
-      content:{    stakeHolder: "justinSun",
-        asset_unique_id: 403,
-        price: 1000
+      title: "Asset A",
+      description: "loaded in ipfs",
+      content:{   
+        walletAddress: "0x212f916DCfF88AC66883a2175de5BDa52C6bA968",
+        tokenId: 403,
+        price: '$ 1000'
       }
     },
     image: "https://via.placeholder.com/150", // Replace with an actual image URL
@@ -84,11 +85,12 @@ const mockCards: cardType[] = [
   {
     card_details: {
       id:"two",
-      title: "Virtualized Asset 2",
+      title: "Asset B",
       description: "Another asset example",
-      content:{    stakeHolder: "justinSun",
-        asset_unique_id: 403,
-        price: 1000
+      content:{   
+        walletAddress: "0x212f916DCfF88AC66883a2175de5BDa52C6bA968",
+        tokenId: 403,
+        price: '$ 1000'
       }
     },
     image: "https://via.placeholder.com/150", // Replace with an actual image URL
@@ -105,11 +107,12 @@ const mockCards: cardType[] = [
   {
     card_details: {
       id:"two",
-      title: "Virtualized Asset 2",
+      title: "Asset C",
       description: "Another asset example",
-      content:{    stakeHolder: "justinSun",
-        asset_unique_id: 403,
-        price: 1000
+      content:{   
+        walletAddress: "0x212f916DCfF88AC66883a2175de5BDa52C6bA968",
+        tokenId: 403,
+        price: '$ 1000'
       }
     },
     image: "https://via.placeholder.com/150", // Replace with an actual image URL
@@ -126,11 +129,12 @@ const mockCards: cardType[] = [
   {
     card_details: {
       id:"two",
-      title: "Virtualized Asset 2",
+      title: "Asset D",
       description: "Another asset example",
-      content:{    stakeHolder: "justinSun",
-        asset_unique_id: 403,
-        price: 1000
+      content:{   
+        walletAddress: "0x212f916DCfF88AC66883a2175de5BDa52C6bA968",
+        tokenId: 403,
+        price: '$ 1000'
       }
     },
     image: "https://via.placeholder.com/150", // Replace with an actual image URL
@@ -147,11 +151,12 @@ const mockCards: cardType[] = [
   {
     card_details: {
       id:"two",
-      title: "Virtualized Asset 2",
+      title: "Asset E",
       description: "Another asset example",
-      content:{    stakeHolder: "justinSun",
-        asset_unique_id: 403,
-        price: 1000
+      content:{   
+        walletAddress: "0x212f916DCfF88AC66883a2175de5BDa52C6bA968",
+        tokenId: 403,
+        price: '$ 1000'
       }
     },
     image: "https://via.placeholder.com/150", // Replace with an actual image URL
@@ -168,11 +173,12 @@ const mockCards: cardType[] = [
   {
     card_details: {
       id:"two",
-      title: "Virtualized Asset 2",
+      title: "Asset F",
       description: "Another asset example",
-      content:{    stakeHolder: "justinSun",
-        asset_unique_id: 403,
-        price: 1000
+      content:{   
+        walletAddress: "0x212f916DCfF88AC66883a2175de5BDa52C6bA968",
+        tokenId: 403,
+        price: '$ 1000'
       }
     },
     image: "https://via.placeholder.com/150", // Replace with an actual image URL
