@@ -9,7 +9,8 @@ const asset:AssetModal = {
     isValidated: false,
     assetType: "",
     documentUrl: "",
-    status: ""
+    status: false,
+    isForSale: false
 }
 
 const repo = new AssetRepository()

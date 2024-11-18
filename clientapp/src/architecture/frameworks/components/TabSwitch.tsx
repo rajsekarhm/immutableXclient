@@ -16,56 +16,50 @@ import {
   TabsTrigger,
 } from "./shadcn/Tabs"
 
- function TabsSwitch() {
+ function TabsSwitch({tabsDetails}:any) {
+  const {card_details, onChanges,onClick} = tabsDetails
   return (
-    <Tabs defaultValue="account" className="w-[400px]">
+    <Tabs defaultValue="digitalize" className="w-[400px]">
       <TabsList className="grid w-full grid-cols-2">
-        <TabsTrigger value="account" className="bg-grey text-black">Asset</TabsTrigger> {"  "}
-        {"  "}  <TabsTrigger value="password" className="bg-grey text-black" >Collateral</TabsTrigger>
+        <TabsTrigger value="digitalize" className="bg-black text-white">Asset</TabsTrigger> {"    "}
+        {"     "}  <TabsTrigger value="tokenization" className="bg-black text-white" >Collateral</TabsTrigger>
       </TabsList>
-      <TabsContent value="account">
+      <TabsContent value="digitalize">
         <Card>
           <CardHeader>
-            <CardTitle>Account</CardTitle>
+            <CardTitle>Digitalize</CardTitle>
             <CardDescription>
-              Make changes to your account here. Click save when you're done.
+               Transform Art or Commodities into Digital Assets.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-2" >
-            <div className="space-y-1">
-              <Label htmlFor="name">Name</Label>
-              <Input id="name" defaultValue="Pedro Duarte"  onChange={(event) => console.log(event.target.name)}/>
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="username">Username</Label>
-              <Input id="username" defaultValue="@peduarte" onChange={(event) => console.log(event.target.name)} />
-            </div>
+            {card_details.map((input:any) => {
+                const {name,value,description} = input
+                return(
+                    <div className="space-y-1">
+                    <Label htmlFor={value}>{value}</Label>
+                    <Input name={name} id={name} onChange={onChanges} />
+                  </div>
+                )
+            })}
           </CardContent>
           <CardFooter>
-            <Button className="bg-black text-white" onClick={(event) => console.log(event)}>Save changes</Button>
+            <Button className="bg-black text-white" onClick={onClick}>Save changes</Button>
           </CardFooter>
         </Card>
       </TabsContent>
-      <TabsContent value="password">
+      <TabsContent value="tokenization">
         <Card>
           <CardHeader>
-            <CardTitle>Password</CardTitle>
+            <CardTitle>Tokenization</CardTitle>
             <CardDescription>
-              Change your password here. After saving, you'll be logged out.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">
-            <div className="space-y-1">
-              <Label htmlFor="current">Current password</Label>
-              <Input id="current" type="password" onChange={(event) => console.log(event.target.name)} />
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="new">New password</Label>
-              <Input id="new" type="password"  onChange={(event) => console.log(event.target.name)}/>
-            </div>
+            <Label htmlFor="cooking">  UseCase still Cooking ... </Label>
           </CardContent>
           <CardFooter>
-            <Button className="bg-black text-white" >Save password</Button>
+            <Button className="bg-black text-white" >Create Token</Button>
           </CardFooter>
         </Card>
       </TabsContent>

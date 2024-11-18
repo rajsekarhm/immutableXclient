@@ -1,55 +1,42 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Form from "../../components/Form";
-import { browserStorage } from "../../../../helpers/Storage";
 import ProfileCard from "../../components/ProfileCard";
-import AssetEntity from "../../../domains/entities/AssetEntity";
-
+import ContractETH from "../../../contract/ContractETH";
+import token_abi from "../../../../../blockchain_client/ethereum/abi/token_abi";
+import byteCode_token from "../../../../../blockchain_client/ethereum/byteCode/byteCode_Token";
+import { toast } from "sonner";
+import { Toaster } from "../../components/shadcn/BottomBanner";
 function TokenCreation() {
   const { username } : any = useParams();
-//   const [userProfile, setUserProfile] : any = useState(
-//     browserStorage.getFromStorage(username.toString())
-//   );
   const navigate = useNavigate();
-  const [newAsset, setnewAsset] = useState(AssetEntity.initialState().assetEntity);
-  const {assetHolding}:any = browserStorage.getFromStorage('raja')
-  const [assetHoldings,setAssetHoldings] = useState(assetHolding)
-  const [reviewStatus, setReviewStatus] = useState(false);
-  const mockAsset = [{
-    card_details: {id :"one",
-      title:"Holdings",
-      content: {
-        walletAddress: "0x212f916DCfF88AC66883a2175de5BDa52C6bA968",
-        status: "pending",
-        price: "1000",
-        stakeholder: "rajubhai da",
-        exploree: "sol chain",
-      }},
-    buttonText:"View Explorer",
-    onClick:()=>{},
-    isInputNeed:true
-  }]
-
+  const [token,setToken] = useState({
+    walletAddress:null,
+    numberOfTokens:"",
+    symbol:null,
+    tokenName:null
+  })
   const handleChange = (event: any) => {
     event.preventDefault();
-    var { name, value, type, files } = event.target;
-    if (type === "file" && files) {
-      const fileToLoad = files[0];
-      const form = new FormData();
-      form.append(fileToLoad.name, fileToLoad);
-    }
-    setnewAsset({ ...newAsset, [name]: value });
+    const {name,value} =  event.target
+    setToken({...token,[name]:value})
   };
 
-  const handleClick = (event: any) => {
-    console.log(newAsset);
-  };
+  const handleClick = (event: any) => { };
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = async (event: any) => {
     event.preventDefault();
-    // userProfile.assetHolding.push(newAsset);
-    // browserStorage.storeInStorage(username.toString(), userProfile);
-    setReviewStatus(true);
+    const _contract =  new ContractETH("browser",window.ethereum)
+    const {symbol, tokenName,numberOfTokens} = token
+    if(symbol&& tokenName&&numberOfTokens){
+      const contractAddress = await _contract.createContract(token_abi,byteCode_token,tokenName,symbol)
+      const web = await _contract.interactWithContract(contractAddress,token_abi)
+      return  await web.mint(contractAddress,numberOfTokens.toString())
+    }else{
+      toast(`Token is Not Minted`, {
+      description: "Give proper Details to mint token",
+    })
+    }
   };
 
   const form_field_schema3 :any= {inputsFileds:[
@@ -64,7 +51,7 @@ function TokenCreation() {
     },
     {
       defaultValue: undefined,
-      description: "Enter number of token",
+      description: "Enter number of token (in Millions) ",
       className: "price_class",
       type: "string",
       name: "numberOfTokens",
@@ -126,7 +113,9 @@ function TokenCreation() {
           
         </section>
       </div>
+      <Toaster/>
     </div>
+
   );
 };
 

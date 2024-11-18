@@ -65,11 +65,11 @@ const Router = createBrowserRouter([
     element: <Builder />,
   },
   {
-    path:'/asset',
+    path:'/asset-digitalize',
     element:<AssetCreation/>
   },
   {
-    path:'/token',
+    path:'/tokenization',
     element:<TokenCreation/>
   }
 ]);
