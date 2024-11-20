@@ -11,8 +11,7 @@ class UserUseCase implements AbstractUseCase {
   }
 
   createUser(entity: UserModal) {
-    console.log('userusecase  create method called')
-    this.repository.createUser(new UserEntity(  entity.securityId,
+    this.repository.createUser(new UserEntity(entity.securityId || entity.phoneNumber.toString(),
       entity.firstname,
       entity.lastname,
       entity.email,
@@ -20,11 +19,11 @@ class UserUseCase implements AbstractUseCase {
       entity.password,
       entity.location,
       entity.governmentId,
-      entity.edition,
-      entity.isAgent,
-      entity.AgentId,
-      entity.isAuthForBuyAndSell,
-      entity.assetHolding));
+      entity.edition  || 'free',
+      entity.isAgent || false,
+      entity.AgentId || 0,
+      entity.isAuthForBuyAndSell || "false",
+      entity.assetHolding || undefined));
   }
   getUserByUniqueId(id: string | number): UserEntity {
     console.log('userusecase  get method called')

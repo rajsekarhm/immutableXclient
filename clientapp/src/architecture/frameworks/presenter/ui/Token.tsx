@@ -71,7 +71,7 @@ function TokenCreation() {
       className: "tokenname_class",
       type: "text",
       name: "tokenName",
-      maxlength: 10,
+      maxlength: 100,
     }
   ],
   isSelectFieldsNeed:false}

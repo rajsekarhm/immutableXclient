@@ -19,13 +19,6 @@ export const SigUpFormPage = (props: { portal: string }) => {
   const navigate = useNavigate();
   const [validate, setValidate] = useState(true);
 
-  useEffect(() => {
-    if (portal === "custodian") {
-      setIsCustodian(true);
-      setUser(CustodianEntity.initialState().Custodian);
-    }
-  }, []);
-
   const dispatch = useDispatch();
 
   const handleSubmit = (event: any) => {
@@ -44,7 +37,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
     if (portal === "custodian") {
       dispatch(custodain_create(user));
     }
-    navigate(`/portfolio/${user.firstname}`);
+    navigate(`/portfolio/${user.AgentId}`);
   };
 
   const handleInput = (event: ChangeEvent<HTMLInputElement>) => {
