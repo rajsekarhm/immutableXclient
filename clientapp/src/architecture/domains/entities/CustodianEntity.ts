@@ -3,7 +3,7 @@ import CustodianModal from '../modals/CustodianModal';
 
 class CustodianEntity {
   Custodian: CustodianModal;
-
+  static defaultCustodian: any;
   constructor(
     securityId: string,
     firstname: string,
@@ -107,7 +107,35 @@ class CustodianEntity {
     return this.Custodian.AuthorizationFor;
   }
   static initialState() { 
-    return new CustodianEntity("","","","",0,"","",0,"",false,0,"","","","")
+     this.defaultCustodian = {
+      firstname: null,
+      lastname: null,
+      email: null,
+      phoneNumber: null,
+      password: null,
+      location: null,
+      governmentId: null,
+      edition: null,
+      isAgent: null,
+      AgentId: null,
+      isAuthForBuyAndSell: null,
+      assetHolding: null,
+      securityId: null,
+      orgId: null,
+      Authenticated: null,
+      AuthorizationFor: null
+    }
+     return this.defaultCustodian
+  }
+  
+  toPlainObject(object:any) {
+    const plainObject:any = {};
+    for (let key in object) {
+      if (object.hasOwnProperty(key)) {
+        plainObject[key] = object[key];
+      }
+    }
+    return plainObject;
   }
 }
 

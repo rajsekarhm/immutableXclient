@@ -7,8 +7,10 @@ import ContractETH from "../../../contract/ContractETH";
 import asset_abi from "../../../../../blockchain_client/ethereum/abi/asset_abi";
 import { Toaster } from "../../components/shadcn/BottomBanner";
 import { toast } from "sonner";
+import { Skeleton } from "../../components/shadcn/Skeleton";
 function AssetCreation() {
   const { username }: any = useParams();
+  const [onLoading,setLoading] = useState(false)
   const [newDigitalizeAsset,setDigitalizeAsset] = useState({
     tokenId:null,
     value:null,
@@ -86,6 +88,7 @@ function AssetCreation() {
         padding: "20px",
       }}
     >
+      {/* {onLoading ? <Skeleton> : null} */}
       <div style={{ width: "300px", position: "absolute", top: 0, right: 0 }}>
         <ProfileCard
           name={"name"}
@@ -99,6 +102,7 @@ function AssetCreation() {
         <TabsSwitch tabsDetails={switch1_details} />
       </div>
       <Toaster/>
+      {/* {onLoading ? </Skeleton> : null} */}
     </div>
   );
 }

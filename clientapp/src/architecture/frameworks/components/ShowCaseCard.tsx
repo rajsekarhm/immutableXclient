@@ -11,13 +11,6 @@ import { Label } from "./shadcn/Label";
 import { Tooltip, TooltipProvider, TooltipTrigger } from "./shadcn/ToolTip";
 import { TooltipContent } from "@radix-ui/react-tooltip";
 
-interface CardData {
-  id: number;
-  title: string;
-  description: string;
-  content?: Array<any>;
-}
-
 function CardComponent({
   title,
   description,
@@ -26,14 +19,6 @@ function CardComponent({
   onButtonClick,
   isInputNeed,
 }: any) {
-  console.log({
-    title,
-    description,
-    content,
-    buttonText,
-    onButtonClick,
-    isInputNeed,
-  });
   return (
     <Card className="w-[250px] max-w-4xl mx-auto shadow-lg">
       <CardHeader>

@@ -3,23 +3,25 @@ import UserRepository from "../infrastructure/UserRepository";
 import UserUseCase from "../usecases/UserUseCase";
 import IAction from "./interface/Action";
 class UserAction implements IAction {
+   userRepository:any
+   userUseCase :any
+   userController :any
   constructor() {}
   actions() {
     return {
-      users_create: this._create,
-      users_get: this._get,
-      users_update: this._update,
-      users_delete: this._delete,
-      users_login: this._login,
+      users_create: (state:any, action:any) => this._create(state, action),
+      users_get: (state:any, action:any) => this._get(state, action),
+      users_update: (state:any, action:any) => this._update(state, action),
+      users_delete: (state:any, action:any) => this._delete(state, action),
+      users_login: (state:any, action:any) => this._login(state, action),
     };
   }
   _create(state: any, action: any) {
-    const userRepository = new UserRepository();
-    const userUseCase = new UserUseCase(userRepository);
-    const userController = new UserHandler(userUseCase);
-    console.log(state);
-    console.log("create user");
-    // return { ...state, ...action.payload };
+     this.userRepository = new UserRepository();
+     this.userUseCase = new UserUseCase(this.userRepository);
+     this.userController = new UserHandler(this.userUseCase);
+     this.userController.create({ ...state, ...action.payload })
+    return { ...state, ...action.payload };
   }
   _get(state: any, action: any) {
     console.log("get user");
@@ -34,7 +36,6 @@ class UserAction implements IAction {
     // return { ...state, ...action.payload };
   }
   _login(state: any, action: any) {
-    console.log(state);
     console.log("login user");
   }
 }

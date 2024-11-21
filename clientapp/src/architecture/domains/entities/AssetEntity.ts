@@ -3,7 +3,7 @@ import AssetModal from "../modals/AssetModal";
 
 class AssetEntity implements IEntities {
   assetEntity: AssetModal;
-
+  static defaultAsset:any;
   constructor(
     walletAddress: string,
     isValidated: boolean,
@@ -43,7 +43,25 @@ class AssetEntity implements IEntities {
   }
 
   static initialState() {
-    return new AssetEntity("",false,"","",false,false)
+     this.defaultAsset = {
+      walletAddress: null,
+      isValidated: null,
+      documentUrl: null,
+      status: null,
+      assetType: null,
+      isForSale:null
+    }
+    return this.defaultAsset;
+  }
+  
+  toPlainObject(object:any) {
+    const plainObject:any = {};
+    for (let key in object) {
+      if (object.hasOwnProperty(key)) {
+        plainObject[key] = object[key];
+      }
+    }
+    return plainObject;
   }
 }
 
