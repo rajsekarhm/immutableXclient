@@ -33,7 +33,7 @@ const Router = createBrowserRouter([
     element: <SignInPage portal={"custodian"} />,
   },
   {
-    path: "/portfolio/:username",
+    path: "/portfolio/:userId",
     element: <UserProfiles />,
   },
   {

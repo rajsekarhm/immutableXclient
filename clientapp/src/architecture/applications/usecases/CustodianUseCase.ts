@@ -6,19 +6,19 @@ class CustodianUseCase implements AbstractUseCase {
   constructor(private repository: ICustodianRepository) {}
 
   execute(_function: any) {
-    console.log("usecase called");
   }
+  
   createCustodian(entity: CustodianModal) {
     this.repository.createCustodian(
       new CustodianEntity(
         entity.securityId,
-        entity.firstname,
-        entity.lastname,
+        entity.firstName,
+        entity.lastName,
         entity.email,
         entity.phoneNumber,
         entity.password,
         entity.location,
-        entity.governmentId,
+        entity.governmentID,
         entity.edition,
         entity.isAgent,
         entity.AgentId,

@@ -1,40 +1,34 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Form from "../../components/Form";
 import { browserStorage } from "../../../../helpers/Storage";
 import ProfileCard from "../../components/ProfileCard";
-import AssetEntity from "../../../domains/entities/AssetEntity";
 import ShowCaseCard from "../../components/ShowCaseCard";
 import { Label } from "../../components/shadcn/Label";
 import Button from "../../components/Button";
-import {
-  HoverCard,
-  HoverCardTrigger,
-  HoverCardContent,
-} from "../../components/shadcn/HoverCard";
+import { HoverCard, HoverCardTrigger,HoverCardContent } from "../../components/shadcn/HoverCard";
 import { InputBox } from "../../components/InputBox";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser } from "../../../controllers/slice";
+import { AppDispatch } from "../../../controllers/store"
 
 function UserProfiles() {
-  const { username }: any = useParams();
-  const [userProfile, setUserProfile]: any = useState(useSelector((state:any) => state.user_actions))
-  const {firstname, lastname, phoneNumber,email} = userProfile
-  console.log({firstname, lastname, phoneNumber,email})
+  const { userId }: any = useParams();
+  const dispatch =  useDispatch<AppDispatch>()
+  const userProfile: any = useSelector((state: any) => state.user.user);
+  const {firstName="raja", lastName="sekar", phoneNumber,email} = userProfile
   const navigate = useNavigate();
   const [transferOwner,settransferOwner] = useState({
     to:null,
     tokenId:null
   })
   function onAssetChange(event:any) {
-    const {name,value} = event
+    const { name,value } = event
     settransferOwner({...transferOwner,[name]:value})
   }
   function onClickAssetChange(event:any){
     event.preventDefault()
     console.log(transferOwner)
   }
-  const { assetHolding }: any = browserStorage.getFromStorage("raja");
-  const [assetHoldings, setAssetHoldings] = useState(assetHolding);
   const mockAsset = [
     {
       card_details: {
@@ -56,11 +50,15 @@ function UserProfiles() {
   ];
 
   useEffect(() => {
+    if (userId) {
+      dispatch(getUser(userId))
+    } else {
+      console.error("No userId available.");
+    }
     // api call make to validate that user is authenticated
     if (true) {
-      return;
     }
-    navigate("/sign-in/users");
+    // navigate("/sign-in/users");
   }, []);
 
   return (
@@ -77,8 +75,8 @@ function UserProfiles() {
     >
       <div style={{ width: "300px", position: "absolute", top: 0, right: 0 }}>
         <ProfileCard
-          name={firstname}
-          description={lastname}
+          name={firstName}
+          description={lastName}
           mail={email}
           address={'india'}
           phone={phoneNumber}
