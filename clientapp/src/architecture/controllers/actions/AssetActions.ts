@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import ContractETH from "../contract/ContractETH";
-import CONTRACT_ADDRESS_TESTNET from "../contract/Contract";
-import asset_abi from "../../../blockchain_client/ethereum/abi/asset_abi";
+import ContractETH from "../../contract/ContractETH";
+import CONTRACT_ADDRESS_TESTNET from "../../contract/Contract";
+import asset_abi from "../../../../blockchain_client/ethereum/abi/asset_abi";
 
 export const createAsset = createAsyncThunk<any,any>("asset/createAsset", async (assetDetails) => {
     return {}

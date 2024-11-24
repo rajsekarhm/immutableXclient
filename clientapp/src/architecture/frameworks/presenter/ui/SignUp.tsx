@@ -8,7 +8,7 @@ import UserEntity from "../../../domains/entities/UserEntity";
 import CustodianEntity from "../../../domains/entities/CustodianEntity";
 import Typography from "@mui/joy/Typography";
 import Mail from "@mui/icons-material/Mail";
-import { createUser } from "../../../controllers/slice";
+import { createUser } from "../../../controllers/actions/UserActions";
 import { AppDispatch } from "../../../controllers/store"
 
 export const SigUpFormPage = (props: { portal: string }) => {

@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { requestAPI } from "../../requests/core/request";
-import server_config from "../../../server.config";
-import REQUEST_API from "../../requests/api.config";
+import { requestAPI } from "../../../requests/core/request";
+import server_config from "../../../../server.config";
+import REQUEST_API from "../../../requests/api.config";
+import UserEntity from "architecture/domains/entities/UserEntity";
 
 export const createUser = createAsyncThunk<any,any>("user/createUser", async (userDetails) => {
   var myHeaders = new Headers();
@@ -33,7 +34,7 @@ export const getUser = createAsyncThunk<any, any>(
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    user:{},
+    user:UserEntity.initialState(),
     loading: false,
     status: "idle", 
   },
@@ -42,33 +43,35 @@ const userSlice = createSlice({
     builder.addCase(getUser.pending, (state: any) => {
       state.status = "idle";
       state.loading = true;
-      state.user = {};
+      state.user = UserEntity.initialState();
     });
     builder.addCase(getUser.fulfilled, (state: any, action: any) => {
       state.status = "succeeded";
       state.loading = false;
       state.user = action.payload;
     });
-    builder.addCase(getUser.rejected, (state: any, action: any) => {
+    builder.addCase(getUser.rejected, (state: any) => {
       state.status = "failed";
       state.loading = false;
-      state.user = {};
+      state.user = UserEntity.initialState();
     });
-    /*********** */
+
+
     builder
     .addCase(createUser.pending, (state:any) => {
       state.loading = true;
       state.status = "idle";
-      state.user = {};
+      state.user =UserEntity.initialState();
     })
     .addCase(createUser.fulfilled, (state:any,action:any) => {
       state.loading = false;
       state.status = "succeeded";
       state.user = action.payload
     })
-    .addCase(createUser.rejected, (state:any,action:any) => {
+    .addCase(createUser.rejected, (state:any) => {
       state.loading = false;
       state.status = "failed";
+      state.user = UserEntity.initialState();
     });
   },
 });

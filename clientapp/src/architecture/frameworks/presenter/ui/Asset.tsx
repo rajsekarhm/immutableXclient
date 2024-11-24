@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import { Skeleton } from "../../components/shadcn/Skeleton";
 import useAccount from "../hooks/useAccount";
 import { useDispatch, useSelector } from "react-redux";
-import { getAsset } from "../../../controllers/slice2";
+import { getAsset } from "../../../controllers/actions/AssetActions"
 import { useWallet } from "../hooks/useWallet";
 function AssetCreation() {
   const { firstName, lastName, email, userId, phoneNumber } = useAccount();
