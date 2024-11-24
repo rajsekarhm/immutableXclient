@@ -7,13 +7,13 @@ class UserEntity implements IEntities {
   static defaultUser: any;
   constructor(
     securityId: string,
-    firstname: string,
-    lastname: string,
+    firstName: string,
+    lastName: string,
     email: string,
     phoneNumber: number,
     password: string,
     location: string,
-    governmentId: number,
+    governmentID: number,
     edition: string,
     isAgent: boolean,
     AgentId: number,
@@ -21,13 +21,13 @@ class UserEntity implements IEntities {
     assetHolding?: AssetModal
   ) {
     this.User = {
-      firstname: firstname,
-      lastname: lastname,
+      firstName: firstName,
+      lastName: lastName,
       email: email,
       phoneNumber: phoneNumber,
       password: password,
       location: location,
-      governmentId: governmentId,
+      governmentID: governmentID,
       edition: edition,
       isAgent: isAgent,
       AgentId: AgentId,
@@ -37,12 +37,12 @@ class UserEntity implements IEntities {
     };
   }
 
-  getFirstname(): string {
-    return this.User.firstname;
+  getFirstName(): string {
+    return this.User.firstName;
   }
 
-  getLastname(): string {
-    return this.User.lastname;
+  getLastName(): string {
+    return this.User.lastName;
   }
 
   getEmail(): string {
@@ -61,8 +61,8 @@ class UserEntity implements IEntities {
     return this.User.location;
   }
 
-  getgovernmentId(): number {
-    return this.User.governmentId;
+  governmentID(): number {
+    return this.User.governmentID;
   }
 
   getedition(): string {
@@ -91,13 +91,13 @@ class UserEntity implements IEntities {
 
   static initialState() {
     this.defaultUser = {
-      firstname: null,
-      lastname: null,
+      firstName: null,
+      lastName: null,
       email: null,
       phoneNumber: null,
       password: null,
       location: null,
-      governmentId: null,
+      governmentID: null,
       edition: null,
       isAgent: null,
       AgentId: null,
@@ -108,7 +108,7 @@ class UserEntity implements IEntities {
     return this.defaultUser;
   }
 
-  toPlainObject(object: any) {
+  static toPlainObject(object: any) {
     const plainObject: any = {};
     for (let key in object) {
       if (object.hasOwnProperty(key)) {

@@ -6,12 +6,12 @@ import { ChangeEvent } from "react";
 import Button from "../../components/Button";
 import UserEntity from "../../../domains/entities/UserEntity";
 import CustodianEntity from "../../../domains/entities/CustodianEntity";
-import { actions_store } from "../../../controllers/_store";
 import Typography from "@mui/joy/Typography";
 import Mail from "@mui/icons-material/Mail";
+import { createUser } from "../../../controllers/slice";
+import { AppDispatch } from "../../../controllers/store"
 
 export const SigUpFormPage = (props: { portal: string }) => {
-  const { users_create, custodain_create } = actions_store.getActions();
   const { portal } = props;
   const [isCustodain, setIsCustodian] = useState(false);
   const _userstate = portal === "custodian" ? CustodianEntity.initialState().Custodian : UserEntity.initialState().User;
@@ -19,11 +19,11 @@ export const SigUpFormPage = (props: { portal: string }) => {
   const navigate = useNavigate();
   const [validate, setValidate] = useState(true);
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    if (user.firstname === undefined && user.password === null) {
+    if (user.firstName === undefined && user.password === null) {
       if (user.securityId === undefined) {
         navigate(`/errorPage`);
         return;
@@ -32,12 +32,13 @@ export const SigUpFormPage = (props: { portal: string }) => {
       return;
     }
     if (portal === "users") {
-      dispatch(users_create(user));
+      console.log(user)
+      dispatch(createUser(user));
     }
     if (portal === "custodian") {
-      dispatch(custodain_create(user));
+      dispatch(createUser(user));
     }
-    navigate(`/portfolio/${user.AgentId}`);
+    navigate(`/portfolio/${user.governmentID}`);
   };
 
   const handleInput = (event: ChangeEvent<HTMLInputElement>) => {
@@ -69,7 +70,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
               description: "Enter first name",
               className: "username_class",
               type: "text",
-              name: "firstname",
+              name: "firstName",
               pattern: "",
               maxlength: 10,
               style:{}
@@ -82,7 +83,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
               description: "Enter last name",
               className: "username_class",
               type: "text",
-              name: "lastname",
+              name: "lastName",
               pattern: "",
               maxlength: 10,
             }}
@@ -96,7 +97,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
               type: "password",
               name: "password",
               pattern: "",
-              maxlength: 10,
+              maxlength: 20,
             }}
             handleInput={handleInput}
           />
@@ -108,7 +109,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
               type: "text",
               name: "email",
               pattern: "",
-              maxlength: 10,
+              maxlength: 40,
             }}
             handleInput={handleInput}
           />
@@ -128,9 +129,9 @@ export const SigUpFormPage = (props: { portal: string }) => {
             componentInfo={{
               defaultValue: undefined,
               description: "Enter government Id",
-              className: "governmentId_class",
+              className: "governmentID_class",
               type: "text",
-              name: "governmentId",
+              name: "governmentID",
               pattern: "",
               maxlength: 10,
             }}

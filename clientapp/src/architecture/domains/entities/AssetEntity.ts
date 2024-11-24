@@ -54,7 +54,7 @@ class AssetEntity implements IEntities {
     return this.defaultAsset;
   }
   
-  toPlainObject(object:any) {
+  static toPlainObject(object:any) {
     const plainObject:any = {};
     for (let key in object) {
       if (object.hasOwnProperty(key)) {

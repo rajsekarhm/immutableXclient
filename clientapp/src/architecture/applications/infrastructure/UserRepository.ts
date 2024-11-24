@@ -9,14 +9,12 @@ class UserRepository implements IUserRepository{
     async createUser(entity: UserEntity): Promise<void> {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        var raw = JSON.stringify(entity.User);
-        // await requestAPI(`${server_config.host}:${server_config.port}/${REQUEST_API.CREATE_USER}`,'POST',raw,myHeaders);
-        console.log('userrepository create method called')
-        this.entities = entity
+        var raw = JSON.stringify(UserEntity.toPlainObject(entity.User));
+        await requestAPI(`${server_config.host}:${server_config.port}/${REQUEST_API.CREATE_USER}`,'POST',raw,myHeaders);
     }
-    async findById(id: number | string): Promise<void> {
-        const result =  await requestAPI(`${server_config.host}:${server_config.port}/${REQUEST_API.GET_USER}?governmentId=${id}`,'GET')
-        console.log('userrepository get method called',result)
+    async findById(id: number | string): Promise<any> {
+        const userInfo =  await requestAPI(`${server_config.host}:${server_config.port}/${REQUEST_API.GET_USER}?governmentId=${id}`,'GET')
+        return userInfo;
     }
 
 }

@@ -1,11 +1,7 @@
-import { combineReducers, configureStore, createSlice, nanoid } from "@reduxjs/toolkit";
+import { configureStore, createSlice, nanoid,compose,applyMiddleware } from "@reduxjs/toolkit";
 import UserEntity from '../domains/entities/UserEntity';
 import { UserAction } from "../applications/actions/UserActions";
-import { TestActions } from "../applications/actions/TestActions";
-import { CustodainAction } from "../applications/actions/CustodianActions";
-import { AssetAction } from "../applications/actions/AssetActions";
-import AssetEntity from "../domains/entities/AssetEntity";
-import CustodianEntity from "../domains/entities/CustodianEntity";
+import {thunk } from 'redux-thunk'
 
 class store {
   _store: any;
@@ -42,13 +38,10 @@ class store {
 
 const actions_store = new store()
 actions_store.createActions("user_actions",UserEntity.initialState(),new UserAction().actions())
-actions_store.createActions("test_actions",{actions:0},new TestActions().actions())
-actions_store.createActions("custodain_actions",CustodianEntity.initialState(),new CustodainAction().actions())
-actions_store.createActions("asset_actions",AssetEntity.initialState(),new AssetAction().actions())
-const sstore  = actions_store.getStore()
+const global_store  = actions_store.getStore()
 
 export {
   actions_store,
-    sstore
+  global_store
 }
 export default store;

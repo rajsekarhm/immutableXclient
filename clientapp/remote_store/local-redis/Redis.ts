@@ -1,6 +1,9 @@
 import { createClient } from "redis";
+import { Buffer } from "buffer";
+window.Buffer = Buffer
 class Redis {
-  constructor(url,$port) {
+  client: any;
+  constructor(url: string,$port: string) {
     this.client = createClient({
       legacyMode: false,
       socket: {
@@ -11,24 +14,24 @@ class Redis {
     this.client.connect();
   }
 
-  setInfo(key, value) {
+  setInfo(key: any, value: any) {
     this.client.set(JSON.stringify(key), JSON.stringify(value));
   }
 
-  getInfo(key) {
+  getInfo(key: any) {
     return this.client.get(JSON.stringify(key));
   }
 
-  Mset(bindInput) {
+  Mset(bindInput: any) {
     // [key,value]
     this.client.mSet(bindInput);
   }
 
-  Mget(keyAsArray) {
+  Mget(keyAsArray: any) {
     this.client.MGET(keyAsArray);
   }
 
-  deleteInfo(key) {
+  deleteInfo(key: any) {
     this.client.del(key);
   }
 
@@ -36,11 +39,11 @@ class Redis {
     return this.client.keys;
   }
 
-  setHashes(key, value) {
+  setHashes(key: any, value: any) {
     this.client.hSet(key, value);
   }
 
-  getHashes(key) {
+  getHashes(key: any) {
     return this.client.hGet(key);
   }
 }

@@ -33,11 +33,11 @@ const Router = createBrowserRouter([
     element: <SignInPage portal={"custodian"} />,
   },
   {
-    path: "/portfolio/:username",
+    path: "/portfolio/:userId",
     element: <UserProfiles />,
   },
   {
-    path: "/marketplace",
+    path: "/marketplace/:userId",
     element: <MarketPlace />,
   },
   {
@@ -61,15 +61,15 @@ const Router = createBrowserRouter([
     element: <SignUp />,
   },
   {
-    path: "/builder",
+    path: "/builder/:userId",
     element: <Builder />,
   },
   {
-    path:'/asset-digitalize',
+    path:'/asset-digitalize/:userId',
     element:<AssetCreation/>
   },
   {
-    path:'/tokenization',
+    path:'/tokenization/:userId',
     element:<TokenCreation/>
   }
 ]);
