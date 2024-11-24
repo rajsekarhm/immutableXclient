@@ -1,9 +1,11 @@
-import { configureStore, createSlice, nanoid,compose,applyMiddleware } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import user_reducer from './slice'
+import asset_reducer  from './slice2'
 
 const store = configureStore({
     reducer: {
-        user:user_reducer
+        user:user_reducer,
+        asset:asset_reducer
     },
    
 })

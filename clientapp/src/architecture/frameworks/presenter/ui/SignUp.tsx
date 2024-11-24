@@ -32,6 +32,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
       return;
     }
     if (portal === "users") {
+      console.log(user)
       dispatch(createUser(user));
     }
     if (portal === "custodian") {
@@ -96,7 +97,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
               type: "password",
               name: "password",
               pattern: "",
-              maxlength: 10,
+              maxlength: 20,
             }}
             handleInput={handleInput}
           />
@@ -108,7 +109,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
               type: "text",
               name: "email",
               pattern: "",
-              maxlength: 10,
+              maxlength: 40,
             }}
             handleInput={handleInput}
           />

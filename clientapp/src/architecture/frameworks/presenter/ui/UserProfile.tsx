@@ -7,16 +7,19 @@ import { Label } from "../../components/shadcn/Label";
 import Button from "../../components/Button";
 import { HoverCard, HoverCardTrigger,HoverCardContent } from "../../components/shadcn/HoverCard";
 import { InputBox } from "../../components/InputBox";
+import { getAsset } from "../../../controllers/slice2";
+import useAccount from "../hooks/useAccount";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser } from "../../../controllers/slice";
-import { AppDispatch } from "../../../controllers/store"
+import { useWallet } from "../hooks/useWallet";
+import { AppDispatch } from "architecture/controllers/store";
 
 function UserProfiles() {
-  const { userId }: any = useParams();
-  const dispatch =  useDispatch<AppDispatch>()
-  const userProfile: any = useSelector((state: any) => state.user.user);
-  const {firstName="raja", lastName="sekar", phoneNumber,email} = userProfile
+  const { account } = useWallet();
+  const dispatch = useDispatch<AppDispatch>()
+  const {firstName, lastName, phoneNumber,email} = useAccount()
   const navigate = useNavigate();
+  const asset = useSelector((state: any) => state.asset);
+  console.log(asset)
   const [transferOwner,settransferOwner] = useState({
     to:null,
     tokenId:null
@@ -50,16 +53,12 @@ function UserProfiles() {
   ];
 
   useEffect(() => {
-    if (userId) {
-      dispatch(getUser(userId))
-    } else {
-      console.error("No userId available.");
-    }
+      dispatch(getAsset({ asserAddress: account, tokenId: "2020" }));
     // api call make to validate that user is authenticated
-    if (true) {
+    if (false) {
+         navigate("/sign-in/users");
     }
-    // navigate("/sign-in/users");
-  }, []);
+  }, [account]);
 
   return (
     <div
@@ -75,8 +74,7 @@ function UserProfiles() {
     >
       <div style={{ width: "300px", position: "absolute", top: 0, right: 0 }}>
         <ProfileCard
-          name={firstName}
-          description={lastName}
+          name={firstName + lastName}
           mail={email}
           address={'india'}
           phone={phoneNumber}

@@ -3,7 +3,7 @@ import redis_config from "../../redis-client.config";
 
 class RedisClient{ 
     redis_client:any
-    constructor(url = undefined,token = undefined) {
+    constructor(url:any,token:any) {
         this.redis_client = new Redis({
             url:url || redis_config.url,
             token:token || redis_config.token

@@ -11,7 +11,6 @@ import {
 } from "./Card";
 import { ChevronDown, ChevronUp, Mail, Phone, MapPin, Wallet } from "lucide-react";
 import { Button } from "./Button";
-import { useWallet } from "../../presenter/hooks/useWallet";
 import WalletConnect from "../WalletConnect";
 interface profileCard {
   name?: string;
@@ -31,7 +30,6 @@ export default function ExpandableProfileCard({
   isWalletNeed
 }: profileCard) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const { account, balance, connectWallet, disconnectWallet } = useWallet();
   const toggleExpand = () => setIsExpanded(!isExpanded);
 
   return (
