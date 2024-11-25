@@ -16,7 +16,6 @@ class ContractETH implements IContract {
   async createContract(abi: any, bytecode: any, ...args: any) {
     const factory = await new ethers.ContractFactory(abi,bytecode,await this.provider.getSigner());
     const contract = await factory.deploy(...args);
-    console.log(contract)
     console.log("Deploying contract...");
     await contract.waitForDeployment()
     return contract.getAddress();

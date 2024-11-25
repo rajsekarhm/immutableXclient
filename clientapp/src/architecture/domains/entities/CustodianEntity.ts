@@ -3,16 +3,16 @@ import CustodianModal from '../modals/CustodianModal';
 
 class CustodianEntity {
   Custodian: CustodianModal;
-
+  static defaultCustodian: any;
   constructor(
     securityId: string,
-    firstname: string,
-    lastname: string,
+    firstName: string,
+    lastName: string,
     email: string,
     phoneNumber: number,
     password: string,
     location: string,
-    governmentId: number,
+    governmentID: number,
     edition: string,
     isAgent: boolean,
     AgentId: number,
@@ -23,13 +23,13 @@ class CustodianEntity {
     assetHolding?: AssetModal
   ) {
     this.Custodian = {
-      firstname: firstname,
-      lastname: lastname,
+      firstName: firstName,
+      lastName: lastName,
       email: email,
       phoneNumber: phoneNumber,
       password: password,
       location: location,
-      governmentId: governmentId,
+      governmentID: governmentID,
       edition: edition,
       isAgent: isAgent,
       AgentId: AgentId,
@@ -43,12 +43,12 @@ class CustodianEntity {
   }
 
   // Getters for each property
-  get firstname(): string {
-    return this.Custodian.firstname;
+  get firstName(): string {
+    return this.Custodian.firstName;
   }
 
-  get lastname(): string {
-    return this.Custodian.lastname;
+  get lastName(): string {
+    return this.Custodian.lastName;
   }
 
   get email(): string {
@@ -67,8 +67,8 @@ class CustodianEntity {
     return this.Custodian.location;
   }
 
-  get governmentId(): number {
-    return this.Custodian.governmentId;
+  get governmentID(): number {
+    return this.Custodian.governmentID;
   }
 
   get edition(): string {
@@ -107,7 +107,35 @@ class CustodianEntity {
     return this.Custodian.AuthorizationFor;
   }
   static initialState() { 
-    return new CustodianEntity("","","","",0,"","",0,"",false,0,"","","","")
+     this.defaultCustodian = {
+      firstName: null,
+      lastName: null,
+      email: null,
+      phoneNumber: null,
+      password: null,
+      location: null,
+      governmentId: null,
+      edition: null,
+      isAgent: null,
+      AgentId: null,
+      isAuthForBuyAndSell: null,
+      assetHolding: null,
+      securityId: null,
+      orgId: null,
+      Authenticated: null,
+      AuthorizationFor: null
+    }
+     return this.defaultCustodian
+  }
+  
+  static toPlainObject(object:any) {
+    const plainObject:any = {};
+    for (let key in object) {
+      if (object.hasOwnProperty(key)) {
+        plainObject[key] = object[key];
+      }
+    }
+    return plainObject;
   }
 }
 

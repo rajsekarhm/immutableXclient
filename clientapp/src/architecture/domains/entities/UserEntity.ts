@@ -4,16 +4,16 @@ import IEntities from "./Interface/IEntitties";
 
 class UserEntity implements IEntities {
   User: UserModal;
-
+  static defaultUser: any;
   constructor(
-    securityId: string ,
-    firstname: string,
-    lastname: string,
+    securityId: string,
+    firstName: string,
+    lastName: string,
     email: string,
     phoneNumber: number,
-    password: string ,
-    location: string ,
-    governmentId: number,
+    password: string,
+    location: string,
+    governmentID: number,
     edition: string,
     isAgent: boolean,
     AgentId: number,
@@ -21,13 +21,13 @@ class UserEntity implements IEntities {
     assetHolding?: AssetModal
   ) {
     this.User = {
-      firstname: firstname,
-      lastname: lastname,
+      firstName: firstName,
+      lastName: lastName,
       email: email,
       phoneNumber: phoneNumber,
       password: password,
       location: location,
-      governmentId: governmentId,
+      governmentID: governmentID,
       edition: edition,
       isAgent: isAgent,
       AgentId: AgentId,
@@ -37,60 +37,85 @@ class UserEntity implements IEntities {
     };
   }
 
-  getFirstname() : string {
-    return this.User.firstname;
+  getFirstName(): string {
+    return this.User.firstName;
   }
 
-  getLastname() : string {
-    return this.User.lastname;
+  getLastName(): string {
+    return this.User.lastName;
   }
 
-  getEmail() : string {
+  getEmail(): string {
     return this.User.email;
   }
 
-  getphoneNumber() : number {
+  getphoneNumber(): number {
     return this.User.phoneNumber;
   }
 
-  getpassword(): string  {
+  getpassword(): string {
     return this.User.password;
   }
 
-  getlocation() : string {
+  getlocation(): string {
     return this.User.location;
   }
 
-  getgovernmentId(): number  {
-    return this.User.governmentId;
+  governmentID(): number {
+    return this.User.governmentID;
   }
 
-  getedition() : string {
+  getedition(): string {
     return this.User.edition;
   }
 
-  getisAgent():  boolean {
+  getisAgent(): boolean {
     return this.User.isAgent;
   }
 
-  getAgentId() : number {
+  getAgentId(): number {
     return this.User.AgentId;
   }
 
-  getisAuthForBuyAndSell() : string {
+  getisAuthForBuyAndSell(): string {
     return this.User.isAuthForBuyAndSell;
   }
 
-  getassetHolding() : AssetModal | undefined {
+  getassetHolding(): AssetModal | undefined {
     return this.User.assetHolding || undefined;
   }
 
-  getsecurityId() : string {
+  getsecurityId(): string {
     return this.User.securityId;
   }
 
   static initialState() {
-    return new UserEntity("","","","",0,"","",0,"",false,0,"")
+    this.defaultUser = {
+      firstName: null,
+      lastName: null,
+      email: null,
+      phoneNumber: null,
+      password: null,
+      location: null,
+      governmentID: null,
+      edition: null,
+      isAgent: null,
+      AgentId: null,
+      isAuthForBuyAndSell: null,
+      assetHolding: null,
+      securityId: null,
+    };
+    return this.defaultUser;
+  }
+
+  static toPlainObject(object: any) {
+    const plainObject: any = {};
+    for (let key in object) {
+      if (object.hasOwnProperty(key)) {
+        plainObject[key] = object[key];
+      }
+    }
+    return plainObject;
   }
 }
 

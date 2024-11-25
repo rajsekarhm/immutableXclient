@@ -2,7 +2,8 @@ import { useNavigate } from "react-router-dom";
 import AppBar from "./shadcn/AppBard";
 import { CreditCard, LogOut } from "lucide-react";
 
-export default function PrimarySearchAppBar({actionEvents,authDetails}:any) {
+export default function PrimarySearchAppBar({actionEvents,authDetails,userDetails}:any) {
+  const {name, email, userId}= userDetails
   const {  isAuth } = authDetails
   const { onSearch,onAccountClick, OnMoreClick} = actionEvents
   const navigate =  useNavigate()
@@ -15,7 +16,7 @@ export default function PrimarySearchAppBar({actionEvents,authDetails}:any) {
         text: "Dashboard",
         itHasSubtab: false,
         subTab: null,
-        onClick: () => { navigate('/portfolio/raja')},
+        onClick: () => { navigate(`/portfolio/${userId}`)},
       },
       {
         element: <LogOut />,
@@ -29,7 +30,7 @@ export default function PrimarySearchAppBar({actionEvents,authDetails}:any) {
 
   return (
     <>
-       <AppBar onSearch={onSearch} onAccountClick={onAccountClick} OnMoreClick={OnMoreClick} isAuth={isAuth} menuDetails={dropDown}/>
+       <AppBar onSearch={onSearch} onAccountClick={onAccountClick} OnMoreClick={OnMoreClick} isAuth={isAuth} menuDetails={dropDown} userDetails={{name:name,email:email,userId:userId}}/>
     </>
   );
 }

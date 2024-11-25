@@ -20,9 +20,10 @@ import {
   const {card_details, onChanges,onClick} = tabsDetails
   return (
     <Tabs defaultValue="digitalize" className="w-[400px]">
-      <TabsList className="grid w-full grid-cols-2">
-        <TabsTrigger value="digitalize" className="bg-black text-white">Asset</TabsTrigger> {"    "}
-        {"     "}  <TabsTrigger value="tokenization" className="bg-black text-white" >Collateral</TabsTrigger>
+      <TabsList className="grid w-full grid-cols-2 gap-8">
+        <TabsTrigger value="digitalize" className="bg-black text-white">Asset</TabsTrigger> 
+        <TabsTrigger value="tokenization" className="bg-black text-white" >Collateral</TabsTrigger>
+        <br/>
       </TabsList>
       <TabsContent value="digitalize">
         <Card>

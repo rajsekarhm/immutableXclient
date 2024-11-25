@@ -7,17 +7,14 @@ class UserHandler implements IHandler{
   constructor(private usecase: UserUseCase) {}
 
   create(request: UserModal) {
-    console.log('userhandler create methods called')
      this.usecase.createUser(request);
   }
 
   updateById(id: string | number) {
-    console.log('userhandler update methods called')
     this.usecase.updateUserByUniqueId(id);
   }
 
   getById(id: string | number) {
-    console.log('userhandler get methods called')
     return this.usecase.getUserByUniqueId(id);
   }
 

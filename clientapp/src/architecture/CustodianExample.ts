@@ -5,13 +5,13 @@ import CustodianModal from "./domains/modals/CustodianModal";
 
 const custodain : CustodianModal =   {
     securityId: "123",
-    firstname: "John",
-    lastname: "Doe",
+    firstName: "John",
+    lastName: "Doe",
     email: "john@example.com",
     phoneNumber: 1234567890,
     password: "secret",
     location: "New York",
-    governmentId: 4567,
+    governmentID: 4567,
     edition: "Standard",
     isAgent: false,
     AgentId: 0,

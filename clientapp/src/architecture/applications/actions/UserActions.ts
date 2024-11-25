@@ -1,41 +1,35 @@
-import UserHandler from "../../controllers/handlers/UserHandler";
-import UserRepository from "../infrastructure/UserRepository";
-import UserUseCase from "../usecases/UserUseCase";
+// import REQUEST_API from "requests/api.config";
+// import server_config from "../../../../server.config";
 import IAction from "./interface/Action";
+// import { requestAPI } from "requests/core/request";
+// import UserActionTypes from "./constants/UserActionType";
+// import { createAsyncThunk } from "@reduxjs/toolkit";
 class UserAction implements IAction {
+  userRepository: any;
+  userUseCase: any;
+  userController: any;
   constructor() {}
-  actions() {
-    return {
-      users_create: this._create,
-      users_get: this._get,
-      users_update: this._update,
-      users_delete: this._delete,
-      users_login: this._login,
-    };
+  actions() {}
+
+   createUser(userDetails:any) {
+    // return createAsyncThunk(UserActionTypes.CREATEUSER,async()=>{
+    //   var myHeaders = new Headers();
+    //   myHeaders.append("Content-Type", "application/json");
+    //   var raw = JSON.stringify(userDetails);
+    //   return  await requestAPI(`${server_config.host}:${server_config.port}/${REQUEST_API.CREATE_USER}`,'POST',raw,myHeaders)
+    // })
   }
-  _create(state: any, action: any) {
-    const userRepository = new UserRepository();
-    const userUseCase = new UserUseCase(userRepository);
-    const userController = new UserHandler(userUseCase);
-    console.log(state);
-    console.log("create user");
-    // return { ...state, ...action.payload };
+  findById(id: any) {
+  //  return createAsyncThunk(UserActionTypes.FINDBYID,async()=>{
+  //   return await requestAPI(`${server_config.host}:${server_config.port}/${REQUEST_API.GET_USER}?governmentId=${id}`,'GET')
+  //  })
   }
-  _get(state: any, action: any) {
-    console.log("get user");
-    // return { ...state, ...action.payload };
+  updateUser(state: any, action: any) {
+    // return createAsyncThunk(UserActionTypes.UPDATEUSER,async() => {})
   }
-  _update(state: any, action: any) {
-    console.log("update user");
-    // return { ...state, ...action.payload };
-  }
-  _delete(state: any, action: any) {
-    console.log("delete user");
-    // return { ...state, ...action.payload };
-  }
-  _login(state: any, action: any) {
-    console.log(state);
-    console.log("login user");
+  deleteUser(state: any, action: any) {
+    // return createAsyncThunk(UserActionTypes.DELETEUSER,async() => {})
   }
 }
+
 export { UserAction };
