@@ -5,13 +5,11 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { InputBox } from "../../components/InputBox";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../../components/Button";
-import { actions_store } from "../../../controllers/_store";
 import { motion } from "framer-motion";
 const SignInPage = (props: any) => {
   const [forgot, setForgot] = useState(false);
   const { portal } = props;
   const dispatch = useDispatch();
-  const { users_login } = actions_store.getActions();
   const navigate = useNavigate();
   const [loginInput, setInput] = useState({
     username: null,
@@ -33,7 +31,6 @@ const SignInPage = (props: any) => {
     /**
      * need to handle with authentication with server and password
      */
-    dispatch(users_login(loginInput));
     if (loginInput.username && loginInput.password) {
       navigate(`profile/${loginInput.username}`);
     }

@@ -13,5 +13,6 @@ export default interface UserModal {
     isAgent: boolean;
     AgentId: number ;
     isAuthForBuyAndSell: string;
-    assetHolding ?: AssetModal 
+    assetIds ?: AssetModal []  
+    tokenIds?:any []
   }

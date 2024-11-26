@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import user_reducer from './slice'
-import asset_reducer  from './slice2'
+import user_reducer from './actions/UserActions'
+import asset_reducer  from './actions/AssetActions'
 
 const store = configureStore({
     reducer: {

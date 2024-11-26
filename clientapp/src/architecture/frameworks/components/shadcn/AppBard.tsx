@@ -19,12 +19,13 @@ import {
 import { Search, User, Settings, LogOut, Wallet } from "lucide-react"
 import  {Button} from "./Button"
 import { Input } from "./Input"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import WalletConnect from "../WalletConnect"
 import { DropdownMenuByUseCase } from "../DropMenu"
 
 export default function AppBar({ onSearch,onAccountClick, OnMoreClick, isAuth , menuDetails, userDetails}:any) {
   const {name,email} = userDetails
+  const {userId} = useParams()
   const navigate = useNavigate()
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   return (
@@ -40,9 +41,9 @@ export default function AppBar({ onSearch,onAccountClick, OnMoreClick, isAuth , 
           </SheetHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-2 items-center gap-4">
-              <Button className="bg-black text-white " onClick={()=>navigate('/tokenization')}> tokenization  </Button>
+              <Button className="bg-black text-white " onClick={()=>navigate(`/tokenization/${userId}`)}> tokenization  </Button>
               <br/>
-              <Button className="bg-black text-white" onClick={()=>navigate('/asset-digitalize')}> collateral </Button>
+              <Button className="bg-black text-white" onClick={()=>navigate(`/asset-digitalize/${userId}`)}> collateral </Button>
             </div>
           </div>
           <SheetFooter>

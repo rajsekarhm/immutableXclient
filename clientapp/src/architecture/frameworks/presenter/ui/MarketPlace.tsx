@@ -2,7 +2,7 @@ import mockCard from "../mockData";
 import PrimarySearchAppBar from "../../components/AppBar";
 import ShowCaseCard from "../../components/ShowCaseCard";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser } from "../../../controllers/slice";
+import { getUser } from "../../../controllers/actions/UserActions";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import useAccount from "../hooks/useAccount";

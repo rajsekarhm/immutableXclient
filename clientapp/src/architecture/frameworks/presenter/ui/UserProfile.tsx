@@ -5,46 +5,53 @@ import ProfileCard from "../../components/ProfileCard";
 import ShowCaseCard from "../../components/ShowCaseCard";
 import { Label } from "../../components/shadcn/Label";
 import Button from "../../components/Button";
-import { HoverCard, HoverCardTrigger,HoverCardContent } from "../../components/shadcn/HoverCard";
+import {
+  HoverCard,
+  HoverCardTrigger,
+  HoverCardContent,
+} from "../../components/shadcn/HoverCard";
 import { InputBox } from "../../components/InputBox";
-import { getAsset } from "../../../controllers/slice2";
 import useAccount from "../hooks/useAccount";
 import { useDispatch, useSelector } from "react-redux";
 import { useWallet } from "../hooks/useWallet";
 import { AppDispatch } from "architecture/controllers/store";
+import { getAsset } from "../../../controllers/actions/AssetActions";
+import AssetModal from "architecture/domains/modals/AssetModal";
 
 function UserProfiles() {
   const { account } = useWallet();
-  const dispatch = useDispatch<AppDispatch>()
-  const {firstName, lastName, phoneNumber,email} = useAccount()
+  const dispatch = useDispatch<AppDispatch>();
+  const { firstName, lastName, phoneNumber, email } = useAccount();
   const navigate = useNavigate();
   const asset = useSelector((state: any) => state.asset);
-  console.log(asset)
-  const [transferOwner,settransferOwner] = useState({
-    to:null,
-    tokenId:null
-  })
-  function onAssetChange(event:any) {
-    const { name,value } = event
-    settransferOwner({...transferOwner,[name]:value})
+  const {userId} = useParams()
+  const [currentAsset, setCurrentAsset] = useState<AssetModal | any>({
+    walletAddress: "",
+    tokenId: "",
+    tokenURI: "",
+    value: ""
+  });
+  useEffect(() =>{
+    setCurrentAsset({...currentAsset,...asset.asset})
+  },[asset])
+  const [transferOwner, settransferOwner] = useState({
+    to: null,
+    tokenId: null,
+  });
+  function onAssetChange(event: any) {
+    const { name, value } = event;
+    settransferOwner({ ...transferOwner, [name]: value });
   }
-  function onClickAssetChange(event:any){
-    event.preventDefault()
-    console.log(transferOwner)
+  function onClickAssetChange(event: any) {
+    event.preventDefault();
+    console.log(transferOwner);
   }
   const mockAsset = [
     {
       card_details: {
         id: "one",
-        title: "Holdings",
-        content: {
-          description: "about asset",
-          walletAddress: "0x212f916DCfF88AC66883a2175de5BDa52C6bA968",
-          status: "pending",
-          value: "$ 1000 ",
-          uri: "ipfs link",
-          tokenId: "17710",
-        },
+        title: "Token IMX",
+        content: currentAsset,
       },
       buttonText: "View Explorer",
       onClick: () => {},
@@ -53,10 +60,10 @@ function UserProfiles() {
   ];
 
   useEffect(() => {
-      dispatch(getAsset({ asserAddress: account, tokenId: "2020" }));
+    dispatch(getAsset({ asserAddress: account, tokenId: "17710" }));
     // api call make to validate that user is authenticated
     if (false) {
-         navigate("/sign-in/users");
+      navigate("/sign-in/users");
     }
   }, [account]);
 
@@ -76,25 +83,26 @@ function UserProfiles() {
         <ProfileCard
           name={firstName + lastName}
           mail={email}
-          address={'india'}
+          address={"india"}
           phone={phoneNumber}
         />
       </div>
       <div className="grid gap-4 py-4">
         <Button
-          onclickEvent={() => navigate("/tokenization")}
+          onclickEvent={() => navigate(`/tokenization/${userId}`)}
           description={"Tokenization"}
         />
         <Button
-          onclickEvent={() => navigate("/asset-digitalize")}
+          onclickEvent={() => navigate(`/asset-digitalize/${userId}`)}
           description={"Asset Digitalize"}
         />
         <HoverCard>
           <HoverCardTrigger>
             <Label htmlFor="text"> Trasnsfer Ownership </Label>
           </HoverCardTrigger>
-          <HoverCardContent >
-           <InputBox componentInfo={{
+          <HoverCardContent>
+            <InputBox
+              componentInfo={{
                 defaultValue: undefined,
                 className: "to_class",
                 type: "text",
@@ -103,8 +111,10 @@ function UserProfiles() {
                 pattern: "",
                 maxlength: 10,
               }}
-              handleInput={onAssetChange} />
-           <InputBox componentInfo={{
+              handleInput={onAssetChange}
+            />
+            <InputBox
+              componentInfo={{
                 defaultValue: undefined,
                 className: "token_class",
                 type: "text",
@@ -113,8 +123,12 @@ function UserProfiles() {
                 pattern: "",
                 maxlength: 10,
               }}
-              handleInput={onAssetChange}/>
-            <Button onclickEvent={onClickAssetChange} description={"transfer"}/>
+              handleInput={onAssetChange}
+            />
+            <Button
+              onclickEvent={onClickAssetChange}
+              description={"transfer"}
+            />
           </HoverCardContent>
         </HoverCard>
       </div>

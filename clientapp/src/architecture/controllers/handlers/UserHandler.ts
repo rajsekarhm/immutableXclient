@@ -1,7 +1,6 @@
 import { useDispatch } from "react-redux";
 import UserUseCase from "../../applications/usecases/UserUseCase";
 import IHandler from "./interface/IHandler";
-import UserEntity from "../../domains/entities/UserEntity";
 import UserModal from "../../domains/modals/UserModal";
 class UserHandler implements IHandler{
   constructor(private usecase: UserUseCase) {}
