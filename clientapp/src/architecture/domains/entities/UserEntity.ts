@@ -32,7 +32,7 @@ class UserEntity implements IEntities {
       isAgent: isAgent,
       AgentId: AgentId,
       isAuthForBuyAndSell: isAuthForBuyAndSell,
-      assetHolding: assetHolding,
+      assetIds: assetHolding,
       securityId: securityId,
     };
   }
@@ -82,7 +82,7 @@ class UserEntity implements IEntities {
   }
 
   getassetHolding(): AssetModal | undefined {
-    return this.User.assetHolding || undefined;
+    return this.User.assetIds || undefined;
   }
 
   getsecurityId(): string {

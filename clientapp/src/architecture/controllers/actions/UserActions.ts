@@ -2,19 +2,13 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { requestAPI } from "../../../requests/core/request";
 import server_config from "../../../../server.config";
 import REQUEST_API from "../../../requests/api.config";
-import UserEntity from "architecture/domains/entities/UserEntity";
+import UserEntity from "../../domains/entities/UserEntity";
 
 export const createUser = createAsyncThunk<any,any>("user/createUser", async (userDetails) => {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   var raw = JSON.stringify(userDetails);
-  console.log(userDetails)
-  return await requestAPI(
-    `${server_config.host}:${server_config.port}/${REQUEST_API.CREATE_USER}`,
-    "POST",
-    raw,
-    myHeaders
-  );
+  return await requestAPI(`${server_config.host}:${server_config.port}/${REQUEST_API.CREATE_USER}`,"POST",raw,myHeaders);
 });
 
 export const getUser = createAsyncThunk<any, any>(

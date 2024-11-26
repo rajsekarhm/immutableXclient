@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getUser } from "../../../controllers/slice";
+import { getUser } from "../../../controllers/actions/UserActions"
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -17,7 +17,6 @@ function useAccount() {
   }, [userId, dispatch, navigate]);
 
   const { firstName, lastName, email, phoneNumber } = userDetails || {};
-
   return { firstName, lastName, email, phoneNumber, userId };
 }
 

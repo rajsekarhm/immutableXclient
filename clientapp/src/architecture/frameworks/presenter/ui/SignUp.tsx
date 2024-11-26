@@ -32,7 +32,6 @@ export const SigUpFormPage = (props: { portal: string }) => {
       return;
     }
     if (portal === "users") {
-      console.log(user)
       dispatch(createUser(user));
     }
     if (portal === "custodian") {

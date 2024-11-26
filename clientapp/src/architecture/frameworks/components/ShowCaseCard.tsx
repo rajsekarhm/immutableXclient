@@ -25,7 +25,7 @@ function CardComponent({
         <CardTitle>{title}</CardTitle>
         <CardDescription>{description}</CardDescription>
       </CardHeader>
-      {Object.values(content).map((value: any) => {
+      {Object.values(content).map(( value:any) => {
         return (
           <>
             {" "}
@@ -33,13 +33,13 @@ function CardComponent({
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger>
-                    <Label htmlFor={value}>
+                    <Label >
                       {value.length > 20 ? (
                         <>
-                          {value.slice(0, 6)}...{value.slice(-4)}{" "}
+                         {value.slice(0, 6)}...{value.slice(-4)}{" "}
                         </>
                       ) : (
-                        value
+                        value.toString()
                       )}
                     </Label>
                   </TooltipTrigger>

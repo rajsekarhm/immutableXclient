@@ -1,9 +1,8 @@
 import { motion } from "framer-motion";
-import connectThroughWindow from "../../../../../blockchain_client/ethereum/connectWallet";
 import { AuroraBackground } from "./background/Aurora-background";
-import SVG from "./background/SVG";
-import ListWidget from '../../components/ListWidgets';
+import { useWallet } from "../hooks/useWallet";
  function Home() {
+  const {connectWallet } = useWallet()
   return (
     <AuroraBackground>
       <motion.div
@@ -31,7 +30,7 @@ import ListWidget from '../../components/ListWidgets';
         <div className="font-extralight text-base md:text-4xl dark:text-neutral-200 py-4">
           Digitalize your assets in Blockchain... 
         </div>
-        <button className="bg-black dark:bg-white rounded-full w-fit text-white dark:text-black px-4 py-2">
+        <button className="bg-black dark:bg-white rounded-full w-fit text-white dark:text-black px-4 py-2" onClick={connectWallet}>
           connect wallet
         </button>
       </motion.div>
