@@ -6,50 +6,73 @@ import ContractETH from "../../contract/ContractETH";
 import CONTRACT_ADDRESS_TESTNET from "../../contract/Contract";
 import asset_abi from "../../../../blockchain_client/ethereum/abi/asset_abi";
 
-export const createAsset = createAsyncThunk<any,any>("asset/createAsset", async (assetDetails) => {
-        const {  
-          tokenId,
-          value,
-          tokenURI,
-          symbol,
-          walletAddress
-        } = assetDetails
-      // safeMintX(address contractAddress, uint256 amount,uint256 tokenId,string memory uri,string memory  _symbol)
-        const _contract =  new ContractETH("browser",window.ethereum)
-        const web = await _contract.interactWithContract(CONTRACT_ADDRESS_TESTNET,asset_abi)
-        const sourceObject = await web.safeMintX(walletAddress,value,tokenId,tokenURI,symbol)
-       // var myHeaders = new Headers();
-       // myHeaders.append("Content-Type", "application/json");
-       // var raw = JSON.stringify(assetDetails);
-       // return await requestAPI(`${server_config.host}:${server_config.port}/${REQUEST_API.CREATE_ASSET}`,"POST",raw,myHeaders);
-});
+export const createAssetBlockchain = createAsyncThunk<any, any>(
+  "asset/createAssetBlockChain",
+  async (assetDetails) => {
+    const { tokenId, value, tokenURI, symbol, walletAddress } = assetDetails;
+    // safeMintX(address contractAddress, uint256 amount,uint256 tokenId,string memory uri,string memory  _symbol)
+    const _contract = new ContractETH("browser", window.ethereum);
+    const web = await _contract.interactWithContract(
+      CONTRACT_ADDRESS_TESTNET,
+      asset_abi
+    );
+    const sourceObject = await web.safeMintX(
+      walletAddress,
+      value,
+      tokenId,
+      tokenURI,
+      symbol
+    );
+  }
+);
+
+export const getAssetBlochain = createAsyncThunk<any, any>(
+  "asset/getAssetBlockchain",
+  async ({ asserAddress, tokenId }, { rejectWithValue }) => {
+    const _contract = new ContractETH("browser", window.ethereum);
+    const web = await _contract.interactWithContract(
+      CONTRACT_ADDRESS_TESTNET,
+      asset_abi
+    );
+    const sourceObject = await web.getHoldingAssetX(asserAddress, tokenId);
+    return Object.assign(
+      {},
+      {
+        tokenId: sourceObject[0].toString(),
+        value: sourceObject[1].toString(),
+        tokenURI: sourceObject[2],
+        isFungible: sourceObject[3],
+        symbol: sourceObject[4],
+        walletAddress: asserAddress,
+      }
+    );
+  }
+);
+
+export const createAsset = createAsyncThunk<any, any>(
+  "asset/createAsset",
+  async (assetDetails) => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    var raw = JSON.stringify(assetDetails);
+    return await requestAPI(`${server_config.host}:${server_config.port}/${REQUEST_API.CREATE_ASSET}`,"POST",raw,myHeaders);
+  }
+);
 
 export const getAsset = createAsyncThunk<any, any>(
-    "asset/getAsset", 
-    async ({asserAddress,tokenId}, { rejectWithValue }) => {
-      // return await requestAPI(`${server_config.host}:${server_config.port}/${REQUEST_API.GET_ASSET}?tokenId=${tokenId}`,"GET")
-    //     const _contract =  new ContractETH("browser",window.ethereum)
-    //     const web = await _contract.interactWithContract(CONTRACT_ADDRESS_TESTNET,asset_abi)
-    //     const sourceObject = await web.getHoldingAssetX(asserAddress,tokenId)
-    //     return Object.assign({},{
-    //         tokenId: sourceObject[0].toString(),
-    //         value: sourceObject[1].toString(),
-    //         tokenURI: sourceObject[2],
-    //         isFungible: sourceObject[3],
-    //         symbol: sourceObject[4],
-    //         walletAddress: asserAddress,
-    //       })
-    }
-  );
-
-
+  "asset/getAsset",
+   async ({ asserAddress, assetIds }, { rejectWithValue }) => {
+    const result = await Promise.all(assetIds.map((id:any)=> requestAPI(`${server_config.host}:${server_config.port}/${REQUEST_API.GET_ASSET}?tokenId=${id}`,"GET")) )
+    return result
+  }
+);
 
 const assetSlice = createSlice({
   name: "asset",
   initialState: {
-    asset:{},
+    asset: {},
     loading: false,
-    status: "idle", 
+    status: "idle",
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -70,21 +93,21 @@ const assetSlice = createSlice({
     });
     /*********** */
     builder
-    .addCase(createAsset.pending, (state:any) => {
-      state.loading = true;
-      state.status = "idle";
-      state.asset = {};
-    })
-    .addCase(createAsset.fulfilled, (state:any,action:any) => {
-      state.loading = false;
-      state.status = "succeeded";
-      state.asset = action.payload
-    })
-    .addCase(createAsset.rejected, (state:any,action:any) => {
-      state.loading = false;
-      state.status = "failed";
-      state.asset = {};
-    });
+      .addCase(createAsset.pending, (state: any) => {
+        state.loading = true;
+        state.status = "idle";
+        state.asset = {};
+      })
+      .addCase(createAsset.fulfilled, (state: any, action: any) => {
+        state.loading = false;
+        state.status = "succeeded";
+        state.asset = action.payload;
+      })
+      .addCase(createAsset.rejected, (state: any, action: any) => {
+        state.loading = false;
+        state.status = "failed";
+        state.asset = {};
+      });
   },
 });
 

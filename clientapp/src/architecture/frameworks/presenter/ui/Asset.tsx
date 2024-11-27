@@ -10,22 +10,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { createAsset } from "../../../controllers/actions/AssetActions"
 import { useWallet } from "../hooks/useWallet";
 import AssetModal  from '../../../domains/modals/AssetModal';
-import { createUser } from "../../../controllers/actions/UserActions";
 function AssetCreation() {
+  const {account} = useWallet()
   const { firstName, lastName, email, userId, phoneNumber } = useAccount();
   const dispatch = useDispatch<any>();
   const [onLoading, setLoading] = useState(false);
-  const currentUser = useSelector((state:any) => state.user.user)
+  // const currentUser = useSelector((state:any) => state.user.user)
   const [newDigitalizeAsset, setDigitalizeAsset] = useState<AssetModal>({
-    symbol:"",
-    walletAddress: "" ,
-    ownerAddress: "" ,
+    tokenId:"",
+    symbol: "" ,
+    tokenURI: "",
+    value: "" ,
+    assetAddress: "" ,
     isValidated: false,
-    tokenId: "" ,
-    tokenURI: "" ,
-    value: "",
     associatedUser:"",
-    isForSale:false,
+    isForSale:false
   });
 
   function handleChanges(event: any) {
@@ -36,11 +35,10 @@ function AssetCreation() {
   async function handleClick(event: any) {
     event.preventDefault();
     // api call  {}
-    const { symbol,walletAddress,value,tokenId,tokenURI } = newDigitalizeAsset;
-    currentUser.tokenId = [...new Set(currentUser.tokenId.push(tokenId))]
-    console.log(currentUser)
-    // dispatch(createUser(currentUser))
-    // dispatch(createAsset({ symbol,walletAddress,value,tokenId,tokenURI }))
+    newDigitalizeAsset['associatedUser']= userId
+    const { symbol,assetAddress,value,tokenId,tokenURI } = newDigitalizeAsset;
+    // currentUser.tokenId = [...new Set(currentUser.tokenId.push(tokenId))]
+    dispatch(createAsset(newDigitalizeAsset))
      toast(`Asset ${symbol} Have Been Minted`, {
        description: "check in chain Explorer",
     });
@@ -74,8 +72,8 @@ function AssetCreation() {
         description: "",
       },
       {
-        name: "walletAddress",
-        value: "walletAddress",
+        name: "assetAddress",
+        value: "assetAddress",
         description: "",
       },
     ],
