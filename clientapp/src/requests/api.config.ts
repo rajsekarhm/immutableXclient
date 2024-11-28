@@ -11,6 +11,10 @@ const REQUEST_API = {
   GET_ASSET: "api/v1/asset/getAsset",
   UPDATE_ASSET: "api/v1/asset/updateAsset",
   DELTE_ASSET: "api/v1/asset/deleteAsset",
+  ADD_ASSET_USER:"api/v1/user/addAsset",
+  ADD_TOKEN_USER:"api/v1/user/addToken",
+  CREATE_TOKEN:"api/v1/token/createToken",
+  GET_TOKEN:"api/v1/token/getToken"
 };
 
 

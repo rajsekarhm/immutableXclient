@@ -26,7 +26,7 @@ export const createAssetBlockchain = createAsyncThunk<any, any>(
   }
 );
 
-export const getAssetBlochain = createAsyncThunk<any, any>(
+export const getAssetBlockchain = createAsyncThunk<any, any>(
   "asset/getAssetBlockchain",
   async ({ asserAddress, tokenId }, { rejectWithValue }) => {
     const _contract = new ContractETH("browser", window.ethereum);
@@ -55,15 +55,22 @@ export const createAsset = createAsyncThunk<any, any>(
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     var raw = JSON.stringify(assetDetails);
-    return await requestAPI(`${server_config.host}:${server_config.port}/${REQUEST_API.CREATE_ASSET}`,"POST",raw,myHeaders);
+    const response:any = await fetch('http://127.0.0.1:8080/api/v1/asset/createAsset', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(assetDetails)
+    });
+    return JSON.parse(response)
   }
 );
 
 export const getAsset = createAsyncThunk<any, any>(
   "asset/getAsset",
    async ({ asserAddress, assetIds }, { rejectWithValue }) => {
-    const result = await Promise.all(assetIds.map((id:any)=> requestAPI(`${server_config.host}:${server_config.port}/${REQUEST_API.GET_ASSET}?tokenId=${id}`,"GET")) )
-    return result
+    const assetResponse = await Promise.all(assetIds.map((id:any)=> requestAPI(`${server_config.host}:${server_config.port}/${REQUEST_API.GET_ASSET}?assetId=${id}`,"GET")) )
+    return assetResponse
   }
 );
 

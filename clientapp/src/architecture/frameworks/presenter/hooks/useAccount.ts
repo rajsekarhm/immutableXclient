@@ -15,7 +15,6 @@ function useAccount() {
       dispatch(getUser(userId));
     }
   }, [userId, dispatch, navigate]);
-  console.log(userDetails)
   const { firstName, lastName, email, phoneNumber,assetIds } = userDetails || {};
   return { firstName, lastName, email, phoneNumber, userId,assetIds };
 }
