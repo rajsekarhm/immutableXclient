@@ -8,15 +8,20 @@ import byteCode_token from "../../../../../blockchain_client/ethereum/byteCode/b
 import { toast } from "sonner";
 import { Toaster } from "../../components/shadcn/BottomBanner";
 import useAccount from "../hooks/useAccount";
-import { createAsset } from "../../../controllers/actions/AssetActions";
+import TokenModal from '../../../domains/modals/TokenModal';
+import { useDispatch } from "react-redux";
+import { createToken}  from '../../../controllers/actions/TokenActions'
+import { addToken }  from '../../../controllers/actions/UserActions'
 function TokenCreation() {
   const navigate = useNavigate();
-  const { firstName, lastName, email, phoneNumber, userId } = useAccount();
-  const [token, setToken] = useState({
-    walletAddress: null,
+  const dispatch = useDispatch<any>();
+  const {firstName,lastName,email,phoneNumber,userId} = useAccount()
+  const [token, setToken] = useState<TokenModal>({
+    walletAddress: "",
     numberOfTokens: "",
-    symbol: null,
-    tokenName: null,
+    symbol: "",
+    tokenName: "",
+    tokenId:""
   });
   const handleChange = (event: any) => {
     event.preventDefault();
@@ -28,20 +33,22 @@ function TokenCreation() {
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
-    const _contract = new ContractETH("browser", window.ethereum);
-    const { symbol, tokenName, numberOfTokens } = token;
+    // const _contract = new ContractETH("browser", window.ethereum);
+    const { symbol, tokenName, numberOfTokens, tokenId } = token;
     if (symbol && tokenName && numberOfTokens) {
-      const contractAddress = await _contract.createContract(
-        token_abi,
-        byteCode_token,
-        tokenName,
-        symbol
-      );
-      const web = await _contract.interactWithContract(
-        contractAddress,
-        token_abi
-      );
-      return await web.mint(contractAddress, numberOfTokens.toString());
+      // dispatch(createToken(token))
+      dispatch(addToken({userId:userId,tokenId:tokenId}))
+      // const contractAddress = await _contract.createContract(
+      //   token_abi,
+      //   byteCode_token,
+      //   tokenName,
+      //   symbol
+      // );
+      // const web = await _contract.interactWithContract(
+      //   contractAddress,
+      //   token_abi
+      // );
+      // return await web.mint(contractAddress, numberOfTokens.toString());
     } else {
       toast(`Token is Not Minted`, {
         description: "Give proper Details to mint token",
@@ -83,6 +90,14 @@ function TokenCreation() {
         name: "tokenName",
         maxlength: 100,
       },
+      {
+        defaultValue: undefined,
+        description: "Enter Token Id",
+        className: "tokenId_class",
+        type: "text",
+        name: "tokenId",
+        maxlength: 100,
+      }
     ],
     isSelectFieldsNeed: false,
   };

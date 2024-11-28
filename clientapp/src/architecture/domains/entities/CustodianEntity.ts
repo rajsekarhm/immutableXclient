@@ -1,4 +1,3 @@
-import AssetModal from '../modals/AssetModal';
 import CustodianModal from '../modals/CustodianModal';
 
 class CustodianEntity {
@@ -20,7 +19,8 @@ class CustodianEntity {
     orgId: string,
     Authenticated: string,
     AuthorizationFor: string,
-    assetHolding?: AssetModal
+    tokenIds:any[],
+    assetIds:any[]
   ) {
     this.Custodian = {
       firstName: firstName,
@@ -34,78 +34,84 @@ class CustodianEntity {
       isAgent: isAgent,
       AgentId: AgentId,
       isAuthForBuyAndSell: isAuthForBuyAndSell,
-      assetHolding: assetHolding,
       securityId: securityId,
       orgId: orgId,
       Authenticated: Authenticated,
-      AuthorizationFor: AuthorizationFor
+      AuthorizationFor: AuthorizationFor,
+      tokenIds:tokenIds,
+      assetIds:assetIds
     };
   }
 
   // Getters for each property
-  get firstName(): string {
+  getfirstName(): string {
     return this.Custodian.firstName;
   }
 
-  get lastName(): string {
+  getlastName(): string {
     return this.Custodian.lastName;
   }
 
-  get email(): string {
+  getemail(): string {
     return this.Custodian.email;
   }
 
-  get phoneNumber(): number {
+  getphoneNumber(): number {
     return this.Custodian.phoneNumber;
   }
 
-  get password(): string {
+  getpassword(): string {
     return this.Custodian.password;
   }
 
-  get location(): string {
+  getlocation(): string {
     return this.Custodian.location;
   }
 
-  get governmentID(): number {
+  getgovernmentID(): number {
     return this.Custodian.governmentID;
   }
 
-  get edition(): string {
+  getedition(): string {
     return this.Custodian.edition;
   }
 
-  get isAgent(): boolean {
+  getisAgent(): boolean {
     return this.Custodian.isAgent;
   }
 
-  get AgentId(): number {
+  getAgentId(): number {
     return this.Custodian.AgentId;
   }
 
-  get isAuthForBuyAndSell(): string {
+  getisAuthForBuyAndSell(): string {
     return this.Custodian.isAuthForBuyAndSell;
   }
 
-  get assetHolding(): AssetModal | undefined {
-    return this.Custodian.assetHolding;
-  }
-
-  get securityId(): string {
+  getsecurityId(): string {
     return this.Custodian.securityId;
   }
 
-  get orgId(): string {
+  getorgId(): string {
     return this.Custodian.orgId;
   }
 
-  get Authenticated(): string {
+  getAuthenticated(): string {
     return this.Custodian.Authenticated;
   }
 
-  get AuthorizationFor(): string {
+  getAuthorizationFor(): string {
     return this.Custodian.AuthorizationFor;
   }
+  getTokenIds(){
+    return this.Custodian.tokenIds
+  }
+
+  getAssetIds(){
+    return this.Custodian.assetIds
+  }
+
+
   static initialState() { 
      this.defaultCustodian = {
       firstName: null,

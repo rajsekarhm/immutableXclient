@@ -37,6 +37,10 @@ const Router = createBrowserRouter([
     element: <UserProfiles />,
   },
   {
+    path: "/marketplace",
+    element: <MarketPlace />,
+  },
+  {
     path: "/marketplace/:userId",
     element: <MarketPlace />,
   },

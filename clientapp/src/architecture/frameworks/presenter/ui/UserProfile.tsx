@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { browserStorage } from "../../../../helpers/Storage";
 import ProfileCard from "../../components/ProfileCard";
 import ShowCaseCard from "../../components/ShowCaseCard";
 import { Label } from "../../components/shadcn/Label";
@@ -16,24 +15,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { useWallet } from "../hooks/useWallet";
 import { AppDispatch } from "architecture/controllers/store";
 import { getAsset } from "../../../controllers/actions/AssetActions";
-import AssetModal from "architecture/domains/modals/AssetModal";
 
 function UserProfiles() {
   const { account } = useWallet();
   const dispatch = useDispatch<AppDispatch>();
-  const { firstName, lastName, phoneNumber, email } = useAccount();
+  const { firstName, lastName, phoneNumber, email,assetIds } = useAccount();
   const navigate = useNavigate();
-  const asset = useSelector((state: any) => state.asset);
+  const assets =  useSelector((state: any) => state.asset.asset);
   const {userId} = useParams()
-  const [currentAsset, setCurrentAsset] = useState<AssetModal | any>({
-    walletAddress: "",
-    tokenId: "",
-    tokenURI: "",
-    value: ""
-  });
-  useEffect(() =>{
-    setCurrentAsset({...currentAsset,...asset.asset})
-  },[asset])
   const [transferOwner, settransferOwner] = useState({
     to: null,
     tokenId: null,
@@ -46,26 +35,39 @@ function UserProfiles() {
     event.preventDefault();
     console.log(transferOwner);
   }
-  const mockAsset = [
-    {
+  const fetchedFromUser =  assets?.length ? assets.map((asset:any) => {
+    return {
       card_details: {
         id: "one",
         title: "Token IMX",
-        content: currentAsset,
+        content: asset,
       },
       buttonText: "View Explorer",
       onClick: () => {},
       isInputNeed: true,
+    }
+  }) : [
+    {
+      card_details: {
+        id: "one",
+        title: "Token IMX",
+        content: {
+          description :"No Asset Holding"
+        },
+      },
+      buttonText: "View MarketPlace",
+      onClick: () => { navigate(`/marketplace/${userId}`)},
+      isInputNeed: true,
     },
-  ];
+  ]; 
 
   useEffect(() => {
-    dispatch(getAsset({ asserAddress: account, tokenId: "17710" }));
+    dispatch(getAsset({ asserAddress: account, assetIds }));
     // api call make to validate that user is authenticated
     if (false) {
       navigate("/sign-in/users");
     }
-  }, [account]);
+  }, [assetIds]);
 
   return (
     <div
@@ -134,7 +136,7 @@ function UserProfiles() {
       </div>
       <div>
         <Label> Collections </Label>
-        <ShowCaseCard cardDetails={mockAsset} />
+        <ShowCaseCard cardDetails={fetchedFromUser} />
       </div>
     </div>
   );

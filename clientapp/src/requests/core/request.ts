@@ -7,7 +7,7 @@ function requestAPI(endpoint: any, method: any, body?: any, header?: any) {
         }
       : { method: method};
   return new Promise((resolve, reject) => {
-    fetch(endpoint, requestOptions)
+     fetch(endpoint, requestOptions)
       .then((response: any) => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);

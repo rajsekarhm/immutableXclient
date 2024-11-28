@@ -3,59 +3,64 @@ import AssetModal from "../modals/AssetModal";
 
 class AssetEntity implements IEntities {
   assetEntity: AssetModal;
-  static defaultAsset:any;
+  static defaultAsset: any;
   constructor(
-    walletAddress: string,
+    symbol: string,
+    assetAddress: string,
     isValidated: boolean,
-    assetType: string,
-    documentUrl: string,
-    status: boolean,
-    isForSale:boolean
+    tokenId: string,
+    tokenURI: string,
+    value: number,
+    isForSale: boolean
   ) {
     this.assetEntity = {
-      walletAddress: walletAddress,
+      symbol: symbol,
+      assetAddress: assetAddress,
       isValidated: isValidated,
-      documentUrl: documentUrl,
-      status: status,
-      assetType: assetType,
-      isForSale:isForSale
+      tokenId: tokenId,
+      tokenURI: tokenURI,
+      value: value,
+      isForSale: isForSale,
     };
   }
 
-  getWalletAddress() {
-    return this.assetEntity.walletAddress;
+  getAssetAddress() {
+    return this.assetEntity.assetAddress;
   }
 
   getIsValidated() {
     return this.assetEntity.isValidated;
   }
-
-  getAssetType() {
-    return this.assetEntity.assetType;
+  getTokenId() {
+    return this.assetEntity.tokenId;
   }
-
-  getDocumentUrl() {
-    return this.assetEntity.documentUrl;
+  getTokenURI() {
+    return this.assetEntity.tokenURI;
   }
-
-  getStatus() {
-    return this.assetEntity.status;
+  getValue() {
+    return this.assetEntity.value;
+  }
+  getIsForSale() {
+    return this.assetEntity.isForSale;
+  }
+  getSymbol(){
+    return this.assetEntity.symbol
   }
 
   static initialState() {
-     this.defaultAsset = {
+    this.defaultAsset = {
       walletAddress: null,
       isValidated: null,
       documentUrl: null,
       status: null,
       assetType: null,
-      isForSale:null
-    }
+      isForSale: null,
+    };
     return this.defaultAsset;
   }
-  
-  static toPlainObject(object:any) {
-    const plainObject:any = {};
+
+  static toPlainObject(object: any) {
+    const plainObject: any = {};
     for (let key in object) {
       if (object.hasOwnProperty(key)) {
         plainObject[key] = object[key];
