@@ -1,13 +1,12 @@
 import CustodianEntity from "../../domains/entities/CustodianEntity";
-import AbstractUseCase from "./Interface/AbstractUseCase";
+import AbstractUseCase from "./interface/AbstractUseCase";
 import ICustodianRepository from "../../domains/repository/ICustodianRepository";
 import CustodianModal from "../../domains/modals/CustodianModal";
 class CustodianUseCase implements AbstractUseCase {
   constructor(private repository: ICustodianRepository) {}
 
-  execute(_function: any) {
-  }
-  
+  execute(_function: any) {}
+
   createCustodian(entity: CustodianModal) {
     this.repository.createCustodian(
       new CustodianEntity(
@@ -25,7 +24,9 @@ class CustodianUseCase implements AbstractUseCase {
         entity.isAuthForBuyAndSell,
         entity.orgId,
         entity.Authenticated,
-        entity.AuthorizationFor
+        entity.AuthorizationFor,
+        entity.tokenIds,
+        entity.assetIds
       )
     );
   }
@@ -36,17 +37,19 @@ class CustodianUseCase implements AbstractUseCase {
       "",
       "",
       "",
-      1,
+      0,
       "",
       "",
-      1,
+      0,
       "",
-      true,
-      1,
+      false,
+      0,
       "",
       "",
       "",
-      ""
+      "",
+      [],
+      []
     );
   }
   updateAssetByUniqueId(id: string | number): CustodianEntity {
@@ -55,17 +58,19 @@ class CustodianUseCase implements AbstractUseCase {
       "",
       "",
       "",
-      1,
+      0,
       "",
       "",
-      1,
+      0,
       "",
-      true,
-      1,
+      false,
+      0,
       "",
       "",
       "",
-      ""
+      "",
+      [],
+      []
     );
   }
 }
