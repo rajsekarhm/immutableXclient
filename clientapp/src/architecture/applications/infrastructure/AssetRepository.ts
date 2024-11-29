@@ -9,11 +9,11 @@ class AssetRepository implements IAssetRepository {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     var raw = JSON.stringify(asset.assetEntity);
-    // await requestAPI(`${server_config.host}:${server_config.port}/${REQUEST_API.CREATE_ASSET}`,'POST',raw,myHeaders);
+    await requestAPI(`${server_config.host}:${server_config.port}/${REQUEST_API.CREATE_ASSET}`,'POST',raw,myHeaders);
     console.log("repository called");
   }
   async findById(id: number | string): Promise<void> {
-    // await requestAPI(`${server_config.host}:${server_config.port}/${REQUEST_API.GET_ASSET}`,'GET')
+    await requestAPI(`${server_config.host}:${server_config.port}/${REQUEST_API.GET_ASSET}`,'GET')
     console.log("repository called");
   }
 }

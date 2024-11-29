@@ -6,10 +6,7 @@ import UserModal from "../../domains/modals/UserModal";
 class UserUseCase implements AbstractUseCase {
   constructor(private repository: IUserRepository) {
   }
-  execute(_function:any) {
-    console.log('usecase called')
-  }
-
+  execute(_function:any) {}
   createUser(entity: UserModal) {
     this.repository.createUser(new UserEntity(entity.securityId || entity.phoneNumber.toString(),
       entity.firstName,

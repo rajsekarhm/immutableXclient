@@ -12,14 +12,14 @@ class AssetUseCase implements AbstractUseCase {
     dispatch(_function(args))
   }
   createAsset(entity: AssetModal) {
-    this.repository.createAsset(new AssetEntity(entity.walletAddress,entity.isValidated,entity.assetType,entity.documentUrl,entity.status))
+    this.repository.createAsset(new AssetEntity(entity.walletAddress,entity.isValidated,entity.assetType,entity.documentUrl,entity.status,entity.isForSale))
   }
   getAssetByUniqueId(id: string | number): AssetEntity {
     this.repository.findById(id);
-    return new AssetEntity("", true, "", "", "");
+    return new AssetEntity("", true, "", "", false,false);
   }
   updateAssetByUniqueId(id: string | number): AssetEntity {
-    return new AssetEntity("", true, "", "", "");
+    return new AssetEntity("", true, "", "", false,false);
   }
 }
 

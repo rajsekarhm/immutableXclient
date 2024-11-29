@@ -7,19 +7,25 @@ import { toast } from "sonner";
 import { Skeleton } from "../../components/shadcn/Skeleton";
 import useAccount from "../hooks/useAccount";
 import { useDispatch, useSelector } from "react-redux";
-import { getAsset } from "../../../controllers/slice2";
+import { createAsset } from "../../../controllers/actions/AssetActions"
 import { useWallet } from "../hooks/useWallet";
+import AssetModal  from '../../../domains/modals/AssetModal';
+import { addAsset } from "../../../controllers/actions/UserActions";
 function AssetCreation() {
+  const {account} = useWallet()
   const { firstName, lastName, email, userId, phoneNumber } = useAccount();
   const dispatch = useDispatch<any>();
   const [onLoading, setLoading] = useState(false);
-  const [newDigitalizeAsset, setDigitalizeAsset] = useState({
-    tokenId: null,
-    value: null,
-    tokenURI: null,
-    isFungible: null,
-    symbol: null,
-    walletAddress: null,
+  const [newDigitalizeAsset, setDigitalizeAsset] = useState<AssetModal>({
+    tokenId:"",
+    symbol: "" ,
+    tokenURI: "",
+    value: 0 ,
+    assetAddress: "" ,
+    isValidated: false,
+    associatedUser:"",
+    isForSale:false,
+    isFungible:false
   });
 
   function handleChanges(event: any) {
@@ -30,9 +36,13 @@ function AssetCreation() {
   async function handleClick(event: any) {
     event.preventDefault();
     // api call  {}
-    const { symbol } = newDigitalizeAsset;
-    toast(`Asset ${symbol} Have Been Minted`, {
-      description: "check in chain Explorer",
+    newDigitalizeAsset['associatedUser']= userId
+    const { symbol,assetAddress,value,tokenId,tokenURI } = newDigitalizeAsset;
+    // currentUser.tokenId = [...new Set(currentUser.tokenId.push(tokenId))]
+    dispatch(createAsset(newDigitalizeAsset))
+    dispatch(addAsset({assetId:tokenId,userId:userId}))
+     toast(`Asset ${symbol} Have Been Minted`, {
+       description: "check in chain Explorer",
     });
   }
 
@@ -64,8 +74,8 @@ function AssetCreation() {
         description: "",
       },
       {
-        name: "walletAddress",
-        value: "walletAddress",
+        name: "assetAddress",
+        value: "assetAddress",
         description: "",
       },
     ],

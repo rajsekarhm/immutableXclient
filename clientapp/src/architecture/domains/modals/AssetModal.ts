@@ -1,10 +1,12 @@
 export  default interface AssetModal {
-    walletAddress: string ;
+    symbol:string
+    assetAddress: string ;
     isValidated: boolean;
-    assetType: string ;
-    documentUrl: string ;
-    status: boolean;
-    approverId?:string
-    isForSale:boolean
+    tokenId: string ;
+    tokenURI: string ;
+    value: number;
+    associatedUser?:any;
+    isForSale:boolean;
+    explorerURL?:string
+    isFungible?:boolean
   }
-

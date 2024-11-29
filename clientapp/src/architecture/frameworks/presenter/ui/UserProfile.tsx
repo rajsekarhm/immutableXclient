@@ -1,64 +1,73 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { browserStorage } from "../../../../helpers/Storage";
 import ProfileCard from "../../components/ProfileCard";
 import ShowCaseCard from "../../components/ShowCaseCard";
 import { Label } from "../../components/shadcn/Label";
 import Button from "../../components/Button";
-import { HoverCard, HoverCardTrigger,HoverCardContent } from "../../components/shadcn/HoverCard";
+import {
+  HoverCard,
+  HoverCardTrigger,
+  HoverCardContent,
+} from "../../components/shadcn/HoverCard";
 import { InputBox } from "../../components/InputBox";
-import { getAsset } from "../../../controllers/slice2";
 import useAccount from "../hooks/useAccount";
 import { useDispatch, useSelector } from "react-redux";
 import { useWallet } from "../hooks/useWallet";
 import { AppDispatch } from "architecture/controllers/store";
+import { getAsset } from "../../../controllers/actions/AssetActions";
 
 function UserProfiles() {
   const { account } = useWallet();
-  const dispatch = useDispatch<AppDispatch>()
-  const {firstName, lastName, phoneNumber,email} = useAccount()
+  const dispatch = useDispatch<AppDispatch>();
+  const { firstName, lastName, phoneNumber, email,assetIds } = useAccount();
   const navigate = useNavigate();
-  const asset = useSelector((state: any) => state.asset);
-  console.log(asset)
-  const [transferOwner,settransferOwner] = useState({
-    to:null,
-    tokenId:null
-  })
-  function onAssetChange(event:any) {
-    const { name,value } = event
-    settransferOwner({...transferOwner,[name]:value})
+  const assets =  useSelector((state: any) => state.asset.asset);
+  const {userId} = useParams()
+  const [transferOwner, settransferOwner] = useState({
+    to: null,
+    tokenId: null,
+  });
+  function onAssetChange(event: any) {
+    const { name, value } = event;
+    settransferOwner({ ...transferOwner, [name]: value });
   }
-  function onClickAssetChange(event:any){
-    event.preventDefault()
-    console.log(transferOwner)
+  function onClickAssetChange(event: any) {
+    event.preventDefault();
+    console.log(transferOwner);
   }
-  const mockAsset = [
-    {
+  const fetchedFromUser =  assets?.length ? assets.map((asset:any) => {
+    return {
       card_details: {
         id: "one",
-        title: "Holdings",
-        content: {
-          description: "about asset",
-          walletAddress: "0x212f916DCfF88AC66883a2175de5BDa52C6bA968",
-          status: "pending",
-          value: "$ 1000 ",
-          uri: "ipfs link",
-          tokenId: "17710",
-        },
+        title: "Token IMX",
+        content: asset,
       },
       buttonText: "View Explorer",
       onClick: () => {},
       isInputNeed: true,
+    }
+  }) : [
+    {
+      card_details: {
+        id: "one",
+        title: "Token IMX",
+        content: {
+          description :"No Asset Holding"
+        },
+      },
+      buttonText: "View MarketPlace",
+      onClick: () => { navigate(`/marketplace/${userId}`)},
+      isInputNeed: true,
     },
-  ];
+  ]; 
 
   useEffect(() => {
-      dispatch(getAsset({ asserAddress: account, tokenId: "2020" }));
+    dispatch(getAsset({ asserAddress: account, assetIds }));
     // api call make to validate that user is authenticated
     if (false) {
-         navigate("/sign-in/users");
+      navigate("/sign-in/users");
     }
-  }, [account]);
+  }, [assetIds]);
 
   return (
     <div
@@ -76,25 +85,26 @@ function UserProfiles() {
         <ProfileCard
           name={firstName + lastName}
           mail={email}
-          address={'india'}
+          address={"india"}
           phone={phoneNumber}
         />
       </div>
       <div className="grid gap-4 py-4">
         <Button
-          onclickEvent={() => navigate("/tokenization")}
+          onclickEvent={() => navigate(`/tokenization/${userId}`)}
           description={"Tokenization"}
         />
         <Button
-          onclickEvent={() => navigate("/asset-digitalize")}
+          onclickEvent={() => navigate(`/asset-digitalize/${userId}`)}
           description={"Asset Digitalize"}
         />
         <HoverCard>
           <HoverCardTrigger>
             <Label htmlFor="text"> Trasnsfer Ownership </Label>
           </HoverCardTrigger>
-          <HoverCardContent >
-           <InputBox componentInfo={{
+          <HoverCardContent>
+            <InputBox
+              componentInfo={{
                 defaultValue: undefined,
                 className: "to_class",
                 type: "text",
@@ -103,8 +113,10 @@ function UserProfiles() {
                 pattern: "",
                 maxlength: 10,
               }}
-              handleInput={onAssetChange} />
-           <InputBox componentInfo={{
+              handleInput={onAssetChange}
+            />
+            <InputBox
+              componentInfo={{
                 defaultValue: undefined,
                 className: "token_class",
                 type: "text",
@@ -113,14 +125,18 @@ function UserProfiles() {
                 pattern: "",
                 maxlength: 10,
               }}
-              handleInput={onAssetChange}/>
-            <Button onclickEvent={onClickAssetChange} description={"transfer"}/>
+              handleInput={onAssetChange}
+            />
+            <Button
+              onclickEvent={onClickAssetChange}
+              description={"transfer"}
+            />
           </HoverCardContent>
         </HoverCard>
       </div>
       <div>
         <Label> Collections </Label>
-        <ShowCaseCard cardDetails={mockAsset} />
+        <ShowCaseCard cardDetails={fetchedFromUser} />
       </div>
     </div>
   );

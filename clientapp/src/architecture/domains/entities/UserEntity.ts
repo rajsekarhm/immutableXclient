@@ -18,7 +18,8 @@ class UserEntity implements IEntities {
     isAgent: boolean,
     AgentId: number,
     isAuthForBuyAndSell: string,
-    assetHolding?: AssetModal
+    assetIds?: any[],
+    tokenIds?:any[]
   ) {
     this.User = {
       firstName: firstName,
@@ -32,8 +33,9 @@ class UserEntity implements IEntities {
       isAgent: isAgent,
       AgentId: AgentId,
       isAuthForBuyAndSell: isAuthForBuyAndSell,
-      assetHolding: assetHolding,
+      assetIds: assetIds,
       securityId: securityId,
+      tokenIds:tokenIds
     };
   }
 
@@ -81,8 +83,8 @@ class UserEntity implements IEntities {
     return this.User.isAuthForBuyAndSell;
   }
 
-  getassetHolding(): AssetModal | undefined {
-    return this.User.assetHolding || undefined;
+  getassets(): any[] {
+    return this.User.assetIds ;
   }
 
   getsecurityId(): string {
