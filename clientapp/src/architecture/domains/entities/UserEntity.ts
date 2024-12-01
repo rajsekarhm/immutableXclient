@@ -1,6 +1,6 @@
 import AssetModal from "../modals/AssetModal";
 import UserModal from "../modals/UserModal";
-import IEntities from "./Interface/IEntitties";
+import IEntities from "./interface/IEntitties";
 
 class UserEntity implements IEntities {
   User: UserModal;
@@ -19,7 +19,7 @@ class UserEntity implements IEntities {
     AgentId: number,
     isAuthForBuyAndSell: string,
     assetIds?: any[],
-    tokenIds?:any[]
+    tokenIds?: any[]
   ) {
     this.User = {
       firstName: firstName,
@@ -35,7 +35,7 @@ class UserEntity implements IEntities {
       isAuthForBuyAndSell: isAuthForBuyAndSell,
       assetIds: assetIds,
       securityId: securityId,
-      tokenIds:tokenIds
+      tokenIds: tokenIds,
     };
   }
 
@@ -84,7 +84,7 @@ class UserEntity implements IEntities {
   }
 
   getassets(): any[] {
-    return this.User.assetIds ;
+    return this.User.assetIds;
   }
 
   getsecurityId(): string {

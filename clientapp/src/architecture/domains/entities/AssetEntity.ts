@@ -1,4 +1,4 @@
-import IEntities from "./Interface/IEntitties";
+import IEntities from "./interface/IEntitties";
 import AssetModal from "../modals/AssetModal";
 
 class AssetEntity implements IEntities {
@@ -43,8 +43,8 @@ class AssetEntity implements IEntities {
   getIsForSale() {
     return this.assetEntity.isForSale;
   }
-  getSymbol(){
-    return this.assetEntity.symbol
+  getSymbol() {
+    return this.assetEntity.symbol;
   }
 
   static initialState() {
