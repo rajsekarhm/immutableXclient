@@ -1,9 +1,12 @@
+import AssetEntity from "../entities/AssetEntity";
+import AssetModal from "../modals/AssetModal";
 
-import AssetEntity from '../entities/AssetEntity';
-
-interface IAssetRepository { 
-    createAsset(asset:AssetEntity):void
-    findById(id:number| string):void
+interface IAssetRepository {
+  createAsset(asset: AssetModal | AssetEntity,errorHandler?:any): any;
+  getAssetById(id: any,errorHandler?:any): any;
+  createAssetOnChain(asset: AssetModal | AssetEntity,errorHandler?:any): any;
+  getAssetOnChain(assetId: any,errorHandler?:any): any;
+  transferOwnerShip(asset:any,erorHandler?:any):any
 }
 
-export default IAssetRepository
+export default IAssetRepository;

@@ -23,21 +23,22 @@ import { useNavigate, useParams } from "react-router-dom"
 import WalletConnect from "../WalletConnect"
 import { DropdownMenuByUseCase } from "../DropMenu"
 
-export default function AppBar({ onSearch,onAccountClick, OnMoreClick, isAuth , menuDetails, userDetails}:any) {
-  const {name,email} = userDetails
+export default function AppBar({ showCaseText,onSearch,onAccountClick, OnMoreClick, isAuth , menuDetails, userDetails, showUserDetails,isLeftSideNeeded}:any) {
+  const { onMore } = menuDetails
+  if(isAuth && showUserDetails) {
+    var {name  ,email } = userDetails 
+  } 
   const {userId} = useParams()
   const navigate = useNavigate()
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 items-center  ">
-        <div>
+         <div>
         <Sheet  open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
         <SheetContent side={"left"}>
           <SheetHeader>
             <SheetTitle>Looking For ? </SheetTitle>
-            {/* <SheetDescription>
-            </SheetDescription> */}
           </SheetHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-2 items-center gap-4">
@@ -53,15 +54,17 @@ export default function AppBar({ onSearch,onAccountClick, OnMoreClick, isAuth , 
           </SheetFooter>
         </SheetContent>
         </Sheet>
-        </div>
+        </div> 
         <div className="mr-4 hidden md:flex">
           <a href="#" className="mr-6 flex items-center space-x-2">
-            <span className="hidden font-bold sm:inline-block" onClick={() => setIsDrawerOpen(true)}>ImmutableX</span>
+            <span className="hidden font-bold sm:inline-block" onClick={() => setIsDrawerOpen(true && isLeftSideNeeded)}>{showCaseText}</span>
           </a>
           <nav className="flex items-center space-x-6 text-sm font-medium">
             <DropdownMenuByUseCase dropDownDetails={menuDetails}/>
-            <a href="#" className="transition-colors hover:text-foreground/80">Explore</a>
-            <a href="#" className="transition-colors hover:text-foreground/80">Blogs</a>
+            {Object.values(onMore).map((value) => {
+              const {text,action}:any = value
+              return ( <a href="#" className="transition-colors hover:text-foreground/80" onClick={action}>{text}</a>)
+            })}
           </nav>
         </div>
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
@@ -74,7 +77,8 @@ export default function AppBar({ onSearch,onAccountClick, OnMoreClick, isAuth , 
               />
             </div>
           </div>
-         {isAuth ? <DropdownMenu>
+          {
+            showUserDetails && isAuth && name && email? <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="relative h-8 w-8 rounded-full">
                 <Avatar className="h-8 w-8">
@@ -106,7 +110,7 @@ export default function AppBar({ onSearch,onAccountClick, OnMoreClick, isAuth , 
                 <span>Log out</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
-          </DropdownMenu> : <Button className="bg-black text-white" onClick={()=>navigate('/sign-in/users')}> SignIn  </Button> }
+          </DropdownMenu> : (showUserDetails ? <Button className="bg-black text-white" onClick={()=>navigate('/sign-in/users')}> SignIn  </Button> : null) }
         </div>
       </div>
     </header>

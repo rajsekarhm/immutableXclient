@@ -1,6 +1,4 @@
-interface IAction { 
-    actions():any
-}
+interface IAction { }
 
 
 export default IAction

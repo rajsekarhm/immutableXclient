@@ -87,7 +87,6 @@ export default function ExpandableProfileCard({
                 </div>
               </CardContent>
                <CardFooter>
-                {/* <Button className="w-full bg-black text-white ">View Full Profile</Button> */}
                 <WalletConnect/>
               </CardFooter>
             </motion.div>

@@ -1,6 +1,6 @@
 import AssetModal from "../modals/AssetModal";
 import UserModal from "../modals/UserModal";
-import IEntities from "./interface/IEntitties";
+import IEntities from "./Interface/IEntitties";
 
 class UserEntity implements IEntities {
   User: UserModal;
