@@ -29,6 +29,7 @@ function CardComponent({
         return (
           <>
             {" "}
+            {value ? 
             <CardContent key={value}>
               <TooltipProvider>
                 <Tooltip>
@@ -46,8 +47,8 @@ function CardComponent({
                   {value.length > 20 ? <TooltipContent className="bg-black text-white rounded-md">{value}</TooltipContent> : ""}
                 </Tooltip>
               </TooltipProvider>
-            </CardContent>{" "}
-          </>
+            </CardContent>: null }      
+                </>
         );
       })}
       {isInputNeed ? (

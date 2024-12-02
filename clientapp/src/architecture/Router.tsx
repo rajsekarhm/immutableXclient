@@ -1,7 +1,7 @@
 import SigUpFormPage from "./frameworks/presenter/ui/SignUp";
 import { createBrowserRouter } from "react-router-dom";
 import Home from "./frameworks/presenter/ui/Home";
-import UserProfiles from "./frameworks/presenter/ui/UserProfile";
+import UserProfile from "./frameworks/presenter/ui/UserProfile";
 import ErrorPage from "./frameworks/presenter/ErrorPage";
 import MarketPlace from "./frameworks/presenter/ui/MarketPlace";
 import SignInPage from "./frameworks/presenter/ui/SignIn";
@@ -34,7 +34,7 @@ const Router = createBrowserRouter([
   },
   {
     path: "/portfolio/:userId",
-    element: <UserProfiles />,
+    element: <UserProfile />,
   },
   {
     path: "/marketplace",

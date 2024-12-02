@@ -4,6 +4,7 @@ import ProfileCard from "../../components/ProfileCard";
 import ShowCaseCard from "../../components/ShowCaseCard";
 import { Label } from "../../components/shadcn/Label";
 import Button from "../../components/Button";
+import { Briefcase, DollarSign, CreditCard, LogOut } from "lucide-react";
 import {
   HoverCard,
   HoverCardTrigger,
@@ -15,18 +16,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { useWallet } from "../hooks/useWallet";
 import { AppDispatch } from "architecture/controllers/store";
 import { getAsset } from "../../../controllers/actions/AssetActions";
+import { getToken } from "../../../controllers/actions/TokenActions";
+import AppBar from "../../components/shadcn/AppBard";
 
-function UserProfiles() {
+function UserProfile() {
   const { account } = useWallet();
   const dispatch = useDispatch<AppDispatch>();
-  const { firstName, lastName, phoneNumber, email,assetIds } = useAccount();
+  const { firstName, lastName, phoneNumber, email, assetIds, tokenIds } =
+    useAccount();
   const navigate = useNavigate();
-  const assets =  useSelector((state: any) => state.asset.asset);
-  const {userId} = useParams()
+  const assets = useSelector((state: any) => state.asset.asset);
+  const tokens = useSelector((state: any) => state.token.token);
+
+  const { userId } = useParams();
   const [transferOwner, settransferOwner] = useState({
     to: null,
     tokenId: null,
   });
+
   function onAssetChange(event: any) {
     const { name, value } = event;
     settransferOwner({ ...transferOwner, [name]: value });
@@ -35,39 +42,111 @@ function UserProfiles() {
     event.preventDefault();
     console.log(transferOwner);
   }
-  const fetchedFromUser =  assets?.length ? assets.map((asset:any) => {
-    return {
-      card_details: {
-        id: "one",
-        title: "Token IMX",
-        content: asset,
-      },
-      buttonText: "View Explorer",
-      onClick: () => {},
-      isInputNeed: true,
-    }
-  }) : [
-    {
-      card_details: {
-        id: "one",
-        title: "Token IMX",
-        content: {
-          description :"No Asset Holding"
+
+  const fetchedTokenFromUser = tokens.length
+    ? tokens.map((token: any) => {
+        return {
+          card_details: {
+            id: "one",
+            title: "Token X",
+            content: token,
+          },
+          buttonText: "View Explorer",
+          onClick: () => {},
+          isInputNeed: true,
+        };
+      })
+    : [
+        {
+          card_details: {
+            id: "one",
+            title: "Token X",
+            content: {
+              description: "No Asset Holding",
+            },
+          },
+          buttonText: "View MarketPlace",
+          onClick: () => {
+            navigate(`/marketplace/${userId}`);
+          },
+          isInputNeed: true,
         },
-      },
-      buttonText: "View MarketPlace",
-      onClick: () => { navigate(`/marketplace/${userId}`)},
-      isInputNeed: true,
-    },
-  ]; 
+      ];
+
+  const fetchedAssetFromUser = assets?.length
+    ? assets.map((asset: any) => {
+        return {
+          card_details: {
+            id: "one",
+            title: "Asset IMX",
+            content: asset,
+          },
+          buttonText: "View Explorer",
+          onClick: () => {},
+          isInputNeed: true,
+        };
+      })
+    : [
+        {
+          card_details: {
+            id: "one",
+            title: "Asset IMX",
+            content: {
+              description: "No Asset Holding",
+            },
+          },
+          buttonText: "View MarketPlace",
+          onClick: () => {
+            navigate(`/marketplace/${userId}`);
+          },
+          isInputNeed: true,
+        },
+      ];
 
   useEffect(() => {
-    dispatch(getAsset({ asserAddress: account, assetIds }));
+    dispatch(getAsset({ assetAddress: account, assetIds }));
+    dispatch(getToken({ tokenAddress: account, tokenIds: tokenIds }));
     // api call make to validate that user is authenticated
     if (false) {
       navigate("/sign-in/users");
     }
-  }, [assetIds]);
+  }, [assetIds, tokenIds]);
+  const actions = {
+    onSearch: () => {},
+    onAccountClick: () => {},
+    OnMoreClick: () => {},
+  };
+
+  const dropDown = {
+    dropDownText:"Home",
+    title: "Account",
+    details: [
+      {
+        element: <CreditCard />,
+        text: "Dashboard",
+        itHasSubtab: false,
+        subTab: null,
+        onClick: () => { navigate(`/portfolio/${userId}`)},
+      },
+      {
+        element: <LogOut />,
+        text: "Logout",
+        itHasSubtab: false,
+        subTab: null,
+        onClick: () => { navigate('/') },
+      },
+    ],
+    onMore: {
+      action1:{
+        text:"explorer",
+        action:() => { console.log("onClick explorer")}
+      },
+      action2:{
+        text:"blog",
+        action:() => { console.log( "onClick blog")}
+      }
+    }
+  };
 
   return (
     <div
@@ -81,7 +160,14 @@ function UserProfiles() {
         padding: "20px",
       }}
     >
-      <div style={{ width: "300px", position: "absolute", top: 0, right: 0 }}>
+      <div className="absolute top-5 left-5 flex items-center space-x-3">
+        <Briefcase className="w-6 h-6 text-black-900" />
+        <span>DashBoard</span>
+        <DollarSign className="w-6 h-6 text-black-900" />
+        <span> Total Balance </span> : 0
+      </div>
+      <div className="absolute top-0 left-15">
+        <AppBar isAuth={false} showUserDetails={false} menuDetails={dropDown} isLeftSideNeeded={false} showCaseText="" />
         <ProfileCard
           name={firstName + lastName}
           mail={email}
@@ -89,7 +175,9 @@ function UserProfiles() {
           phone={phoneNumber}
         />
       </div>
-      <div className="grid gap-4 py-4">
+      <br/>
+      <br/>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 mt-4">
         <Button
           onclickEvent={() => navigate(`/tokenization/${userId}`)}
           description={"Tokenization"}
@@ -100,7 +188,7 @@ function UserProfiles() {
         />
         <HoverCard>
           <HoverCardTrigger>
-            <Label htmlFor="text"> Trasnsfer Ownership </Label>
+            <span> Transfer Asset Ownership </span>
           </HoverCardTrigger>
           <HoverCardContent>
             <InputBox
@@ -136,10 +224,11 @@ function UserProfiles() {
       </div>
       <div>
         <Label> Collections </Label>
-        <ShowCaseCard cardDetails={fetchedFromUser} />
+        <ShowCaseCard cardDetails={fetchedAssetFromUser} />
+        <ShowCaseCard cardDetails={fetchedTokenFromUser} />
       </div>
     </div>
   );
 }
 
-export default UserProfiles;
+export default UserProfile;

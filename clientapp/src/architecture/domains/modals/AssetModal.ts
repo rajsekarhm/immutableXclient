@@ -2,8 +2,8 @@ export  default interface AssetModal {
     symbol:string
     assetAddress: string ;
     isValidated: boolean;
-    tokenId: string ;
-    tokenURI: string ;
+    assetId: string ;
+    assetURI: string ;
     value: number;
     associatedUser?:any;
     isForSale:boolean;

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { SizesList } from "../../components/ListWidgets";
 import ProfileCard from "../../components/ProfileCard";
 import { useNavigate } from "react-router-dom";
 import ShowCaseCard from "../../components/ShowCaseCard";

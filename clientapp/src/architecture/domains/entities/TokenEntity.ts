@@ -1,5 +1,5 @@
 import TokenModal from "../modals/TokenModal";
-import IEntities from "./interface/IEntitties";
+import IEntities from "./Interface/IEntitties";
 
 class TokenEntity implements IEntities {
   token!: TokenModal;
