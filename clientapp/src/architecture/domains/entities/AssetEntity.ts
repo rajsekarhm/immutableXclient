@@ -17,8 +17,8 @@ class AssetEntity implements IEntities {
       symbol: symbol,
       assetAddress: assetAddress,
       isValidated: isValidated,
-      tokenId: tokenId,
-      tokenURI: tokenURI,
+      assetId: tokenId,
+      assetURI: tokenURI,
       value: value,
       isForSale: isForSale,
     };
@@ -32,10 +32,10 @@ class AssetEntity implements IEntities {
     return this.assetEntity.isValidated;
   }
   getTokenId() {
-    return this.assetEntity.tokenId;
+    return this.assetEntity.assetId;
   }
   getTokenURI() {
-    return this.assetEntity.tokenURI;
+    return this.assetEntity.assetURI;
   }
   getValue() {
     return this.assetEntity.value;
@@ -43,8 +43,8 @@ class AssetEntity implements IEntities {
   getIsForSale() {
     return this.assetEntity.isForSale;
   }
-  getSymbol(){
-    return this.assetEntity.symbol
+  getSymbol() {
+    return this.assetEntity.symbol;
   }
 
   static initialState() {

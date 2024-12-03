@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ProfileCard from "../../components/ProfileCard";
 import TabsSwitch from "../../components/TabSwitch";
 import { useEffect, useState } from "react";
@@ -7,27 +7,27 @@ import { toast } from "sonner";
 import { Skeleton } from "../../components/shadcn/Skeleton";
 import useAccount from "../hooks/useAccount";
 import { useDispatch, useSelector } from "react-redux";
-import { createAsset } from "../../../controllers/actions/AssetActions"
-import { useWallet } from "../hooks/useWallet";
-import AssetModal  from '../../../domains/modals/AssetModal';
+import { createAsset, createAssetBlockchain } from "../../../controllers/actions/AssetActions";
+import AssetModal from "../../../domains/modals/AssetModal";
 import { addAsset } from "../../../controllers/actions/UserActions";
+import { CreditCard, LogOut} from "lucide-react"
+import AppBar from "../../components/shadcn/AppBard";
 function AssetCreation() {
-  const {account} = useWallet()
   const { firstName, lastName, email, userId, phoneNumber } = useAccount();
   const dispatch = useDispatch<any>();
   const [onLoading, setLoading] = useState(false);
   const [newDigitalizeAsset, setDigitalizeAsset] = useState<AssetModal>({
-    tokenId:"",
-    symbol: "" ,
-    tokenURI: "",
-    value: 0 ,
-    assetAddress: "" ,
+    assetId: "",
+    symbol: "",
+    assetURI: "",
+    value: 0,
+    assetAddress: "",
     isValidated: false,
-    associatedUser:"",
-    isForSale:false,
-    isFungible:false
+    associatedUser: "",
+    isForSale: false,
+    isFungible: false,
   });
-
+  const navigate = useNavigate()
   function handleChanges(event: any) {
     const { name, value } = event.target;
     setDigitalizeAsset({ ...newDigitalizeAsset, [name]: value });
@@ -35,22 +35,21 @@ function AssetCreation() {
 
   async function handleClick(event: any) {
     event.preventDefault();
-    // api call  {}
-    newDigitalizeAsset['associatedUser']= userId
-    const { symbol,assetAddress,value,tokenId,tokenURI } = newDigitalizeAsset;
-    // currentUser.tokenId = [...new Set(currentUser.tokenId.push(tokenId))]
-    dispatch(createAsset(newDigitalizeAsset))
-    dispatch(addAsset({assetId:tokenId,userId:userId}))
-     toast(`Asset ${symbol} Have Been Minted`, {
-       description: "check in chain Explorer",
+    newDigitalizeAsset["associatedUser"] = userId;
+    const { symbol, assetAddress, value, assetId, assetURI } = newDigitalizeAsset;
+      dispatch(createAssetBlockchain(newDigitalizeAsset))
+    dispatch(createAsset(newDigitalizeAsset));
+    dispatch(addAsset({ assetId: assetId, userId: userId }));
+    toast(`Asset ${symbol} Have Been Minted`, {
+      description: "check in chain Explorer",
     });
   }
 
   const switch1_details = {
     card_details: [
       {
-        name: "tokenId",
-        value: "tokenId",
+        name: "assetId",
+        value: "assetId",
         description: "",
       },
       {
@@ -59,8 +58,8 @@ function AssetCreation() {
         description: "",
       },
       {
-        name: "tokenURI",
-        value: "tokenURI",
+        name: "assetURI",
+        value: "assetURI",
         description: "",
       },
       {
@@ -82,7 +81,42 @@ function AssetCreation() {
     onChanges: handleChanges,
     onClick: handleClick,
   };
+  const dropDown = {
+    dropDownText:"Home",
+    title: "Account",
+    details: [
+      {
+        element: <CreditCard />,
+        text: "Dashboard",
+        itHasSubtab: false,
+        subTab: null,
+        onClick: () => { navigate(`/portfolio/${userId}`)},
+      },
+      {
+        element: <LogOut />,
+        text: "Logout",
+        itHasSubtab: false,
+        subTab: null,
+        onClick: () => { navigate('/') },
+      },
+    ],
+    onMore: {
+      action1:{
+        text:"explorer",
+        action:() => { console.log("onClick explorer")}
+      },
+      action2:{
+        text:"blog",
+        action:() => { console.log( "onClick blog")}
+      }
+    }
+  };
+
   return (
+    <>
+    <div className="absolute top-5 left-15" >
+    <AppBar isAuth={false} showUserDetails={false} menuDetails={dropDown} isLeftSideNeeded={false} showCaseText="" />
+    </div>
     <div
       style={{
         background: "white",
@@ -95,6 +129,9 @@ function AssetCreation() {
       }}
     >
       {/* {onLoading ? <Skeleton> : null} */}
+      <br/>
+      <br/> 
+      <br/>
       <div style={{ width: "300px", position: "absolute", top: 0, right: 0 }}>
         <ProfileCard
           name={firstName + lastName}
@@ -109,6 +146,7 @@ function AssetCreation() {
       <Toaster />
       {/* {onLoading ? </Skeleton> : null} */}
     </div>
+    </>
   );
 }
 

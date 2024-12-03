@@ -2,16 +2,15 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Form from "../../components/Form";
 import ProfileCard from "../../components/ProfileCard";
-import ContractETH from "../../../contract/ContractETH";
-import token_abi from "../../../../../blockchain_client/ethereum/abi/token_abi";
-import byteCode_token from "../../../../../blockchain_client/ethereum/byteCode/byteCode_Token";
 import { toast } from "sonner";
+import {CreditCard,LogOut} from 'lucide-react'
 import { Toaster } from "../../components/shadcn/BottomBanner";
 import useAccount from "../hooks/useAccount";
 import TokenModal from '../../../domains/modals/TokenModal';
 import { useDispatch } from "react-redux";
-import { createToken}  from '../../../controllers/actions/TokenActions'
+import { createToken, createTokenBlockchain}  from '../../../controllers/actions/TokenActions'
 import { addToken }  from '../../../controllers/actions/UserActions'
+import AppBar from "../../components/shadcn/AppBard";
 function TokenCreation() {
   const navigate = useNavigate();
   const dispatch = useDispatch<any>();
@@ -33,23 +32,12 @@ function TokenCreation() {
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
-    // const _contract = new ContractETH("browser", window.ethereum);
     const { symbol, tokenName, numberOfTokens, tokenId } = token;
     if (symbol && tokenName && numberOfTokens) {
-      // dispatch(createToken(token))
+      dispatch(createTokenBlockchain(token))
+      dispatch(createToken(token))
       dispatch(addToken({userId:userId,tokenId:tokenId}))
-      // const contractAddress = await _contract.createContract(
-      //   token_abi,
-      //   byteCode_token,
-      //   tokenName,
-      //   symbol
-      // );
-      // const web = await _contract.interactWithContract(
-      //   contractAddress,
-      //   token_abi
-      // );
-      // return await web.mint(contractAddress, numberOfTokens.toString());
-    } else {
+    }else {
       toast(`Token is Not Minted`, {
         description: "Give proper Details to mint token",
       });
@@ -110,7 +98,42 @@ function TokenCreation() {
     navigate("/sign-in/users");
   }, []);
 
+  const dropDown = {
+    dropDownText:"Home",
+    title: "Account",
+    details: [
+      {
+        element: <CreditCard />,
+        text: "Dashboard",
+        itHasSubtab: false,
+        subTab: null,
+        onClick: () => { navigate(`/portfolio/${userId}`)},
+      },
+      {
+        element: <LogOut />,
+        text: "Logout",
+        itHasSubtab: false,
+        subTab: null,
+        onClick: () => { navigate('/') },
+      },
+    ],
+    onMore: {
+      action1:{
+        text:"explorer",
+        action:() => { console.log("onClick explorer")}
+      },
+      action2:{
+        text:"blog",
+        action:() => { console.log( "onClick blog")}
+      }
+    }
+  };
+
   return (
+    <>
+    <div className="absolute top-5 left-15" >
+    <AppBar isAuth={false} showUserDetails={false} menuDetails={dropDown} isLeftSideNeeded={false} showCaseText="" />
+    </div>
     <div
       style={{
         background: "white",
@@ -164,6 +187,7 @@ function TokenCreation() {
       </div>
       <Toaster />
     </div>
+    </>
   );
 }
 

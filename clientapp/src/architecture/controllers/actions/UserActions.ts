@@ -1,99 +1,32 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { requestAPI } from "../../../requests/core/request";
-import server_config from "../../../../server.config";
-import REQUEST_API from "../../../requests/api.config";
 import UserEntity from "../../domains/entities/UserEntity";
+import UserRepository from "../../applications/infrastructure/UserRepository";
 
 export const createUser = createAsyncThunk<any, any>(
   "user/createUser",
-  async (userDetails) => {
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    var raw = JSON.stringify(userDetails);
-    return await requestAPI(
-      `${server_config.host}:${server_config.port}/${REQUEST_API.CREATE_USER}`,
-      "POST",
-      raw,
-      myHeaders
-    );
+   (userDetails,{ rejectWithValue }) => {
+    return UserRepository.createUser(userDetails,{rejectWithValue})
   }
 );
 
 export const getUser = createAsyncThunk<any, any>(
   "user/getUser",
-  async (id, { rejectWithValue }) => {
-    try {
-      const response = await requestAPI(
-        `${server_config.host}:${server_config.port}/${REQUEST_API.GET_USER}?governmentId=${id}`,
-        "GET"
-      );
-      return response;
-    } catch (error) {
-      return rejectWithValue(error);
-    }
+   (id, { rejectWithValue }) => {
+    return UserRepository.getUserById(id,{rejectWithValue})
   }
 );
 
 export const addAsset = createAsyncThunk<any, any>(
   "user/addAsset",
-  async ({ assetId, userId }, { rejectWithValue }) => {
-    try {
-      var myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/json");
-
-      var raw = JSON.stringify({
-        assetId: assetId,
-      });
-
-      var requestOptions: any = {
-        method: "PUT",
-        headers: myHeaders,
-        body: raw,
-        redirect: "follow",
-      };
-
-      const result = await fetch(
-        `http://127.0.0.1:8080/api/v1/user/addAsset?governmentId=${userId}`,
-        requestOptions
-      )
-        .then((response) => response)
-        .then((result) => result.json())
-        .catch((error) => rejectWithValue(error));
-      return result;
-    } catch (error) {
-      return rejectWithValue(error);
-    }
+   ({ assetId, userId }, { rejectWithValue }) => {
+    return UserRepository.addAssetToUser({assetId,userId},{rejectWithValue})
   }
 );
 
 export const addToken = createAsyncThunk<any, any>(
-  "user/addToke",
-  async ({ tokenId, userId }, { rejectWithValue }) => {
-    try {
-      var myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/json");
-
-      var raw = JSON.stringify({
-        tokenId: tokenId,
-      });
-
-      var requestOptions: any = {
-        method: "PUT",
-        headers: myHeaders,
-        body: raw,
-        redirect: "follow",
-      };
-
-      return await fetch(
-        `http://127.0.0.1:8080/api/v1/user/addToken?governmentId=${userId}`,
-        requestOptions
-      )
-        .then((response) => response)
-        .then((result) => result.json())
-        .catch((error) => console.log("error", error));
-    } catch (error) {
-      return rejectWithValue(error);
-    }
+  "user/addToken",
+  ({ tokenId, userId }, { rejectWithValue }) => {
+    return UserRepository.addTokenToUser({tokenId,userId},{rejectWithValue})
   }
 );
 

@@ -15,8 +15,8 @@ function useAccount() {
       dispatch(getUser(userId));
     }
   }, [userId, dispatch, navigate]);
-  const { firstName, lastName, email, phoneNumber,assetIds } = userDetails || {};
-  return { firstName, lastName, email, phoneNumber, userId,assetIds };
+  const { firstName, lastName, email, phoneNumber,assetIds, tokenIds } = userDetails || {};
+  return { firstName, lastName, email, phoneNumber, userId, assetIds, tokenIds };
 }
 
 export default useAccount;

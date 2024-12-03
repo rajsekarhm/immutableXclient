@@ -22,6 +22,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "./shadcn/DropDown";
+import { Label } from "@radix-ui/react-label";
 
 type dropDown = {
   title: string;
@@ -70,7 +71,7 @@ export function DropdownMenuByUseCase({ dropDownDetails }: {dropDownDetails:drop
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline"  className="bg-black text-white" >{dropDownText}</Button>
+      <a onClick={() =>{}} className="transition-colors hover:text-foreground/80">{dropDownText}</a>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         <DropdownMenuLabel >{title}</DropdownMenuLabel>
