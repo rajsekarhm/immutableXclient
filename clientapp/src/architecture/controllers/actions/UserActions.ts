@@ -30,6 +30,10 @@ export const addToken = createAsyncThunk<any, any>(
   }
 );
 
+export const removeAsset = createAsyncThunk<any,any>("user/removeAsset",async ({assetId,userId},{rejectWithValue})=>{
+  return UserRepository.removeAssetUser({assetId,userId},{rejectWithValue})
+})
+
 const userSlice = createSlice({
   name: "user",
   initialState: {
