@@ -5,42 +5,46 @@ import ShowCaseCard from "../../components/ShowCaseCard";
 import { Label } from "../../components/shadcn/Label";
 import Button from "../../components/Button";
 import { Briefcase, DollarSign, CreditCard, LogOut } from "lucide-react";
-import {
-  HoverCard,
-  HoverCardTrigger,
-  HoverCardContent,
-} from "../../components/shadcn/HoverCard";
+import {HoverCard,HoverCardTrigger,HoverCardContent} from "../../components/shadcn/HoverCard";
 import { InputBox } from "../../components/InputBox";
 import useAccount from "../hooks/useAccount";
 import { useDispatch, useSelector } from "react-redux";
 import { useWallet } from "../hooks/useWallet";
 import { AppDispatch } from "architecture/controllers/store";
-import { getAsset } from "../../../controllers/actions/AssetActions";
+import { getAsset,transferOwnerAsset } from "../../../controllers/actions/AssetActions";
 import { getToken } from "../../../controllers/actions/TokenActions";
 import AppBar from "../../components/shadcn/AppBard";
+import AssetModal from "../../../domains/modals/AssetModal";
 
 function UserProfile() {
   const { account } = useWallet();
   const dispatch = useDispatch<AppDispatch>();
-  const { firstName, lastName, phoneNumber, email, assetIds, tokenIds } =
-    useAccount();
+  const { firstName, lastName, phoneNumber, email, assetIds, tokenIds } = useAccount();
   const navigate = useNavigate();
   const assets = useSelector((state: any) => state.asset.asset);
   const tokens = useSelector((state: any) => state.token.token);
 
   const { userId } = useParams();
   const [transferOwner, settransferOwner] = useState({
-    to: null,
-    tokenId: null,
+    toAddress: null,
+    asstIdTo: null,
+    receiverId:null
   });
 
   function onAssetChange(event: any) {
-    const { name, value } = event;
+    const { name, value } = event.target;
     settransferOwner({ ...transferOwner, [name]: value });
   }
   function onClickAssetChange(event: any) {
     event.preventDefault();
-    console.log(transferOwner);
+    const {asstIdTo,toAddress,receiverId} = transferOwner
+    const assetToTransfer =  assets.filter((asset:AssetModal) => {
+      if(asstIdTo == asset.assetId){
+        return true
+      }
+    }).filter(Boolean)
+    assetToTransfer.length == 1 && dispatch(transferOwnerAsset({asset:assetToTransfer.pop(),newAddress:toAddress,receiverId:receiverId}))
+    // window.location.reload()
   }
 
   const fetchedTokenFromUser = tokens.length
@@ -56,22 +60,7 @@ function UserProfile() {
           isInputNeed: true,
         };
       })
-    : [
-        {
-          card_details: {
-            id: "one",
-            title: "Token X",
-            content: {
-              description: "No Asset Holding",
-            },
-          },
-          buttonText: "View MarketPlace",
-          onClick: () => {
-            navigate(`/marketplace/${userId}`);
-          },
-          isInputNeed: true,
-        },
-      ];
+    : null
 
   const fetchedAssetFromUser = assets?.length
     ? assets.map((asset: any) => {
@@ -86,22 +75,7 @@ function UserProfile() {
           isInputNeed: true,
         };
       })
-    : [
-        {
-          card_details: {
-            id: "one",
-            title: "Asset IMX",
-            content: {
-              description: "No Asset Holding",
-            },
-          },
-          buttonText: "View MarketPlace",
-          onClick: () => {
-            navigate(`/marketplace/${userId}`);
-          },
-          isInputNeed: true,
-        },
-      ];
+    : null
 
   useEffect(() => {
     dispatch(getAsset({ assetAddress: account, assetIds }));
@@ -123,10 +97,10 @@ function UserProfile() {
     details: [
       {
         element: <CreditCard />,
-        text: "Dashboard",
+        text: "Marketplace",
         itHasSubtab: false,
         subTab: null,
-        onClick: () => { navigate(`/portfolio/${userId}`)},
+        onClick: () => { navigate(`/marketplace/${userId}`)},
       },
       {
         element: <LogOut />,
@@ -193,23 +167,32 @@ function UserProfile() {
           <HoverCardContent>
             <InputBox
               componentInfo={{
-                defaultValue: undefined,
                 className: "to_class",
                 type: "text",
                 name: "toAddress",
-                description: "Enter To Address",
+                description: "Enter Receiver Address",
                 pattern: "",
-                maxlength: 10,
+                maxlength: 100,
               }}
               handleInput={onAssetChange}
             />
             <InputBox
               componentInfo={{
-                defaultValue: undefined,
                 className: "token_class",
                 type: "text",
-                name: "tokenId",
-                description: "Enter Token Id",
+                name: "asstIdTo",
+                description: "Enter  Id",
+                pattern: "",
+                maxlength: 10,
+              }}
+              handleInput={onAssetChange}
+            />
+              <InputBox
+              componentInfo={{
+                className: "receiver_class",
+                type: "text",
+                name: "receiverId",
+                description: "Enter  Receiver Id",
                 pattern: "",
                 maxlength: 10,
               }}
@@ -224,8 +207,8 @@ function UserProfile() {
       </div>
       <div>
         <Label> Collections </Label>
-        <ShowCaseCard cardDetails={fetchedAssetFromUser} />
-        <ShowCaseCard cardDetails={fetchedTokenFromUser} />
+        {fetchedAssetFromUser ? <ShowCaseCard cardDetails={fetchedAssetFromUser} /> : null}
+        {fetchedAssetFromUser ? <ShowCaseCard cardDetails={fetchedTokenFromUser} /> : null }
       </div>
     </div>
   );

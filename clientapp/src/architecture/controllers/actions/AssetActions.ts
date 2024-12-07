@@ -15,6 +15,13 @@ export const getAssetBlockchain = createAsyncThunk<any, any>(
   }
 );
 
+export const transferOwnerAsset = createAsyncThunk<any, any>(
+  "asset/transferOwnerAsset",
+  async ({asset,newAddress,receiverId}, { rejectWithValue}) => {
+    return AssetRepository.transferOwnership(asset,newAddress,receiverId,{rejectWithValue})
+  }
+);
+
 export const createAsset = createAsyncThunk<any, any>(
   "asset/createAsset",
   async (assetDetails,{rejectWithValue}) => {
@@ -41,7 +48,7 @@ const assetSlice = createSlice({
     builder.addCase(getAsset.pending, (state: any) => {
       state.status = "idle";
       state.loading = true;
-      state.asset = {};
+      state.asset = [];
     });
     builder.addCase(getAsset.fulfilled, (state: any, action: any) => {
       state.status = "succeeded";
@@ -51,14 +58,14 @@ const assetSlice = createSlice({
     builder.addCase(getAsset.rejected, (state: any, action: any) => {
       state.status = "failed";
       state.loading = false;
-      state.asset = {};
+      state.asset = [];
     });
     
     builder
       .addCase(createAsset.pending, (state: any) => {
         state.loading = true;
         state.status = "idle";
-        state.asset = {};
+        state.asset = [];
       })
       .addCase(createAsset.fulfilled, (state: any, action: any) => {
         state.loading = false;
@@ -68,7 +75,41 @@ const assetSlice = createSlice({
       .addCase(createAsset.rejected, (state: any, action: any) => {
         state.loading = false;
         state.status = "failed";
-        state.asset = {};
+        state.asset = [];
+      });
+
+      builder
+      .addCase(createAssetBlockchain.pending, (state: any) => {
+        state.loading = true;
+        state.status = "idle";
+        state.asset = null;
+      })
+      .addCase(createAssetBlockchain.fulfilled, (state: any, action: any) => {
+        state.loading = false;
+        state.status = "succeeded";
+        state.asset = action.payload;
+      })
+      .addCase(createAssetBlockchain.rejected, (state: any, action: any) => {
+        state.loading = false;
+        state.status = "failed";
+        state.asset = null;
+      });
+
+      builder
+      .addCase(transferOwnerAsset.pending, (state: any) => {
+        state.loading = true;
+        state.status = "idle";
+        state.asset = null;
+      })
+      .addCase(transferOwnerAsset.fulfilled, (state: any, action: any) => {
+        state.loading = false;
+        state.status = "succeeded";
+        state.asset = action.payload;
+      })
+      .addCase(transferOwnerAsset.rejected, (state: any, action: any) => {
+        state.loading = false;
+        state.status = "failed";
+        state.asset = null;
       });
   },
 });

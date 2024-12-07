@@ -8,7 +8,7 @@ import { Toaster } from "../../components/shadcn/BottomBanner";
 import useAccount from "../hooks/useAccount";
 import TokenModal from '../../../domains/modals/TokenModal';
 import { useDispatch } from "react-redux";
-import { createToken, createTokenBlockchain}  from '../../../controllers/actions/TokenActions'
+import { createTokenBlockchain}  from '../../../controllers/actions/TokenActions'
 import { addToken }  from '../../../controllers/actions/UserActions'
 import AppBar from "../../components/shadcn/AppBard";
 function TokenCreation() {
@@ -35,13 +35,13 @@ function TokenCreation() {
     const { symbol, tokenName, numberOfTokens, tokenId } = token;
     if (symbol && tokenName && numberOfTokens) {
       dispatch(createTokenBlockchain(token))
-      dispatch(createToken(token))
       dispatch(addToken({userId:userId,tokenId:tokenId}))
     }else {
       toast(`Token is Not Minted`, {
         description: "Give proper Details to mint token",
       });
     }
+    window.location.href
   };
 
   const form_field_schema3: any = {
@@ -119,12 +119,8 @@ function TokenCreation() {
     ],
     onMore: {
       action1:{
-        text:"explorer",
-        action:() => { console.log("onClick explorer")}
-      },
-      action2:{
-        text:"blog",
-        action:() => { console.log( "onClick blog")}
+        text:"Marketplace",
+        action:() => { navigate(`/marketplace/${userId}`)}
       }
     }
   };
