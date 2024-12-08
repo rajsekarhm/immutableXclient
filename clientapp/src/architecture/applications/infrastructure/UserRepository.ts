@@ -29,9 +29,9 @@ class UserRepository implements IUserRepository {
         return rejectWithValue(error);
       }
   }
-  async addAssetToUser(addAssetDetails: any,errorHandler:any):Promise<any> {
+  async addAssetToUser(assetAddIds: any,errorHandler:any):Promise<any> {
     const {rejectWithValue} = errorHandler
-    const {assetId,userId}  = addAssetDetails
+    const {assetId,userId}  = assetAddIds
     try {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
@@ -47,8 +47,7 @@ class UserRepository implements IUserRepository {
           redirect: "follow",
         };
   
-        const result = await fetch(
-          `http://127.0.0.1:8080/api/v1/user/addAsset?governmentId=${userId}`,
+        const result = await fetch(`http://127.0.0.1:8080/api/v1/user/addAsset?governmentId=${userId}`,
           requestOptions
         )
           .then((response) => response)
@@ -84,6 +83,28 @@ class UserRepository implements IUserRepository {
       } catch (error) {
         return rejectWithValue(error);
       }
+  }
+
+  async removeAssetUser(removeAssetIds: any ,errorHandler:any):Promise<any> {
+    const {userId,assetId} = removeAssetIds
+    var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  "assetId": assetId
+});
+
+var requestOptions:any = {
+  method: 'PUT',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+return await fetch(`http://127.0.0.1:8080/api/v1/user/removeAsset?governmentId=${userId}`, requestOptions)
+  .then(response => response)
+  .then(result => result.json())
+  .catch(error => console.log('error', error));
   }
 }
 

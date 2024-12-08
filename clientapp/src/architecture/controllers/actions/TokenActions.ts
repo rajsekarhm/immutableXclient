@@ -71,6 +71,23 @@ const tokenSlice = createSlice({
         state.status = "failed";
         state.token = [];
       });
+
+      builder
+      .addCase(createTokenBlockchain.pending, (state: any) => {
+        state.loading = true;
+        state.status = "idle";
+        state.token = null;
+      })
+      .addCase(createTokenBlockchain.fulfilled, (state: any, action: any) => {
+        state.loading = false;
+        state.status = "succeeded";
+        state.token = action.payload;
+      })
+      .addCase(createTokenBlockchain.rejected, (state: any, action: any) => {
+        state.loading = false;
+        state.status = "failed";
+        state.token = null;
+      });
   },
 });
 

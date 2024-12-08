@@ -37,12 +37,13 @@ function AssetCreation() {
     event.preventDefault();
     newDigitalizeAsset["associatedUser"] = userId;
     const { symbol, assetAddress, value, assetId, assetURI } = newDigitalizeAsset;
-      dispatch(createAssetBlockchain(newDigitalizeAsset))
+    dispatch(createAssetBlockchain(newDigitalizeAsset))
     dispatch(createAsset(newDigitalizeAsset));
     dispatch(addAsset({ assetId: assetId, userId: userId }));
     toast(`Asset ${symbol} Have Been Minted`, {
       description: "check in chain Explorer",
     });
+    window.location.href
   }
 
   const switch1_details = {
@@ -102,12 +103,8 @@ function AssetCreation() {
     ],
     onMore: {
       action1:{
-        text:"explorer",
-        action:() => { console.log("onClick explorer")}
-      },
-      action2:{
-        text:"blog",
-        action:() => { console.log( "onClick blog")}
+        text:"Markeplace",
+        action:() => { navigate(`/marketplace/${userId}`)}
       }
     }
   };

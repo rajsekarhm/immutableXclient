@@ -6,7 +6,7 @@ interface IAssetRepository {
   getAssetById(id: any,errorHandler?:any): any;
   createAssetOnChain(asset: AssetModal | AssetEntity,errorHandler?:any): any;
   getAssetOnChain(assetId: any,errorHandler?:any): any;
-  transferOwnerShip(asset:any,erorHandler?:any):any
+  transferOwnership(asset:any,newAddress:string,receiverId:string,erorHandler?:any):any
 }
 
 export default IAssetRepository;
