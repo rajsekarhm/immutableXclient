@@ -18,11 +18,9 @@ app.use((req, res, next) => {
 app.post("/login", async (req, res) => {
   try {
     const token = createToken(req.body.name,req.body.password)
-    console.log('token',token)
     const option = { expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000) };
     res.status(201).cookie("auth-jwt", token, option).json({ success: true, isAuth:true, $token : token});
   } catch (error) {
-    console.error(error);
     res.status(500).json({ success: false, error: "Internal Server Error" });
   }
 });

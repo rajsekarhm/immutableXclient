@@ -1,5 +1,10 @@
 {
   "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@domains/*": ["domains/*"],
+      "@applications/*": ["applications/*"]
+    },
     "target": "esnext",
     "module": "esnext",
     "lib": ["dom", "esnext"],
@@ -11,6 +16,10 @@
     "forceConsistentCasingInFileNames": true,
     "types": ["node"]
   },
-  "include": ["src", "vite.config.ts"],
-  "exclude": ["node_modules"]
+  "include": ["src", "vite.config.ts", "blockchain_client"],
+  "exclude": ["node_modules"],
+  "_moduleAliases": {
+    "@domains": "dist/domains",
+    "@applications": "dist/applications"
+  }
 }
