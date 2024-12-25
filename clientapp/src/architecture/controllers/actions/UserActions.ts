@@ -51,7 +51,7 @@ const userSlice = createSlice({
     builder.addCase(getUser.fulfilled, (state: any, action: any) => {
       state.status = "succeeded";
       state.loading = false;
-      state.user = action.payload;
+      state.user = action.payload.data;
     });
     builder.addCase(getUser.rejected, (state: any) => {
       state.status = "failed";
@@ -68,7 +68,7 @@ const userSlice = createSlice({
       .addCase(createUser.fulfilled, (state: any, action: any) => {
         state.loading = false;
         state.status = "succeeded";
-        state.user = action.payload;
+        state.user = action.payload.data;
       })
       .addCase(createUser.rejected, (state: any) => {
         state.loading = false;
@@ -85,7 +85,7 @@ const userSlice = createSlice({
       .addCase(addAsset.fulfilled, (state: any, action: any) => {
         state.loading = false;
         state.status = "succeeded";
-        state.user = action.payload;
+        state.user = action.payload.data;
       })
       .addCase(addAsset.rejected, (state: any) => {
         state.loading = false;
@@ -102,7 +102,7 @@ const userSlice = createSlice({
       .addCase(addToken.fulfilled, (state: any, action: any) => {
         state.loading = false;
         state.status = "succeeded";
-        state.user = action.payload;
+        state.user = action.payload.data;
       })
       .addCase(addToken.rejected, (state: any) => {
         state.loading = false;

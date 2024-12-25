@@ -6,10 +6,11 @@ import ErrorPage from "./frameworks/presenter/ErrorPage";
 import MarketPlace from "./frameworks/presenter/ui/MarketPlace";
 import SignInPage from "./frameworks/presenter/ui/SignIn";
 import CustodianProfiles from "./frameworks/presenter/ui/CustodianProfiles";
-import { SignIn, SignUp } from "@clerk/clerk-react";
 import Builder from "./frameworks/presenter/Builder";
 import AssetCreation from "./frameworks/presenter/ui/Asset";
 import TokenCreation from "./frameworks/presenter/ui/Token";
+import ExternalSignIn from "./frameworks/presenter/ui/ExternalSignIn";
+import ExternalSignUp from "./frameworks/presenter/ui/ExternalSignUp";
 
 const Router = createBrowserRouter([
   {
@@ -58,11 +59,11 @@ const Router = createBrowserRouter([
   },
   {
     path: "/clerk/sign-in",
-    element: <SignIn />,
+    element: <ExternalSignIn />,
   },
   {
     path: "clerk/sign-up",
-    element: <SignUp />,
+    element: <ExternalSignUp />,
   },
   {
     path: "/builder/:userId",

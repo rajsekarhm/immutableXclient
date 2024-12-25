@@ -5,7 +5,11 @@ import ShowCaseCard from "../../components/ShowCaseCard";
 import { Label } from "../../components/shadcn/Label";
 import Button from "../../components/Button";
 import { Briefcase, DollarSign, CreditCard, LogOut } from "lucide-react";
-import {HoverCard,HoverCardTrigger,HoverCardContent} from "../../components/shadcn/HoverCard";
+import {
+  HoverCard,
+  HoverCardTrigger,
+  HoverCardContent,
+} from "../../components/shadcn/HoverCard";
 import { InputBox } from "../../components/InputBox";
 import useAccount from "../hooks/useAccount";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,16 +23,13 @@ import AssetModal from "../../../domains/modals/AssetModal";
 function UserProfile() {
   const { account } = useWallet();
   const dispatch = useDispatch<AppDispatch>();
-  const { firstName, lastName, phoneNumber, email, assetIds, tokenIds } = useAccount();
+  const { firstName, lastName, phoneNumber, email, assetIds, tokenIds, assets, tokens } = useAccount();
   const navigate = useNavigate();
-  const assets = useSelector((state: any) => state.asset.asset);
-  const tokens = useSelector((state: any) => state.token.token);
-
   const { userId } = useParams();
   const [transferOwner, settransferOwner] = useState({
     toAddress: null,
     asstIdTo: null,
-    receiverId:null
+    receiverId: null,
   });
 
   function onAssetChange(event: any) {
@@ -37,13 +38,22 @@ function UserProfile() {
   }
   function onClickAssetChange(event: any) {
     event.preventDefault();
-    const {asstIdTo,toAddress,receiverId} = transferOwner
-    const assetToTransfer =  assets.filter((asset:AssetModal) => {
-      if(asstIdTo == asset.assetId){
-        return true
-      }
-    }).filter(Boolean)
-    assetToTransfer.length == 1 && dispatch(transferOwnerAsset({asset:assetToTransfer.pop(),newAddress:toAddress,receiverId:receiverId}))
+    const { asstIdTo, toAddress, receiverId } = transferOwner;
+    const assetToTransfer = assets
+      .filter((asset: AssetModal) => {
+        if (asstIdTo == asset.assetId) {
+          return true;
+        }
+      })
+      .filter(Boolean);
+    assetToTransfer.length == 1 &&
+      dispatch(
+        transferOwnerAsset({
+          asset: assetToTransfer.pop(),
+          newAddress: toAddress,
+          receiverId: receiverId,
+        })
+      );
     // window.location.reload()
   }
 
@@ -60,7 +70,7 @@ function UserProfile() {
           isInputNeed: true,
         };
       })
-    : null
+    : null;
 
   const fetchedAssetFromUser = assets?.length
     ? assets.map((asset: any) => {
@@ -75,11 +85,11 @@ function UserProfile() {
           isInputNeed: true,
         };
       })
-    : null
+    : null;
 
   useEffect(() => {
-    dispatch(getAsset({ assetAddress: account, assetIds }));
-    dispatch(getToken({ tokenAddress: account, tokenIds: tokenIds }));
+    // dispatch(getAsset({ assetAddress: account, assetIds }));
+    // dispatch(getToken({ tokenAddress: account, tokenIds: tokenIds }));
     // api call make to validate that user is authenticated
     if (false) {
       navigate("/sign-in/users");
@@ -92,7 +102,7 @@ function UserProfile() {
   };
 
   const dropDown = {
-    dropDownText:"Home",
+    dropDownText: "Home",
     title: "Account",
     details: [
       {
@@ -100,26 +110,34 @@ function UserProfile() {
         text: "Marketplace",
         itHasSubtab: false,
         subTab: null,
-        onClick: () => { navigate(`/marketplace/${userId}`)},
+        onClick: () => {
+          navigate(`/marketplace/${userId}`);
+        },
       },
       {
         element: <LogOut />,
         text: "Logout",
         itHasSubtab: false,
         subTab: null,
-        onClick: () => { navigate('/') },
+        onClick: () => {
+          navigate("/");
+        },
       },
     ],
     onMore: {
-      action1:{
-        text:"explorer",
-        action:() => { console.log("onClick explorer")}
+      action1: {
+        text: "explorer",
+        action: () => {
+          console.log("onClick explorer");
+        },
       },
-      action2:{
-        text:"blog",
-        action:() => { console.log( "onClick blog")}
-      }
-    }
+      action2: {
+        text: "blog",
+        action: () => {
+          console.log("onClick blog");
+        },
+      },
+    },
   };
 
   return (
@@ -141,7 +159,13 @@ function UserProfile() {
         <span> Total Balance </span> : 0
       </div>
       <div className="absolute top-0 left-15">
-        <AppBar isAuth={false} showUserDetails={false} menuDetails={dropDown} isLeftSideNeeded={false} showCaseText="" />
+        <AppBar
+          isAuth={false}
+          showUserDetails={false}
+          menuDetails={dropDown}
+          isLeftSideNeeded={false}
+          showCaseText=""
+        />
         <ProfileCard
           name={firstName + lastName}
           mail={email}
@@ -149,8 +173,8 @@ function UserProfile() {
           phone={phoneNumber}
         />
       </div>
-      <br/>
-      <br/>
+      <br />
+      <br />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 mt-4">
         <Button
           onclickEvent={() => navigate(`/tokenization/${userId}`)}
@@ -162,7 +186,10 @@ function UserProfile() {
         />
         <HoverCard>
           <HoverCardTrigger>
-            <span> Transfer Asset Ownership </span>
+            <Button
+              onclickEvent={() => {}}
+              description={"Transfer Asset Ownership"}
+            />
           </HoverCardTrigger>
           <HoverCardContent>
             <InputBox
@@ -187,7 +214,7 @@ function UserProfile() {
               }}
               handleInput={onAssetChange}
             />
-              <InputBox
+            <InputBox
               componentInfo={{
                 className: "receiver_class",
                 type: "text",
@@ -207,8 +234,12 @@ function UserProfile() {
       </div>
       <div>
         <Label> Collections </Label>
-        {fetchedAssetFromUser ? <ShowCaseCard cardDetails={fetchedAssetFromUser} /> : null}
-        {fetchedAssetFromUser ? <ShowCaseCard cardDetails={fetchedTokenFromUser} /> : null }
+        {fetchedAssetFromUser ? (
+          <ShowCaseCard cardDetails={fetchedAssetFromUser} />
+        ) : null}
+        {fetchedAssetFromUser ? (
+          <ShowCaseCard cardDetails={fetchedTokenFromUser} />
+        ) : null}
       </div>
     </div>
   );
