@@ -53,7 +53,7 @@ const assetSlice = createSlice({
     builder.addCase(getAsset.fulfilled, (state: any, action: any) => {
       state.status = "succeeded";
       state.loading = false;
-      state.asset = action.payload;
+      state.asset = action.payload.data;
     });
     builder.addCase(getAsset.rejected, (state: any, action: any) => {
       state.status = "failed";
@@ -70,7 +70,7 @@ const assetSlice = createSlice({
       .addCase(createAsset.fulfilled, (state: any, action: any) => {
         state.loading = false;
         state.status = "succeeded";
-        state.asset = action.payload;
+        state.asset = action.payload.data;
       })
       .addCase(createAsset.rejected, (state: any, action: any) => {
         state.loading = false;
@@ -87,7 +87,7 @@ const assetSlice = createSlice({
       .addCase(createAssetBlockchain.fulfilled, (state: any, action: any) => {
         state.loading = false;
         state.status = "succeeded";
-        state.asset = action.payload;
+        state.asset = action.payload.data;
       })
       .addCase(createAssetBlockchain.rejected, (state: any, action: any) => {
         state.loading = false;
@@ -104,7 +104,7 @@ const assetSlice = createSlice({
       .addCase(transferOwnerAsset.fulfilled, (state: any, action: any) => {
         state.loading = false;
         state.status = "succeeded";
-        state.asset = action.payload;
+        state.asset = action.payload.data;
       })
       .addCase(transferOwnerAsset.rejected, (state: any, action: any) => {
         state.loading = false;

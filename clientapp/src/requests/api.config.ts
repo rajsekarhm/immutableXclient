@@ -1,21 +1,30 @@
 const REQUEST_API = {
-  CREATE_USER: "api/v1/user/createUser",
-  GET_USER: "api/v1/user/getUser",
-  UPDATE_USER: "api/v1/user/updateUser",
-  DELETE_USER: "api/v1/user/deleteUser",
-  CREATE_CUSTODIAN: "api/v1/agents/createCustodian",
-  GET_CUSTODIAN: "api/v1/agents/getCustodian",
-  UPDATE_CUSTODIAN: "api/v1/agents/updateCustodian",
-  DELETE_CUSTODIAN: "api/v1/agents/deleteCustodian",
-  CREATE_ASSET: "api/v1/asset/createAsset",
-  GET_ASSET: "api/v1/asset/getAsset",
-  UPDATE_ASSET: "api/v1/asset/updateAsset",
-  DELTE_ASSET: "api/v1/asset/deleteAsset",
-  ADD_ASSET_USER:"api/v1/user/addAsset",
-  ADD_TOKEN_USER:"api/v1/user/addToken",
-  CREATE_TOKEN:"api/v1/token/createToken",
-  GET_TOKEN:"api/v1/token/getToken"
+  USER: {
+    CREATE_USER: "/user/createUser",
+    GET_USER: "/user/getUser",
+    UPDATE_USER: "/user/updateUser",
+    DELETE_USER: "/user/deleteUser",
+    ADD_TOKEN: "/user/addToken?governmentId=",
+  },
+  AGENT: {
+    CREATE_CUSTODIAN: "/agents/createCustodian",
+    GET_CUSTODIAN: "/agents/getCustodian",
+    UPDATE_CUSTODIAN: "/agents/updateCustodian",
+    DELETE_CUSTODIAN: "/agents/deleteCustodian",
+  },
+  ASSET: {
+    CREATE_ASSET: "/asset/createAsset",
+    GET_ASSET: "/asset/getAsset",
+    UPDATE_ASSET: "/asset/updateAsset",
+    DELTE_ASSET: "/asset/deleteAsset",
+    ADD_ASSET: "/user/addAsset?governmentId=",
+    REMOVE_ASSET: "/user/removeAsset?governmentId=",
+    CHANGE_ASSOCIATE_USER: "/asset/changeAssociateUser?assetId=",
+  },
+  TOKEN: {
+    CREATE_TOKEN: "/token/createToken",
+    GET_TOKEN: "/token/getToken?tokenId=",
+  },
 };
 
-
-export default REQUEST_API
+export default REQUEST_API;
