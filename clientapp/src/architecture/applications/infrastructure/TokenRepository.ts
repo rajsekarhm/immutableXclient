@@ -1,5 +1,3 @@
-import { requestAPI } from "../../../requests/core/request";
-import server_config from "../../../../server.config";
 import REQUEST_API from "../../../requests/api.config";
 import ContractETH from "../../contract/ContractETH";
 import token_abi from "../../../../blockchain_client/ethereum/abi/token_abi";
@@ -8,40 +6,24 @@ import TokenEntity from "../../domains/entities/TokenEntity";
 import TokenModal from "../../domains/modals/TokenModal";
 import byteCode_token from "../../../../blockchain_client/ethereum/byteCode/byteCode_Token";
 import { useDispatch } from "react-redux";
+import requestAPI from "../../../requests/core/request";
+import BASE_ENDPOINT_V1 from "../../../../server.config";
 
 class TokenRepository implements ITokenRepository{
 
     async createToken(token: TokenModal | TokenEntity | any, errorHandler?: any):Promise<any> {
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        var raw = JSON.stringify(token);
-        var requestOptions: any = {
-          method: "POST",
-          headers: myHeaders,
-          body: raw,
-          redirect: "follow",
-        };
-    
-        return await fetch(
-          "http://127.0.0.1:8080/api/v1/token/createToken",
-          requestOptions
-        )
-          .then((response) => response.text())
-          .then((result) => console.log(result))
-          .catch((error) => console.log("error", error));
+      try{
+        return await requestAPI(`${BASE_ENDPOINT_V1}${REQUEST_API.TOKEN.CREATE_TOKEN}`, 'POST', token, 'application/json');
+      }catch(error){
+        return
+      }
+      
     }
-    async getTokenById(ids: string | any, errorHandler?: any):Promise<any> {
+    async getTokenById(id: string | any, errorHandler?: any):Promise<any> {
         const {rejectWithValue} = errorHandler
         try {
-            const tokenResponses = await Promise.allSettled(
-                ids.map(async (id: any) => {
-                return await requestAPI( `${server_config.host}:${server_config.port}/${REQUEST_API.GET_TOKEN}?tokenId=${id}`,"GET")})
-            );
-      
-            const fulfilledResponses = tokenResponses
-              .filter((result) => result.status === "fulfilled")
-              .map((result: any) => result.value);
-            return fulfilledResponses;
+          //  await makeRequest(`${API_BASE_URL}/token/getToken?tokenId=69`,"GET",{},'application/json');
+          return await requestAPI(`${BASE_ENDPOINT_V1}${REQUEST_API.TOKEN.GET_TOKEN}?tokenId=${id}`,"GET",{},'application/json');
           } catch (error: any) {
             console.error("Error in getToken:", error);
             return rejectWithValue(error.message || "Error occurred");

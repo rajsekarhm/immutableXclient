@@ -8,17 +8,17 @@ function useAccount() {
   const navigate = useNavigate();
   const dispatch = useDispatch<any>();
   const userDetails = useSelector((state: any) => state.user.user);
+  const { user, assets = [], tokens = []} = userDetails
   useEffect(() => {
     if (!userId) {
       navigate("/sign-in/users");
     }
 
-    if (!userDetails || userDetails.userId !== userId) {
+    if (!user || user.userId !== userId) {
       dispatch(getUser(userId));
     }
   }, [userId, dispatch]);
-  const { firstName, lastName, email, phoneNumber, assetIds, tokenIds } =
-    userDetails || {};
+  const { firstName, lastName, email, phoneNumber, assetIds, tokenIds } = user || {};
   return {
     firstName,
     lastName,
@@ -27,6 +27,8 @@ function useAccount() {
     userId,
     assetIds,
     tokenIds,
+    assets ,
+    tokens
   };
 }
 
