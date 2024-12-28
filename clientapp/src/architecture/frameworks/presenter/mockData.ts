@@ -71,7 +71,7 @@ const mockCards: cardType[] = [
         price: '$ 1000'
       }
     },
-    image: "https://via.placeholder.com/150", // Replace with an actual image URL
+    image: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=800&auto=format&fit=crop&q=60", // Replace with an actual image URL
     buttonText: "Buy Now",
     detailsButtonText: "view Blockchain explorer",
     onClickInDetails: () => {
@@ -93,7 +93,7 @@ const mockCards: cardType[] = [
         price: '$ 1000'
       }
     },
-    image: "https://via.placeholder.com/150", // Replace with an actual image URL
+    image: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=800&auto=format&fit=crop&q=60", // Replace with an actual image URL
     buttonText: "Buy Now",
     detailsButtonText: "view Blockchain explorer",
     onClickInDetails: () => {
@@ -115,7 +115,7 @@ const mockCards: cardType[] = [
         price: '$ 1000'
       }
     },
-    image: "https://via.placeholder.com/150", // Replace with an actual image URL
+    image: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=800&auto=format&fit=crop&q=60", // Replace with an actual image URL
     buttonText: "Buy Now",
     detailsButtonText: "view Blockchain explorer",
     onClickInDetails: () => {
@@ -137,7 +137,7 @@ const mockCards: cardType[] = [
         price: '$ 1000'
       }
     },
-    image: "https://via.placeholder.com/150", // Replace with an actual image URL
+    image: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=800&auto=format&fit=crop&q=60", // Replace with an actual image URL
     buttonText: "Buy Now",
     detailsButtonText: "view Blockchain explorer",
     onClickInDetails: () => {
@@ -159,7 +159,7 @@ const mockCards: cardType[] = [
         price: '$ 1000'
       }
     },
-    image: "https://via.placeholder.com/150", // Replace with an actual image URL
+    image: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=800&auto=format&fit=crop&q=60", // Replace with an actual image URL
     buttonText: "Buy Now",
     detailsButtonText: "view Blockchain explorer",
     onClickInDetails: () => {
@@ -181,7 +181,7 @@ const mockCards: cardType[] = [
         price: '$ 1000'
       }
     },
-    image: "https://via.placeholder.com/150", // Replace with an actual image URL
+    image: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=800&auto=format&fit=crop&q=60", // Replace with an actual image URL
     buttonText: "Buy Now",
     detailsButtonText: "view Blockchain explorer",
     onClickInDetails: () => {

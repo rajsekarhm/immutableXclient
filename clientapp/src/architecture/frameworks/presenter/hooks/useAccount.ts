@@ -10,7 +10,7 @@ function useAccount() {
   const userDetails = useSelector((state: any) => state.user.user);
   const { user, assets = [], tokens = []} = userDetails
   useEffect(() => {
-    if (!userId) {
+    if(!userId || userId == 'undefined'){
       navigate("/sign-in/users");
     }
 
@@ -18,7 +18,7 @@ function useAccount() {
       dispatch(getUser(userId));
     }
   }, [userId, dispatch]);
-  const { firstName, lastName, email, phoneNumber, assetIds, tokenIds } = user || {};
+  const { firstName, lastName, email, phoneNumber, assetIds, tokenIds } = user || {}
   return {
     firstName,
     lastName,
