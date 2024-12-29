@@ -110,7 +110,7 @@ export default function AppBar({ showCaseText,onSearch,onAccountClick, OnMoreCli
                 <span>Log out</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
-          </DropdownMenu> : (showUserDetails ? <Button className="bg-black text-white" onClick={()=>navigate('/sign-in/users')}> SignIn  </Button> : null) }
+          </DropdownMenu> : (showUserDetails ? <Button className="bg-black text-white" onClick={()=> navigate('/sign-in/users')}> SignIn  </Button> : null) }
         </div>
       </div>
     </header>

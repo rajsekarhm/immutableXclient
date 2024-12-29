@@ -14,8 +14,7 @@ import { useSignUp } from "@clerk/clerk-react";
 export const SigUpFormPage = (props: { portal: string }) => {
   const { portal } = props;
   const { isLoaded, signUp, setActive } = useSignUp();
-  console.log({ isLoaded, signUp, setActive })
-  const [verficationCode, setVerficationCode] = useState<string>('');
+  const [verficationCode, setVerficationCode] = useState<string>("");
   const [isCustodain, setIsCustodian] = useState(false);
   const _userstate =
     portal === "custodian"
@@ -36,7 +35,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
     } catch (err) {}
   };
 
-  const onPressPhoneVerfiy = async() => {
+  const onPressPhoneVerfiy = async () => {
     if (isLoaded) {
       navigate(`/portfolio/${user.governmentID}`);
     }
@@ -46,14 +45,16 @@ export const SigUpFormPage = (props: { portal: string }) => {
   };
   const handleSubmit = async (event: any) => {
     event.preventDefault();
-    try{
-      await signUp?.create({emailAddress: user.email});
-      await signUp?.create ({phoneNumber: user.phoneNumber});
-    }catch(err){
-    }
+    try {
+      const { email, phonenumber } = user;
+      if (email && phonenumber) {
+        await signUp?.create({ emailAddress: email });
+        await signUp?.create({ phoneNumber: phonenumber });
+      }
+    } catch (err) {}
     if (user.firstName === undefined && user.password === null) {
       if (user.securityId === undefined) {
-        navigate(`/errorPage`);
+        navigate(`/gotissue`);
         return;
       }
       navigate(`/sign-in/users`);
@@ -89,7 +90,9 @@ export const SigUpFormPage = (props: { portal: string }) => {
         }}
       >
         {" "}
-        <Typography> Enter your credentials</Typography>
+        <h2 className="mt-6 text-3xl font-bold tracking-tight text-gray-900">
+          Sign up to Create Account
+        </h2>
       </div>
       <div
         style={{
@@ -225,13 +228,11 @@ export const SigUpFormPage = (props: { portal: string }) => {
               />{" "}
               <label> accept terms & condition </label>
             </div>
-            <div className="form-group">
-              <Button
-                description="submit"
-                onclickEvent={handleSubmit}
-                isDisabled={validate}
-              />
-            </div>
+            <Button
+              description={"submit to create"}
+              onclickEvent={handleSubmit}
+              isDisabled={validate}
+            />
             <div>
               <br />
               <Button
@@ -250,7 +251,7 @@ export const SigUpFormPage = (props: { portal: string }) => {
                 onClick={() => {
                   navigate("/sign-in/users");
                 }}
-                style={{ fontFamily: "monospace" }}
+                className="text-sm font-medium text-blue-600 hover:text-blue-500 item-left"
               >
                 Login
               </a>{" "}
