@@ -1,7 +1,6 @@
 import { ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Avatar } from "@mui/material";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { InputBox } from "../../components/InputBox";
 import Button from "../../components/Button";
 const SignInPage = (props: any) => {
