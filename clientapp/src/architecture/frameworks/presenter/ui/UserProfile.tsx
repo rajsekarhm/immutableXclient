@@ -15,17 +15,17 @@ import useAccount from "../hooks/useAccount";
 import { useDispatch, useSelector } from "react-redux";
 import { useWallet } from "../hooks/useWallet";
 import { AppDispatch } from "architecture/controllers/store";
-import { getAsset,transferOwnerAsset } from "../../../controllers/actions/AssetActions";
-import { getToken } from "../../../controllers/actions/TokenActions";
+import { transferOwnerAsset } from "../../../controllers/actions/AssetActions";
 import AppBar from "../../components/shadcn/AppBard";
 import AssetModal from "../../../domains/modals/AssetModal";
 
 function UserProfile() {
   const { account } = useWallet();
-  const dispatch = useDispatch<AppDispatch>();
-  const { firstName, lastName, phoneNumber, email, assetIds, tokenIds, assets, tokens } = useAccount();
+  const [netValue,setnetvalue] =  useState<number>(0);
   const navigate = useNavigate();
   const { userId } = useParams();
+  const dispatch = useDispatch<AppDispatch>();
+  const { firstName, lastName, phoneNumber, email, assetIds, tokenIds, assets, tokens } = useAccount();
   const [transferOwner, settransferOwner] = useState({
     toAddress: null,
     asstIdTo: null,
@@ -55,6 +55,14 @@ function UserProfile() {
         })
       );
     // window.location.reload()
+  }
+
+  function calculateNetvalue(){
+    let netvalue = 0;
+    assets.map((asset: any) => {
+      netvalue += asset.value;
+    });
+    setnetvalue(netvalue);
   }
 
   const fetchedTokenFromUser = tokens.length
@@ -91,10 +99,11 @@ function UserProfile() {
     // dispatch(getAsset({ assetAddress: account, assetIds }));
     // dispatch(getToken({ tokenAddress: account, tokenIds: tokenIds }));
     // api call make to validate that user is authenticated
+    calculateNetvalue()
     if (false) {
       navigate("/sign-in/users");
     }
-  }, [assetIds, tokenIds]);
+  }, [assetIds, tokenIds,netValue]);
   const actions = {
     onSearch: () => {},
     onAccountClick: () => {},
@@ -156,7 +165,7 @@ function UserProfile() {
         <Briefcase className="w-6 h-6 text-black-900" />
         <span>DashBoard</span>
         <DollarSign className="w-6 h-6 text-black-900" />
-        <span> Total Balance </span> : 0
+        <span> Total Balance </span> : $ {netValue}
       </div>
       <div className="absolute top-0 left-15">
         <AppBar

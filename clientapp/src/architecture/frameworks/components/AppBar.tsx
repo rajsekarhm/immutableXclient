@@ -3,8 +3,8 @@ import AppBar from "./shadcn/AppBard";
 import { CreditCard, LogOut } from "lucide-react";
 import useAccount from "../presenter/hooks/useAccount";
 
-export default function PrimarySearchAppBar({actionEvents,authDetails,isUserDetailsNeed}:any) {
-  const {firstName, lastName,email,userId} = useAccount()
+export default function PrimarySearchAppBar({actionEvents,authDetails,isUserDetailsNeed, userDetails}:any) {
+  const {firstName, lastName,email,userId}  = userDetails
   const {  isAuth } = authDetails
   const { onSearch,onAccountClick, OnMoreClick} = actionEvents
   const navigate =  useNavigate()
@@ -19,7 +19,13 @@ export default function PrimarySearchAppBar({actionEvents,authDetails,isUserDeta
         text: "Dashboard",
         itHasSubtab: false,
         subTab: null,
-        onClick: () => { navigate(`/portfolio/${userId}`)},
+        onClick: () => { 
+          console.log("userId",userId)
+          if(!userId || userId == 'undefined'){
+            navigate("/sign-in/users");
+          }
+          navigate(`/portfolio/${userId}`)
+        },
       },
       {
         element: <LogOut />,
