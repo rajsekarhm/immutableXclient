@@ -1,17 +1,23 @@
 import IEntities from "./Interface/IEntitties";
 import AssetModal from "../modals/AssetModal";
-
+ type assetEn =  {symbol: string,
+  assetAddress: string,
+  isValidated: boolean,
+  tokenId: string,
+  tokenURI: string,
+  value: number,
+  isForSale: boolean}
 class AssetEntity implements IEntities {
   assetEntity: AssetModal;
   static defaultAsset: any;
   constructor(
-    symbol: string,
-    assetAddress: string,
-    isValidated: boolean,
-    tokenId: string,
-    tokenURI: string,
-    value: number,
-    isForSale: boolean
+    {symbol,
+      isValidated,
+    assetAddress,
+    tokenId,
+    tokenURI,
+    value,
+    isForSale}: assetEn
   ) {
     this.assetEntity = {
       symbol: symbol,

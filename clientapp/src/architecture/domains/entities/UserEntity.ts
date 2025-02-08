@@ -5,6 +5,7 @@ import IEntities from "./Interface/IEntitties";
 class UserEntity implements IEntities {
   User: UserModal;
   static defaultUser: any;
+  UserEntity(){}
   constructor(
     securityId: string,
     firstName: string,
@@ -38,6 +39,8 @@ class UserEntity implements IEntities {
       tokenIds: tokenIds,
     };
   }
+
+  
 
   getFirstName(): string {
     return this.User.firstName;
@@ -83,7 +86,7 @@ class UserEntity implements IEntities {
     return this.User.isAuthForBuyAndSell;
   }
 
-  getassets(): any[] {
+  getassets(): AssetModal[] | undefined {
     return this.User.assetIds;
   }
 
@@ -118,6 +121,12 @@ class UserEntity implements IEntities {
       }
     }
     return plainObject;
+  }
+
+  class Builder {
+    constructor(){
+      
+    }
   }
 }
 
