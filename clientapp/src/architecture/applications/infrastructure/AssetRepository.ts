@@ -1,4 +1,3 @@
-import REQUEST_API from "../../../requests/api.config";
 import ContractETH from "../../contract/ContractETH";
 import CONTRACT_ADDRESS_TESTNET from "../../contract/Contract";
 import asset_abi from "../../../../blockchain_client/ethereum/abi/asset_abi";

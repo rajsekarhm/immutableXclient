@@ -1,14 +1,30 @@
-import AbstractUseCase from "./Interface/AbstractUseCase";
-import IAssetRepository from "../../domains/repository/IAssetRepository";
-import AssetEntity from "../../domains/entities/AssetEntity";
-import { useDispatch } from "react-redux";
-import AssetModal from "../../domains/modals/AssetModal";
+import Service from "../services/IService";
+import IUsecase from "./Interface/IUsecase";
 
-class AssetUseCase implements AbstractUseCase {
-  constructor(private repository: IAssetRepository) {}
-  execute(_function: any) {
-    throw new Error("Method not implemented.");
+class AssetUseCase implements IUsecase {
+  constructor() {}
+
+  create(service:Service):any{
+    const {entities,repository} = service
   }
+
+  update(service:Service):any{
+    const {entities,repository} = service
+
+  }
+
+  delete(service:Service):any{
+    const {entities,repository} = service
+ 
+  }
+
+  get(service:Service):any{
+    const {entities,repository} = service
+
+  }
+
+  notify(inputs: any) { }
+  execute(_function: any) { }
 }
 
 export default AssetUseCase;

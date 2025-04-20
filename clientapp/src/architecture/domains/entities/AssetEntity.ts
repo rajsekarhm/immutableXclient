@@ -11,23 +11,9 @@ class AssetEntity implements IEntities {
   assetEntity: AssetModal;
   static defaultAsset: any;
   constructor(
-    {symbol,
-      isValidated,
-    assetAddress,
-    tokenId,
-    tokenURI,
-    value,
-    isForSale}: assetEn
+    entity: AssetModal
   ) {
-    this.assetEntity = {
-      symbol: symbol,
-      assetAddress: assetAddress,
-      isValidated: isValidated,
-      assetId: tokenId,
-      assetURI: tokenURI,
-      value: value,
-      isForSale: isForSale,
-    };
+    this.assetEntity = {...entity};
   }
 
   getAssetAddress() {

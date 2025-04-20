@@ -1,21 +1,25 @@
+import Service from "../../applications/services/IService";
 import AssetUseCase from "../../applications/usecases/AssetUseCase";
-import AssetEntity from "../../domains/entities/AssetEntity";
 import AssetModal from "../../domains/modals/AssetModal";
 import IHandler from "./interface/IHandler";
+import IUserRepository from "../../domains/repository/IUserRepository";
 
 class AssetHandler implements IHandler {
-  constructor(private usecase: AssetUseCase) {}
+  constructor(private usecase: AssetUseCase,private repo: IUserRepository) {}
 
   create(request: AssetModal) {
-    this.usecase.createAsset(request);
+    const service = new Service(request,this.repo)
+    this.usecase.create(service)
   }
 
   updateById(id: string | number) {
-    this.usecase.updateAssetByUniqueId(id);
+    const service = new Service(id,this.repo)
+    this.usecase.update(service);
   }
 
-  getById(id: string | number) {
-    return this.usecase.getAssetByUniqueId(id);
+  getById(id: string | number): any {
+    const service = new Service(id,this.repo)
+    return this.usecase.get(service);
   }
 }
 

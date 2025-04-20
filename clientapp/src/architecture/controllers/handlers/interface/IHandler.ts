@@ -1,6 +1,3 @@
-
-interface IHandler {
-
-}
+interface IHandler {}
 
 export default IHandler

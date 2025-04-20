@@ -1,25 +1,3 @@
-// function requestAPI(endpoint: any, method: any, body?: any, header?: any) {
-//   const requestOptions = body && header
-//       ? {
-//           method: method,
-//           headers: header || {},
-//           body: body ? JSON.stringify(body) : undefined,
-//         }
-//       : { method: method};
-//   return new Promise((resolve, reject) => {
-//      fetch(endpoint, requestOptions)
-//       .then(async (response: any) => {
-//         if (!response.ok) {
-//           throw new Error(`HTTP error! Status: ${response.status}`);
-//         }
-//         return JSON.parse(await response.text()).data;
-//       })
-//       .then((result: any) => {
-//         return resolve(JSON.parse(result));
-//       })
-//       .catch((error: any) => reject(error));
-//   });
-// }
 
 function createHeaders(contentType = "application/json") {
   const headers = new Headers();

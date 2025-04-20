@@ -1,10 +1,35 @@
-import AbstractUseCase from "./Interface/AbstractUseCase";
-import IUserRepository from "../../domains/repository/IUserRepository";
-import UserEntity from "../../domains/entities/UserEntity";
-import UserModal from "../../domains/modals/UserModal";
+import Service from "../services/IService";
+import IUsecase from "./Interface/IUsecase";
 
-class UserUseCase implements AbstractUseCase {
-  constructor(private repository: IUserRepository) {}
+class UserUseCase implements IUsecase {
+  constructor() {}
+  create(service: Service): any {
+    const { entities, repository } = service;
+  }
+
+  update(service: Service): any {
+    const { entities, repository } = service;
+  }
+
+  delete(service: Service): any {
+    const { entities, repository } = service;
+  }
+
+  get(service: Service): any {
+    const { entities, repository } = service;
+  }
+
+  addTokenUser(service: Service): any {
+    const { entities, repository } = service;
+  }
+  addAssetUser(service: Service): any {
+    const { entities, repository } = service;
+  }
+  changeAssociateUser(service: Service): any {
+    const { entities, repository } = service;
+  }
+  notify(inputs: any) {}
+
   execute(_function: any) {}
 }
 
