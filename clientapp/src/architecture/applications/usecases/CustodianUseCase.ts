@@ -1,9 +1,25 @@
-import CustodianEntity from "../../domains/entities/CustodianEntity";
-import AbstractUseCase from "./Interface/AbstractUseCase";
-import ICustodianRepository from "../../domains/repository/ICustodianRepository";
-import CustodianModal from "../../domains/modals/CustodianModal";
-class CustodianUseCase implements AbstractUseCase {
-  constructor(private repository: ICustodianRepository) {}
+import Service from "../services/IService";
+import IUsecase from "./Interface/IUsecase";
+class CustodianUseCase implements IUsecase {
+  constructor() {}
+  create(service: Service): any {
+    const { entities, repository } = service;
+  }
+
+  update(service: Service): any {
+    const { entities, repository } = service;
+  }
+
+  delete(service: Service): any {
+    const { entities, repository } = service;
+  }
+
+  get(service: Service): any {
+    const { entities, repository } = service;
+    
+  }
+
+  notify(inputs: any) {}
   execute(_function: any) {}
 }
 

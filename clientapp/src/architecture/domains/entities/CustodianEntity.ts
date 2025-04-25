@@ -3,44 +3,8 @@ import CustodianModal from '../modals/CustodianModal';
 class CustodianEntity {
   Custodian: CustodianModal;
   static defaultCustodian: any;
-  constructor(
-    securityId: string,
-    firstName: string,
-    lastName: string,
-    email: string,
-    phoneNumber: number,
-    password: string,
-    location: string,
-    governmentID: number,
-    edition: string,
-    isAgent: boolean,
-    AgentId: number,
-    isAuthForBuyAndSell: string,
-    orgId: string,
-    Authenticated: string,
-    AuthorizationFor: string,
-    tokenIds:any[],
-    assetIds:any[]
-  ) {
-    this.Custodian = {
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      phoneNumber: phoneNumber,
-      password: password,
-      location: location,
-      governmentID: governmentID,
-      edition: edition,
-      isAgent: isAgent,
-      AgentId: AgentId,
-      isAuthForBuyAndSell: isAuthForBuyAndSell,
-      securityId: securityId,
-      orgId: orgId,
-      Authenticated: Authenticated,
-      AuthorizationFor: AuthorizationFor,
-      tokenIds:tokenIds,
-      assetIds:assetIds
-    };
+  constructor(entity:CustodianModal) {
+    this.Custodian = {...entity};
   }
 
   // Getters for each property

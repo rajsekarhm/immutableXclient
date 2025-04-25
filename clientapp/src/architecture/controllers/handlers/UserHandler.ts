@@ -1,25 +1,22 @@
-import { useDispatch } from "react-redux";
+import Service from "../../applications/services/IService";
 import UserUseCase from "../../applications/usecases/UserUseCase";
 import IHandler from "./interface/IHandler";
-import UserModal from "../../domains/modals/UserModal";
+import IUserRepository from "../../domains/repository/IUserRepository";
 class UserHandler implements IHandler{
-  constructor(private usecase: UserUseCase) {}
+  constructor(private usecase: UserUseCase, private repo:IUserRepository) {}
 
-  create(request: UserModal) {
-     this.usecase.createUser(request);
-  }
+  create(request: any) {
+    const service = new Service(request,this.repo)
+    this.usecase.create(service)  }
 
   updateById(id: string | number) {
-    this.usecase.updateUserByUniqueId(id);
+    const service = new Service(id,this.repo)
+    this.usecase.update(service);
   }
 
   getById(id: string | number) {
-    return this.usecase.getUserByUniqueId(id);
-  }
-
-  disptach(_function: any,...args:any) {
-    const _dispatch = useDispatch();
-    return _dispatch(_function(args));
+    const service = new Service(id,this.repo)
+    return this.usecase.get(service);
   }
 }
 

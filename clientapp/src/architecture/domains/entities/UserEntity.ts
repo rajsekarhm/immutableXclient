@@ -3,40 +3,11 @@ import UserModal from "../modals/UserModal";
 import IEntities from "./Interface/IEntitties";
 
 class UserEntity implements IEntities {
-  User: UserModal;
+  User !: UserModal;
   static defaultUser: any;
-  UserEntity(){}
-  constructor(
-    securityId: string,
-    firstName: string,
-    lastName: string,
-    email: string,
-    phoneNumber: number,
-    password: string,
-    location: string,
-    governmentID: number,
-    edition: string,
-    isAgent: boolean,
-    AgentId: number,
-    isAuthForBuyAndSell: string,
-    assetIds?: any[],
-    tokenIds?: any[]
-  ) {
+  constructor(entity:UserModal) {
     this.User = {
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      phoneNumber: phoneNumber,
-      password: password,
-      location: location,
-      governmentID: governmentID,
-      edition: edition,
-      isAgent: isAgent,
-      AgentId: AgentId,
-      isAuthForBuyAndSell: isAuthForBuyAndSell,
-      assetIds: assetIds,
-      securityId: securityId,
-      tokenIds: tokenIds,
+     ...entity
     };
   }
 
@@ -123,11 +94,11 @@ class UserEntity implements IEntities {
     return plainObject;
   }
 
-  class Builder {
-    constructor(){
+  // class Builder {
+  //   constructor(){
       
-    }
-  }
+  //   }
+  // }
 }
 
 export default UserEntity;

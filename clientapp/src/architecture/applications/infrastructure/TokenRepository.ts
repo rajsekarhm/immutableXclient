@@ -19,6 +19,7 @@ class TokenRepository implements ITokenRepository{
       }
       
     }
+    
     async getTokenById(id: string | any, errorHandler?: any):Promise<any> {
         const {rejectWithValue} = errorHandler
         try {
@@ -29,6 +30,7 @@ class TokenRepository implements ITokenRepository{
             return rejectWithValue(error.message || "Error occurred");
           }
     }
+
     async createTokenOnChain(token: TokenModal | TokenEntity | any, errorHandler?: any): Promise<any> {
        const dispatch = useDispatch<any>()
       const contract_factory =  new ContractETH('browser',window.ethereum)
@@ -39,6 +41,7 @@ class TokenRepository implements ITokenRepository{
       token.walletAddress = contractAddress
       dispatch(this.createToken(token))
     }
+
     getTokenOnChain(tokenId: any, errorHandler?: any) {
         throw new Error("Method not implemented.");
     }

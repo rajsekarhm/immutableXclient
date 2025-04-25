@@ -1,26 +1,26 @@
 import exp from "constants";
 import AssetEntity from "./AssetEntity";
 import CustodianEntity from "./CustodianEntity";
-import IFactory from "./IFactory";
+import IFactory from "./Interface/IFactory";
 import IEntities from "./Interface/IEntitties";
 import TokenEntity from "./TokenEntity";
 import UserEntity from "./UserEntity";
 
 
  class EntityFactory implements IFactory { 
-    getEntity(entityType:string) : IEntities {
+    getEntity(entityType:string,entity:any) : IEntities {
         switch(entityType){
             case "user" :{
-                return  new UserEntity();
+                return  new UserEntity(entity);
             }
             case "agent" :{
-                return new CustodianEntity()
+                return new CustodianEntity(entity)
             }
             case "asset" :{
-                return new AssetEntity()
+                return new AssetEntity(entity)
             }
             case "token" :{
-                return new TokenEntity();
+                return new TokenEntity(entity);
             }
             default :{
                 return {}
