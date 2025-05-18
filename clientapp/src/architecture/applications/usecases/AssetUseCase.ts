@@ -1,30 +1,29 @@
-import Service from "../services/IService";
 import IUsecase from "./Interface/IUsecase";
 
-class AssetUseCase implements IUsecase {
-  constructor() {}
-
-  create(service:Service):any{
-    const {entities,repository} = service
+class AssetUseCase extends IUsecase {
+  compensation(inputs: any) {
+    const { repository, presenter} =  this.depedencies
   }
 
-  update(service:Service):any{
-    const {entities,repository} = service
-
+  create(input: any): any {
+    const { repository, presenter} =  this.depedencies
   }
 
-  delete(service:Service):any{
-    const {entities,repository} = service
- 
+  update(input: any): any {
+    const { repository, presenter} =  this.depedencies
   }
 
-  get(service:Service):any{
-    const {entities,repository} = service
-
+  delete(input: any): any {
+    const { repository, presenter} =  this.depedencies
   }
 
-  notify(inputs: any) { }
-  execute(_function: any) { }
+  get(input: any): any {
+    const { repository, presenter} =  this.depedencies
+  }
+
+  execute(inputs: any) {
+    const { repository, presenter} =  this.depedencies
+  }
 }
 
 export default AssetUseCase;

@@ -8,8 +8,8 @@ import { Toaster } from "../../components/shadcn/BottomBanner";
 import useAccount from "../hooks/useAccount";
 import TokenModal from '../../../domains/modals/TokenModal';
 import { useDispatch } from "react-redux";
-import { createTokenBlockchain}  from '../../../controllers/actions/TokenActions'
-import { addToken }  from '../../../controllers/actions/UserActions'
+import { createTokenBlockchain}  from '../../../adapters/actions/TokenActions'
+import { addToken }  from '../../../adapters/actions/UserActions'
 import AppBar from "../../components/shadcn/AppBard";
 function TokenCreation() {
   const navigate = useNavigate();

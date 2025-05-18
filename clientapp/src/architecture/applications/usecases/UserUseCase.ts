@@ -1,36 +1,39 @@
-import Service from "../services/IService";
 import IUsecase from "./Interface/IUsecase";
 
-class UserUseCase implements IUsecase {
-  constructor() {}
-  create(service: Service): any {
-    const { entities, repository } = service;
+class UserUseCase extends IUsecase {
+
+  create(input: any): any {
+    const {repository, presenter } =  this.depedencies
   }
 
-  update(service: Service): any {
-    const { entities, repository } = service;
+  update(input: any): any {
+    const {repository, presenter } =  this.depedencies
   }
 
-  delete(service: Service): any {
-    const { entities, repository } = service;
+  delete(input: any): any {
+    const {repository, presenter } =  this.depedencies
   }
 
-  get(service: Service): any {
-    const { entities, repository } = service;
+  get(input: any): any {
+    const {repository, presenter } =  this.depedencies
   }
 
-  addTokenUser(service: Service): any {
-    const { entities, repository } = service;
+  addTokenUser(input: any): any {
+    const {repository, presenter } =  this.depedencies
   }
-  addAssetUser(service: Service): any {
-    const { entities, repository } = service;
+  addAssetUser(input: any): any {
+    const {repository, presenter } =  this.depedencies
   }
-  changeAssociateUser(service: Service): any {
-    const { entities, repository } = service;
+  changeAssociateUser(input: any): any {
+    const {repository, presenter } =  this.depedencies
   }
-  notify(inputs: any) {}
+  compensation(inputs: any) {
+    const {repository, presenter } =  this.depedencies
+  }
 
-  execute(_function: any) {}
+  execute(inputs: any) {
+    const {repository, presenter } =  this.depedencies
+  }
 }
 
 export default UserUseCase;
