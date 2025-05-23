@@ -7,9 +7,9 @@ import { toast } from "sonner";
 import { Skeleton } from "../../components/shadcn/Skeleton";
 import useAccount from "../hooks/useAccount";
 import { useDispatch, useSelector } from "react-redux";
-import { createAsset, createAssetBlockchain } from "../../../controllers/actions/AssetActions";
+import { createAsset, createAssetBlockchain } from "../../../adapters/actions/AssetActions";
 import AssetModal from "../../../domains/modals/AssetModal";
-import { addAsset } from "../../../controllers/actions/UserActions";
+import { addAsset } from "../../../adapters/actions/UserActions";
 import { CreditCard, LogOut} from "lucide-react"
 import AppBar from "../../components/shadcn/AppBard";
 function AssetCreation() {

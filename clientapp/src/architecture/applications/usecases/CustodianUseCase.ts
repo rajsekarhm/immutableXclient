@@ -1,26 +1,28 @@
-import Service from "../services/IService";
 import IUsecase from "./Interface/IUsecase";
-class CustodianUseCase implements IUsecase {
-  constructor() {}
-  create(service: Service): any {
-    const { entities, repository } = service;
+class CustodianUseCase extends IUsecase {
+  create(input: any): any {
+    const { repository, presenter} =  this.depedencies
   }
 
-  update(service: Service): any {
-    const { entities, repository } = service;
+  update(input: any): any {
+    const { repository, presenter} =  this.depedencies
   }
 
-  delete(service: Service): any {
-    const { entities, repository } = service;
+  delete(input: any): any {
+    const { repository, presenter} =  this.depedencies
   }
 
-  get(service: Service): any {
-    const { entities, repository } = service;
-    
+  get(input: any): any {
+    const { repository, presenter} =  this.depedencies
   }
 
-  notify(inputs: any) {}
-  execute(_function: any) {}
+  compensation(inputs: any) {
+    const { repository, presenter} =  this.depedencies
+  }
+
+  execute(inputs: any) {
+    const { repository, presenter} =  this.depedencies
+  }
 }
 
 export default CustodianUseCase;

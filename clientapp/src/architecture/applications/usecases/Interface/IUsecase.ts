@@ -1,7 +1,12 @@
+import IModel from "architecture/applications/interface/input/IModel"
 
-interface  IUsecase {
-     execute(_function:any): any | Promise<any>
-     notify(inputs:any):any
+ abstract class IUsecase {
+     constructor(protected depedencies:IModel){
+          this.compensation = this.compensation.bind(this)
+          this.execute = this.execute.bind(this)
+     }
+     abstract execute(input:any): any | Promise<any>
+     abstract compensation(inputs: any):any
 }
 
 export default IUsecase

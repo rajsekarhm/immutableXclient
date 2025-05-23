@@ -6,8 +6,8 @@ import { ChangeEvent } from "react";
 import Button from "../../components/Button";
 import UserEntity from "../../../domains/entities/UserEntity";
 import CustodianEntity from "../../../domains/entities/CustodianEntity";
-import { createUser } from "../../../controllers/actions/UserActions";
-import { AppDispatch } from "../../../controllers/store";
+import { createUser } from "../../../adapters/actions/UserActions";
+import { AppDispatch } from "../../../adapters/store";
 import { useSignUp } from "@clerk/clerk-react";
 import { Mail } from 'lucide-react';
 export const SigUpFormPage = (props: { portal: string }) => {

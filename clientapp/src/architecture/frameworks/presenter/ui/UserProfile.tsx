@@ -14,8 +14,8 @@ import { InputBox } from "../../components/InputBox";
 import useAccount from "../hooks/useAccount";
 import { useDispatch, useSelector } from "react-redux";
 import { useWallet } from "../hooks/useWallet";
-import { AppDispatch } from "architecture/controllers/store";
-import { transferOwnerAsset } from "../../../controllers/actions/AssetActions";
+import { AppDispatch } from "architecture/adapters/store";
+import { transferOwnerAsset } from "../../../adapters/actions/AssetActions";
 import AppBar from "../../components/shadcn/AppBard";
 import AssetModal from "../../../domains/modals/AssetModal";
 

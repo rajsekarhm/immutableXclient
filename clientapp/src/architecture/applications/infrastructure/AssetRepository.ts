@@ -7,7 +7,6 @@ import AssetModal from "../../domains/modals/AssetModal";
 import user from "./UserRepository";
 import requestAPI from "../../../requests/core/request";
 import BASE_ENDPOINT_V1 from "../../../../server.config";
-// Define interfaces for better type safety
 interface AssetTransferOptions {
   symbol: string;
   assetAddress: string;

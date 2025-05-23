@@ -10,7 +10,7 @@ import { ClerkProvider } from "@clerk/clerk-react";
 const root = createRoot(container);
 const PUBLISHABLE_KEY = VITE_CLERK_PUBLISHABLE_KEY;
 import './index.css'
-import store from "./architecture/controllers/store";
+import store from "./architecture/adapters/store";
 if (!PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
 }
