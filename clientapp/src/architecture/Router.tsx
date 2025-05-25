@@ -1,16 +1,16 @@
-import SigUpFormPage from "./frameworks/presenter/ui/SignUp";
+import SigUpFormPage from "./frameworks/views/ui/SignUp";
 import { createBrowserRouter } from "react-router-dom";
-import Home from "./frameworks/presenter/ui/Home";
-import UserProfile from "./frameworks/presenter/ui/UserProfile";
-import ErrorPage from "./frameworks/presenter/ErrorPage";
-import MarketPlace from "./frameworks/presenter/ui/MarketPlace";
-import SignInPage from "./frameworks/presenter/ui/SignIn";
-import CustodianProfiles from "./frameworks/presenter/ui/CustodianProfiles";
-import Builder from "./frameworks/presenter/Builder";
-import AssetCreation from "./frameworks/presenter/ui/Asset";
-import TokenCreation from "./frameworks/presenter/ui/Token";
-import ExternalSignIn from "./frameworks/presenter/ui/ExternalSignIn";
-import ExternalSignUp from "./frameworks/presenter/ui/ExternalSignUp";
+import Home from "./frameworks/views/ui/Home";
+import UserProfile from "./frameworks/views/ui/UserProfile";
+import ErrorPage from "./frameworks/views/ErrorPage";
+import MarketPlace from "./frameworks/views/ui/MarketPlace";
+import SignInPage from "./frameworks/views/ui/SignIn";
+import CustodianProfiles from "./frameworks/views/ui/CustodianProfiles";
+import Builder from "./frameworks/views/Builder";
+import AssetCreation from "./frameworks/views/ui/Asset";
+import TokenCreation from "./frameworks/views/ui/Token";
+import ExternalSignIn from "./frameworks/views/ui/ExternalSignIn";
+import ExternalSignUp from "./frameworks/views/ui/ExternalSignUp";
 
 const Router = createBrowserRouter([
   {

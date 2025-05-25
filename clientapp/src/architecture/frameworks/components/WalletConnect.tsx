@@ -1,6 +1,6 @@
 
 import { Wallet } from "lucide-react";
-import { useWallet } from "../presenter/hooks/useWallet";
+import { useWallet } from "../views/hooks/useWallet";
 
 function WalletConnect(){
     const { account, balance, connectWallet, disconnectWallet } = useWallet();

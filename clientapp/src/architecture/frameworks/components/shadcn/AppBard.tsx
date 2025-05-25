@@ -63,7 +63,7 @@ export default function AppBar({ showCaseText,onSearch,onAccountClick, OnMoreCli
             <DropdownMenuByUseCase dropDownDetails={menuDetails}/>
             {Object.values(onMore).map((value) => {
               const {text,action}:any = value
-              return ( <a href="#" className="transition-colors hover:text-foreground/80" onClick={action}>{text}</a>)
+              return ( <a href="#" className="transition-colors hover:text-foreground/80" onClick={action} key={text}>{text}</a>)
             })}
           </nav>
         </div>

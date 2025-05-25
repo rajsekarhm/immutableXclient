@@ -5,7 +5,7 @@ class AssetHandler implements IHandler {
   constructor(private service:IService) {}
 
   create(request: any) {
-    const {assetUsecase } =  this.service
+    const { assetUsecase } =  this.service
     assetUsecase.create(request)
   }
 

@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import AppBar from "./shadcn/AppBard";
 import { CreditCard, LogOut } from "lucide-react";
-import useAccount from "../presenter/hooks/useAccount";
 
 export default function PrimarySearchAppBar({actionEvents,authDetails,isUserDetailsNeed, userDetails}:any) {
   const {firstName, lastName,email,userId}  = userDetails

@@ -94,11 +94,6 @@ class UserEntity implements IEntities {
     return plainObject;
   }
 
-  // class Builder {
-  //   constructor(){
-      
-  //   }
-  // }
 }
 
 export default UserEntity;

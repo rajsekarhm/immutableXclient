@@ -1,116 +1,75 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import AssetRepository from "../../applications/infrastructure/AssetRepository";
 
-export const createAssetBlockchain = createAsyncThunk<any, any>(
-  "asset/createAssetBlockChain",
-   (assetDetails,{rejectWithValue}) => {
-    return AssetRepository.createAssetOnChain(assetDetails,{rejectWithValue})
-  }
+// Async Thunks
+export const createAssetBlockchain = createAsyncThunk(
+  "asset/createAssetBlockchain",
+  (assetDetails, { rejectWithValue }) =>
+    AssetRepository.createAssetOnChain(assetDetails, { rejectWithValue })
 );
 
-export const getAssetBlockchain = createAsyncThunk<any, any>(
+export const getAssetBlockchain = createAsyncThunk(
   "asset/getAssetBlockchain",
-  async ({ asserAddress, assetId }, { rejectWithValue }) => {
-    return AssetRepository.getAssetOnChain({asserAddress,assetId:assetId},{rejectWithValue})
-  }
+  ({ asserAddress, assetId } : any, { rejectWithValue }) =>
+    AssetRepository.getAssetOnChain({ asserAddress, assetId }, { rejectWithValue })
 );
 
-export const transferOwnerAsset = createAsyncThunk<any, any>(
+export const transferOwnerAsset = createAsyncThunk(
   "asset/transferOwnerAsset",
-  async ({asset,newAddress,receiverId}, { rejectWithValue}) => {
-    return AssetRepository.transferOwnership(asset,newAddress,receiverId,{rejectWithValue})
-  }
+  ({ asset, newAddress, receiverId } : any, { rejectWithValue }) =>
+    AssetRepository.transferOwnership(asset, newAddress, receiverId, { rejectWithValue })
 );
 
-export const createAsset = createAsyncThunk<any, any>(
+export const createAsset = createAsyncThunk(
   "asset/createAsset",
-  async (assetDetails,{rejectWithValue}) => {
-    return AssetRepository.createAsset(assetDetails,{rejectWithValue})
-  }
+  (assetDetails : any, { rejectWithValue }) =>
+    AssetRepository.createAsset(assetDetails, { rejectWithValue })
 );
 
-export const getAsset = createAsyncThunk<any, any>(
+export const getAsset = createAsyncThunk(
   "asset/getAsset",
-   async ({ asserAddress, assetIds }, { rejectWithValue }) => {
-    return AssetRepository.getAssetById(assetIds,{rejectWithValue})
-  }
+  ({ assetIds } : any, { rejectWithValue }) =>
+    AssetRepository.getAssetById(assetIds, { rejectWithValue })
 );
 
+// Initial State
+const initialState = {
+  asset: null,
+  loading: false,
+  status: "idle",
+};
+
+// Utility to generate reducers for async thunks
+const addAsyncCases = (builder : any, thunk : any, options = { resetTo: null }) => {
+  builder
+    .addCase(thunk.pending, (state : any) => {
+      state.loading = true;
+      state.status = "idle";
+      state.asset = options.resetTo;
+    })
+    .addCase(thunk.fulfilled, (state : any, action : any) => {
+      state.loading = false;
+      state.status = "succeeded";
+      state.asset = action.payload?.data ?? null;
+    })
+    .addCase(thunk.rejected, (state : any) => {
+      state.loading = false;
+      state.status = "failed";
+      state.asset = options.resetTo;
+    });
+};
+
+// Slice
 const assetSlice = createSlice({
   name: "asset",
-  initialState: {
-    asset: {},
-    loading: false,
-    status: "idle",
-  },
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getAsset.pending, (state: any) => {
-      state.status = "idle";
-      state.loading = true;
-      state.asset = [];
-    });
-    builder.addCase(getAsset.fulfilled, (state: any, action: any) => {
-      state.status = "succeeded";
-      state.loading = false;
-      state.asset = action.payload.data;
-    });
-    builder.addCase(getAsset.rejected, (state: any, action: any) => {
-      state.status = "failed";
-      state.loading = false;
-      state.asset = [];
-    });
-    
-    builder
-      .addCase(createAsset.pending, (state: any) => {
-        state.loading = true;
-        state.status = "idle";
-        state.asset = [];
-      })
-      .addCase(createAsset.fulfilled, (state: any, action: any) => {
-        state.loading = false;
-        state.status = "succeeded";
-        state.asset = action.payload.data;
-      })
-      .addCase(createAsset.rejected, (state: any, action: any) => {
-        state.loading = false;
-        state.status = "failed";
-        state.asset = [];
-      });
-
-      builder
-      .addCase(createAssetBlockchain.pending, (state: any) => {
-        state.loading = true;
-        state.status = "idle";
-        state.asset = null;
-      })
-      .addCase(createAssetBlockchain.fulfilled, (state: any, action: any) => {
-        state.loading = false;
-        state.status = "succeeded";
-        state.asset = action.payload.data;
-      })
-      .addCase(createAssetBlockchain.rejected, (state: any, action: any) => {
-        state.loading = false;
-        state.status = "failed";
-        state.asset = null;
-      });
-
-      builder
-      .addCase(transferOwnerAsset.pending, (state: any) => {
-        state.loading = true;
-        state.status = "idle";
-        state.asset = null;
-      })
-      .addCase(transferOwnerAsset.fulfilled, (state: any, action: any) => {
-        state.loading = false;
-        state.status = "succeeded";
-        state.asset = action.payload.data;
-      })
-      .addCase(transferOwnerAsset.rejected, (state: any, action: any) => {
-        state.loading = false;
-        state.status = "failed";
-        state.asset = null;
-      });
+    addAsyncCases(builder, getAsset, { resetTo: [] });
+    addAsyncCases(builder, createAsset, { resetTo: [] });
+    addAsyncCases(builder, createAssetBlockchain, { resetTo: null });
+    addAsyncCases(builder, transferOwnerAsset, { resetTo: null });
+    // Optional: Add more thunks using `addAsyncCases` as needed
   },
 });
 
