@@ -19,7 +19,6 @@ export default function PrimarySearchAppBar({actionEvents,authDetails,isUserDeta
         itHasSubtab: false,
         subTab: null,
         onClick: () => { 
-          console.log("userId",userId)
           if(!userId || userId == 'undefined'){
             navigate("/sign-in/users");
           }

@@ -1,264 +1,182 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { InputBox } from "../../components/InputBox";
 import { useDispatch } from "react-redux";
-import { ChangeEvent } from "react";
 import Button from "../../components/Button";
 import UserEntity from "../../../domains/entities/UserEntity";
 import CustodianEntity from "../../../domains/entities/CustodianEntity";
 import { createUser } from "../../../adapters/actions/UserActions";
 import { AppDispatch } from "../../../adapters/store";
 import { useSignUp } from "@clerk/clerk-react";
-import { Mail } from 'lucide-react';
-export const SigUpFormPage = (props: { portal: string }) => {
-  const { portal } = props;
-  const { isLoaded, signUp, setActive } = useSignUp();
-  const [verficationCode, setVerficationCode] = useState<string>("");
-  const [isCustodain, setIsCustodian] = useState(false);
-  const _userstate =
+import { Mail } from "lucide-react";
+
+const SigUpFormPage = ({ portal }: { portal: string }) => {
+  const { isLoaded, signUp } = useSignUp();
+  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
+  const [verficationCode, setVerficationCode] = useState("");
+  const [validate, setValidate] = useState(false);
+  const [isCustodian, setIsCustodian] = useState(portal === "custodian");
+
+  const _initialUser =
     portal === "custodian"
       ? CustodianEntity.initialState().Custodian
       : UserEntity.initialState().User;
-  const [user, setUser] = useState(_userstate);
-  const navigate = useNavigate();
-  const [validate, setValidate] = useState(true);
-  const dispatch = useDispatch<AppDispatch>();
 
-  const onPressMailVerify = async (event: any) => {
-    event.preventDefault();
-    if (isLoaded) {
-      navigate(`/portfolio/${user.governmentID}`);
-    }
-    try {
-      await signUp?.attemptEmailAddressVerification({ code: verficationCode });
-    } catch (err) {}
-  };
+  const [user, setUser] = useState(_initialUser);
 
-  const onPressPhoneVerfiy = async () => {
-    if (isLoaded) {
-      navigate(`/portfolio/${user.governmentID}`);
-    }
-    try {
-      await signUp?.attemptPhoneNumberVerification({ code: verficationCode });
-    } catch (err) {}
-  };
-  const handleSubmit = async (event: any) => {
-    event.preventDefault();
-    try {
-      const { email, phonenumber } = user;
-      if (email && phonenumber) {
-        await signUp?.create({ emailAddress: email });
-        await signUp?.create({ phoneNumber: phonenumber });
-      }
-    } catch (err) {}
-    if (user.firstName === undefined && user.password === null) {
-      if (user.securityId === undefined) {
-        navigate(`/gotissue`);
-        return;
-      }
-      navigate(`/sign-in/users`);
-      return;
-    }
-    if (isLoaded) {
-      if (portal === "users") {
-        dispatch(createUser(user));
-      }
-      if (portal === "custodian") {
-        dispatch(createUser(user));
-      }
-      navigate(`/portfolio/${user.governmentID}`);
-    }
-  };
-
-  const handleInput = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
+  const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
 
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    try {
+      if (user.email && user.phoneNumber) {
+        await signUp?.create({ emailAddress: user.email });
+        await signUp?.create({ phoneNumber: user.phoneNumber });
+      }
+
+      if (isLoaded) {
+        dispatch(createUser(user));
+        navigate(`/portfolio/${user.governmentID}`);
+      }
+    } catch (error) {
+      console.error("Sign-up failed:", error);
+    }
+  };
+
   return (
-    <div
-      style={{ background: "white", height: "150vh", msOverflowY: "hidden" }}
-    >
-      <div
-        style={{
-          height: "20vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          fontFamily: "sans-serif",
-        }}
+    <div className="bg-white min-h-screen flex flex-col justify-center items-center px-4">
+      <h2 className="text-3xl font-bold text-gray-900 mb-6">
+        Sign up to Create Account
+      </h2>
+
+      <form
+        className="w-full max-w-md bg-white p-6 rounded-lg shadow-md space-y-4"
+        onSubmit={handleSubmit}
       >
-        {" "}
-        <h2 className="mt-6 text-3xl font-bold tracking-tight text-gray-900">
-          Sign up to Create Account
-        </h2>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "75vh",
-        }}
-      >
-        <section
-          style={{
-            width: "400px",
-            padding: "20px",
-            background: "white",
-            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-            borderRadius: "8px",
-            textAlign: "center",
+        <InputBox
+          componentInfo={{
+            description: "Enter first name",
+            type: "text",
+            name: "firstName",
+            maxlength: 10,
+            className: "",
           }}
-        >
-          <form>
+          handleInput={handleInput}
+        />
+        <InputBox
+          componentInfo={{
+            description: "Enter last name",
+            type: "text",
+            name: "lastName",
+            maxlength: 10,
+            className: "",
+          }}
+          handleInput={handleInput}
+        />
+        <InputBox
+          componentInfo={{
+            description: "Enter password",
+            type: "password",
+            name: "password",
+            maxlength: 20,
+            className: "",
+          }}
+          handleInput={handleInput}
+        />
+        <InputBox
+          componentInfo={{
+            description: "Enter email",
+            type: "text",
+            name: "email",
+            maxlength: 40,
+            className: "",
+          }}
+          handleInput={handleInput}
+        />
+        <InputBox
+          componentInfo={{
+            description: "Enter phone number",
+            type: "text",
+            name: "phoneNumber",
+            maxlength: 10,
+            className: "",
+          }}
+          handleInput={handleInput}
+        />
+        <InputBox
+          componentInfo={{
+            description: "Enter government ID",
+            type: "text",
+            name: "governmentID",
+            maxlength: 10,
+            className: "",
+          }}
+          handleInput={handleInput}
+        />
+
+        {isCustodian && (
+          <>
             <InputBox
               componentInfo={{
-                defaultValue: undefined,
-                description: "Enter first name",
-                className: "username_class",
+                description: "Enter org ID",
                 type: "text",
-                name: "firstName",
-                pattern: "",
+                name: "orgId",
                 maxlength: 10,
-                style: {},
+                className: "",
               }}
               handleInput={handleInput}
             />
             <InputBox
               componentInfo={{
-                defaultValue: undefined,
-                description: "Enter last name",
-                className: "username_class",
+                description: "Enter security ID",
                 type: "text",
-                name: "lastName",
-                pattern: "",
+                name: "securityId",
                 maxlength: 10,
+                className: "",
               }}
               handleInput={handleInput}
             />
-            <InputBox
-              componentInfo={{
-                defaultValue: undefined,
-                description: "Enter password",
-                className: "pass_class",
-                type: "password",
-                name: "password",
-                pattern: "",
-                maxlength: 20,
-              }}
-              handleInput={handleInput}
-            />
-            <InputBox
-              componentInfo={{
-                defaultValue: undefined,
-                description: "Enter mail",
-                className: "mail_class",
-                type: "text",
-                name: "email",
-                pattern: "",
-                maxlength: 40,
-              }}
-              handleInput={handleInput}
-            />
-            <InputBox
-              componentInfo={{
-                defaultValue: undefined,
-                description: "Enter phone number ",
-                className: "contact_class",
-                type: "text",
-                name: "phoneNumber",
-                pattern: "",
-                maxlength: 10,
-              }}
-              handleInput={handleInput}
-            />
-            <InputBox
-              componentInfo={{
-                defaultValue: undefined,
-                description: "Enter government Id",
-                className: "governmentID_class",
-                type: "text",
-                name: "governmentID",
-                pattern: "",
-                maxlength: 10,
-              }}
-              handleInput={handleInput}
-            />
-            {isCustodain ? (
-              <>
-                <InputBox
-                  componentInfo={{
-                    defaultValue: undefined,
-                    description: "Enter orgId",
-                    className: "org_class",
-                    type: "text",
-                    name: "orgId",
-                    pattern: "",
-                    maxlength: 10,
-                  }}
-                  handleInput={handleInput}
-                />
-                <InputBox
-                  componentInfo={{
-                    defaultValue: undefined,
-                    description: "Enter securityId ",
-                    className: "security_class",
-                    type: "text",
-                    name: "securityId",
-                    pattern: "",
-                    maxlength: 10,
-                  }}
-                  handleInput={handleInput}
-                />
-              </>
-            ) : null}
-            <div>
-              <input
-                type="checkbox"
-                onClick={() => {
-                  if (validate) {
-                    setValidate(false);
-                  }
-                  if (validate == false) {
-                    setValidate(true);
-                  }
-                }}
-              />{" "}
-              <label> accept terms & condition </label>
-            </div>
-            <Button
-              description={"submit to create"}
-              onclickEvent={handleSubmit}
-              isDisabled={validate}
-            />
-            <div>
-              <br />
-              <Button
-                description={
-                  <>
-                    {" "}
-                    <Mail /> Login with Email{" "}
-                  </>
-                }
-                onclickEvent={() => console.log("lol")}
-              />
-            </div>
-            <div style={{ fontFamily: "monospace" }}>
-              Already have account? Please{" "}
-              <a
-                onClick={() => {
-                  navigate("/sign-in/users");
-                }}
-                className="text-sm font-medium text-blue-600 hover:text-blue-500 item-left"
-              >
-                Login
-              </a>{" "}
-              here
-            </div>
-          </form>
-        </section>
-      </div>
+          </>
+        )}
+
+        <div className="flex items-center space-x-2">
+          <input
+            type="checkbox"
+            id="terms"
+            checked={validate}
+            onChange={() => setValidate((prev) => !prev)}
+            className="h-4 w-4"
+          />
+          <label htmlFor="terms" className="text-sm text-gray-700">
+            I accept the terms & conditions
+          </label>
+        </div>
+
+        <Button
+          description="Submit to Create"
+          onclickEvent={handleSubmit}
+          isDisabled={!validate}
+        />
+
+        <Button
+          description= "Login with Email"
+          onclickEvent={() => console.log("Email login")}
+        />
+
+        <div className="pt-4 text-sm text-gray-600 text-center">
+          Already have an account?{" "}
+          <a
+            className="text-blue-600 hover:underline cursor-pointer"
+            onClick={() => navigate("/sign-in/users")}
+          >
+            Login here
+          </a>
+        </div>
+      </form>
     </div>
   );
 };

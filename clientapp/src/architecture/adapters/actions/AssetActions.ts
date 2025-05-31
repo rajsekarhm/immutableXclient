@@ -4,7 +4,7 @@ import AssetRepository from "../../applications/infrastructure/AssetRepository";
 // Async Thunks
 export const createAssetBlockchain = createAsyncThunk(
   "asset/createAssetBlockchain",
-  (assetDetails, { rejectWithValue }) =>
+  (assetDetails:any, { rejectWithValue }) =>
     AssetRepository.createAssetOnChain(assetDetails, { rejectWithValue })
 );
 
@@ -65,11 +65,10 @@ const assetSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    addAsyncCases(builder, getAsset, { resetTo: [] });
-    addAsyncCases(builder, createAsset, { resetTo: [] });
+    addAsyncCases(builder, getAsset, { resetTo: null });
+    addAsyncCases(builder, createAsset, { resetTo: null });
     addAsyncCases(builder, createAssetBlockchain, { resetTo: null });
     addAsyncCases(builder, transferOwnerAsset, { resetTo: null });
-    // Optional: Add more thunks using `addAsyncCases` as needed
   },
 });
 

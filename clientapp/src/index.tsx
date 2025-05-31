@@ -14,6 +14,7 @@ import store from "./architecture/adapters/store";
 if (!PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
 }
+
 root.render(
   <ErrorBoundary fallback={fallBackComponent()}>
     <Provider store={store}>

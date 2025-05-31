@@ -4,7 +4,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./DropDown"
@@ -16,18 +15,19 @@ import {
   SheetHeader,
   SheetTitle,
 } from "./Sheet"
-import { Search, User, Settings, LogOut, Wallet } from "lucide-react"
+import { Search, User, LogOut, Wallet } from "lucide-react"
 import  {Button} from "./Button"
 import { Input } from "./Input"
 import { useNavigate, useParams } from "react-router-dom"
-import WalletConnect from "../WalletConnect"
 import { DropdownMenuByUseCase } from "../DropMenu"
+import { useWallet } from "../../views/hooks/useWallet"
 
 export default function AppBar({ showCaseText,onSearch,onAccountClick, OnMoreClick, isAuth , menuDetails, userDetails, showUserDetails,isLeftSideNeeded}:any) {
   const { onMore } = menuDetails
   if(isAuth && showUserDetails) {
     var {name  ,email } = userDetails 
   } 
+  const {account,balance} = useWallet()
   const {userId} = useParams()
   const navigate = useNavigate()
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
@@ -88,23 +88,16 @@ export default function AppBar({ showCaseText,onSearch,onAccountClick, OnMoreCli
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56" align="end" forceMount>
-              <DropdownMenuLabel className="font-normal">
-                <div className="flex flex-col space-y-1">
-                  <p className="text-sm font-medium leading-none">{name}</p>
-                  <p className="text-xs leading-none text-muted-foreground">{email}</p>
-                </div>
-              </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
                 <User className="mr-2 h-4 w-4" />
-                <span>Profile</span>
-              </DropdownMenuItem>
+                <span>{name}_{userId}</span>
+              </DropdownMenuItem> 
               <DropdownMenuItem>
-                <Settings className="mr-2 h-4 w-4" />
-                <span>Settings</span>
-              </DropdownMenuItem>
+                <Wallet className="mr-2 h-4 w-4" />
+                <span>{Number(balance)} ETH</span>
+              </DropdownMenuItem> 
               <DropdownMenuSeparator />
-              <WalletConnect/>
               <DropdownMenuItem>
                 <LogOut className="mr-2 h-4 w-4" />
                 <span>Log out</span>
