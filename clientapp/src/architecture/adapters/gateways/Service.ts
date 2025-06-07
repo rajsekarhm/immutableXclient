@@ -6,10 +6,10 @@ import TokenUseCase from "architecture/applications/usecases/TokenUseCase";
 import UserUseCase from "architecture/applications/usecases/UserUseCase";
 
 class Service implements IService{
-    assetUsecase!:AssetUseCase
-    userUsecase!:UserUseCase
-    tokenUsecase!:TokenUseCase
-    custodianUsecase!:CustodianUseCase
+    assetUsecase:AssetUseCase
+    userUsecase:UserUseCase
+    tokenUsecase:TokenUseCase
+    custodianUsecase:CustodianUseCase
     constructor(dependencies:IModel){
         this.tokenUsecase = new TokenUseCase(dependencies);
         this.assetUsecase = new AssetUseCase(dependencies);

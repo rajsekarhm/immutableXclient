@@ -7,7 +7,11 @@ import BASE_ENDPOINT_V1 from "../../../../server.config";
 import REQUEST_API from "../../../requests/api.config";
 
 class UserRepository implements IUserRepository {
-  entities!: UserEntity;
+  entities: UserEntity;
+
+  constructor(){
+    this.entities =  new UserEntity(UserEntity.defaultUser)
+  }
 
   async createUser(
     userDetails: UserEntity,

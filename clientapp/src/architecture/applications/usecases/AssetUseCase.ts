@@ -1,28 +1,34 @@
-import IUsecase from "./Interface/IUsecase";
+import AbstractUsecase from "./Interface/AbstractUsecase";
 
-class AssetUseCase extends IUsecase {
-  compensation(inputs: any) {
-    const { repository, presenter} =  this.depedencies
+class AssetUseCase extends AbstractUsecase {
+  compensation(inputs: any) { }
+
+  create(inputs: any): any {
+    const { assetRepository, presenter} =  this.depedencies
+    var outputModal = assetRepository.createAsset(inputs)
+    presenter.render(outputModal)
   }
 
-  create(input: any): any {
-    const { repository, presenter} =  this.depedencies
+  update(inputs: any): any {
+    // const { assetRepository, presenter} =  this.depedencies
+    // var outputModal = assetRepository.updateAsset(inputs)
+    // presenter.render(outputModal)
   }
 
-  update(input: any): any {
-    const { repository, presenter} =  this.depedencies
+  delete(inputs: any): any {
+    // const { assetRepository, presenter} =  this.depedencies
+    // var outputModal = assetRepository.deleteId(inputs)
+    // presenter.render(outputModal)
   }
 
-  delete(input: any): any {
-    const { repository, presenter} =  this.depedencies
-  }
-
-  get(input: any): any {
-    const { repository, presenter} =  this.depedencies
+  get(inputs: any): any {
+    const { assetRepository, presenter} =  this.depedencies
+    var outputModal = assetRepository.getAssetById(inputs)
+    presenter.render(outputModal)
   }
 
   execute(inputs: any) {
-    const { repository, presenter} =  this.depedencies
+    const { assetRepository, presenter} =  this.depedencies
   }
 }
 

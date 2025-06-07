@@ -12,15 +12,13 @@ import {
 } from "../../components/shadcn/HoverCard";
 import { InputBox } from "../../components/InputBox";
 import useAccount from "../hooks/useAccount";
-import { useDispatch, useSelector } from "react-redux";
-import { useWallet } from "../hooks/useWallet";
+import { useDispatch } from "react-redux";
 import { AppDispatch } from "architecture/adapters/store";
 import { transferOwnerAsset } from "../../../adapters/actions/AssetActions";
 import AppBar from "../../components/shadcn/AppBard";
 import AssetModal from "../../../domains/modals/AssetModal";
 
 function UserProfile() {
-  const { account } = useWallet();
   const [netValue,setnetvalue] =  useState<number>(0);
   const navigate = useNavigate();
   const { userId } = useParams();
@@ -241,8 +239,8 @@ function UserProfile() {
           </HoverCardContent>
         </HoverCard>
       </div>
-      <div>
-        <Label> Collections </Label>
+      <div className="flex flex-row flex-wrap gap-4 p-4">
+        <Label className="w-full"> Collections </Label>
         {fetchedAssetFromUser ? (
           <ShowCaseCard cardDetails={fetchedAssetFromUser} />
         ) : null}

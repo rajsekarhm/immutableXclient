@@ -27,9 +27,11 @@ interface ChainAssetResponse {
 
 class AssetRepository implements IAssetRepository {
   private contractManager: ContractETH;
+  private asset:AssetEntity
 
   constructor() {
     this.contractManager = new ContractETH("browser", window.ethereum);
+    this.asset = new AssetEntity(AssetEntity.defaultAsset)
   }
 
   /**

@@ -2,6 +2,10 @@ import CustodianEntity from "architecture/domains/entities/CustodianEntity";
 import ICustodianRepository from "../../domains/repository/ICustodianRepository";
 
 class CustodianRepository implements ICustodianRepository {
+    custodian:CustodianEntity
+    constructor(){
+        this.custodian = new CustodianEntity(CustodianEntity.defaultCustodian)
+    }
     createCustodian(custodian: CustodianEntity): void {
         throw new Error("Method not implemented.");
     }

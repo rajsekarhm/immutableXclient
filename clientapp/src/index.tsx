@@ -2,7 +2,7 @@ import React, { StrictMode } from "react";
 import App from "./architecture/App";
 import { Provider } from "react-redux";
 import { ErrorBoundary } from "react-error-boundary";
-import { fallBackComponent } from "./architecture/frameworks/presenter/FallBack";
+import { fallBackComponent } from "./architecture/frameworks/views/FallBack";
 import { createRoot } from "react-dom/client";
 const container: HTMLElement | any = document.getElementById("root");
 import VITE_CLERK_PUBLISHABLE_KEY from "../clerk.env";
@@ -14,6 +14,7 @@ import store from "./architecture/adapters/store";
 if (!PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
 }
+
 root.render(
   <ErrorBoundary fallback={fallBackComponent()}>
     <Provider store={store}>

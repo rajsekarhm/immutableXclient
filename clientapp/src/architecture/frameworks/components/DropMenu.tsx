@@ -1,14 +1,4 @@
-import {
-  Cloud,
-  CreditCard,
-  LogOut,
-  Mail,
-  MessageSquare,
-  PlusCircle,
-  UserPlus,
-} from "lucide-react";
-
-import { Button } from "./shadcn/Button";
+import React from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,7 +12,6 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "./shadcn/DropDown";
-import { Label } from "@radix-ui/react-label";
 
 type dropDown = {
   title: string;
@@ -30,51 +19,62 @@ type dropDown = {
   dropDownText?: any;
 };
 
-export function DropdownMenuByUseCase({ dropDownDetails }: {dropDownDetails:dropDown}) {
-  const { title, details, dropDownText } = dropDownDetails
-  function createDropBox(details: any[]) {
-    return details.map((card) => {
-      const { element, text, itHasSubtab, subTab, onClick } = card;
-      return (
-        <>
-          {itHasSubtab ? (
-            <div key={text} >
-              <DropdownMenuSub >
-                <DropdownMenuSubTrigger>
-                  {element ? element : null}
-                  <span>{text}</span>
-                </DropdownMenuSubTrigger>
-                <DropdownMenuPortal>
-                  <DropdownMenuSubContent>
-                    {createDropBox(subTab)}
-                  </DropdownMenuSubContent>
-                </DropdownMenuPortal>
-                ;
-              </DropdownMenuSub>
-            </div>
-          ) : (
-            <>
-              {" "}
-              <DropdownMenuGroup>
-                <DropdownMenuItem onClick={onClick}>
-                  {element ? element : null}
-                  <span>{text}</span>
-                </DropdownMenuItem>
-              </DropdownMenuGroup>
-              <DropdownMenuSeparator />{" "}
-            </>
-          )}
-        </>
-      );
+export function DropdownMenuByUseCase({
+  dropDownDetails,
+}: {
+  dropDownDetails: dropDown;
+}) {
+  const { title, details, dropDownText } = dropDownDetails;
+
+  function createDropBox(details: any[], parentKey = "") {
+    return details.map((card, index) => {
+      const { key: cardKey, element, text, itHasSubtab, subTab, onClick } = card;
+      const key = cardKey || `${parentKey}-${text || index}`;
+
+      if (itHasSubtab) {
+        return (
+          <div key={key}>
+            <DropdownMenuSub>
+              <DropdownMenuSubTrigger>
+                {element || null}
+                <span>{text}</span>
+              </DropdownMenuSubTrigger>
+              <DropdownMenuPortal>
+                <DropdownMenuSubContent>
+                  {createDropBox(subTab, key)}
+                </DropdownMenuSubContent>
+              </DropdownMenuPortal>
+            </DropdownMenuSub>
+          </div>
+        );
+      } else {
+        return (
+          <React.Fragment key={key}>
+            <DropdownMenuGroup>
+              <DropdownMenuItem onClick={onClick}>
+                {element || null}
+                <span>{text}</span>
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
+            <DropdownMenuSeparator />
+          </React.Fragment>
+        );
+      }
     });
   }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-      <a onClick={() =>{}} className="transition-colors hover:text-foreground/80">{dropDownText}</a>
+        <a
+          onClick={() => {}}
+          className="transition-colors hover:text-foreground/80"
+        >
+          {dropDownText}
+        </a>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel >{title}</DropdownMenuLabel>
+        <DropdownMenuLabel>{title}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {createDropBox(details)}
       </DropdownMenuContent>

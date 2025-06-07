@@ -10,6 +10,10 @@ import requestAPI from "../../../requests/core/request";
 import BASE_ENDPOINT_V1 from "../../../../server.config";
 
 class TokenRepository implements ITokenRepository{
+   token:TokenEntity
+   constructor(){
+    this.token = new TokenEntity(TokenEntity.defaultToken)
+   }
 
     async createToken(token: TokenModal | TokenEntity | any, errorHandler?: any):Promise<any> {
       try{

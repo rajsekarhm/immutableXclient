@@ -1,24 +1,31 @@
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../../../adapters/actions/UserActions";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 function useAccount() {
   const { userId } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch<any>();
+  const calledRef = useRef(false);
+
   const userDetails = useSelector((state: any) => state.user.user);
-  const { user, assets = [], tokens = []} = userDetails
+  const { user, assets = [], tokens = [] } = userDetails;
+
   useEffect(() => {
-    if(!userId || userId == 'undefined'){
+    if (!userId || userId === 'undefined') {
       navigate("/sign-in/users");
+      return;
     }
 
-    if (!user || user.userId !== userId) {
+    if (!calledRef.current && (!user || user.userId !== userId)) {
+      calledRef.current = true;
       dispatch(getUser(userId));
     }
-  }, [userId, dispatch]);
-  const { firstName, lastName, email, phoneNumber, assetIds, tokenIds } = user || {}
+  }, [userId, dispatch, user, navigate]);
+
+  const { firstName, lastName, email, phoneNumber, assetIds, tokenIds } = user || {};
+
   return {
     firstName,
     lastName,
@@ -27,7 +34,7 @@ function useAccount() {
     userId,
     assetIds,
     tokenIds,
-    assets ,
+    assets,
     tokens
   };
 }

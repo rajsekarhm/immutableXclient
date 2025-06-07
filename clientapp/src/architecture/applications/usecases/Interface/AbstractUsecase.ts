@@ -1,6 +1,6 @@
 import IModel from "architecture/applications/interface/input/IModel"
 
- abstract class IUsecase {
+ abstract class AbstractUsecase {
      constructor(protected depedencies:IModel){
           this.compensation = this.compensation.bind(this)
           this.execute = this.execute.bind(this)
@@ -9,4 +9,4 @@ import IModel from "architecture/applications/interface/input/IModel"
      abstract compensation(inputs: any):any
 }
 
-export default IUsecase
+export default AbstractUsecase
