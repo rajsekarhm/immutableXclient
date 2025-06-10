@@ -22,6 +22,7 @@ function TokenCreation() {
     tokenName: "",
     tokenId:""
   });
+
   const handleChange = (event: any) => {
     event.preventDefault();
     const { name, value } = event.target;
@@ -34,8 +35,14 @@ function TokenCreation() {
     event.preventDefault();
     const { symbol, tokenName, numberOfTokens, tokenId } = token;
     if (symbol && tokenName && numberOfTokens) {
-      dispatch(createTokenBlockchain(token))
-      dispatch(addToken({userId:userId,tokenId:tokenId}))
+      try{
+        dispatch(createTokenBlockchain(token))
+        dispatch(addToken({userId:userId,tokenId:tokenId}))
+      } catch(err){
+        toast(`Token is Not Minted`, {
+          description: "Give proper Details to mint token",
+        });
+      }
     }else {
       toast(`Token is Not Minted`, {
         description: "Give proper Details to mint token",

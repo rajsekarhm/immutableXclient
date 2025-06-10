@@ -1,10 +1,8 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ProfileCard from "../../components/ProfileCard";
 import TabsSwitch from "../../components/TabSwitch";
-import { useEffect, useState } from "react";
 import { Toaster } from "../../components/shadcn/BottomBanner";
 import { toast } from "sonner";
-import { Skeleton } from "../../components/shadcn/Skeleton";
 import useAccount from "../hooks/useAccount";
 import { useDispatch, useSelector } from "react-redux";
 import { createAsset, createAssetBlockchain } from "../../../adapters/actions/AssetActions";
@@ -12,10 +10,10 @@ import AssetModal from "../../../domains/modals/AssetModal";
 import { addAsset } from "../../../adapters/actions/UserActions";
 import { CreditCard, LogOut} from "lucide-react"
 import AppBar from "../../components/shadcn/AppBard";
+import { useState } from "react";
 function AssetCreation() {
   const { firstName, lastName, email, userId, phoneNumber } = useAccount();
   const dispatch = useDispatch<any>();
-  const [onLoading, setLoading] = useState(false);
   const [newDigitalizeAsset, setDigitalizeAsset] = useState<AssetModal>({
     assetId: "",
     symbol: "",

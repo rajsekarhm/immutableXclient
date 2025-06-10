@@ -84,7 +84,6 @@ function CardComponent({
           )
         ))}
       </CardContent>
-
       {isInputNeed && (
         <CardFooter className="flex flex-col gap-2">
           <Button 
