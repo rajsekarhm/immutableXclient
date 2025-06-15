@@ -1,9 +1,9 @@
 
 
-import AssetRepository from "architecture/applications/infrastructure/AssetRepository"
-import TokenRepository from "architecture/applications/infrastructure/TokenRepository"
-import CustodianRepository from "architecture/applications/infrastructure/CustodianRepository"
-import UserRepository from "architecture/applications/infrastructure/UserRepository"
+import AssetRepository from "../../applications/infrastructure/AssetRepository"
+import TokenRepository from "../../applications/infrastructure/TokenRepository"
+import CustodianRepository from "../../applications/infrastructure/CustodianRepository"
+import UserRepository from "../../applications/infrastructure/UserRepository"
 
 
 

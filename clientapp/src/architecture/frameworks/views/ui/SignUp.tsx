@@ -11,7 +11,7 @@ import { useSignUp } from "@clerk/clerk-react";
 import { Mail } from "lucide-react";
 
 const SigUpFormPage = ({ portal }: { portal: string }) => {
-  const { isLoaded, signUp } = useSignUp();
+  // const { isLoaded, signUp } = useSignUp();
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const [verficationCode, setVerficationCode] = useState("");
@@ -33,17 +33,14 @@ const SigUpFormPage = ({ portal }: { portal: string }) => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
-      if (user.email && user.phoneNumber) {
-        await signUp?.create({ emailAddress: user.email });
-        await signUp?.create({ phoneNumber: user.phoneNumber });
-      }
-
-      if (isLoaded) {
+      if (user?.email && user?.phoneNumber) {
         dispatch(createUser(user));
-        navigate(`/portfolio/${user.governmentID}`);
+        navigate(`marketplace/${user.governmentID}`)
+        // await signUp?.create({ emailAddress: user.email });
+        // await signUp?.create({ phoneNumber: user.phoneNumber });
       }
     } catch (error) {
-      console.error("Sign-up failed:", error);
+      console.log("Sign-up failed:", error);
     }
   };
 

@@ -56,14 +56,11 @@ function UserProfile() {
   }
 
   function calculateNetvalue(){
-    let netvalue = 0;
-    assets.map((asset: any) => {
-      netvalue += asset.value;
-    });
-    setnetvalue(netvalue);
+    const total = assets.reduce((acc:any, asset:any) => acc + (asset.value || 0), 0);
+    setnetvalue(total);
   }
 
-  const fetchedTokenFromUser = tokens.length
+  const fetchedTokenFromUser =  Array.isArray(tokens) && tokens.length
     ? tokens.map((token: any) => {
         return {
           card_details: {
@@ -78,7 +75,7 @@ function UserProfile() {
       })
     : null;
 
-  const fetchedAssetFromUser = assets?.length
+  const fetchedAssetFromUser =  Array.isArray(assets) && assets.length
     ? assets.map((asset: any) => {
         return {
           card_details: {
@@ -107,7 +104,6 @@ function UserProfile() {
     onAccountClick: () => {},
     OnMoreClick: () => {},
   };
-
   const dropDown = {
     dropDownText: "Home",
     title: "Account",
@@ -244,7 +240,7 @@ function UserProfile() {
         {fetchedAssetFromUser ? (
           <ShowCaseCard cardDetails={fetchedAssetFromUser} />
         ) : null}
-        {fetchedAssetFromUser ? (
+        {fetchedTokenFromUser ? (
           <ShowCaseCard cardDetails={fetchedTokenFromUser} />
         ) : null}
       </div>

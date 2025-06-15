@@ -1,9 +1,9 @@
-import IModel from "architecture/applications/interface/input/IModel";
-import IService from "architecture/applications/interface/services/IService";
-import AssetUseCase from "architecture/applications/usecases/AssetUseCase";
-import CustodianUseCase from "architecture/applications/usecases/CustodianUseCase";
-import TokenUseCase from "architecture/applications/usecases/TokenUseCase";
-import UserUseCase from "architecture/applications/usecases/UserUseCase";
+import IModel from "../../applications/interface/input/IModel";
+import IService from "../../applications/interface/services/IService";
+import AssetUseCase from "../../applications/usecases/AssetUseCase";
+import CustodianUseCase from "../../applications/usecases/CustodianUseCase";
+import TokenUseCase from "../../applications/usecases/TokenUseCase";
+import UserUseCase from "../../applications/usecases/UserUseCase";
 
 class Service implements IService{
     assetUsecase:AssetUseCase

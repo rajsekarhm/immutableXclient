@@ -4,7 +4,8 @@ class UserUseCase extends AbstractUsecase {
 
   create(input: any): any {
     const { userRepository, presenter } =  this.depedencies
-    userRepository.createUser(input,(error:string) => {  throw new Error(error)})
+    console.log("input",input)
+    // userRepository.createUser(input,(error:string) => {  throw new Error(error)})
   }
 
   update(input: any): any {
