@@ -13,3 +13,4 @@ class UserFactory {
 }
 
 export default UserFactory
+

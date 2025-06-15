@@ -35,12 +35,20 @@ function AssetCreation() {
     event.preventDefault();
     newDigitalizeAsset["associatedUser"] = userId;
     const { symbol, assetAddress, value, assetId, assetURI } = newDigitalizeAsset;
-    dispatch(createAssetBlockchain(newDigitalizeAsset))
-    dispatch(createAsset(newDigitalizeAsset));
-    dispatch(addAsset({ assetId: assetId, userId: userId }));
-    toast(`Asset ${symbol} Have Been Minted`, {
-      description: "check in chain Explorer",
-    });
+    // dispatch(createAssetBlockchain(newDigitalizeAsset))
+    try{
+      dispatch(createAsset(newDigitalizeAsset));
+      dispatch(addAsset({ assetId: assetId, userId: userId }));
+      toast(`Asset ${symbol} Have Been Minted`, {
+        description: "Check in chain Explorer",
+      });
+      window.location.reload()
+    }catch(err){
+      toast(`Asset ${symbol} was Not Minted`, {
+        description: "Issue related to asset details or blockchain",
+      }); 
+    }
+
     window.location.href
   }
 
@@ -109,9 +117,24 @@ function AssetCreation() {
 
   return (
     <>
-    <div className="absolute top-5 left-15" >
-    <AppBar isAuth={false} showUserDetails={false} menuDetails={dropDown} isLeftSideNeeded={false} showCaseText="" />
-    </div>
+      {/* Centered AppBar */}
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          marginTop: "20px",
+          marginBottom: "20px",
+        }}
+      >
+        <AppBar
+          isAuth={false}
+          showUserDetails={false}
+          menuDetails={dropDown}
+          isLeftSideNeeded={false}
+          showCaseText=""
+        />
+      </div>
     <div
       style={{
         background: "white",

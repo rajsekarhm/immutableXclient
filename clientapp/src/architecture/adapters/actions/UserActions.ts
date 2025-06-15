@@ -5,7 +5,7 @@ import UserRepository from "../../applications/infrastructure/UserRepository";
 export const createUser = createAsyncThunk<any, any>(
   "user/createUser",
    (userDetails,{ rejectWithValue }) => {
-    return UserRepository.createUser(userDetails,{rejectWithValue})
+    return UserRepository.createUser(userDetails,rejectWithValue)
   }
 );
 

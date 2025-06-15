@@ -2,8 +2,6 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "paths": {
-      "@domains/*": ["domains/*"],
-      "@applications/*": ["applications/*"]
     },
     "target": "esnext",
     "module": "esnext",

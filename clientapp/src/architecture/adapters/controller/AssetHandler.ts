@@ -1,8 +1,10 @@
-import IHandler from "./interface/IHandler";
+import Handler from "./interface/Handler";
 import IService from "../../applications/interface/services/IService";
 
-class AssetHandler implements IHandler {
-  constructor(private service:IService) {}
+class AssetHandler extends Handler {
+  handler(request: any) {
+    throw new Error("Method not implemented.");
+  }
 
   create(request: any) {
     const { assetUsecase } =  this.service

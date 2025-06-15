@@ -11,8 +11,6 @@ class UserEntity implements IEntities {
     };
   }
 
-  
-
   getFirstName(): string {
     return this.User.firstName;
   }
@@ -80,6 +78,8 @@ class UserEntity implements IEntities {
       isAuthForBuyAndSell: null,
       assetHolding: null,
       securityId: null,
+      assetIds:[],
+      tokenIds:[]
     };
     return this.defaultUser;
   }
