@@ -37,7 +37,7 @@ class UserRepository implements IUserRepository {
     const { rejectWithValue } = errorHandler;
     const { assetId, userId } = Ids;
     try {
-      return await requestAPI(`${BASE_ENDPOINT_V1}${REQUEST_API.ASSET.ADD_ASSET}?governmentId=${userId}`, 'PUT', { assetId }, 'application/json');
+      return await requestAPI(`${BASE_ENDPOINT_V1}${REQUEST_API.ASSET.ADD_ASSET}${userId}`, 'PUT', { assetId }, 'application/json');
     } catch (error) {
       return rejectWithValue(error);
     }
@@ -47,7 +47,7 @@ class UserRepository implements IUserRepository {
     const { userId, tokenId } = addTokenDetails;
     try {
       // makeRequest(`${API_BASE_URL}/user/addToken?governmentId=6382`, 'PUT', { tokenId: "69" }, "application/json");
-      return await requestAPI(`${BASE_ENDPOINT_V1}${REQUEST_API.USER.ADD_TOKEN}?government=${userId}`, 'PUT', { tokenId }, 'application/json');
+      return await requestAPI(`${BASE_ENDPOINT_V1}${REQUEST_API.USER.ADD_TOKEN}${userId}`, 'PUT', { tokenId }, 'application/json');
     } catch (error) {
       return rejectWithValue(error);
     }
@@ -56,7 +56,7 @@ class UserRepository implements IUserRepository {
   async removeAssetUser(removeAssetIds: any, errorHandler: any): Promise<any> {
     try {
       //  makeRequest(`${API_BASE_URL}/user/removeAsset?governmentId=6382`, 'PUT', { assetId: "110" }, "application/json");
-      return await requestAPI(`${BASE_ENDPOINT_V1}${REQUEST_API.ASSET.REMOVE_ASSET}?governmentId=${removeAssetIds.userId}`, 'PUT', { assetId: removeAssetIds.assetId }, 'application/json');
+      return await requestAPI(`${BASE_ENDPOINT_V1}${REQUEST_API.ASSET.REMOVE_ASSET}${removeAssetIds.userId}`, 'PUT', { assetId: removeAssetIds.assetId }, 'application/json');
     } catch (error) {
       return;
     }
@@ -65,7 +65,7 @@ class UserRepository implements IUserRepository {
 async changeAssociateUser(userId: any, errorHandler: any): Promise<any> {
   try{
     //  makeRequest(`${API_BASE_URL}/asset/changeAssociateUser?assetId=17710`, 'PUT', { userId: "9090" },"application/json");
-    return await requestAPI(`${BASE_ENDPOINT_V1}${REQUEST_API.ASSET.CHANGE_ASSOCIATE_USER}?assetId=${userId.assetId}`, 'PUT', { userId: userId.userId }, 'application/json');
+    return await requestAPI(`${BASE_ENDPOINT_V1}${REQUEST_API.ASSET.CHANGE_ASSOCIATE_USER}${userId.assetId}`, 'PUT', { userId: userId.userId }, 'application/json');
   }catch(err){
 
   }

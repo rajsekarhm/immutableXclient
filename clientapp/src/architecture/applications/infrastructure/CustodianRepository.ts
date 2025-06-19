@@ -1,4 +1,4 @@
-import CustodianEntity from "architecture/domains/entities/CustodianEntity";
+import CustodianEntity from "../../domains/entities/CustodianEntity";
 import ICustodianRepository from "../../domains/repository/ICustodianRepository";
 
 class CustodianRepository implements ICustodianRepository {

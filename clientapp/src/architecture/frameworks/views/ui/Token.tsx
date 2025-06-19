@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Form from "../../components/Form";
 import ProfileCard from "../../components/ProfileCard";
@@ -8,13 +8,18 @@ import { Toaster } from "../../components/shadcn/BottomBanner";
 import useAccount from "../hooks/useAccount";
 import TokenModal from '../../../domains/modals/TokenModal';
 import { useDispatch } from "react-redux";
-import { createTokenBlockchain}  from '../../../adapters/actions/TokenActions'
+import { createTokenBlockchain, createToken }  from '../../../adapters/actions/TokenActions'
 import { addToken }  from '../../../adapters/actions/UserActions'
 import AppBar from "../../components/shadcn/AppBard";
 function TokenCreation() {
   const navigate = useNavigate();
   const dispatch = useDispatch<any>();
   const {firstName,lastName,email,phoneNumber,userId} = useAccount()
+
+  const accountDetails = useMemo(() => {
+    return { firstName, lastName, email, phoneNumber, userId }
+  }, [firstName, lastName, email, phoneNumber, userId])
+  
   const [token, setToken] = useState<TokenModal>({
     walletAddress: "",
     numberOfTokens: "",
@@ -23,21 +28,36 @@ function TokenCreation() {
     tokenId:""
   });
 
+  useEffect(() => {
+    if (accountDetails.userId) {
+      console.log("User changed:", accountDetails)
+    }
+  }, [accountDetails])
+
   const handleChange = (event: any) => {
     event.preventDefault();
+    console.log({token })
     const { name, value } = event.target;
     setToken({ ...token, [name]: value });
   };
 
-  const handleClick = (event: any) => {};
+  const handleClick = (event: any) => {
+    console.log(event)
+  };
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     const { symbol, tokenName, numberOfTokens, tokenId } = token;
     if (symbol && tokenName && numberOfTokens) {
       try{
-        dispatch(createTokenBlockchain(token))
+        console.log(token)
+        // dispatch(createTokenBlockchain(token))
+        dispatch(createToken(token))
         dispatch(addToken({userId:userId,tokenId:tokenId}))
+        toast(`Token ${symbol} Have Been Minted`, {
+          description: "Check in chain Explorer",
+        });
+        window.location.reload()
       } catch(err){
         toast(`Token is Not Minted`, {
           description: "Give proper Details to mint token",
@@ -133,41 +153,64 @@ function TokenCreation() {
   };
 
   return (
-    <>
-    <div className="absolute top-5 left-15" >
-    <AppBar isAuth={false} showUserDetails={false} menuDetails={dropDown} isLeftSideNeeded={false} showCaseText="" />
-    </div>
     <div
       style={{
         background: "white",
-        height: "150vh",
-        msOverflowY: "hidden",
+        height: "100vh",
+        overflow: "hidden",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        padding: "20px",
       }}
     >
-      <div style={{ width: "300px", position: "absolute", top: 0, right: 0 }}>
-        <ProfileCard
-          name={firstName + lastName}
-          mail={email}
-          address={"india"}
-          phone={phoneNumber}
-        />
-      </div>
-
+      {/* Centered AppBar */}
       <div
         style={{
-          position: "relative",
           width: "100%",
-          maxWidth: "900px",
           display: "flex",
-          justifyContent: "space-between",
-          alignItems: "flex-start",
+          justifyContent: "center",
           marginTop: "20px",
+          marginBottom: "20px",
         }}
       >
+        <AppBar
+          isAuth={false}
+          showUserDetails={false}
+          menuDetails={dropDown}
+          isLeftSideNeeded={false}
+          showCaseText=""
+        />
+      </div>
+  
+      {/* Main content container centered */}
+      <div
+        style={{
+          flex: 1,
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          position: "relative",
+        }}
+      >
+        {/* Profile Card on right side */}
+        <div
+          style={{
+            position: "absolute",
+            top: "30px",
+            right: "30px",
+            width: "300px",
+          }}
+        >
+          <ProfileCard
+            name={firstName + lastName}
+            mail={email}
+            address={"India"}
+            phone={phoneNumber}
+          />
+        </div>
+  
+        {/* Centered Form Card */}
         <section
           style={{
             width: "400px",
@@ -176,7 +219,6 @@ function TokenCreation() {
             boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
             borderRadius: "8px",
             textAlign: "center",
-            marginTop: "50px",
           }}
         >
           <h2>Tokenization Asset</h2>
@@ -188,10 +230,11 @@ function TokenCreation() {
           />
         </section>
       </div>
+  
       <Toaster />
     </div>
-    </>
   );
+  
 }
 
 export default TokenCreation;
