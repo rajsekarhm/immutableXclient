@@ -28,12 +28,6 @@ function TokenCreation() {
     tokenId:""
   });
 
-  useEffect(() => {
-    if (accountDetails.userId) {
-      console.log("User changed:", accountDetails)
-    }
-  }, [accountDetails])
-
   const handleChange = (event: any) => {
     event.preventDefault();
     console.log({token })
@@ -50,7 +44,6 @@ function TokenCreation() {
     const { symbol, tokenName, numberOfTokens, tokenId } = token;
     if (symbol && tokenName && numberOfTokens) {
       try{
-        console.log(token)
         // dispatch(createTokenBlockchain(token))
         dispatch(createToken(token))
         dispatch(addToken({userId:userId,tokenId:tokenId}))
