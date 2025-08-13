@@ -6,7 +6,7 @@ import ErrorPage from "./frameworks/views/ErrorPage";
 import MarketPlace from "./frameworks/views/ui/MarketPlace";
 import SignInPage from "./frameworks/views/ui/SignIn";
 import CustodianProfiles from "./frameworks/views/ui/CustodianProfiles";
-import Builder from "./frameworks/views/Builder";
+import Builder from "../platform/builder/Builder";
 import AssetCreation from "./frameworks/views/ui/Asset";
 import TokenCreation from "./frameworks/views/ui/Token";
 import ExternalSignIn from "./frameworks/views/ui/ExternalSignIn";

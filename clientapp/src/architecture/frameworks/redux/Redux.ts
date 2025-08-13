@@ -10,4 +10,5 @@ class Redux implements IExternalAPI {
 }
 
 const  ActionCreater = new  Redux()
+
 export default  ActionCreater;

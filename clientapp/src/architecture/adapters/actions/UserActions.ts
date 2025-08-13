@@ -51,7 +51,14 @@ const userSlice = createSlice({
     builder.addCase(getUser.fulfilled, (state: any, action: any) => {
       state.status = "succeeded";
       state.loading = false;
-      state.user = action.payload.data;
+      const userData = action.payload?.data ?? null;
+      if (!userData.user) {
+        state.user = null;
+        state.error = "NOT_FOUND"; 
+      } else {
+        state.user = userData;
+        state.error = null;
+      }
     });
     builder.addCase(getUser.rejected, (state: any) => {
       state.status = "failed";

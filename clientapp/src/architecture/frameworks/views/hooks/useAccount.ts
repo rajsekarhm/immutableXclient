@@ -8,13 +8,23 @@ function useAccount() {
   const navigate = useNavigate();
   const dispatch = useDispatch<any>();
   const calledRef = useRef(false);
-
-  const userDetails = useSelector((state: any) => state.user.user);
+  const userDetails = useSelector((state: any) => state?.user?.user) || {};
   const { user, assets = [], tokens = [] } = userDetails;
 
+  const loading = useSelector((state: any) => state.user.loading);
+  const error = useSelector((state: any) => state.user.error);
+  if(error == 'NOT_FOUND'){ // workarount to fix this asap 
+
+    /**
+     * Warning: Cannot update a component (`RouterProvider`) while rendering a different component (`UserProfile`). To locate the bad setState() call inside `UserProfile`, follow the stack trace as described in https://reactjs.org/link/setstate-in-render Error Component Stack
+     */
+    navigate("/sign-up/users");
+  }
+  
   useEffect(() => {
-    if (!userId || userId === 'undefined') {
-      navigate("/sign-in/users");
+
+    if (!userId || userId === "undefined") {
+      navigate("/sign-up/users");
       return;
     }
 
@@ -24,7 +34,8 @@ function useAccount() {
     }
   }, [userId, dispatch, user, navigate]);
 
-  const { firstName, lastName, email, phoneNumber, assetIds, tokenIds } = user || {};
+  const { firstName, lastName, email, phoneNumber, assetIds, tokenIds } =
+    user || {};
 
   return {
     firstName,
@@ -35,7 +46,7 @@ function useAccount() {
     assetIds,
     tokenIds,
     assets,
-    tokens
+    tokens,
   };
 }
 
