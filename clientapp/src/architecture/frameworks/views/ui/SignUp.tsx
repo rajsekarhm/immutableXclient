@@ -7,14 +7,12 @@ import UserEntity from "../../../domains/entities/UserEntity";
 import CustodianEntity from "../../../domains/entities/CustodianEntity";
 import { createUser } from "../../../adapters/actions/UserActions";
 import { AppDispatch } from "../../../adapters/store";
-import { useSignUp } from "@clerk/clerk-react";
-import { Mail } from "lucide-react";
+import "../css/SignUp.css";
 
-const SigUpFormPage = ({ portal }: { portal: string }) => {
-  // const { isLoaded, signUp } = useSignUp();
+const SignUpFormPage = ({ portal }: { portal: string }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  const [verficationCode, setVerficationCode] = useState("");
+  const [verificationCode, setVerificationCode] = useState("");
   const [validate, setValidate] = useState(false);
   const [isCustodian, setIsCustodian] = useState(portal === "custodian");
 
@@ -35,147 +33,130 @@ const SigUpFormPage = ({ portal }: { portal: string }) => {
     try {
       if (user?.email && user?.phoneNumber) {
         dispatch(createUser(user));
-        navigate(`marketplace/${user.governmentID}`)
-        // await signUp?.create({ emailAddress: user.email });
-        // await signUp?.create({ phoneNumber: user.phoneNumber });
+        navigate(`marketplace/${user.governmentID}`);
       }
     } catch (error) {
-      console.log("Sign-up failed:", error);
+      console.error("Error creating user:", error);
     }
   };
 
   return (
-    <div className="bg-white min-h-screen flex flex-col justify-center items-center px-4">
-      <h2 className="text-3xl font-bold text-gray-900 mb-6">
-        Sign up to Create Account
-      </h2>
-
-      <form
-        className="w-full max-w-md bg-white p-6 rounded-lg shadow-md space-y-4"
-        onSubmit={handleSubmit}
-      >
-        <InputBox
-          componentInfo={{
-            description: "Enter first name",
-            type: "text",
-            name: "firstName",
-            maxlength: 10,
-            className: "",
-          }}
-          handleInput={handleInput}
-        />
-        <InputBox
-          componentInfo={{
-            description: "Enter last name",
-            type: "text",
-            name: "lastName",
-            maxlength: 10,
-            className: "",
-          }}
-          handleInput={handleInput}
-        />
-        <InputBox
-          componentInfo={{
-            description: "Enter password",
-            type: "password",
-            name: "password",
-            maxlength: 20,
-            className: "",
-          }}
-          handleInput={handleInput}
-        />
-        <InputBox
-          componentInfo={{
-            description: "Enter email",
-            type: "text",
-            name: "email",
-            maxlength: 40,
-            className: "",
-          }}
-          handleInput={handleInput}
-        />
-        <InputBox
-          componentInfo={{
-            description: "Enter phone number",
-            type: "text",
-            name: "phoneNumber",
-            maxlength: 10,
-            className: "",
-          }}
-          handleInput={handleInput}
-        />
-        <InputBox
-          componentInfo={{
-            description: "Enter government ID",
-            type: "text",
-            name: "governmentID",
-            maxlength: 10,
-            className: "",
-          }}
-          handleInput={handleInput}
-        />
-
-        {isCustodian && (
-          <>
-            <InputBox
-              componentInfo={{
-                description: "Enter org ID",
-                type: "text",
-                name: "orgId",
-                maxlength: 10,
-                className: "",
-              }}
-              handleInput={handleInput}
-            />
-            <InputBox
-              componentInfo={{
-                description: "Enter security ID",
-                type: "text",
-                name: "securityId",
-                maxlength: 10,
-                className: "",
-              }}
-              handleInput={handleInput}
-            />
-          </>
-        )}
-
-        <div className="flex items-center space-x-2">
-          <input
-            type="checkbox"
-            id="terms"
-            checked={validate}
-            onChange={() => setValidate((prev) => !prev)}
-            className="h-4 w-4"
+    <div className="signup-container">
+      <div className="signup-card">
+        <h2 className="signup-header">Sign Up for an Account</h2>
+        <form onSubmit={handleSubmit} className="signup-form">
+          <InputBox
+            componentInfo={{
+              defaultValue: undefined,
+              className: "name_class",
+              type: "text",
+              name: "firstName",
+              description: "Enter your Name",
+              pattern: "",
+              maxlength: 50,
+            }}
+            handleInput={handleInput}
           />
-          <label htmlFor="terms" className="text-sm text-gray-700">
-            I accept the terms & conditions
-          </label>
-        </div>
+          <InputBox
+            componentInfo={{
+              defaultValue: undefined,
+              className: "email_class",
+              type: "email",
+              name: "email",
+              description: "Enter your email",
+              pattern: "",
+              maxlength: 50,
+            }}
+            handleInput={handleInput}
+          />
+          <InputBox
+            componentInfo={{
+              defaultValue: undefined,
+              className: "phone_class",
+              type: "text",
+              name: "phoneNumber",
+              description: "Enter your phone number",
+              pattern: "",
+              maxlength: 15,
+            }}
+            handleInput={handleInput}
+          />
+          <InputBox
+            componentInfo={{
+              defaultValue: undefined,
+              className: "security_class",
+              type: "text",
+              name: "governmentID",
+              description: "Enter your Security ID",
+              pattern: "",
+              maxlength: 15,
+            }}
+            handleInput={handleInput}
+          />
+          <InputBox
+            componentInfo={{
+              defaultValue: undefined,
+              className: "password_class",
+              type: "password",
+              name: "password",
+              description: "Enter your Password",
+              pattern: "",
+              maxlength: 15,
+            }}
+            handleInput={handleInput}
+          />
+          {isCustodian && (
+            <InputBox
+              componentInfo={{
+                defaultValue: undefined,
+                className: "orgId_class",
+                type: "text",
+                name: "organizationID",
+                description: "Enter your Organization ID",
+                pattern: "",
+                maxlength: 50,
+              }}
+              handleInput={handleInput}
+            />
+          )}
 
-        <Button
-          description="Submit to Create"
-          onclickEvent={handleSubmit}
-          isDisabled={!validate}
-        />
+          <div className="signup-terms">
+            <input
+              type="checkbox"
+              id="terms"
+              checked={validate}
+              onChange={() => setValidate((prev) => !prev)}
+              className="signup-checkbox"
+            />
+            <label htmlFor="terms" className="signup-label">
+              I accept the terms & conditions
+            </label>
+          </div>
 
-        <Button
-          description= "Login with Email"
-          onclickEvent={() => console.log("Email login")}
-        />
+          <Button
+            description="Submit to Create"
+            onclickEvent={handleSubmit}
+            isDisabled={!validate}
+          />
 
-        <div className="pt-4 text-sm text-gray-600 text-center">
-          Already have an account?{" "}
-          <a
-            className="text-blue-600 hover:underline cursor-pointer"
-            onClick={() => navigate("/sign-in/users")}
-          >
-            Login here
-          </a>
-        </div>
-      </form>
+          <Button
+            description="Login with Email"
+            onclickEvent={() => console.log("Email login")}
+          />
+
+          <div className="signup-footer">
+            Already have an account?{" "}
+            <a
+              className="signup-link"
+              onClick={() => navigate("/sign-in/users")}
+            >
+              Login here
+            </a>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
 
-export default SigUpFormPage;
+export default SignUpFormPage;

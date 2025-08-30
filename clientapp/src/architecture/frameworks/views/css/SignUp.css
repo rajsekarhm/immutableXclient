@@ -1,0 +1,41 @@
+.signup-container {
+    background: black; /* Black background */
+    color: white; /* White text */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .signup-card {
+    background: black; /* Black card */
+    color: black; /* White text inside the card */
+    width: 100%;
+    max-width: 320px; /* Constant width */
+    padding: 12px; /* Reduced padding to decrease height */
+    border-radius: 8px;
+    border: 1px solid white; /* White border */
+    box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1); /* Subtle white shadow */
+  }
+  
+  .signup-header {
+    font-size: 1.25rem; /* Slightly smaller font size */
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 16px; /* Reduced margin */
+    color: white; /* Ensure header text is white */
+  }
+  
+  .signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px; /* Reduced gap between form fields */
+  }
+  
+  .signup-terms {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+  }

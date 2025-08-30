@@ -1,0 +1,42 @@
+.token-container {
+    background: black; /* Black background */
+    color: white; /* White text */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .token-content {
+    background: black; /* Black content area */
+    color: white; /* White text inside the content */
+    width: 100%;
+    max-width: 400px; /* Limit the width of the content */
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid white; /* White border */
+    box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1); /* Subtle white shadow */
+    text-align: center;
+    margin-top: 20px; /* Add space below PrimarySearchAppBar */
+  }
+  
+  .token-card {
+    background: black; /* Black card */
+    color: black; /* White text inside the card */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1); /* Subtle white shadow */
+  }
+  
+  .token-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: white; /* Ensure header text is white */
+  }
+  
+  form {
+    border: none; /* Remove border from the form */
+    margin-top: 20px; /* Add space between the header and the form */
+  }

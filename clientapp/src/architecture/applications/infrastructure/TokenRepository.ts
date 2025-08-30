@@ -27,7 +27,6 @@ class TokenRepository implements ITokenRepository{
     async getTokenById(id: string | any, errorHandler?: any):Promise<any> {
         const {rejectWithValue} = errorHandler
         try {
-          //  await makeRequest(`${API_BASE_URL}/token/getToken?tokenId=69`,"GET",{},'application/json');
           return await requestAPI(`${BASE_ENDPOINT_V1}${REQUEST_API.TOKEN.GET_TOKEN}?tokenId=${id}`,"GET",{},'application/json');
           } catch (error: any) {
             console.error("Error in getToken:", error);
@@ -36,14 +35,13 @@ class TokenRepository implements ITokenRepository{
     }
 
     async createTokenOnChain(token: TokenModal | TokenEntity | any, errorHandler?: any): Promise<any> {
-       const dispatch = useDispatch<any>()
       const contract_factory =  new ContractETH('browser',window.ethereum)
-      const contractAddress = await contract_factory.createContract(token_abi,byteCode_token)
       var {walletAddress,numberOfTokens,Symbol,tokenName,tokenId} = token
+      const contractAddress = await contract_factory.createContract(token_abi,byteCode_token,tokenName,Symbol)
       const web = await  contract_factory.interactWithContract(contractAddress,token_abi)
       await web.mint(walletAddress,numberOfTokens)
       token.walletAddress = contractAddress
-      dispatch(this.createToken(token))
+      return this.createToken(token,errorHandler)
     }
 
     getTokenOnChain(tokenId: any, errorHandler?: any) {

@@ -1,6 +1,7 @@
 import { ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { InputBox } from "../../components/InputBox";
+import "../css/SignIn.css";
 
 const SignInPage = ({ portal }: { portal: string }) => {
   const [forgot, setForgot] = useState(false);
@@ -32,12 +33,10 @@ const SignInPage = ({ portal }: { portal: string }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white px-4">
-      <div className="w-full max-w-md p-8 bg-white shadow-lg rounded-lg">
-        <h2 className="text-3xl font-bold text-gray-900 text-center mb-6">
-          Sign in to your account
-        </h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="signin-container">
+      <div className="signin-card">
+        <h2 className="signin-header">Sign in to your account</h2>
+        <form onSubmit={handleSubmit} className="signin-form">
           <InputBox
             componentInfo={{
               defaultValue: undefined,
@@ -79,7 +78,7 @@ const SignInPage = ({ portal }: { portal: string }) => {
 
           {forgot && (
             <>
-              <label className="block text-sm text-gray-700">Enter your Email</label>
+              <label className="signin-label">Enter your Email</label>
               <InputBox
                 componentInfo={{
                   defaultValue: undefined,
@@ -94,7 +93,7 @@ const SignInPage = ({ portal }: { portal: string }) => {
               />
               <button
                 type="button"
-                className="w-full rounded-md bg-black text-white py-2 text-sm font-medium shadow hover:bg-gray-800 transition"
+                className="signin-button"
                 onClick={() => {}}
               >
                 Submit
@@ -102,29 +101,26 @@ const SignInPage = ({ portal }: { portal: string }) => {
             </>
           )}
 
-          <div className="flex justify-between items-center text-sm">
+          <div className="signin-forgot">
             <button
               type="button"
-              className="text-blue-600 hover:text-blue-500"
+              className="signin-link"
               onClick={() => setForgot(!forgot)}
             >
               {forgot ? "Back to Login" : "Forgot password?"}
             </button>
           </div>
 
-          <button
-            type="submit"
-            className="w-full rounded-md bg-black text-white py-2 text-sm font-medium shadow hover:bg-gray-800 transition"
-          >
+          <button type="submit" className="signin-button">
             Sign in
           </button>
 
-          <div className="text-sm text-gray-700 text-center mt-4">
+          <div className="signin-switch">
             Are you {portal === "custodian" ? "a user" : "an agent"}?{" "}
             <button
               type="button"
               onClick={handleCustodianPortal}
-              className="text-blue-600 hover:text-blue-500 font-medium"
+              className="signin-link"
             >
               Switch Portal
             </button>

@@ -4,7 +4,7 @@ import TokenRepository from "../../applications/infrastructure/TokenRepository";
 export const createTokenBlockchain = createAsyncThunk<any, any>(
   "token/createTokenBlockChain",
    (tokenDetails,{rejectWithValue}) => {
-    return TokenRepository.createTokenOnChain(tokenDetails,{rejectWithValue})
+    TokenRepository.createTokenOnChain(tokenDetails,{rejectWithValue})
   }
 );
 
@@ -46,7 +46,7 @@ const tokenSlice = createSlice({
     builder.addCase(getToken.fulfilled, (state: any, action: any) => {
       state.status = "succeeded";
       state.loading = false;
-      state.token = action.payload.data;
+      state.token = null; //action.payload.data
     });
     builder.addCase(getToken.rejected, (state: any, action: any) => {
       state.status = "failed";
@@ -81,7 +81,7 @@ const tokenSlice = createSlice({
       .addCase(createTokenBlockchain.fulfilled, (state: any, action: any) => {
         state.loading = false;
         state.status = "succeeded";
-        state.token = action.payload.data;
+        state.token = {}  // action.payload.data;
       })
       .addCase(createTokenBlockchain.rejected, (state: any, action: any) => {
         state.loading = false;

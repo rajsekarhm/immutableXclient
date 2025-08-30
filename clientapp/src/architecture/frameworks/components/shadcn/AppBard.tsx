@@ -1,13 +1,13 @@
-import { useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
-import { Avatar, AvatarFallback, AvatarImage } from "./Avatar"
+import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { Avatar, AvatarFallback, AvatarImage } from "./Avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "./DropDown"
+} from "./DropDown";
 import {
   Sheet,
   SheetClose,
@@ -15,12 +15,12 @@ import {
   SheetFooter,
   SheetHeader,
   SheetTitle,
-} from "./Sheet"
-import { Search, User, LogOut, Wallet } from "lucide-react"
-import { Button } from "./Button"
-import { Input } from "./Input"
-import { DropdownMenuByUseCase } from "../DropMenu"
-import { useWallet } from "../../views/hooks/useWallet"
+} from "./Sheet";
+import { Search, User, LogOut, Wallet } from "lucide-react";
+import { Button } from "./Button";
+import { Input } from "./Input";
+import { DropdownMenuByUseCase } from "../DropMenu";
+import { useWallet } from "../../views/hooks/useWallet";
 
 export default function AppBar({
   showCaseText,
@@ -33,18 +33,16 @@ export default function AppBar({
   showUserDetails,
   isLeftSideNeeded,
 }: any) {
-  const navigate = useNavigate()
-  const { userId } = useParams()
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
-  const { account, balance } = useWallet()
+  const navigate = useNavigate();
+  const { userId } = useParams();
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const { account, balance } = useWallet();
 
-  const { onMore } = menuDetails || {}
-  const { name, email } = userDetails || {}
-
+  const { onMore } = menuDetails || {};
+  const { name, email } = userDetails || {};
   return (
     <header className="sticky top-0 z-50 w-full rounded-lg border border-white bg-background/95 shadow-lg backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 items-center justify-between px-4">
-        
         {/* LEFT: Sidebar Trigger */}
         <Sheet open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
           <SheetContent side="left">
@@ -53,8 +51,18 @@ export default function AppBar({
             </SheetHeader>
             <div className="grid gap-4 py-4">
               <div className="grid grid-cols-2 gap-4">
-                <Button className="bg-black text-white" onClick={() => navigate(`/tokenization/${userId}`)}>Tokenization</Button>
-                <Button className="bg-black text-white" onClick={() => navigate(`/asset-digitalize/${userId}`)}>Collateral</Button>
+                <Button
+                  className="bg-black text-white"
+                  onClick={() => navigate(`/tokenization/${userId}`)}
+                >
+                  Tokenization
+                </Button>
+                <Button
+                  className="bg-black text-white"
+                  onClick={() => navigate(`/asset-digitalize/${userId}`)}
+                >
+                  Collateral
+                </Button>
               </div>
             </div>
             <SheetFooter>
@@ -94,7 +102,7 @@ export default function AppBar({
             <Input
               placeholder="Search"
               onChange={(e) => onSearch?.(e.target.value)}
-              className="w-full pl-8"
+              className="w-full pl-8 text-black"
             />
           </div>
 
@@ -102,10 +110,15 @@ export default function AppBar({
           {showUserDetails && isAuth && name && email ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                <Button
+                  variant="ghost"
+                  className="relative h-10 w-10 rounded-full bg-white flex items-center justify-center"
+                >
                   <Avatar className="h-8 w-8">
                     <AvatarImage src="/placeholder.svg" alt="@user" />
-                    <AvatarFallback>{name[0]}</AvatarFallback>
+                    <AvatarFallback className="text-black font-bold">
+                      {name[0]}
+                    </AvatarFallback>
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>
@@ -113,7 +126,9 @@ export default function AppBar({
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
                   <User className="mr-2 h-4 w-4" />
-                  <span>{name}_{userId}</span>
+                  <span>
+                    {name}_{userId}
+                  </span>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <Wallet className="mr-2 h-4 w-4" />
@@ -128,7 +143,10 @@ export default function AppBar({
             </DropdownMenu>
           ) : (
             showUserDetails && (
-              <Button className="bg-black text-white" onClick={() => navigate("/sign-in/users")}>
+              <Button
+                className="bg-black text-white"
+                onClick={() => navigate("/sign-in/users")}
+              >
                 Sign In
               </Button>
             )
@@ -136,5 +154,5 @@ export default function AppBar({
         </div>
       </div>
     </header>
-  )
+  );
 }

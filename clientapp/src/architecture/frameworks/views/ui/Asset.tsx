@@ -4,28 +4,32 @@ import TabsSwitch from "../../components/TabSwitch";
 import { Toaster } from "../../components/shadcn/BottomBanner";
 import { toast } from "sonner";
 import useAccount from "../hooks/useAccount";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { createAsset, createAssetBlockchain } from "../../../adapters/actions/AssetActions";
 import AssetModal from "../../../domains/modals/AssetModal";
 import { addAsset } from "../../../adapters/actions/UserActions";
-import { CreditCard, LogOut} from "lucide-react"
-import AppBar from "../../components/shadcn/AppBard";
+import { CreditCard, LogOut } from "lucide-react";
+import PrimarySearchAppBar from "../../components/AppBar";
+import "../css/Asset.css";
 import { useState } from "react";
+
+
 function AssetCreation() {
   const { firstName, lastName, email, userId, phoneNumber } = useAccount();
   const dispatch = useDispatch<any>();
   const [newDigitalizeAsset, setDigitalizeAsset] = useState<AssetModal>({
-    assetId: "",
-    symbol: "",
-    assetURI: "",
+    assetId:null,
+    symbol: null,
+    assetURI: null,
     value: 0,
-    assetAddress: "",
+    assetAddress: null,
     isValidated: false,
-    associatedUser: "",
+    associatedUser: null,
     isForSale: false,
     isFungible: false,
   });
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
   function handleChanges(event: any) {
     const { name, value } = event.target;
     setDigitalizeAsset({ ...newDigitalizeAsset, [name]: value });
@@ -35,61 +39,38 @@ function AssetCreation() {
     event.preventDefault();
     newDigitalizeAsset["associatedUser"] = userId;
     const { symbol, assetAddress, value, assetId, assetURI } = newDigitalizeAsset;
-    // dispatch(createAssetBlockchain(newDigitalizeAsset))
-    try{
-      dispatch(createAsset(newDigitalizeAsset));
-      dispatch(addAsset({ assetId: assetId, userId: userId }));
-      toast(`Asset ${symbol} Have Been Minted`, {
+    console.log("newDigitalizeAsset",newDigitalizeAsset)
+    try {
+      if(!(symbol && assetAddress && value && assetId)){
+        throw new Error("UNDEFINED ASSET DETAILS");
+      }
+      dispatch(createAssetBlockchain(newDigitalizeAsset));
+      toast(`Asset ${symbol} Have Been Minting. It Will take some time.`, {
         description: "Check in chain Explorer",
       });
-      window.location.reload()
-    }catch(err){
+      // window.location.reload();
+    } catch (err) {
       toast(`Asset ${symbol} was Not Minted`, {
         description: "Issue related to asset details or blockchain",
-      }); 
+      });
     }
-
-    window.location.href
   }
 
   const switch1_details = {
     card_details: [
-      {
-        name: "assetId",
-        value: "assetId",
-        description: "",
-      },
-      {
-        name: "value",
-        value: "value",
-        description: "",
-      },
-      {
-        name: "assetURI",
-        value: "assetURI",
-        description: "",
-      },
-      {
-        name: "isFungible",
-        value: "isFungible",
-        description: "",
-      },
-      {
-        name: "symbol",
-        value: "symbol",
-        description: "",
-      },
-      {
-        name: "assetAddress",
-        value: "assetAddress",
-        description: "",
-      },
+      { name: "assetId", value: "assetId", description: "" },
+      { name: "value", value: "value", description: "" },
+      { name: "assetURI", value: "assetURI", description: "" },
+      { name: "isFungible", value: "isFungible", description: "" },
+      { name: "symbol", value: "symbol", description: "" },
+      { name: "assetAddress", value: "assetAddress", description: "" },
     ],
     onChanges: handleChanges,
     onClick: handleClick,
   };
+
   const dropDown = {
-    dropDownText:"Home",
+    dropDownText: "Home",
     title: "Account",
     details: [
       {
@@ -97,74 +78,43 @@ function AssetCreation() {
         text: "Dashboard",
         itHasSubtab: false,
         subTab: null,
-        onClick: () => { navigate(`/portfolio/${userId}`)},
+        onClick: () => {
+          navigate(`/portfolio/${userId}`);
+        },
       },
       {
         element: <LogOut />,
         text: "Logout",
         itHasSubtab: false,
         subTab: null,
-        onClick: () => { navigate('/') },
+        onClick: () => {
+          navigate("/");
+        },
       },
     ],
     onMore: {
-      action1:{
-        text:"Markeplace",
-        action:() => { navigate(`/marketplace/${userId}`)}
-      }
-    }
+      action1: {
+        text: "Marketplace",
+        action: () => {
+          navigate(`/marketplace/${userId}`);
+        },
+      },
+    },
   };
 
   return (
-    <>
-      {/* Centered AppBar */}
-      <div
-        style={{
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          marginTop: "20px",
-          marginBottom: "20px",
-        }}
-      >
-        <AppBar
-          isAuth={false}
-          showUserDetails={false}
-          menuDetails={dropDown}
-          isLeftSideNeeded={false}
-          showCaseText=""
-        />
-      </div>
-    <div
-      style={{
-        background: "white",
-        height: "150vh",
-        msOverflowY: "hidden",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        padding: "20px",
-      }}
-    >
-      {/* {onLoading ? <Skeleton> : null} */}
-      <br/>
-      <br/> 
-      <br/>
-      <div style={{ width: "300px", position: "absolute", top: 0, right: 0 }}>
-        <ProfileCard
-          name={firstName + lastName}
-          mail={email}
-          address={"india"}
-          phone={phoneNumber}
-        />
-      </div>
-      <div>
+    <div className="asset-container">
+      <PrimarySearchAppBar
+        actionEvents={dropDown}
+        authDetails={{ isAuth: !!userId }}
+        isUserDetailsNeed={!!userId}
+        userDetails={{ firstName, lastName, email, userId }}
+      />
+      <div className="asset-grid">
         <TabsSwitch tabsDetails={switch1_details} />
       </div>
       <Toaster />
-      {/* {onLoading ? </Skeleton> : null} */}
     </div>
-    </>
   );
 }
 

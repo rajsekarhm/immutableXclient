@@ -21,8 +21,18 @@ import {
   return (
     <Tabs defaultValue="digitalize" className="w-[400px]">
       <TabsList className="grid w-full grid-cols-2 gap-8">
-        <TabsTrigger value="digitalize" className="bg-black text-white">Asset</TabsTrigger> 
-        <TabsTrigger value="tokenization" className="bg-black text-white" >Collateral</TabsTrigger>
+      <TabsTrigger
+          value="digitalize"
+          className="bg-black text-white border border-white rounded-md"
+        >
+          Asset
+        </TabsTrigger>
+        <TabsTrigger
+          value="tokenization"
+          className="bg-black text-white border border-white rounded-md"
+        >
+          Collateral
+        </TabsTrigger>
         <br/>
       </TabsList>
       <TabsContent value="digitalize">
@@ -45,7 +55,7 @@ import {
             })}
           </CardContent>
           <CardFooter>
-            <Button className="bg-black text-white" onClick={onClick}>Save changes</Button>
+            <Button className="bg-black text-white border border-white rounded-md" onClick={onClick}>Submit</Button>
           </CardFooter>
         </Card>
       </TabsContent>
@@ -60,13 +70,16 @@ import {
             <Label htmlFor="cooking">  UseCase still Cooking ... </Label>
           </CardContent>
           <CardFooter>
-            <Button className="bg-black text-white" >Create Token</Button>
+            <Button className="bg-black text-white border border-white rounded-md" >Create Token</Button>
           </CardFooter>
         </Card>
       </TabsContent>
     </Tabs>
   )
 }
+
+
+
 
 
 export default TabsSwitch
