@@ -1,0 +1,54 @@
+.asset-container {
+  background: black; /* Black background */
+  color: white; /* White text */
+  height: 150vh; /* Match UserProfile height */
+  overflow-y: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.asset-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  color: white; /* Ensure header text is white */
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  color: white; /* Change icon color to white */
+}
+
+.asset-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  padding: 16px;
+  margin-top: 16px;
+  color: white; /* Ensure grid text is white */
+}
+
+.asset-collections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 16px;
+  margin-top: 16px;
+  color: white; /* Ensure collections text is white */
+}
+
+@media (min-width: 768px) {
+  .asset-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .asset-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

@@ -1,67 +1,67 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Form from "../../components/Form";
-import ProfileCard from "../../components/ProfileCard";
 import { toast } from "sonner";
-import {CreditCard,LogOut} from 'lucide-react'
+import { CreditCard, LogOut } from "lucide-react";
 import { Toaster } from "../../components/shadcn/BottomBanner";
 import useAccount from "../hooks/useAccount";
-import TokenModal from '../../../domains/modals/TokenModal';
 import { useDispatch } from "react-redux";
-import { createTokenBlockchain, createToken }  from '../../../adapters/actions/TokenActions'
-import { addToken }  from '../../../adapters/actions/UserActions'
-import AppBar from "../../components/shadcn/AppBard";
+import { addToken } from "../../../adapters/actions/UserActions";
+import { createToken, createTokenBlockchain } from "../../../adapters/actions/TokenActions";
+import PrimarySearchAppBar from "../../components/AppBar";
+import "../css/Token.css";
+
 function TokenCreation() {
   const navigate = useNavigate();
   const dispatch = useDispatch<any>();
-  const {firstName,lastName,email,phoneNumber,userId} = useAccount()
+  const { firstName, lastName, email, phoneNumber, userId } = useAccount();
+
+  const actions = {
+    onSearch: () => {},
+    onAccountClick: () => {},
+    OnMoreClick: () => {},
+  };
 
   const accountDetails = useMemo(() => {
-    return { firstName, lastName, email, phoneNumber, userId }
-  }, [firstName, lastName, email, phoneNumber, userId])
-  
-  const [token, setToken] = useState<TokenModal>({
+    return { firstName, lastName, email, phoneNumber, userId };
+  }, [firstName, lastName, email, phoneNumber, userId]);
+
+  const [token, setToken] = useState({
     walletAddress: "",
     numberOfTokens: "",
     symbol: "",
     tokenName: "",
-    tokenId:""
+    tokenId: "",
   });
 
   const handleChange = (event: any) => {
-    event.preventDefault();
-    console.log({token })
     const { name, value } = event.target;
     setToken({ ...token, [name]: value });
-  };
-
-  const handleClick = (event: any) => {
-    console.log(event)
   };
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     const { symbol, tokenName, numberOfTokens, tokenId } = token;
     if (symbol && tokenName && numberOfTokens) {
-      try{
-        // dispatch(createTokenBlockchain(token))
-        dispatch(createToken(token))
-        dispatch(addToken({userId:userId,tokenId:tokenId}))
-        toast(`Token ${symbol} Have Been Minted`, {
+      try {
+        console.log(token)
+        dispatch(createTokenBlockchain(token))
+        // dispatch(createToken(token));
+        // dispatch(addToken({ userId: userId, tokenId: tokenId }));
+        toast(`Token ${symbol} has been minted`, {
           description: "Check in chain Explorer",
         });
-        window.location.reload()
-      } catch(err){
-        toast(`Token is Not Minted`, {
-          description: "Give proper Details to mint token",
+        // window.location.reload();
+      } catch (err) {
+        toast(`Token is not minted`, {
+          description: "Provide proper details to mint the token",
         });
       }
-    }else {
-      toast(`Token is Not Minted`, {
-        description: "Give proper Details to mint token",
+    } else {
+      toast(`Token is not minted`, {
+        description: "Provide proper details to mint the token",
       });
     }
-    window.location.href
   };
 
   const form_field_schema3: any = {
@@ -76,7 +76,7 @@ function TokenCreation() {
       },
       {
         defaultValue: undefined,
-        description: "Enter number of token (in Millions) ",
+        description: "Enter number of tokens (in millions)",
         className: "price_class",
         type: "string",
         name: "numberOfTokens",
@@ -105,21 +105,19 @@ function TokenCreation() {
         type: "text",
         name: "tokenId",
         maxlength: 100,
-      }
+      },
     ],
     isSelectFieldsNeed: false,
   };
 
   useEffect(() => {
-    // api call make to validate that user is authenticated
-    if (true) {
-      return;
+    if (!userId) {
+      navigate("/sign-in/users");
     }
-    navigate("/sign-in/users");
-  }, []);
+  }, [userId, navigate]);
 
   const dropDown = {
-    dropDownText:"Home",
+    dropDownText: "Home",
     title: "Account",
     details: [
       {
@@ -127,107 +125,52 @@ function TokenCreation() {
         text: "Dashboard",
         itHasSubtab: false,
         subTab: null,
-        onClick: () => { navigate(`/portfolio/${userId}`)},
+        onClick: () => {
+          navigate(`/portfolio/${userId}`);
+        },
       },
       {
         element: <LogOut />,
         text: "Logout",
         itHasSubtab: false,
         subTab: null,
-        onClick: () => { navigate('/') },
+        onClick: () => {
+          navigate("/");
+        },
       },
     ],
     onMore: {
-      action1:{
-        text:"Marketplace",
-        action:() => { navigate(`/marketplace/${userId}`)}
-      }
-    }
+      action1: {
+        text: "Marketplace",
+        action: () => {
+          navigate(`/marketplace/${userId}`);
+        },
+      },
+    },
   };
 
   return (
-    <div
-      style={{
-        background: "white",
-        height: "100vh",
-        overflow: "hidden",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
-      {/* Centered AppBar */}
-      <div
-        style={{
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          marginTop: "20px",
-          marginBottom: "20px",
-        }}
-      >
-        <AppBar
-          isAuth={false}
-          showUserDetails={false}
-          menuDetails={dropDown}
-          isLeftSideNeeded={false}
-          showCaseText=""
-        />
-      </div>
-  
-      {/* Main content container centered */}
-      <div
-        style={{
-          flex: 1,
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          position: "relative",
-        }}
-      >
-        {/* Profile Card on right side */}
-        <div
-          style={{
-            position: "absolute",
-            top: "30px",
-            right: "30px",
-            width: "300px",
-          }}
-        >
-          <ProfileCard
-            name={firstName + lastName}
-            mail={email}
-            address={"India"}
-            phone={phoneNumber}
-          />
-        </div>
-  
-        {/* Centered Form Card */}
-        <section
-          style={{
-            width: "400px",
-            padding: "20px",
-            background: "white",
-            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-            borderRadius: "8px",
-            textAlign: "center",
-          }}
-        >
-          <h2>Tokenization Asset</h2>
+    <div className="token-container">
+      <PrimarySearchAppBar
+        actionEvents={actions}
+        authDetails={{ isAuth: !!userId }}
+        isUserDetailsNeed={!!userId}
+        userDetails={{ firstName, lastName, email, userId }}
+      />
+      <div className="token-content">
+        <section className="token-card">
+          <h2 className="token-header">Tokenization Asset</h2>
           <Form
             schema={form_field_schema3}
             handleChange={handleChange}
-            handleClick={handleClick}
-            onSubmit={handleSubmit}
-          />
+            onSubmit={handleSubmit} handleClick={function (event: any) {
+              throw new Error("Function not implemented.");
+            } }          />
         </section>
       </div>
-  
       <Toaster />
     </div>
   );
-  
 }
 
 export default TokenCreation;

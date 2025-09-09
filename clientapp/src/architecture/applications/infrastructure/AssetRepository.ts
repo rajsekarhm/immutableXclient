@@ -138,13 +138,14 @@ class AssetRepository implements IAssetRepository {
       const contractInstance = await this.getContractInstance();
       const { symbol, assetAddress, assetId, assetURI, value } = asset;
 
-      return await contractInstance.safeMintX(
+      const ContractTransactionResponse =  await contractInstance.safeMintX(
         assetAddress,
         value,
         assetId,
         assetURI,
         symbol
-      );
+      )
+      return ContractTransactionResponse
     } catch (error) {
       console.error("On-chain asset creation error:", error);
       return errorHandler?.rejectWithValue?.(error);

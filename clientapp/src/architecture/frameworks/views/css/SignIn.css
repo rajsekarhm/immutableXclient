@@ -1,0 +1,79 @@
+.signin-container {
+    background: black; /* Black background */
+    color: white; /* White text */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .signin-card {
+    background: black; /* Black card to match the container */
+    color: black; /* White text inside the card */
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid white; /* White border */
+    box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1); /* Subtle white shadow */
+  }
+  
+  .signin-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: white; /* Ensure header text is white */
+  }
+  
+  .signin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .signin-label {
+    font-size: 0.875rem;
+    color: white; /* Ensure labels are white */
+  }
+  
+  .signin-button {
+    background: black; /* Black button */
+    color: white; /* White text */
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    font-weight: medium;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid white; /* White border for the button */
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  
+  .signin-button:hover {
+    background: white; /* Invert colors on hover */
+    color: black; /* Black text on hover */
+  }
+  
+  .signin-forgot {
+    text-align: right;
+  }
+  
+  .signin-link {
+    color: white; /* White text for links */
+    font-weight: medium;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .signin-link:hover {
+    color: gray; /* Gray text on hover */
+  }
+  
+  .signin-switch {
+    text-align: center;
+    margin-top: 16px;
+    font-size: 0.875rem;
+    color: white; /* Ensure switch text is white */
+  }

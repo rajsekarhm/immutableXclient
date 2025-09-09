@@ -1,11 +1,25 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import AssetRepository from "../../applications/infrastructure/AssetRepository";
+import UserRepository from "../../applications/infrastructure/UserRepository";
 
 // Async Thunks
 export const createAssetBlockchain = createAsyncThunk(
   "asset/createAssetBlockchain",
   (assetDetails:any, { rejectWithValue }) =>
-    AssetRepository.createAssetOnChain(assetDetails, { rejectWithValue })
+    AssetRepository.createAssetOnChain(assetDetails, { rejectWithValue }).then(
+      (response) => {
+        if (response && response.hash) {
+          AssetRepository.createAsset(assetDetails, { rejectWithValue });
+          UserRepository.addAssetToUser(
+            { assetId: assetDetails.assetId, userId: assetDetails.associatedUser },
+            { rejectWithValue })
+          
+          return { data: response };
+        } else {
+          return rejectWithValue("Failed to create asset on blockchain");
+        }
+      }
+    )
 );
 
 export const getAssetBlockchain = createAsyncThunk(
