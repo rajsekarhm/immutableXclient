@@ -39,7 +39,6 @@ function AssetCreation() {
     event.preventDefault();
     newDigitalizeAsset["associatedUser"] = userId;
     const { symbol, assetAddress, value, assetId, assetURI } = newDigitalizeAsset;
-    console.log("newDigitalizeAsset",newDigitalizeAsset)
     try {
       if(!(symbol && assetAddress && value && assetId)){
         throw new Error("UNDEFINED ASSET DETAILS");

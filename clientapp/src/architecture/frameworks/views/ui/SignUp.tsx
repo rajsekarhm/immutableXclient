@@ -18,8 +18,8 @@ const SignUpFormPage = ({ portal }: { portal: string }) => {
 
   const _initialUser =
     portal === "custodian"
-      ? CustodianEntity.initialState().Custodian
-      : UserEntity.initialState().User;
+      ? CustodianEntity.initialState()
+      : UserEntity.initialState();
 
   const [user, setUser] = useState(_initialUser);
 
@@ -32,8 +32,14 @@ const SignUpFormPage = ({ portal }: { portal: string }) => {
     e.preventDefault();
     try {
       if (user?.email && user?.phoneNumber) {
-        dispatch(createUser(user));
-        navigate(`marketplace/${user.governmentID}`);
+        dispatch(createUser(user)).then((response) => {
+          const {payload = undefined} = response
+          if(payload?.status == "CREATED"){
+            navigate(`/marketplace/${user.securityId}`);
+          }else{
+            navigate('/marketplace')
+          }
+        })
       }
     } catch (error) {
       console.error("Error creating user:", error);
@@ -51,8 +57,20 @@ const SignUpFormPage = ({ portal }: { portal: string }) => {
               className: "name_class",
               type: "text",
               name: "firstName",
-              description: "Enter your Name",
-              pattern: "",
+              description: "Enter your Firt Name",
+              pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$",
+              maxlength: 50,
+            }}
+            handleInput={handleInput}
+          />
+          <InputBox
+            componentInfo={{
+              defaultValue: undefined,
+              className: "name_class",
+              type: "text",
+              name: "lastName",
+              description: "Enter your Last Name",
+              pattern: undefined,
               maxlength: 50,
             }}
             handleInput={handleInput}
@@ -64,7 +82,7 @@ const SignUpFormPage = ({ portal }: { portal: string }) => {
               type: "email",
               name: "email",
               description: "Enter your email",
-              pattern: "",
+              pattern: undefined,
               maxlength: 50,
             }}
             handleInput={handleInput}
@@ -76,7 +94,7 @@ const SignUpFormPage = ({ portal }: { portal: string }) => {
               type: "text",
               name: "phoneNumber",
               description: "Enter your phone number",
-              pattern: "",
+              pattern:undefined,
               maxlength: 15,
             }}
             handleInput={handleInput}
@@ -86,9 +104,9 @@ const SignUpFormPage = ({ portal }: { portal: string }) => {
               defaultValue: undefined,
               className: "security_class",
               type: "text",
-              name: "governmentID",
-              description: "Enter your Security ID",
-              pattern: "",
+              name: "securityId",
+              description: "Enter your Security Id",
+              pattern: undefined,
               maxlength: 15,
             }}
             handleInput={handleInput}
@@ -100,7 +118,7 @@ const SignUpFormPage = ({ portal }: { portal: string }) => {
               type: "password",
               name: "password",
               description: "Enter your Password",
-              pattern: "",
+              pattern: undefined,
               maxlength: 15,
             }}
             handleInput={handleInput}
@@ -113,7 +131,7 @@ const SignUpFormPage = ({ portal }: { portal: string }) => {
                 type: "text",
                 name: "organizationID",
                 description: "Enter your Organization ID",
-                pattern: "",
+                pattern: undefined,
                 maxlength: 50,
               }}
               handleInput={handleInput}

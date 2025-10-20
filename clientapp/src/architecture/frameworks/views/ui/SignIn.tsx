@@ -2,16 +2,19 @@ import { ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { InputBox } from "../../components/InputBox";
 import "../css/SignIn.css";
+import { useDispatch } from "react-redux";
+import { authUser } from "../../../adapters/actions/UserActions";
+import { AppDispatch } from "../../../adapters/store";
 
 const SignInPage = ({ portal }: { portal: string }) => {
   const [forgot, setForgot] = useState(false);
   const [loginInput, setInput] = useState({
     username: "",
     password: "",
-    orgID: "",
+    securityId: "",
   });
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-
   const handleCustodianPortal = () => {
     setForgot(false);
     if (portal === "custodian") {
@@ -24,7 +27,14 @@ const SignInPage = ({ portal }: { portal: string }) => {
   const handleSubmit = (event: any) => {
     event.preventDefault();
     if (loginInput.username && loginInput.password) {
-      navigate(`profile/${loginInput.username}`);
+      dispatch(authUser(loginInput)).then((response) => {
+       const { status } = response.payload
+       if(status == "FOUND"){
+        navigate(`/portfolio/${loginInput.securityId}`);
+       }else{
+        navigate(`/errorpage`); 
+       }
+      })
     }
   };
 
@@ -43,8 +53,21 @@ const SignInPage = ({ portal }: { portal: string }) => {
               className: "name_class",
               type: "text",
               name: "username",
-              description: "Enter username",
-              pattern: "",
+              description: "Enter FirstName",
+              pattern: undefined,
+              maxlength: 50,
+            }}
+            handleInput={handleChange}
+          />
+
+          <InputBox
+            componentInfo={{
+              defaultValue: undefined,
+              className: "name_class",
+              type: "text",
+              name: "securityId",
+              description: "Enter security Id",
+              pattern: undefined,
               maxlength: 50,
             }}
             handleInput={handleChange}
@@ -56,7 +79,7 @@ const SignInPage = ({ portal }: { portal: string }) => {
               type: "password",
               name: "password",
               description: "Enter password",
-              pattern: "",
+              pattern: undefined,
               maxlength: 50,
             }}
             handleInput={handleChange}
@@ -69,7 +92,7 @@ const SignInPage = ({ portal }: { portal: string }) => {
                 type: "text",
                 name: "orgID",
                 description: "Enter Org ID",
-                pattern: "",
+                pattern: undefined,
                 maxlength: 50,
               }}
               handleInput={handleChange}

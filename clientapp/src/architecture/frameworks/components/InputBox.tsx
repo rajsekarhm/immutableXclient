@@ -2,6 +2,7 @@ import { ChangeEvent, MouseEventHandler } from "react";
 import { Input } from "./shadcn/Input";
 
 type inputBoxFields = {
+  minlength ?: any
   defaultValue?: string | undefined;
   className: string;
   type: string;
@@ -31,6 +32,7 @@ function InputBox({ handleInput, componentInfo, handleClick }: inputBoxProps) {
     maxlength,
     id,
     style,
+    minlength
   } = componentInfo;
   return (
     <div className={className} style={style}>
@@ -44,6 +46,7 @@ function InputBox({ handleInput, componentInfo, handleClick }: inputBoxProps) {
         placeholder={description}
         pattern={pattern}
         maxLength={maxlength}
+        minLength={minlength || 1}
       />
       <br/>
     </div>

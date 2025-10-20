@@ -16,6 +16,13 @@ export const getUser = createAsyncThunk<any, any>(
   }
 );
 
+export const authUser = createAsyncThunk<any, any>(
+  "user/authUser",
+   ({username,password,securityId},{ rejectWithValue }) => {
+    return UserRepository.authUser({username,password,securityId},{ rejectWithValue })
+  }
+);
+
 export const addAsset = createAsyncThunk<any, any>(
   "user/addAsset",
    ({ assetId, userId }, { rejectWithValue }) => {
@@ -115,6 +122,23 @@ const userSlice = createSlice({
         state.loading = false;
         state.status = "failed";
         state.user = {};
+      });
+
+      builder
+      .addCase(authUser.pending, (state: any) => {
+        state.loading = true;
+        state.status = "idle";
+        state.user = {};
+      })
+      .addCase(authUser.fulfilled, (state: any, action: any) => {
+        state.loading = false;
+        state.status = "succeeded";
+        state.user = action.payload.data;
+      })
+      .addCase(authUser.rejected, (state: any) => {
+        state.loading = false;
+        state.status = "failed";
+        state.user = { status: "failure", message:"authentication failed"};
       });
   },
 });
