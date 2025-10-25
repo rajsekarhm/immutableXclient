@@ -1,6 +1,6 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import AppBar from "./shadcn/AppBard";
-import { CreditCard, LogOut } from "lucide-react";
+import { CreditCard, LogOut, ShoppingBagIcon } from "lucide-react";
 
 export default function PrimarySearchAppBar({actionEvents,authDetails,isUserDetailsNeed, userDetails}:any) {
   const {firstName, lastName,email,userId}  = userDetails
@@ -9,14 +9,31 @@ export default function PrimarySearchAppBar({actionEvents,authDetails,isUserDeta
   const navigate =  useNavigate()
   const isLeftSideNeeded = true
   const showCaseText = "ImmutableX"
+  const currentPagePathName = window.location.pathname.split("/")[1]
   const dropDown = {
     dropDownText:"Home",
     title: "Account",
     details: [
       {
+        element: <ShoppingBagIcon />,
+        text: "Marketplace",
+        urlPath:"marketplace",
+        itHasSubtab: false,
+        subTab: null,
+        onClick: () => { 
+          console.log("userId",userId)
+          if(!userId || userId == 'undefined'){
+            navigate(`/marketplace`)
+          }else{
+            navigate(`/marketplace/${userId}`)
+          }
+        },
+      },
+      {
         element: <CreditCard />,
         text: "Dashboard",
         itHasSubtab: false,
+        urlPath:"portfolio",
         subTab: null,
         onClick: () => { 
           if(!userId || userId == 'undefined'){
@@ -28,11 +45,12 @@ export default function PrimarySearchAppBar({actionEvents,authDetails,isUserDeta
       {
         element: <LogOut />,
         text: "Logout",
+        urlPath:"logout",
         itHasSubtab: false,
         subTab: null,
         onClick: () => { navigate('/') },
       },
-    ],
+    ].filter((ele) => !(ele.urlPath == currentPagePathName)),
     onMore: {
       action1:{
         text:"explorer",

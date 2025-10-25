@@ -4,7 +4,8 @@ const REQUEST_API = {
     GET_USER: "/user/getUser",
     UPDATE_USER: "/user/updateUser",
     DELETE_USER: "/user/deleteUser",
-    ADD_TOKEN: "/user/addToken?governmentId=",
+    ADD_TOKEN: "/user/addToken?securityId=",
+    AUTH_USER:"/user/auth"
   },
   AGENT: {
     CREATE_CUSTODIAN: "/agents/createCustodian",
@@ -17,8 +18,8 @@ const REQUEST_API = {
     GET_ASSET: "/asset/getAsset",
     UPDATE_ASSET: "/asset/updateAsset",
     DELTE_ASSET: "/asset/deleteAsset",
-    ADD_ASSET: "/user/addAsset?governmentId=",
-    REMOVE_ASSET: "/user/removeAsset?governmentId=",
+    ADD_ASSET: "/user/addAsset?securityId=",
+    REMOVE_ASSET: "/user/removeAsset?securityId=",
     CHANGE_ASSOCIATE_USER: "/asset/changeAssociateUser?assetId=",
   },
   TOKEN: {

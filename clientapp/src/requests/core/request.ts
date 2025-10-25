@@ -1,24 +1,18 @@
-
 function createHeaders(contentType = "application/json") {
   const headers = new Headers();
   headers.append("Content-Type", contentType);
   return headers;
 }
-
 async function requestAPI(
   url: string,
   _method: string,
   _body: any,
-  contentType = "application/json"
+  contentType = "application/json",
+  timeout = 10000
 ) {
-  /**
-   * {
-    method:string,
-    headers:any,
-    redirect:string,
-    body?:any
-  } 
-   */
+  // const controller = new AbortController();
+  // const id = setTimeout(() => controller.abort(), timeout);
+
   const requestOptions: any = {
     method: _method || "GET",
     headers: createHeaders(contentType),
@@ -33,6 +27,7 @@ async function requestAPI(
 
   try {
     const response = await fetch(url, requestOptions);
+    // clearTimeout(id);
     const result = await response.text();
     return JSON.parse(result);
   } catch (error) {

@@ -16,13 +16,5 @@
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "truffle": "5.11.5"
-  },
-  "type": "module",
-  "dependencies": {
-    "@helia/json": "2.0.1",
-    "helia": "3.0.1",
-    "react-bootstrap": "2.9.1"
-  }
+  "type": "module"
 }

@@ -18,8 +18,8 @@ app.post('/api/v1/user/createUser', (req, res) => {
 
 app.put('/api/v1/user/addAsset', (req, res) => {
   const { assetId } = req.body;
-  const { governmentId } = req.query;
-  console.log("addAsset ->", { governmentId, assetId });
+  const { securityId } = req.query;
+  console.log("addAsset ->", { securityId, assetId });
   res.json({ message: 'Asset added to user', ...userMock });
 });
 
@@ -31,15 +31,15 @@ app.put('/api/v1/user/addToken', (req, res) => {
 });
 
 app.post('/api/v1/user/getUser', (req, res) => {
-  const { governmentId } = req.query;
-  console.log("getUser -> governmentId:", governmentId);
+  const { securityId } = req.query;
+  console.log("getUser -> governmentId:", securityId);
   res.json(userMock);
 });
 
 app.put('/api/v1/asset/removeAsset', (req, res) => {
   const { assetId } = req.body;
-  const { governmentId } = req.query;
-  console.log("removeAsset ->", { governmentId, assetId });
+  const { securityId } = req.query;
+  console.log("removeAsset ->", { securityId, assetId });
   res.json({ message: 'Asset removed from user', ...userMock });
 });
 
