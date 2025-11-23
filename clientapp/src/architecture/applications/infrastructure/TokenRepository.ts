@@ -5,7 +5,6 @@ import ITokenRepository from "../../domains/repository/ITokenRepository";
 import TokenEntity from "../../domains/entities/TokenEntity";
 import TokenModal from "../../domains/modals/TokenModal";
 import byteCode_token from "../../../../blockchain_client/ethereum/byteCode/byteCode_Token";
-import { useDispatch } from "react-redux";
 import requestAPI from "../../../requests/core/request";
 import BASE_ENDPOINT_V1 from "../../../../server.config";
 

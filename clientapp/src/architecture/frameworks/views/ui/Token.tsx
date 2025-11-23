@@ -16,12 +16,6 @@ function TokenCreation() {
   const dispatch = useDispatch<any>();
   const { firstName, lastName, email, phoneNumber, userId } = useAccount();
 
-  const actions = {
-    onSearch: () => {},
-    onAccountClick: () => {},
-    OnMoreClick: () => {},
-  };
-
   const accountDetails = useMemo(() => {
     return { firstName, lastName, email, phoneNumber, userId };
   }, [firstName, lastName, email, phoneNumber, userId]);
@@ -152,7 +146,6 @@ function TokenCreation() {
   return (
     <div className="token-container">
       <PrimarySearchAppBar
-        actionEvents={actions}
         authDetails={{ isAuth: !!userId }}
         isUserDetailsNeed={!!userId}
         userDetails={{ firstName, lastName, email, userId }}

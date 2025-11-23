@@ -1,7 +1,7 @@
 import express from "express"
 import cookieParser from "cookie-parser"
 import cors from 'cors'
-import { createToken } from "./jwt.mjs"
+import { createToken } from "./jwt"
 
 const app = express();
 app.use(express.json());

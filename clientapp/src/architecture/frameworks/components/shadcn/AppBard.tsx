@@ -27,6 +27,7 @@ export default function AppBar({
   onSearch,
   onAccountClick,
   OnMoreClick,
+  OnLogoutClick,
   isAuth,
   menuDetails,
   userDetails,
@@ -126,7 +127,7 @@ export default function AppBar({
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
                   <User className="mr-2 h-4 w-4" />
-                  <span onClick={ () => navigate(`/portfolio/${userId}`)}>
+                  <span onClick={onAccountClick}>
                     {name}_{userId}
                   </span>
                 </DropdownMenuItem>
@@ -135,7 +136,7 @@ export default function AppBar({
                   <span>{Number(balance)} ETH</span>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={onAccountClick}>
+                <DropdownMenuItem onClick={OnLogoutClick}>
                   <LogOut className="mr-2 h-4 w-4" />
                   <span>Log out</span>
                 </DropdownMenuItem>

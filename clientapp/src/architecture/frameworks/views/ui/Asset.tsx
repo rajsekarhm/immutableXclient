@@ -68,43 +68,9 @@ function AssetCreation() {
     onClick: handleClick,
   };
 
-  const dropDown = {
-    dropDownText: "Home",
-    title: "Account",
-    details: [
-      {
-        element: <CreditCard />,
-        text: "Dashboard",
-        itHasSubtab: false,
-        subTab: null,
-        onClick: () => {
-          navigate(`/portfolio/${userId}`);
-        },
-      },
-      {
-        element: <LogOut />,
-        text: "Logout",
-        itHasSubtab: false,
-        subTab: null,
-        onClick: () => {
-          navigate("/");
-        },
-      },
-    ],
-    onMore: {
-      action1: {
-        text: "Marketplace",
-        action: () => {
-          navigate(`/marketplace/${userId}`);
-        },
-      },
-    },
-  };
-
   return (
     <div className="asset-container">
       <PrimarySearchAppBar
-        actionEvents={dropDown}
         authDetails={{ isAuth: !!userId }}
         isUserDetailsNeed={!!userId}
         userDetails={{ firstName, lastName, email, userId }}

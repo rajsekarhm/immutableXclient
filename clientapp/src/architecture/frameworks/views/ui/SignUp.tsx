@@ -1,4 +1,4 @@
-import { useEffect, useState, ChangeEvent } from "react";
+import { useState, ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { InputBox } from "../../components/InputBox";
 import { useDispatch } from "react-redux";
@@ -8,6 +8,8 @@ import CustodianEntity from "../../../domains/entities/CustodianEntity";
 import { createUser } from "../../../adapters/actions/UserActions";
 import { AppDispatch } from "../../../adapters/store";
 import "../css/SignUp.css";
+import React from "react"
+import SignUpOrSignInButton from "../../components/utils/CornerSignUp";
 
 const SignUpFormPage = ({ portal }: { portal: string }) => {
   const navigate = useNavigate();
@@ -27,6 +29,11 @@ const SignUpFormPage = ({ portal }: { portal: string }) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
+
+
+  const SignIn = React.memo(() => (
+    <SignUpOrSignInButton name="Sign-In" routerUrl="/sign-in/users" />
+  )); 
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -48,6 +55,7 @@ const SignUpFormPage = ({ portal }: { portal: string }) => {
 
   return (
     <div className="signup-container">
+      <SignIn/>
       <div className="signup-card">
         <h2 className="signup-header">Sign Up for an Account</h2>
         <form onSubmit={handleSubmit} className="signup-form">
