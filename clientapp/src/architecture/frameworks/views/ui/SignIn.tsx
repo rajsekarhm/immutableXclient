@@ -5,6 +5,8 @@ import "../css/SignIn.css";
 import { useDispatch } from "react-redux";
 import { authUser } from "../../../adapters/actions/UserActions";
 import { AppDispatch } from "../../../adapters/store";
+import SignUpOrSignInButton from "../../components/utils/CornerSignUp";
+import React from "react"
 
 const SignInPage = ({ portal }: { portal: string }) => {
   const [forgot, setForgot] = useState(false);
@@ -23,6 +25,11 @@ const SignInPage = ({ portal }: { portal: string }) => {
       navigate("/sign-in/custodian");
     }
   };
+
+  const SignUp = React.memo(() => (
+    <SignUpOrSignInButton name="Sign-Up" routerUrl="/sign-up/users" />
+  )); 
+
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
@@ -44,6 +51,7 @@ const SignInPage = ({ portal }: { portal: string }) => {
 
   return (
     <div className="signin-container">
+      <SignUp/>
       <div className="signin-card">
         <h2 className="signin-header">Sign in to your account</h2>
         <form onSubmit={handleSubmit} className="signin-form">

@@ -17,7 +17,5 @@
   "include": ["src", "vite.config.ts", "blockchain_client"],
   "exclude": ["node_modules"],
   "_moduleAliases": {
-    "@domains": "dist/domains",
-    "@applications": "dist/applications"
   }
 }

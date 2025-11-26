@@ -1,21 +1,17 @@
 import { motion } from "framer-motion";
 import { Vortex } from "./background/Vortex";
 import { useWallet } from "../hooks/useWallet";
-import { useNavigate } from "react-router-dom";
+import React from "react"
+import SignUpOrSignInButton from "../../components/utils/CornerSignUp";
 
 function Home() {
   const { connectWallet } = useWallet();
-  const navigate = useNavigate()
-  const navigateLogin  = () => {
-    navigate("/sign-up/users")
-  }
+  const SignUpHome = React.memo(() => (
+    <SignUpOrSignInButton name="Sign-Up" routerUrl="/sign-up/users" />
+  ));  
   return (
     <Vortex>
-      <div className="absolute top-4 right-4 z-10">
-        <button className="bg-black dark:bg-white text-white dark:text-black px-4 py-2 rounded-full font-medium shadow hover:scale-105 transition-transform" onClick={navigateLogin}>
-          Sign Up
-        </button>
-      </div>
+      <SignUpHome/>
       <div className="min-h-screen flex items-center justify-center">
         <motion.div
           initial={{ opacity: 0.0, y: 40 }}

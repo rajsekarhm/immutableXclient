@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ShowCaseCard from "../../components/ShowCaseCard";
 import { Label } from "../../components/shadcn/Label";
@@ -38,9 +38,10 @@ function UserProfile() {
   function onClickAssetChange(event: any) {
     event.preventDefault();
     const { asstIdTo, toAddress, receiverId } = transferOwner;
-    const assetToTransfer = assets
+    const assetToTransfer = useMemo(assets
       .filter((asset: AssetModal) => asstIdTo === asset.assetId)
-      .filter(Boolean);
+      .filter(Boolean),[assets])
+      
     if (assetToTransfer.length === 1) {
       dispatch(
         transferOwnerAsset({
@@ -57,31 +58,36 @@ function UserProfile() {
     setNetValue(total);
   }
 
-  const fetchedTokenFromUser = Array.isArray(tokens) && tokens.length
-    ? tokens.map((token: any) => ({
-        card_details: {
-          id: "one",
-          title: "Token X",
-          content: token,
-        },
-        buttonText: "View Explorer",
-        onClick: () => {},
-        isInputNeed: true,
-      }))
-    : null;
-
-  const fetchedAssetFromUser = Array.isArray(assets) && assets.length
-    ? assets.map((asset: any) => ({
-        card_details: {
-          id: "one",
-          title: "Asset IMX",
-          content: asset,
-        },
-        buttonText: "View Explorer",
-        onClick: () => {},
-        isInputNeed: true,
-      }))
-    : null;
+  const fetchedTokenFromUser = useMemo(() => {
+    if (!Array.isArray(tokens) || tokens.length === 0) return null;
+  
+    return tokens.map((token: any) => ({
+      card_details: {
+        id: "one",
+        title: "Token X",
+        content: token,
+      },
+      buttonText: "View Explorer",
+      onClick: () => {},
+      isInputNeed: true,
+    }));
+  }, [tokens]);
+  
+  const fetchedAssetFromUser = useMemo(() => {
+    if (!Array.isArray(assets) || assets.length === 0) return null;
+  
+    return assets.map((asset: any) => ({
+      card_details: {
+        id: "one",
+        title: "Asset IMX",
+        content: asset,
+      },
+      buttonText: "View Explorer",
+      onClick: () => {},
+      isInputNeed: true,
+    }));
+  }, [assets]);
+  
 
   useEffect(() => {
     calculateNetValue();
@@ -90,55 +96,11 @@ function UserProfile() {
     }
   }, [assetIds, tokenIds, netValue]);
 
-  const actions = {
-    onSearch: () => {},
-    onAccountClick: () => {},
-    OnMoreClick: () => {},
-  };
 
-  const dropDown = {
-    dropDownText: "Home",
-    title: "Account",
-    details: [
-      {
-        element: <CreditCard />,
-        text: "Marketplace",
-        itHasSubtab: false,
-        subTab: null,
-        onClick: () => {
-          navigate(`/marketplace/${userId}`);
-        },
-      },
-      {
-        element: <LogOut />,
-        text: "Logout",
-        itHasSubtab: false,
-        subTab: null,
-        onClick: () => {
-          navigate("/");
-        },
-      },
-    ],
-    onMore: {
-      action1: {
-        text: "explorer",
-        action: () => {
-          console.log("onClick explorer");
-        },
-      },
-      action2: {
-        text: "blog",
-        action: () => {
-          console.log("onClick blog");
-        },
-      },
-    },
-  };
 
   return (
     <div className="user-profile-container">
       <PrimarySearchAppBar
-        actionEvents={actions}
         authDetails={{ isAuth: !!userId }}
         isUserDetailsNeed={!!userId}
         userDetails={{ firstName, lastName, email, userId }}
@@ -151,17 +113,17 @@ function UserProfile() {
       </div>
       <div className="user-profile-grid">
         <Button
-          onclickEvent={() => navigate(`/tokenization/${userId}`)}
+          onclickEvent={useCallback(() => navigate(`/tokenization/${userId}`),[userId])}
           description={"Tokenization"}
         />
         <Button
-          onclickEvent={() => navigate(`/asset-digitalize/${userId}`)}
+          onclickEvent={useCallback(() => navigate(`/asset-digitalize/${userId}`),[userId])}
           description={"Asset Digitalize"}
         />
         <HoverCard>
           <HoverCardTrigger>
             <Button
-              onclickEvent={() => {}}
+              onclickEvent={useCallback(() => {},[])}
               description={"Transfer Asset Ownership"}
             />
           </HoverCardTrigger>
