@@ -10,10 +10,11 @@ import {
   HoverCardContent,
 } from "../../components/shadcn/HoverCard";
 import { InputBox } from "../../components/InputBox";
-import useAccount from "../hooks/useAccount";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "architecture/adapters/store";
-import { transferOwnerAsset } from "../../../adapters/actions/AssetActions";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../adapters/store";
+import useAssetController from "../hooks/useAsset";
+import useUserController from "../hooks/useAccount";
+import useAuth from "../hooks/useAuth";
 import AssetModal from "../../../domains/modals/AssetModal";
 import PrimarySearchAppBar from "../../components/AppBar";
 import "../css/UserProfile.css";
@@ -21,9 +22,12 @@ import "../css/UserProfile.css";
 function UserProfile() {
   const [netValue, setNetValue] = useState<number>(0);
   const navigate = useNavigate();
-  const { userId } = useParams();
-  const dispatch = useDispatch<AppDispatch>();
-  const { firstName, lastName, phoneNumber, email, assetIds, tokenIds, assets, tokens } = useAccount();
+  const { userid } = useParams();
+  const { isAuthenticated, logout } = useAuth();
+  const assetController = useAssetController();
+  const userController = useUserController();
+  const { user, assets, tokens } = useSelector((state: RootState) => state.user);
+  const { firstName, lastName, phoneNumber, email, assetIds, tokenIds } = user ?? {};
   const [transferOwner, setTransferOwner] = useState({
     toAddress: null,
     asstIdTo: null,
@@ -35,21 +39,19 @@ function UserProfile() {
     setTransferOwner({ ...transferOwner, [name]: value });
   }
 
-  function onClickAssetChange(event: any) {
+  async function onClickAssetChange(event: any) {
     event.preventDefault();
     const { asstIdTo, toAddress, receiverId } = transferOwner;
-    const assetToTransfer = useMemo(assets
+    const assetToTransfer = assets
       .filter((asset: AssetModal) => asstIdTo === asset.assetId)
-      .filter(Boolean),[assets])
-      
+      .filter(Boolean);
+
     if (assetToTransfer.length === 1) {
-      dispatch(
-        transferOwnerAsset({
-          asset: assetToTransfer.pop(),
-          newAddress: toAddress,
-          receiverId: receiverId,
-        })
-      );
+      await assetController.execute('transferOwnership', {
+        asset: assetToTransfer[0],
+        newAddress: toAddress,
+        receiverId: receiverId,
+      });
     }
   }
 
@@ -90,20 +92,27 @@ function UserProfile() {
   
 
   useEffect(() => {
-    calculateNetValue();
-    if (false) {
-      navigate("/sign-in/users");
+    if (!isAuthenticated) {
+      navigate("/signin/users");
+      return;
     }
-  }, [assetIds, tokenIds, netValue]);
+    if (userid) {
+      userController.execute('getUser', userid);
+    }
+  }, [isAuthenticated, userid]);
+
+  useEffect(() => {
+    calculateNetValue();
+  }, [assets]);
 
 
 
   return (
     <div className="user-profile-container">
       <PrimarySearchAppBar
-        authDetails={{ isAuth: !!userId }}
-        isUserDetailsNeed={!!userId}
-        userDetails={{ firstName, lastName, email, userId }}
+        authDetails={{ isAuth: isAuthenticated }}
+        isUserDetailsNeed={isAuthenticated}
+        userDetails={{ firstName, lastName, email, userId: userid }}
       />
       <div className="user-profile-header">
         <Briefcase className="icon" />
@@ -113,11 +122,11 @@ function UserProfile() {
       </div>
       <div className="user-profile-grid">
         <Button
-          onclickEvent={useCallback(() => navigate(`/tokenization/${userId}`),[userId])}
+          onclickEvent={useCallback(() => navigate(`/tokenization/${userid}`),[userid])}
           description={"Tokenization"}
         />
         <Button
-          onclickEvent={useCallback(() => navigate(`/asset-digitalize/${userId}`),[userId])}
+          onclickEvent={useCallback(() => navigate(`/asset-digitalize/${userid}`),[userid])}
           description={"Asset Digitalize"}
         />
         <HoverCard>

@@ -1,33 +1,35 @@
-import AbstractUsecase from "./Interface/AbstractUsecase";
+import ITokenRepository from '../../domains/repository/ITokenRepository';
+import ITokenUseCase from './Interface/ITokenUseCase';
 
-class TokenUseCase extends AbstractUsecase {
-  create(input: any): any {
-    const { tokenRepository, presenter} =  this.depedencies
-    const  output = tokenRepository.createToken(input)
-    tokenRepository.createTokenOnChain(input)
+class TokenUseCase implements ITokenUseCase {
+  constructor(private tokenRepository: ITokenRepository) {}
 
-     presenter.render(output)
+  async createToken(tokenDetails: any) {
+    if (!tokenDetails.tokenName || !tokenDetails.symbol) {
+      throw new Error('Token name and symbol are required');
+    }
+    return this.tokenRepository.createToken(tokenDetails);
   }
 
-  update(input: any): any {
-    // const { tokenRepository, presenter} =  this.depedencies
+  async getToken(tokenId: string) {
+    if (!tokenId) {
+      throw new Error('Token ID is required');
+    }
+    return this.tokenRepository.getTokenById(tokenId);
   }
 
-  delete(input: any): any {
-    // const { tokenRepository, presenter} =  this.depedencies
+  async createTokenOnBlockchain(tokenDetails: any) {
+    if (!tokenDetails.walletAddress || !tokenDetails.tokenName) {
+      throw new Error('Wallet address and token name are required');
+    }
+    return this.tokenRepository.createTokenOnChain(tokenDetails);
   }
 
-  get(input: any): any {
-    const { tokenRepository, presenter} =  this.depedencies
-    presenter.render(tokenRepository.getTokenById(input))
-  }
-
-  compensation(inputs: any) {
-    // const { tokenRepository, presenter} =  this.depedencies
-  }
-
-  execute(inputs: any) {
-    // const { tokenRepository, presenter} =  this.depedencies
+  async getTokenFromBlockchain(tokenAddress: string, tokenId: string) {
+    if (!tokenAddress || !tokenId) {
+      throw new Error('Token address and ID are required');
+    }
+    return this.tokenRepository.getTokenOnChain(tokenAddress, tokenId);
   }
 }
 

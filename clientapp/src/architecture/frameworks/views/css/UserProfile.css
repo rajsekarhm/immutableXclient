@@ -1,54 +1,70 @@
 .user-profile-container {
-    background: black; /* Change background to black */
-    color: white; /* Change text color to white */
-    height: 150vh;
-    overflow-y: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-  }
-  
-  .user-profile-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 20px;
-    color: white; /* Ensure header text is white */
-  }
-  
-  .icon {
-    width: 24px;
-    height: 24px;
-    color: white; /* Change icon color to white */
-  }
-  
+  background: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.user-profile-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 24px;
+  color: var(--color-text);
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: 12px 20px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  animation: fadeIn var(--transition-slow) ease both;
+}
+
+.user-profile-container .icon {
+  width: 24px;
+  height: 24px;
+  color: var(--color-accent);
+}
+
+.user-profile-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  padding: 16px;
+  margin-top: 16px;
+  color: var(--color-text);
+  width: 100%;
+  max-width: 500px;
+  animation: fadeIn var(--transition-slow) ease both;
+  animation-delay: 100ms;
+}
+
+.user-profile-collections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 16px;
+  margin-top: 16px;
+  color: var(--color-text);
+  width: 100%;
+  max-width: 1200px;
+  animation: fadeIn var(--transition-slow) ease both;
+  animation-delay: 200ms;
+}
+
+@media (min-width: 768px) {
   .user-profile-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
-    padding: 16px;
-    margin-top: 16px;
-    color: white; /* Ensure grid text is white */
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 600px;
   }
-  
-  .user-profile-collections {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    padding: 16px;
-    margin-top: 16px;
-    color: white; /* Ensure collections text is white */
+}
+
+@media (min-width: 1024px) {
+  .user-profile-grid {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 900px;
   }
-  
-  @media (min-width: 768px) {
-    .user-profile-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  
-  @media (min-width: 1024px) {
-    .user-profile-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
+}

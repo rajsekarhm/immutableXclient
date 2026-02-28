@@ -4,17 +4,22 @@ import Form from "../../components/Form";
 import { toast } from "sonner";
 import { CreditCard, LogOut } from "lucide-react";
 import { Toaster } from "../../components/shadcn/BottomBanner";
-import useAccount from "../hooks/useAccount";
-import { useDispatch } from "react-redux";
-import { addToken } from "../../../adapters/actions/UserActions";
-import { createToken, createTokenBlockchain } from "../../../adapters/actions/TokenActions";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../adapters/store";
+import useTokenController from "../hooks/useToken";
+import useAuth from "../hooks/useAuth";
 import PrimarySearchAppBar from "../../components/AppBar";
 import "../css/Token.css";
+import useUserController from "../hooks/useAccount";
 
 function TokenCreation() {
+  const { userid } = useParams()
+  const userController = useUserController()
   const navigate = useNavigate();
-  const dispatch = useDispatch<any>();
-  const { firstName, lastName, email, phoneNumber, userId } = useAccount();
+  const controller = useTokenController();
+  const { isAuthenticated, logout } = useAuth();
+  const { firstName, lastName, email, phoneNumber, userId } =
+    useSelector((state: RootState) => state.user.user) ?? {};
 
   const accountDetails = useMemo(() => {
     return { firstName, lastName, email, phoneNumber, userId };
@@ -28,6 +33,15 @@ function TokenCreation() {
     tokenId: "",
   });
 
+    useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/signin/users");
+      return;
+    }else{
+      userController.execute('getUser', userid);
+    }
+  },[isAuthenticated,userid])
+
   const handleChange = (event: any) => {
     const { name, value } = event.target;
     setToken({ ...token, [name]: value });
@@ -38,14 +52,10 @@ function TokenCreation() {
     const { symbol, tokenName, numberOfTokens, tokenId } = token;
     if (symbol && tokenName && numberOfTokens) {
       try {
-        console.log(token)
-        dispatch(createTokenBlockchain(token))
-        // dispatch(createToken(token));
-        // dispatch(addToken({ userId: userId, tokenId: tokenId }));
+        await controller.execute('createTokenBlockchain', token);
         toast(`Token ${symbol} has been minted`, {
           description: "Check in chain Explorer",
         });
-        // window.location.reload();
       } catch (err) {
         toast(`Token is not minted`, {
           description: "Provide proper details to mint the token",
@@ -105,10 +115,10 @@ function TokenCreation() {
   };
 
   useEffect(() => {
-    if (!userId) {
-      navigate("/sign-in/users");
+    if (!isAuthenticated) {
+      navigate("/signin/users");
     }
-  }, [userId, navigate]);
+  }, [isAuthenticated, navigate]);
 
   const dropDown = {
     dropDownText: "Home",
@@ -129,6 +139,7 @@ function TokenCreation() {
         itHasSubtab: false,
         subTab: null,
         onClick: () => {
+          logout();
           navigate("/");
         },
       },
@@ -146,8 +157,8 @@ function TokenCreation() {
   return (
     <div className="token-container">
       <PrimarySearchAppBar
-        authDetails={{ isAuth: !!userId }}
-        isUserDetailsNeed={!!userId}
+        authDetails={{ isAuth: isAuthenticated }}
+        isUserDetailsNeed={isAuthenticated}
         userDetails={{ firstName, lastName, email, userId }}
       />
       <div className="token-content">
@@ -156,9 +167,9 @@ function TokenCreation() {
           <Form
             schema={form_field_schema3}
             handleChange={handleChange}
-            onSubmit={handleSubmit} handleClick={function (event: any) {
-              throw new Error("Function not implemented.");
-            } }          />
+            onSubmit={handleSubmit}
+            handleClick={handleSubmit}
+          />
         </section>
       </div>
       <Toaster />

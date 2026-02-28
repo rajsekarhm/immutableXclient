@@ -1,44 +1,58 @@
-import AbstractUsecase from "./Interface/AbstractUsecase";
+import IUserRepository from '../../domains/repository/IUserRepository';
+import IUserUseCase from './Interface/IUserUseCase';
 
-class UserUseCase extends AbstractUsecase {
+class UserUseCase implements IUserUseCase {
+  constructor(private userRepository: IUserRepository) {}
 
-  create(input: any): any {
-    const { userRepository, presenter } =  this.depedencies
-    // userRepository.createUser(input,(error:string) => {  throw new Error(error)})
-  }
-
-  update(input: any): any {
-    // const {userRepository, presenter } =  this.depedencies
-  }
-
-  delete(input: any): any {
-    // const {userRepository, presenter } =  this.depedencies
+  async createUser(userDetails: any) {
+    if (!userDetails.email || !userDetails.firstName) {
+      throw new Error('Email and first name are required');
+    }
+    return this.userRepository.createUser(userDetails);
   }
 
-  get(input: any): any {
-    const {userRepository, presenter } =  this.depedencies
-    presenter.render(userRepository.getUserById(input,(error:string) => {  throw new Error(error)}))
+  async getUser(id: string) {
+    if (!id || id === 'undefined') {
+      throw new Error('Valid user ID is required');
+    }
+    return this.userRepository.getUserById(id);
   }
 
-  addTokenUser(input: any): any {
-    const {userRepository, presenter } =  this.depedencies
-    const result = userRepository.addTokenToUser(input)
-    presenter.render(result)
-  }
-  addAssetUser(input: any): any {
-    const {userRepository, presenter } =  this.depedencies
-    const result = userRepository.addAssetToUser(input)
-    presenter.render(result)
-  }
-  changeAssociateUser(input: any): any {
-    const {userRepository, presenter } =  this.depedencies
-  }
-  compensation(inputs: any) {
-    const {userRepository, presenter } =  this.depedencies
+  async authUser(credentials: { username: string; password: string; securityId: string }) {
+    if (!credentials.username || !credentials.password) {
+      throw new Error('Username and password are required');
+    }
+    return this.userRepository.authUser(
+      credentials.username, credentials.password, credentials.securityId
+    );
   }
 
-  execute(inputs: any) {
-    const {userRepository, presenter } =  this.depedencies
+  async addAssetToUser(assetId: string, userId: string) {
+    if (!assetId || !userId) {
+      throw new Error('Asset ID and User ID are required');
+    }
+    return this.userRepository.addAssetToUser(assetId, userId);
+  }
+
+  async addTokenToUser(tokenId: string, userId: string) {
+    if (!tokenId || !userId) {
+      throw new Error('Token ID and User ID are required');
+    }
+    return this.userRepository.addTokenToUser(tokenId, userId);
+  }
+
+  async removeAssetFromUser(assetId: string, userId: string) {
+    if (!assetId || !userId) {
+      throw new Error('Asset ID and User ID are required');
+    }
+    return this.userRepository.removeAssetFromUser(assetId, userId);
+  }
+
+  async changeAssociateUser(assetId: string, userId: string) {
+    if (!assetId || !userId) {
+      throw new Error('Asset ID and User ID are required');
+    }
+    return this.userRepository.changeAssociateUser(assetId, userId);
   }
 }
 

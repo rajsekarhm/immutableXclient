@@ -1,79 +1,113 @@
 .signin-container {
-    background: black; /* Black background */
-    color: white; /* White text */
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-  }
-  
+  background: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  position: relative;
+}
+
+.signin-card {
+  background: var(--color-surface);
+  color: var(--color-text);
+  width: 100%;
+  max-width: 400px;
+  padding: 32px 28px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+  animation: fadeIn var(--transition-slow) ease both;
+  transition: border-color var(--transition-normal);
+}
+
+.signin-card:hover {
+  border-color: var(--color-border-hover);
+}
+
+.signin-header {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 24px;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+}
+
+.signin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.signin-label {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+.signin-button {
+  background: var(--color-bg);
+  color: var(--color-text);
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid var(--color-border);
+  transition: all var(--transition-normal);
+  letter-spacing: 0.01em;
+}
+
+.signin-button:hover {
+  background: var(--color-text);
+  color: var(--color-bg);
+  border-color: var(--color-text);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}
+
+.signin-button:active {
+  transform: translateY(0);
+}
+
+.signin-forgot {
+  text-align: right;
+}
+
+.signin-link {
+  background: none;
+  border: none;
+  color: var(--color-accent);
+  font-weight: 500;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+  padding: 0;
+}
+
+.signin-link:hover {
+  color: var(--color-accent-hover);
+  text-decoration: underline;
+}
+
+.signin-switch {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
   .signin-card {
-    background: black; /* Black card to match the container */
-    color: black; /* White text inside the card */
-    width: 100%;
-    max-width: 400px;
-    padding: 20px;
-    border-radius: 8px;
-    border: 1px solid white; /* White border */
-    box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1); /* Subtle white shadow */
+    max-width: 100%;
+    padding: 24px 18px;
+    border-radius: var(--radius-md);
   }
-  
   .signin-header {
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 20px;
-    color: white; /* Ensure header text is white */
+    font-size: 1.25rem;
   }
-  
-  .signin-form {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  
-  .signin-label {
-    font-size: 0.875rem;
-    color: white; /* Ensure labels are white */
-  }
-  
-  .signin-button {
-    background: black; /* Black button */
-    color: white; /* White text */
-    padding: 10px;
-    border-radius: 4px;
-    font-size: 0.875rem;
-    font-weight: medium;
-    text-align: center;
-    cursor: pointer;
-    border: 1px solid white; /* White border for the button */
-    transition: background 0.3s ease, color 0.3s ease;
-  }
-  
-  .signin-button:hover {
-    background: white; /* Invert colors on hover */
-    color: black; /* Black text on hover */
-  }
-  
-  .signin-forgot {
-    text-align: right;
-  }
-  
-  .signin-link {
-    color: white; /* White text for links */
-    font-weight: medium;
-    cursor: pointer;
-    transition: color 0.3s ease;
-  }
-  
-  .signin-link:hover {
-    color: gray; /* Gray text on hover */
-  }
-  
-  .signin-switch {
-    text-align: center;
-    margin-top: 16px;
-    font-size: 0.875rem;
-    color: white; /* Ensure switch text is white */
-  }
+}

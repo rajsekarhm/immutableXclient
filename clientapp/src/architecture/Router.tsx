@@ -18,23 +18,23 @@ const Router = createBrowserRouter([
     element: <Home />,
   },
   {
-    path: "/sign-up/users",
+    path: "/signup/users",
     element: <SigUpFormPage portal={"users"} />,
   },
   {
-    path: "/sign-up/custodian",
+    path: "/signup/custodian",
     element: <SigUpFormPage portal={"custodian"} />,
   },
   {
-    path: "/sign-in/users",
+    path: "/signin/users",
     element: <SignInPage portal={"users"} />,
   },
   {
-    path: "/sign-in/custodian",
+    path: "/signin/custodian",
     element: <SignInPage portal={"custodian"} />,
   },
   {
-    path: "/portfolio/:userId",
+    path: "/portfolio/:userid",
     element: <UserProfile />,
   },
   {
@@ -42,7 +42,7 @@ const Router = createBrowserRouter([
     element: <MarketPlace />,
   },
   {
-    path: "/marketplace/:userId",
+    path: "/marketplace/:userid",
     element: <MarketPlace />,
   },
   {
@@ -58,25 +58,25 @@ const Router = createBrowserRouter([
     element: <ErrorPage />,
   },
   {
-    path: "/clerk/sign-in",
+    path: "/clerk/signin",
     element: <ExternalSignIn />,
   },
   {
-    path: "clerk/sign-up",
+    path: "/clerk/signup",
     element: <ExternalSignUp />,
   },
   {
-    path: "/builder/:userId",
+    path: "/builder/:userid",
     element: <Builder />,
   },
   {
-    path:'/asset-digitalize/:userId',
-    element:<AssetCreation/>
+    path: "/asset-digitalize/:userid",
+    element: <AssetCreation />,
   },
   {
-    path:'/tokenization/:userId',
-    element:<TokenCreation/>
-  }
+    path: "/tokenization/:userid",
+    element: <TokenCreation />,
+  },
 ]);
 
 export default Router;

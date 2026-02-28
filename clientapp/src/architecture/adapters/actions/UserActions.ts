@@ -1,146 +1,54 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import UserEntity from "../../domains/entities/UserEntity";
-import UserRepository from "../../applications/infrastructure/UserRepository";
+// Action Types
+export const USER_SET_LOADING = 'user/setLoading';
+export const USER_SET_DATA = 'user/setData';
+export const USER_SET_ERROR = 'user/setError';
+export const USER_RESET = 'user/reset';
 
-export const createUser = createAsyncThunk<any, any>(
-  "user/createUser",
-   (userDetails,{ rejectWithValue }) => {
-    return UserRepository.createUser(userDetails,rejectWithValue)
+// State Interface
+interface UserState {
+  user: any;
+  assets: any[];
+  tokens: any[];
+  loading: boolean;
+  status: string;
+  error: string | null;
+}
+
+const initialState: UserState = {
+  user: null,
+  assets: [],
+  tokens: [],
+  loading: false,
+  status: 'idle',
+  error: null,
+};
+
+// Reducer
+export function userReducer(state = initialState, action: any): UserState {
+  switch (action.type) {
+    case USER_SET_LOADING:
+      return { ...state, loading: true, status: 'idle', error: null };
+    case USER_SET_DATA:
+      return {
+        ...state,
+        loading: false,
+        status: 'succeeded',
+        user: action.payload?.user ?? action.payload,
+        assets: action.payload?.assets ?? state.assets,
+        tokens: action.payload?.tokens ?? state.tokens,
+        error: null,
+      };
+    case USER_SET_ERROR:
+      return { ...state, loading: false, status: 'failed', error: action.payload };
+    case USER_RESET:
+      return initialState;
+    default:
+      return state;
   }
-);
+}
 
-export const getUser = createAsyncThunk<any, any>(
-  "user/getUser",
-   (id, { rejectWithValue }) => {
-    return UserRepository.getUserById(id,{rejectWithValue})
-  }
-);
-
-export const authUser = createAsyncThunk<any, any>(
-  "user/authUser",
-   ({username,password,securityId},{ rejectWithValue }) => {
-    return UserRepository.authUser({username,password,securityId},{ rejectWithValue })
-  }
-);
-
-export const addAsset = createAsyncThunk<any, any>(
-  "user/addAsset",
-   ({ assetId, userId }, { rejectWithValue }) => {
-    return UserRepository.addAssetToUser({assetId,userId},{rejectWithValue})
-  }
-);
-
-export const addToken = createAsyncThunk<any, any>(
-  "user/addToken",
-  ({ tokenId, userId }, { rejectWithValue }) => {
-    return UserRepository.addTokenToUser({tokenId,userId},{rejectWithValue})
-  }
-);
-
-export const removeAsset = createAsyncThunk<any,any>("user/removeAsset",async ({assetId,userId},{rejectWithValue})=>{
-  return UserRepository.removeAssetUser({assetId,userId},{rejectWithValue})
-})
-
-const userSlice = createSlice({
-  name: "user",
-  initialState: {
-    user: UserEntity.initialState(),
-    loading: false,
-    status: "idle",
-  },
-  reducers: {},
-  extraReducers: (builder) => {
-    builder.addCase(getUser.pending, (state: any) => {
-      state.status = "idle";
-      state.loading = true;
-      state.user = UserEntity.initialState();
-    });
-    builder.addCase(getUser.fulfilled, (state: any, action: any) => {
-      state.status = "succeeded";
-      state.loading = false;
-      const userData = action.payload?.data ?? null;
-      if (!userData.user) {
-        state.user = null;
-        state.error = "NOT_FOUND"; 
-      } else {
-        state.user = userData;
-        state.error = null;
-      }
-    });
-    builder.addCase(getUser.rejected, (state: any) => {
-      state.status = "failed";
-      state.loading = false;
-      state.user = UserEntity.initialState();
-    });
-
-    builder
-      .addCase(createUser.pending, (state: any) => {
-        state.loading = true;
-        state.status = "idle";
-        state.user = UserEntity.initialState();
-      })
-      .addCase(createUser.fulfilled, (state: any, action: any) => {
-        state.loading = false;
-        state.status = "succeeded";
-        state.user = action.payload.data;
-      })
-      .addCase(createUser.rejected, (state: any) => {
-        state.loading = false;
-        state.status = "failed";
-        state.user = UserEntity.initialState();
-      });
-
-    builder
-      .addCase(addAsset.pending, (state: any) => {
-        state.loading = true;
-        state.status = "idle";
-        state.user = {};
-      })
-      .addCase(addAsset.fulfilled, (state: any, action: any) => {
-        state.loading = false;
-        state.status = "succeeded";
-        state.user = action.payload.data;
-      })
-      .addCase(addAsset.rejected, (state: any) => {
-        state.loading = false;
-        state.status = "failed";
-        state.user = {};
-      });
-
-      builder
-      .addCase(addToken.pending, (state: any) => {
-        state.loading = true;
-        state.status = "idle";
-        state.user = {};
-      })
-      .addCase(addToken.fulfilled, (state: any, action: any) => {
-        state.loading = false;
-        state.status = "succeeded";
-        state.user = action.payload.data;
-      })
-      .addCase(addToken.rejected, (state: any) => {
-        state.loading = false;
-        state.status = "failed";
-        state.user = {};
-      });
-
-      builder
-      .addCase(authUser.pending, (state: any) => {
-        state.loading = true;
-        state.status = "idle";
-        state.user = {};
-      })
-      .addCase(authUser.fulfilled, (state: any, action: any) => {
-        state.loading = false;
-        state.status = "succeeded";
-        state.user = action.payload.data;
-      })
-      .addCase(authUser.rejected, (state: any) => {
-        state.loading = false;
-        state.status = "failed";
-        state.user = { status: "failure", message:"authentication failed"};
-      });
-  },
-});
-
-export default userSlice.reducer;
+// Action Creators
+export const setUserLoading = () => ({ type: USER_SET_LOADING });
+export const setUserData = (data: any) => ({ type: USER_SET_DATA, payload: data });
+export const setUserError = (error: string) => ({ type: USER_SET_ERROR, payload: error });
+export const resetUser = () => ({ type: USER_RESET });

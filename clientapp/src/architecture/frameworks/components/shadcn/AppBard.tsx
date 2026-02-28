@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "./Avatar";
 import {
   DropdownMenu,
@@ -35,14 +35,14 @@ export default function AppBar({
   isLeftSideNeeded,
 }: any) {
   const navigate = useNavigate();
-  const { userId } = useParams();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const { account, balance } = useWallet();
-
   const { onMore } = menuDetails || {};
   const { name, email } = userDetails || {};
+  console.log("userDetails in AppBar: ", userDetails);
+
   return (
-    <header className="sticky top-0 z-50 w-full rounded-lg border border-white bg-background/95 shadow-lg backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full rounded-lg border border-white/15 bg-background/95 shadow-lg backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 items-center justify-between px-4">
         {/* LEFT: Sidebar Trigger */}
         <Sheet open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
@@ -54,13 +54,13 @@ export default function AppBar({
               <div className="grid grid-cols-2 gap-4">
                 <Button
                   className="bg-black text-white"
-                  onClick={() => navigate(`/tokenization/${userId}`)}
+                  onClick={() => navigate(`/tokenization/${userDetails?.userId}`)}
                 >
                   Tokenization
                 </Button>
                 <Button
                   className="bg-black text-white"
-                  onClick={() => navigate(`/asset-digitalize/${userId}`)}
+                  onClick={() => navigate(`/asset-digitalize/${userDetails?.userId}`)}
                 >
                   Collateral
                 </Button>
@@ -123,12 +123,11 @@ export default function AppBar({
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56" align="end" forceMount>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>
+              <DropdownMenuContent className="w-56 text-black" align="end" forceMount>
+                <DropdownMenuItem onClick={onAccountClick}>
                   <User className="mr-2 h-4 w-4" />
-                  <span onClick={onAccountClick}>
-                    {name}_{userId}
+                  <span>
+                    {name}_{userDetails?.userId}
                   </span>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
@@ -146,7 +145,7 @@ export default function AppBar({
             showUserDetails && (
               <Button
                 className="bg-black text-white"
-                onClick={() => navigate("/sign-in/users")}
+                onClick={() => navigate("/signin/users")}
               >
                 Sign In
               </Button>

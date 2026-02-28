@@ -1,8 +1,9 @@
-import CustodianEntity from '../entities/CustodianEntity'
-
-interface ICustodianRepository { 
-    createCustodian(custodian:CustodianEntity):void
-    getCustodian(id:number| string):void
+/**
+ * ICustodianRepository — contract for custodian data access.
+ * Implementations handle Redux store dispatch + API calls.
+ */
+export default interface ICustodianRepository {
+  getCustodianState(): any;
+  createCustodian(custodianDetails: any): Promise<any>;
+  getCustodianById(id: string): Promise<any>;
 }
-
-export default ICustodianRepository

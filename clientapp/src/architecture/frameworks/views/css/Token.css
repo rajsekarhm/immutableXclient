@@ -1,42 +1,59 @@
 .token-container {
-    background: black; /* Black background */
-    color: white; /* White text */
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-  }
-  
+  background: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.token-content {
+  background: var(--color-surface);
+  color: var(--color-text);
+  width: 100%;
+  max-width: 440px;
+  padding: 28px 24px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+  text-align: center;
+  margin-top: 24px;
+  animation: fadeIn var(--transition-slow) ease both;
+  transition: border-color var(--transition-normal);
+}
+
+.token-content:hover {
+  border-color: var(--color-border-hover);
+}
+
+.token-card {
+  background: transparent;
+  color: var(--color-text);
+  padding: 16px 0;
+  border-radius: var(--radius-md);
+}
+
+.token-header {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+}
+
+.token-container form {
+  border: none;
+  margin-top: 16px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
   .token-content {
-    background: black; /* Black content area */
-    color: white; /* White text inside the content */
-    width: 100%;
-    max-width: 400px; /* Limit the width of the content */
-    padding: 20px;
-    border-radius: 8px;
-    border: 1px solid white; /* White border */
-    box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1); /* Subtle white shadow */
-    text-align: center;
-    margin-top: 20px; /* Add space below PrimarySearchAppBar */
+    max-width: 100%;
+    padding: 22px 16px;
   }
-  
-  .token-card {
-    background: black; /* Black card */
-    color: black; /* White text inside the card */
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1); /* Subtle white shadow */
-  }
-  
   .token-header {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: white; /* Ensure header text is white */
+    font-size: 1.25rem;
   }
-  
-  form {
-    border: none; /* Remove border from the form */
-    margin-top: 20px; /* Add space between the header and the form */
-  }
+}

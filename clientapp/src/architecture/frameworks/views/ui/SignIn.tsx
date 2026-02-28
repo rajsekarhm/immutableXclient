@@ -2,11 +2,9 @@ import { ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { InputBox } from "../../components/InputBox";
 import "../css/SignIn.css";
-import { useDispatch } from "react-redux";
-import { authUser } from "../../../adapters/actions/UserActions";
-import { AppDispatch } from "../../../adapters/store";
+import useUserController from "../hooks/useAccount";
+import useAuth from "../hooks/useAuth";
 import SignUpOrSignInButton from "../../components/utils/CornerSignUp";
-import React from "react"
 
 const SignInPage = ({ portal }: { portal: string }) => {
   const [forgot, setForgot] = useState(false);
@@ -15,33 +13,37 @@ const SignInPage = ({ portal }: { portal: string }) => {
     password: "",
     securityId: "",
   });
-  const dispatch = useDispatch<AppDispatch>();
+  const controller = useUserController();
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
   const handleCustodianPortal = () => {
     setForgot(false);
     if (portal === "custodian") {
-      navigate("/sign-in/users");
+      navigate("/signin/users");
     } else {
-      navigate("/sign-in/custodian");
+      navigate("/signin/custodian");
     }
   };
 
-  const SignUp = React.memo(() => (
-    <SignUpOrSignInButton name="Sign-Up" routerUrl="/sign-up/users" />
-  )); 
+  const SignUp = () => (
+    <SignUpOrSignInButton name="Sign-Up" routerUrl="/signup/users" />
+  );
 
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = async (event: any) => {
     event.preventDefault();
     if (loginInput.username && loginInput.password) {
-      dispatch(authUser(loginInput)).then((response) => {
-       const { status } = response.payload
-       if(status == "FOUND"){
-        navigate(`/portfolio/${loginInput.securityId}`);
-       }else{
-        navigate(`/errorpage`); 
-       }
-      })
+      try {
+        const result = await controller.execute('authUser', loginInput);
+        console.log({result})
+        if (result?.status === "FOUND") {
+          navigate(`/portfolio/${result?.data?.user?.userId || loginInput.securityId}`);
+        } else {
+          navigate(`/gotissue`);
+        }
+      } catch {
+        navigate(`/gotissue`);
+      }
     }
   };
 
@@ -163,3 +165,4 @@ const SignInPage = ({ portal }: { portal: string }) => {
 };
 
 export default SignInPage;
+

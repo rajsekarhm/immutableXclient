@@ -1,20 +1,18 @@
 import { useState, ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { InputBox } from "../../components/InputBox";
-import { useDispatch } from "react-redux";
 import Button from "../../components/Button";
 import UserEntity from "../../../domains/entities/UserEntity";
 import CustodianEntity from "../../../domains/entities/CustodianEntity";
-import { createUser } from "../../../adapters/actions/UserActions";
-import { AppDispatch } from "../../../adapters/store";
+import useUserController from "../hooks/useAccount";
+import useAuth from "../hooks/useAuth";
 import "../css/SignUp.css";
-import React from "react"
 import SignUpOrSignInButton from "../../components/utils/CornerSignUp";
 
 const SignUpFormPage = ({ portal }: { portal: string }) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch<AppDispatch>();
-  const [verificationCode, setVerificationCode] = useState("");
+  const controller = useUserController();
+  const { isAuthenticated } = useAuth();
   const [validate, setValidate] = useState(false);
   const [isCustodian, setIsCustodian] = useState(portal === "custodian");
 
@@ -31,22 +29,20 @@ const SignUpFormPage = ({ portal }: { portal: string }) => {
   };
 
 
-  const SignIn = React.memo(() => (
-    <SignUpOrSignInButton name="Sign-In" routerUrl="/sign-in/users" />
-  )); 
+  const SignIn = () => (
+    <SignUpOrSignInButton name="Sign-In" routerUrl="/signin/users" />
+  );
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
       if (user?.email && user?.phoneNumber) {
-        dispatch(createUser(user)).then((response) => {
-          const {payload = undefined} = response
-          if(payload?.status == "CREATED"){
-            navigate(`/marketplace/${user.securityId}`);
-          }else{
-            navigate('/marketplace')
-          }
-        })
+        const result = await controller.execute('createUser', user);
+        if (result?.status === "CREATED") {
+          navigate(`/marketplace/${result?.data?.user?.userId || user.securityId}`);
+        } else {
+          navigate('/marketplace');
+        }
       }
     } catch (error) {
       console.error("Error creating user:", error);
@@ -65,8 +61,8 @@ const SignUpFormPage = ({ portal }: { portal: string }) => {
               className: "name_class",
               type: "text",
               name: "firstName",
-              description: "Enter your Firt Name",
-              pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$",
+              description: "Enter your First Name",
+              pattern: undefined,
               maxlength: 50,
             }}
             handleInput={handleInput}
@@ -174,7 +170,7 @@ const SignUpFormPage = ({ portal }: { portal: string }) => {
             Already have an account?{" "}
             <a
               className="signup-link"
-              onClick={() => navigate("/sign-in/users")}
+              onClick={() => navigate("/signin/users")}
             >
               Login here
             </a>

@@ -1,12 +1,12 @@
-import AssetEntity from "../entities/AssetEntity";
-import AssetModal from "../modals/AssetModal";
-
-interface IAssetRepository {
-  createAsset(asset: AssetModal | AssetEntity,errorHandler?:any): any;
-  getAssetById(id: any,errorHandler?:any): any;
-  createAssetOnChain(asset: AssetModal | AssetEntity,errorHandler?:any): any;
-  getAssetOnChain(assetId: any,errorHandler?:any): any;
-  transferOwnership(asset:any,newAddress:string,receiverId:string,erorHandler?:any):any
+/**
+ * IAssetRepository — contract for asset data access.
+ * Implementations handle Redux store dispatch + API + blockchain calls.
+ */
+export default interface IAssetRepository {
+  getAssetState(): any;
+  createAsset(assetDetails: any): Promise<any>;
+  getAssetById(ids: string[]): Promise<any>;
+  createAssetOnChain(asset: any): Promise<any>;
+  getAssetOnChain(assetAddress: string, assetId: string): Promise<any>;
+  transferOwnershipOnChain(asset: any, newAddress: string): Promise<any>;
 }
-
-export default IAssetRepository;

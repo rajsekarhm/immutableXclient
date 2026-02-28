@@ -1,17 +1,19 @@
 import { configureStore } from "@reduxjs/toolkit";
-import user_reducer from './actions/UserActions'
-import asset_reducer  from './actions/AssetActions'
-import token_reducer from './actions/TokenActions'
+import { userReducer } from './actions/UserActions';
+import { assetReducer } from './actions/AssetActions';
+import { tokenReducer } from './actions/TokenActions';
+import { custodianReducer } from './actions/CustodianActions';
 
 const store = configureStore({
-    reducer: {
-        user:user_reducer,
-        asset:asset_reducer,
-        token:token_reducer
-    },
-   
-})
+  reducer: {
+    user: userReducer,
+    asset: assetReducer,
+    token: tokenReducer,
+    custodian: custodianReducer,
+  },
+});
 
+export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
-export default store
+export default store;

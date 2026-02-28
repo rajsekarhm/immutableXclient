@@ -8,7 +8,7 @@ function WalletConnect() {
     return (
       <button
         onClick={connectWallet}
-        className="flex items-center gap-2 bg-black hover:bg-b-600 text-white px-4 py-2 rounded-lg transition-colors"
+        className="flex items-center gap-2 bg-black hover:bg-gray-800 text-white px-4 py-2 rounded-lg transition-colors"
       >
         <Wallet className="w-5 h-5" />
         Connect Wallet

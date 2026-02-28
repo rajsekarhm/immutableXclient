@@ -1,26 +1,40 @@
 import mockCard from "../mockData";
 import PrimarySearchAppBar from "../../components/AppBar";
 import ShowCaseCard from "../../components/ShowCaseCard";
-import useAccount from "../hooks/useAccount";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../adapters/store";
 import { useNavigate, useParams } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 import "../css/MarketPlace.css";
+import useUserController from "../hooks/useAccount";
+import { useEffect } from "react";
+
 
 export default function MarketPlace() {
-  const navigate = useNavigate()
-  const { userId = undefined } = useParams();
-  if (userId) {
-    var { firstName, lastName, email, userId: _userId } = useAccount();
-  }
+  const controller = useUserController();
+  const navigate = useNavigate();
+  const { userid } = useParams();
+  const { isAuthenticated } = useAuth();
+  const user = useSelector((state: RootState) => state.user.user);
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/signin/users");
+      return;
+    }else{
+      controller.execute('getUser', userid);
+    }
+  },[isAuthenticated,userid])
+  
+  const { firstName, lastName, email, userId } = user ?? {};
+
   return (
     <div className="marketplace-container">
       <PrimarySearchAppBar
-        authDetails={{ isAuth: userId ? true : false }}
-        isUserDetailsNeed={!!userId}
-        userDetails={{ firstName, lastName, email, userId: _userId }}
+        authDetails={{ isAuth: isAuthenticated }}
+        isUserDetailsNeed={isAuthenticated}
+        userDetails={{ firstName, lastName, email, userId }}
       />
-      {/* <div className="marketplace-content"> */}
-        <ShowCaseCard cardDetails={mockCard} />
-      {/* </div> */}
+      <ShowCaseCard cardDetails={mockCard} />
     </div>
   );
 }

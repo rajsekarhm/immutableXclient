@@ -106,7 +106,7 @@ const mockCards: cardType[] = [
   },
   {
     card_details: {
-      id:"two",
+      id:"three",
       title: "Asset C",
       description: "Another asset example",
       content:{   
@@ -128,7 +128,7 @@ const mockCards: cardType[] = [
   },
   {
     card_details: {
-      id:"two",
+      id:"four",
       title: "Asset D",
       description: "Another asset example",
       content:{   
@@ -150,7 +150,7 @@ const mockCards: cardType[] = [
   },
   {
     card_details: {
-      id:"two",
+      id:"five",
       title: "Asset E",
       description: "Another asset example",
       content:{   
@@ -172,7 +172,7 @@ const mockCards: cardType[] = [
   },
   {
     card_details: {
-      id:"two",
+      id:"six",
       title: "Asset F",
       description: "Another asset example",
       content:{   

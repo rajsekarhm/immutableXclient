@@ -1,24 +1,19 @@
-import Handler from "./interface/Handler";
-import IService from "../../applications/interface/services/IService";
-class CustodainHandler extends Handler {
-  handler(request: any) {
-    throw new Error("Method not implemented.");
-  }
+import IController from './interface/Handler';
+import ICustodianUseCase from '../../applications/usecases/Interface/ICustodianUseCase';
 
-  create(request: any) {
-   const {custodianUsecase} = this.service 
-   custodianUsecase.create(request)
-  }
+class CustodianController implements IController {
+  constructor(private custodianUseCase: ICustodianUseCase) {}
 
-  updateById(request: any) {
-    const {custodianUsecase} = this.service 
-    custodianUsecase.update(request)
-  }
-
-  getById(request: any) {
-    const {custodianUsecase} = this.service 
-    custodianUsecase.get(request)
+  execute(command: string, payload?: any) {
+    switch (command) {
+      case 'createCustodian':
+        return this.custodianUseCase.createCustodian(payload);
+      case 'getCustodian':
+        return this.custodianUseCase.getCustodian(payload);
+      default:
+        throw new Error(`Unknown custodian command: ${command}`);
+    }
   }
 }
 
-export default CustodainHandler;
+export default CustodianController;

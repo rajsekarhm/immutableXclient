@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import ProfileCard from "../../components/ProfileCard";
 import { useNavigate } from "react-router-dom";
 import ShowCaseCard from "../../components/ShowCaseCard";
+import useAuth from "../hooks/useAuth";
 
 function CustodianProfiles() {
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
   const handleAction = (event: any) => {
     setPendingAsset([
       {
@@ -60,12 +62,10 @@ function CustodianProfiles() {
     },
   ]);
   useEffect(() => {
-    // api call make to validate that user is authenticated
-    if (true) {
-      return;
+    if (!isAuthenticated) {
+      navigate("/signin/custodian");
     }
-    navigate("/sign-in/custodian");
-  }, []);
+  }, [isAuthenticated, navigate]);
 
   return (
     <>

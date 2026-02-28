@@ -1,53 +1,83 @@
-import REQUEST_API from "../../../requests/api.config";
-import ContractETH from "../../contract/ContractETH";
-import token_abi from "../../../../blockchain_client/ethereum/abi/token_abi";
-import ITokenRepository from "../../domains/repository/ITokenRepository";
-import TokenEntity from "../../domains/entities/TokenEntity";
-import TokenModal from "../../domains/modals/TokenModal";
-import byteCode_token from "../../../../blockchain_client/ethereum/byteCode/byteCode_Token";
-import requestAPI from "../../../requests/core/request";
-import BASE_ENDPOINT_V1 from "../../../../server.config";
+import { Store } from 'redux';
+import ITokenRepository from '../../domains/repository/ITokenRepository';
+import { setTokenLoading, setTokenData, setTokenError } from '../../adapters/actions/TokenActions';
+import ContractETH from '../../contract/ContractETH';
+import token_abi from '../../../../blockchain_client/ethereum/abi/token_abi';
+import byteCode_token from '../../../../blockchain_client/ethereum/byteCode/byteCode_Token';
+import requestAPI from '../../../requests/core/request';
+import BASE_ENDPOINT_V1 from '../../../../server.config';
+import REQUEST_API from '../../../requests/api.config';
 
-class TokenRepository implements ITokenRepository{
-   token:TokenEntity
-   constructor(){
-    this.token = new TokenEntity(TokenEntity.defaultToken)
-   }
+class TokenRepository implements ITokenRepository {
+  constructor(private store: Store) {}
 
-    async createToken(token: TokenModal | TokenEntity | any, errorHandler?: any):Promise<any> {
-      try{
-        return await requestAPI(`${BASE_ENDPOINT_V1}${REQUEST_API.TOKEN.CREATE_TOKEN}`, 'POST', token, 'application/json');
-      }catch(error){
-        return
-      }
-      
+  getTokenState() {
+    return this.store.getState().token;
+  }
+
+  async createToken(tokenDetails: any) {
+    this.store.dispatch(setTokenLoading());
+    try {
+      const result = await requestAPI(
+        `${BASE_ENDPOINT_V1}${REQUEST_API.TOKEN.CREATE_TOKEN}`,
+        'POST', tokenDetails, 'application/json'
+      );
+      this.store.dispatch(setTokenData(result.data));
+      return result;
+    } catch (error: any) {
+      this.store.dispatch(setTokenError(error.message || 'Failed to create token'));
+      throw error;
     }
-    
-    async getTokenById(id: string | any, errorHandler?: any):Promise<any> {
-        const {rejectWithValue} = errorHandler
-        try {
-          return await requestAPI(`${BASE_ENDPOINT_V1}${REQUEST_API.TOKEN.GET_TOKEN}?tokenId=${id}`,"GET",{},'application/json');
-          } catch (error: any) {
-            console.error("Error in getToken:", error);
-            return rejectWithValue(error.message || "Error occurred");
-          }
+  }
+
+  async getTokenById(id: string) {
+    this.store.dispatch(setTokenLoading());
+    try {
+      const result = await requestAPI(
+        `${BASE_ENDPOINT_V1}${REQUEST_API.TOKEN.GET_TOKEN}${id}`,
+        'GET', {}, 'application/json'
+      );
+      this.store.dispatch(setTokenData(result.data));
+      return result;
+    } catch (error: any) {
+      this.store.dispatch(setTokenError(error.message || 'Failed to get token'));
+      throw error;
     }
+  }
 
-    async createTokenOnChain(token: TokenModal | TokenEntity | any, errorHandler?: any): Promise<any> {
-      const contract_factory =  new ContractETH('browser',window.ethereum)
-      var {walletAddress,numberOfTokens,Symbol,tokenName,tokenId} = token
-      const contractAddress = await contract_factory.createContract(token_abi,byteCode_token,tokenName,Symbol)
-      const web = await  contract_factory.interactWithContract(contractAddress,token_abi)
-      await web.mint(walletAddress,numberOfTokens)
-      token.walletAddress = contractAddress
-      return this.createToken(token,errorHandler)
+  async createTokenOnChain(tokenDetails: any) {
+    this.store.dispatch(setTokenLoading());
+    try {
+      const contractFactory = new ContractETH('browser', window.ethereum);
+      const { walletAddress, numberOfTokens, Symbol, tokenName } = tokenDetails;
+      const contractAddress = await contractFactory.createContract(
+        token_abi, byteCode_token, tokenName, Symbol
+      );
+      const contract = await contractFactory.interactWithContract(contractAddress, token_abi);
+      await contract.mint(walletAddress, numberOfTokens);
+
+      tokenDetails.walletAddress = contractAddress;
+      const result = await this.createToken(tokenDetails);
+      return result;
+    } catch (error: any) {
+      this.store.dispatch(setTokenError(error.message || 'Failed to create token on chain'));
+      throw error;
     }
+  }
 
-    getTokenOnChain(tokenId: any, errorHandler?: any) {
-        throw new Error("Method not implemented.");
+  async getTokenOnChain(tokenAddress: string, tokenId: string) {
+    this.store.dispatch(setTokenLoading());
+    try {
+      const contractFactory = new ContractETH('browser', window.ethereum);
+      const contract = await contractFactory.interactWithContract(tokenAddress, token_abi);
+      const result = await contract.getToken(tokenId);
+      this.store.dispatch(setTokenData(result));
+      return result;
+    } catch (error: any) {
+      this.store.dispatch(setTokenError(error.message || 'Failed to get token from chain'));
+      throw error;
     }
-
-
+  }
 }
 
-export default new TokenRepository()
+export default TokenRepository;

@@ -1,29 +1,21 @@
-import AbstractUsecase from "./Interface/AbstractUsecase";
-class CustodianUseCase extends AbstractUsecase {
-  create(input: any): any {
-    const { custodianRepository, presenter} =  this.depedencies
-    presenter.render(custodianRepository.createCustodian(input))
+import ICustodianRepository from '../../domains/repository/ICustodianRepository';
+import ICustodianUseCase from './Interface/ICustodianUseCase';
+
+class CustodianUseCase implements ICustodianUseCase {
+  constructor(private custodianRepository: ICustodianRepository) {}
+
+  async createCustodian(custodianDetails: any) {
+    if (!custodianDetails.email || !custodianDetails.orgId) {
+      throw new Error('Email and organization ID are required');
+    }
+    return this.custodianRepository.createCustodian(custodianDetails);
   }
 
-  update(input: any): any {
-    const { custodianRepository, presenter} =  this.depedencies
-  }
-
-  delete(input: any): any {
-    const { custodianRepository, presenter} =  this.depedencies
-  }
-
-  get(input: any): any {
-    const { custodianRepository, presenter} =  this.depedencies
-    presenter.render(custodianRepository.getCustodian(input))
-  }
-
-  compensation(inputs: any) {
-    const { custodianRepository, presenter} =  this.depedencies
-  }
-
-  execute(inputs: any) {
-    const { custodianRepository, presenter} =  this.depedencies
+  async getCustodian(id: string) {
+    if (!id) {
+      throw new Error('Custodian ID is required');
+    }
+    return this.custodianRepository.getCustodianById(id);
   }
 }
 

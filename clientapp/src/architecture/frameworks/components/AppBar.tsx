@@ -1,6 +1,7 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AppBar from "./shadcn/AppBard";
 import { CreditCard, LogOut, ShoppingBagIcon } from "lucide-react";
+import useAuth from "../views/hooks/useAuth";
 
 export default function PrimarySearchAppBar({
   authDetails,
@@ -9,15 +10,17 @@ export default function PrimarySearchAppBar({
 }: any) {
   const { firstName, lastName, email, userId } = userDetails;
   const { isAuth } = authDetails;
+  const { isAuthenticated, logout } = useAuth();
+  const navigate = useNavigate();
   const actions = {
     onSearch: () => {},
     onAccountClick: () => navigate(`/portfolio/${userId}`),
     OnLogoutClick: () => {
+      logout();
       navigate("/");
     },
     OnMoreClick: () => {},
   };
-  const navigate = useNavigate();
   const isLeftSideNeeded = true;
   const showCaseText = "ImmutableX";
   const currentPagePathName = window.location.pathname.split("/")[1];
@@ -32,7 +35,7 @@ export default function PrimarySearchAppBar({
         itHasSubtab: false,
         subTab: null,
         onClick: () => {
-          if (!userId || userId == "undefined") {
+          if (!isAuthenticated) {
             navigate(`/marketplace`);
           } else {
             navigate(`/marketplace/${userId}`);
@@ -46,8 +49,9 @@ export default function PrimarySearchAppBar({
         urlPath: "portfolio",
         subTab: null,
         onClick: () => {
-          if (!userId || userId == "undefined") {
-            navigate("/sign-in/users");
+          if (!isAuthenticated) {
+            navigate("/signin/users");
+            return;
           }
           navigate(`/portfolio/${userId}`);
         },
@@ -59,10 +63,11 @@ export default function PrimarySearchAppBar({
         itHasSubtab: false,
         subTab: null,
         onClick: () => {
+          logout();
           navigate("/");
         },
       },
-    ].filter((ele) => !(ele.urlPath == currentPagePathName)),
+    ].filter((ele) => !(ele.urlPath === currentPagePathName)),
     onMore: {
       action1: {
         text: "explorer",
@@ -92,7 +97,7 @@ export default function PrimarySearchAppBar({
         menuDetails={dropDown}
         showUserDetails={isUserDetailsNeed}
         userDetails={{
-          name: firstName + lastName,
+          name: (firstName || '') + ' ' + (lastName || ''),
           email: email,
           userId: userId,
         }}

@@ -1,13 +1,7 @@
-import IService from "../../../applications/interface/services/IService";
-
-abstract class Handler {
-    service
-    constructor(protected _service : IService){
-        this.service = _service
-        this.handler = this.handler.bind(this.service)
-    }
-
-    abstract handler(request:any):any
+/**
+ * IController — contract for all controllers.
+ * Controllers are thin command routers that delegate to use cases.
+ */
+export default interface IController {
+  execute(command: string, payload?: any): any;
 }
-
-export default Handler

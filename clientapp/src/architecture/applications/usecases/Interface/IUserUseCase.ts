@@ -1,14 +1,12 @@
 /**
- * IUserRepository — contract for user data access.
- * Implementations handle Redux store dispatch + API calls.
+ * IUserUseCase — contract for user business logic.
  */
-export default interface IUserRepository {
-  getUserState(): any;
+export default interface IUserUseCase {
   createUser(userDetails: any): Promise<any>;
-  getUserById(id: string): Promise<any>;
+  getUser(id: string): Promise<any>;
+  authUser(credentials: { username: string; password: string; securityId: string }): Promise<any>;
   addAssetToUser(assetId: string, userId: string): Promise<any>;
   addTokenToUser(tokenId: string, userId: string): Promise<any>;
   removeAssetFromUser(assetId: string, userId: string): Promise<any>;
   changeAssociateUser(assetId: string, userId: string): Promise<any>;
-  authUser(username: string, password: string, securityId: string): Promise<any>;
 }

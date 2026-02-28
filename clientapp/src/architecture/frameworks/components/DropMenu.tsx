@@ -73,7 +73,7 @@ export function DropdownMenuByUseCase({
           {dropDownText}
         </a>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56">
+      <DropdownMenuContent className="w-56 text-black" align="start" forceMount>
         <DropdownMenuLabel>{title}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {createDropBox(details)}

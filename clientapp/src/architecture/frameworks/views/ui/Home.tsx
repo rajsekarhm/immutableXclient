@@ -1,14 +1,13 @@
 import { motion } from "framer-motion";
 import { Vortex } from "./background/Vortex";
 import { useWallet } from "../hooks/useWallet";
-import React from "react"
 import SignUpOrSignInButton from "../../components/utils/CornerSignUp";
 
 function Home() {
   const { connectWallet } = useWallet();
-  const SignUpHome = React.memo(() => (
-    <SignUpOrSignInButton name="Sign-Up" routerUrl="/sign-up/users" />
-  ));  
+  const SignUpHome = () => (
+    <SignUpOrSignInButton name="Sign-Up" routerUrl="/signup/users" />
+  );
   return (
     <Vortex>
       <SignUpHome/>

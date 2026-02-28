@@ -1,28 +1,25 @@
-import Handler from "./interface/Handler";
-import IService from "../../applications/interface/services/IService";
+import IController from './interface/Handler';
+import IAssetUseCase from '../../applications/usecases/Interface/IAssetUseCase';
 
-class AssetHandler extends Handler {
-  handler(request: any) {
-    throw new Error("Method not implemented.");
-  }
+class AssetController implements IController {
+  constructor(private assetUseCase: IAssetUseCase) {}
 
-  create(request: any) {
-    const { assetUsecase } =  this.service
-    assetUsecase.create(request)
-  }
-
-  updateById(request: any) {
-    const {assetUsecase } =  this.service
-    assetUsecase.update(request)
-
-  }
-
-  getById(request: any): any {
-    const {assetUsecase } =  this.service
-    assetUsecase.get(request)
+  execute(command: string, payload?: any) {
+    switch (command) {
+      case 'createAsset':
+        return this.assetUseCase.createAsset(payload);
+      case 'getAsset':
+        return this.assetUseCase.getAsset(payload);
+      case 'createAssetBlockchain':
+        return this.assetUseCase.createAssetOnBlockchain(payload);
+      case 'getAssetBlockchain':
+        return this.assetUseCase.getAssetFromBlockchain(payload.assetAddress, payload.assetId);
+      case 'transferOwnership':
+        return this.assetUseCase.transferOwnership(payload.asset, payload.newAddress, payload.receiverId);
+      default:
+        throw new Error(`Unknown asset command: ${command}`);
+    }
   }
 }
 
-
-
-export default AssetHandler
+export default AssetController;

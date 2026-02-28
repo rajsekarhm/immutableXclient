@@ -1,89 +1,42 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import AssetRepository from "../../applications/infrastructure/AssetRepository";
-import UserRepository from "../../applications/infrastructure/UserRepository";
+// Action Types
+export const ASSET_SET_LOADING = 'asset/setLoading';
+export const ASSET_SET_DATA = 'asset/setData';
+export const ASSET_SET_ERROR = 'asset/setError';
+export const ASSET_RESET = 'asset/reset';
 
-// Async Thunks
-export const createAssetBlockchain = createAsyncThunk(
-  "asset/createAssetBlockchain",
-  (assetDetails:any, { rejectWithValue }) =>
-    AssetRepository.createAssetOnChain(assetDetails, { rejectWithValue }).then(
-      (response) => {
-        if (response && response.hash) {
-          AssetRepository.createAsset(assetDetails, { rejectWithValue });
-          UserRepository.addAssetToUser(
-            { assetId: assetDetails.assetId, userId: assetDetails.associatedUser },
-            { rejectWithValue })
-          
-          return { data: response };
-        } else {
-          return rejectWithValue("Failed to create asset on blockchain");
-        }
-      }
-    )
-);
+// State Interface
+interface AssetState {
+  asset: any;
+  loading: boolean;
+  status: string;
+  error: string | null;
+}
 
-export const getAssetBlockchain = createAsyncThunk(
-  "asset/getAssetBlockchain",
-  ({ asserAddress, assetId } : any, { rejectWithValue }) =>
-    AssetRepository.getAssetOnChain({ asserAddress, assetId }, { rejectWithValue })
-);
-
-export const transferOwnerAsset = createAsyncThunk(
-  "asset/transferOwnerAsset",
-  ({ asset, newAddress, receiverId } : any, { rejectWithValue }) =>
-    AssetRepository.transferOwnership(asset, newAddress, receiverId, { rejectWithValue })
-);
-
-export const createAsset = createAsyncThunk(
-  "asset/createAsset",
-  (assetDetails : any, { rejectWithValue }) =>
-    AssetRepository.createAsset(assetDetails, { rejectWithValue })
-);
-
-export const getAsset = createAsyncThunk(
-  "asset/getAsset",
-  ({ assetIds } : any, { rejectWithValue }) =>
-    AssetRepository.getAssetById(assetIds, { rejectWithValue })
-);
-
-// Initial State
-const initialState = {
+const initialState: AssetState = {
   asset: null,
   loading: false,
-  status: "idle",
+  status: 'idle',
+  error: null,
 };
 
-// Utility to generate reducers for async thunks
-const addAsyncCases = (builder : any, thunk : any, options = { resetTo: null }) => {
-  builder
-    .addCase(thunk.pending, (state : any) => {
-      state.loading = true;
-      state.status = "idle";
-      state.asset = options.resetTo;
-    })
-    .addCase(thunk.fulfilled, (state : any, action : any) => {
-      state.loading = false;
-      state.status = "succeeded";
-      state.asset = action.payload?.data ?? null;
-    })
-    .addCase(thunk.rejected, (state : any) => {
-      state.loading = false;
-      state.status = "failed";
-      state.asset = options.resetTo;
-    });
-};
+// Reducer
+export function assetReducer(state = initialState, action: any): AssetState {
+  switch (action.type) {
+    case ASSET_SET_LOADING:
+      return { ...state, loading: true, status: 'idle', error: null };
+    case ASSET_SET_DATA:
+      return { ...state, loading: false, status: 'succeeded', asset: action.payload, error: null };
+    case ASSET_SET_ERROR:
+      return { ...state, loading: false, status: 'failed', error: action.payload };
+    case ASSET_RESET:
+      return initialState;
+    default:
+      return state;
+  }
+}
 
-// Slice
-const assetSlice = createSlice({
-  name: "asset",
-  initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-    addAsyncCases(builder, getAsset, { resetTo: null });
-    addAsyncCases(builder, createAsset, { resetTo: null });
-    addAsyncCases(builder, createAssetBlockchain, { resetTo: null });
-    addAsyncCases(builder, transferOwnerAsset, { resetTo: null });
-  },
-});
-
-export default assetSlice.reducer;
+// Action Creators
+export const setAssetLoading = () => ({ type: ASSET_SET_LOADING });
+export const setAssetData = (data: any) => ({ type: ASSET_SET_DATA, payload: data });
+export const setAssetError = (error: string) => ({ type: ASSET_SET_ERROR, payload: error });
+export const resetAsset = () => ({ type: ASSET_RESET });

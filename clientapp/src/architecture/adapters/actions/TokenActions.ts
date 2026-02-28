@@ -1,94 +1,42 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import TokenRepository from "../../applications/infrastructure/TokenRepository";
+// Action Types
+export const TOKEN_SET_LOADING = 'token/setLoading';
+export const TOKEN_SET_DATA = 'token/setData';
+export const TOKEN_SET_ERROR = 'token/setError';
+export const TOKEN_RESET = 'token/reset';
 
-export const createTokenBlockchain = createAsyncThunk<any, any>(
-  "token/createTokenBlockChain",
-   (tokenDetails,{rejectWithValue}) => {
-    TokenRepository.createTokenOnChain(tokenDetails,{rejectWithValue})
+// State Interface
+interface TokenState {
+  token: any;
+  loading: boolean;
+  status: string;
+  error: string | null;
+}
+
+const initialState: TokenState = {
+  token: null,
+  loading: false,
+  status: 'idle',
+  error: null,
+};
+
+// Reducer
+export function tokenReducer(state = initialState, action: any): TokenState {
+  switch (action.type) {
+    case TOKEN_SET_LOADING:
+      return { ...state, loading: true, status: 'idle', error: null };
+    case TOKEN_SET_DATA:
+      return { ...state, loading: false, status: 'succeeded', token: action.payload, error: null };
+    case TOKEN_SET_ERROR:
+      return { ...state, loading: false, status: 'failed', error: action.payload };
+    case TOKEN_RESET:
+      return initialState;
+    default:
+      return state;
   }
-);
+}
 
-export const getTokenBlockchain = createAsyncThunk<any, any>(
-  "token/getTokenBlockchain",
-   ({ tokenAddress, tokenId }, { rejectWithValue }) => {
-    return TokenRepository.getTokenOnChain({tokenAddress,tokenId},{rejectWithValue})
-  }
-);
-
-export const createToken = createAsyncThunk<any, any>(
-  "token/createToken",
-   (tokenDetails,{rejectWithValue}) => {
-    return TokenRepository.createToken(tokenDetails,{rejectWithValue})
-  }
-);
-
-export const getToken = createAsyncThunk<any, any>(
-  "token/getToken",
-   ({ tokenAddress, tokenIds }, { rejectWithValue }) => {
-    return tokenIds ? TokenRepository.getTokenById(tokenIds,{rejectWithValue}) : {}
-  }
-);
-
-const tokenSlice = createSlice({
-  name: "token",
-  initialState: {
-    token: {},
-    loading: false,
-    status: "idle",
-  },
-  reducers: {},
-  extraReducers: (builder) => {
-    builder.addCase(getToken.pending, (state: any) => {
-      state.status = "idle";
-      state.loading = true;
-      state.token = [];
-    });
-    builder.addCase(getToken.fulfilled, (state: any, action: any) => {
-      state.status = "succeeded";
-      state.loading = false;
-      state.token = null; //action.payload.data
-    });
-    builder.addCase(getToken.rejected, (state: any, action: any) => {
-      state.status = "failed";
-      state.loading = false;
-      state.token = [];
-    });
-
-
-    builder
-      .addCase(createToken.pending, (state: any) => {
-        state.loading = true;
-        state.status = "idle";
-        state.token = [];
-      })
-      .addCase(createToken.fulfilled, (state: any, action: any) => {
-        state.loading = false;
-        state.status = "succeeded";
-        state.token = action.payload.data;
-      })
-      .addCase(createToken.rejected, (state: any, action: any) => {
-        state.loading = false;
-        state.status = "failed";
-        state.token = [];
-      });
-
-      builder
-      .addCase(createTokenBlockchain.pending, (state: any) => {
-        state.loading = true;
-        state.status = "idle";
-        state.token = null;
-      })
-      .addCase(createTokenBlockchain.fulfilled, (state: any, action: any) => {
-        state.loading = false;
-        state.status = "succeeded";
-        state.token = {}  // action.payload.data;
-      })
-      .addCase(createTokenBlockchain.rejected, (state: any, action: any) => {
-        state.loading = false;
-        state.status = "failed";
-        state.token = null;
-      });
-  },
-});
-
-export default tokenSlice.reducer;
+// Action Creators
+export const setTokenLoading = () => ({ type: TOKEN_SET_LOADING });
+export const setTokenData = (data: any) => ({ type: TOKEN_SET_DATA, payload: data });
+export const setTokenError = (error: string) => ({ type: TOKEN_SET_ERROR, payload: error });
+export const resetToken = () => ({ type: TOKEN_RESET });
