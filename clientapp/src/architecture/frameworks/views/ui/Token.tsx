@@ -7,19 +7,20 @@ import { Toaster } from "../../components/shadcn/BottomBanner";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../adapters/store";
 import useTokenController from "../hooks/useToken";
-import useAuth from "../hooks/useAuth";
+import useSession from "../hooks/useSession";
 import PrimarySearchAppBar from "../../components/AppBar";
 import "../css/Token.css";
-import useUserController from "../hooks/useAccount";
 
 function TokenCreation() {
   const { userid } = useParams()
-  const userController = useUserController()
   const navigate = useNavigate();
   const controller = useTokenController();
-  const { isAuthenticated, logout } = useAuth();
+  const { session, isAuthenticated, logout } = useSession();
   const { firstName, lastName, email, phoneNumber, userId } =
     useSelector((state: RootState) => state.user.user) ?? {};
+
+  // Resolve userId: prefer URL param, fall back to JWT claim
+  const resolvedUserId = userid || session?.sub || userId;
 
   const accountDetails = useMemo(() => {
     return { firstName, lastName, email, phoneNumber, userId };
@@ -37,10 +38,9 @@ function TokenCreation() {
     if (!isAuthenticated) {
       navigate("/signin/users");
       return;
-    }else{
-      userController.execute('getUser', userid);
     }
-  },[isAuthenticated,userid])
+    // useSession auto-hydrates user data from JWT when Redux store is empty
+  },[isAuthenticated])
 
   const handleChange = (event: any) => {
     const { name, value } = event.target;
@@ -114,11 +114,7 @@ function TokenCreation() {
     isSelectFieldsNeed: false,
   };
 
-  useEffect(() => {
-    if (!isAuthenticated) {
-      navigate("/signin/users");
-    }
-  }, [isAuthenticated, navigate]);
+  // Auth redirect already handled above — no duplicate check needed
 
   const dropDown = {
     dropDownText: "Home",
@@ -130,7 +126,7 @@ function TokenCreation() {
         itHasSubtab: false,
         subTab: null,
         onClick: () => {
-          navigate(`/portfolio/${userId}`);
+          navigate(`/portfolio/${resolvedUserId}`);
         },
       },
       {
@@ -148,7 +144,7 @@ function TokenCreation() {
       action1: {
         text: "Marketplace",
         action: () => {
-          navigate(`/marketplace/${userId}`);
+          navigate(`/marketplace/${resolvedUserId}`);
         },
       },
     },
@@ -159,7 +155,7 @@ function TokenCreation() {
       <PrimarySearchAppBar
         authDetails={{ isAuth: isAuthenticated }}
         isUserDetailsNeed={isAuthenticated}
-        userDetails={{ firstName, lastName, email, userId }}
+        userDetails={{ firstName, lastName, email, userId: resolvedUserId }}
       />
       <div className="token-content">
         <section className="token-card">

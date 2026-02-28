@@ -13,8 +13,7 @@ import { InputBox } from "../../components/InputBox";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../adapters/store";
 import useAssetController from "../hooks/useAsset";
-import useUserController from "../hooks/useAccount";
-import useAuth from "../hooks/useAuth";
+import useSession from "../hooks/useSession";
 import AssetModal from "../../../domains/modals/AssetModal";
 import PrimarySearchAppBar from "../../components/AppBar";
 import "../css/UserProfile.css";
@@ -23,10 +22,12 @@ function UserProfile() {
   const [netValue, setNetValue] = useState<number>(0);
   const navigate = useNavigate();
   const { userid } = useParams();
-  const { isAuthenticated, logout } = useAuth();
+  const { session, isAuthenticated, user: sessionUser, isHydrating, logout } = useSession();
   const assetController = useAssetController();
-  const userController = useUserController();
   const { user, assets, tokens } = useSelector((state: RootState) => state.user);
+
+  // Resolve userId: prefer URL param, fall back to JWT claim
+  const resolvedUserId = userid || session?.sub;
   const { firstName, lastName, phoneNumber, email, assetIds, tokenIds } = user ?? {};
   const [transferOwner, setTransferOwner] = useState({
     toAddress: null,
@@ -96,10 +97,10 @@ function UserProfile() {
       navigate("/signin/users");
       return;
     }
-    if (userid) {
-      userController.execute('getUser', userid);
-    }
-  }, [isAuthenticated, userid]);
+    // useSession auto-hydrates user data from JWT's sub claim
+    // when Redux store is empty (e.g., after hard refresh).
+    // No manual fetch needed here anymore.
+  }, [isAuthenticated]);
 
   useEffect(() => {
     calculateNetValue();
@@ -112,7 +113,7 @@ function UserProfile() {
       <PrimarySearchAppBar
         authDetails={{ isAuth: isAuthenticated }}
         isUserDetailsNeed={isAuthenticated}
-        userDetails={{ firstName, lastName, email, userId: userid }}
+        userDetails={{ firstName, lastName, email, userId: resolvedUserId }}
       />
       <div className="user-profile-header">
         <Briefcase className="icon" />
@@ -122,11 +123,11 @@ function UserProfile() {
       </div>
       <div className="user-profile-grid">
         <Button
-          onclickEvent={useCallback(() => navigate(`/tokenization/${userid}`),[userid])}
+          onclickEvent={useCallback(() => navigate(`/tokenization/${resolvedUserId}`),[resolvedUserId])}
           description={"Tokenization"}
         />
         <Button
-          onclickEvent={useCallback(() => navigate(`/asset-digitalize/${userid}`),[userid])}
+          onclickEvent={useCallback(() => navigate(`/asset-digitalize/${resolvedUserId}`),[resolvedUserId])}
           description={"Asset Digitalize"}
         />
         <HoverCard>

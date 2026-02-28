@@ -7,21 +7,22 @@ import { toast } from "sonner";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../adapters/store";
 import useAssetController from "../hooks/useAsset";
-import useAuth from "../hooks/useAuth";
+import useSession from "../hooks/useSession";
 import AssetModal from "../../../domains/modals/AssetModal";
 import { CreditCard, LogOut } from "lucide-react";
 import PrimarySearchAppBar from "../../components/AppBar";
 import "../css/Asset.css";
 import { useState } from "react";
-import useUserController from "../hooks/useAccount";
 
 
 function AssetCreation() {
-  const { isAuthenticated, logout } = useAuth();
-    const { userid } = useParams()
-    const userController = useUserController()
+  const { session, isAuthenticated, logout } = useSession();
+  const { userid } = useParams();
   const { firstName, lastName, email, userId, phoneNumber } =
     useSelector((state: RootState) => state.user.user) ?? {};
+
+  // Resolve userId: prefer URL param, fall back to JWT claim
+  const resolvedUserId = userid || session?.sub || userId;
   const controller = useAssetController();
   const [newDigitalizeAsset, setDigitalizeAsset] = useState<AssetModal>({
     assetId:null,
@@ -39,10 +40,8 @@ function AssetCreation() {
   useEffect(() => {
     if (!isAuthenticated) {
       navigate("/signin/users");
-    }else{
-      userController.execute('getUser', userid || userId);
     }
-
+    // useSession auto-hydrates user data from JWT when Redux store is empty
   }, [isAuthenticated, navigate]);
 
   function handleChanges(event: any) {
@@ -52,7 +51,7 @@ function AssetCreation() {
 
   async function handleClick(event: any) {
     event.preventDefault();
-    newDigitalizeAsset["associatedUser"] = userId;
+    newDigitalizeAsset["associatedUser"] = resolvedUserId;
     const { symbol, assetAddress, value, assetId, assetURI } = newDigitalizeAsset;
     try {
       if(!(symbol && assetAddress && value && assetId)){
@@ -87,7 +86,7 @@ function AssetCreation() {
       <PrimarySearchAppBar
         authDetails={{ isAuth: isAuthenticated }}
         isUserDetailsNeed={isAuthenticated}
-        userDetails={{ firstName, lastName, email, userId }}
+        userDetails={{ firstName, lastName, email, userId: resolvedUserId }}
       />
       <div className="asset-grid">
         <TabsSwitch tabsDetails={switch1_details} />
